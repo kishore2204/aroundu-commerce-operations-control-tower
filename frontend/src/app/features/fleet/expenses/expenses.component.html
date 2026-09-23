@@ -51,7 +51,8 @@
                   <button
                     type="button"
                     class="btn-secondary !py-1 !px-2 !text-xs"
-                    [disabled]="actingOnId() === e.fleetExpenseId"
+                    [disabled]="actingOnId() === e.fleetExpenseId || recordedByMe(e)"
+                    [attr.title]="recordedByMe(e) ? 'You recorded this expense yourself - it has to be approved by someone else (for example an Operations Manager).' : null"
                     (click)="reimburse(e)"
                   >
                     <i class="fa-solid fa-hand-holding-dollar"></i> Reimburse

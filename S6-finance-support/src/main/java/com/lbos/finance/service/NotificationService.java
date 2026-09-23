@@ -11,5 +11,10 @@ public interface NotificationService {
     Notification markNotificationRead(Long id);
     List<Notification> markAllNotificationsRead(UUID userAccountId);
     List<Notification> getNotificationsByUserAccountId(UUID userAccountId);
+    /** The bell popup: the newest {@code POPUP_LIMIT} unread notifications plus the unread total. */
+    com.lbos.finance.dto.NotificationPopupResponse getPopup(UUID userAccountId);
+    /** "Clear" in the bell popup: marks all of the user's unread notifications as read (history is kept). Returns how many changed. */
+    int clearUnread(UUID userAccountId);
+    int POPUP_LIMIT = 10;
     void deleteNotification(Long id);
 }

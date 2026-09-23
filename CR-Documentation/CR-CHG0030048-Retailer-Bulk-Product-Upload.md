@@ -523,3 +523,48 @@ Automated: `BulkProductUploadServiceTest` covers the template header, weight cas
 ## 12. Final Result
 
 Retailers can maintain their whole catalogue from a spreadsheet: download the template, upload it, resolve any clash with existing SKUs explicitly, get a clear per-row error report, and re-upload only the corrected rows. The feature reuses the existing product rules, so bulk and single-product entry always behave the same.
+
+---
+
+## Addendum - Edit, Save and Delete for each row of the Rejection Log
+
+**What was asked:** in the *Rejected Product Log* popup, add an Edit button that makes a row editable, with Save or Delete for each product.
+
+**What changed (frontend only - `rejection-log-dialog.component.ts`, `bulk-result-dialog.component.*`, `catalogue.component.*`):**
+
+- A new **Actions** column (pinned to the right edge so it stays visible while the table scrolls sideways) with **Edit** and **Delete** on every row.
+- **Edit** turns the cells of that row into text boxes (the cells the upload was rejected for stay marked red). One row is edited at a time. The row then shows **Save** and **Cancel**.
+- **Save** sends the corrected row as a one-row CSV through the **same** `POST /api/v1/retailers/me/products/bulk-upload` endpoint, so every existing rule applies and nothing new was added on the server:
+  - accepted: the row leaves the log, the Created / Updated / Unchanged counts go up, the Rejected count goes down, the product list refreshes, and the rejected-file downloads no longer contain the row;
+  - rejected again: the log shows the **new** reason next to what was typed and the row stays in edit mode;
+  - the SKU already exists with different data: nothing is overwritten silently - the row lists the differences (existing -> new) and asks for **Update the existing product** or **Cancel**;
+  - the request fails: the reason is shown under the row.
+- **Delete** removes the row from the log and from the rejected-file downloads. Nothing was ever saved for a rejected row, so no product is touched and no request is made.
+- When the last rejected row is gone the log closes and the result shows the final counts.
+
+**Checked live** as a retailer with a 4-row CSV (1 valid row, 1 invalid price, 1 unknown category, 1 too-short description): Save with a corrected price added the product (`POST .../bulk-upload` 72 ms, list refreshed); Save of a still-unknown category kept the row with the message "Category ... does not exist."; correcting the category and saving added it; Delete removed the last row with no request. The test products were removed afterwards.
+
+No backend code changed for this addendum, so no new backend test file was needed: the rules Save relies on are the ones already covered by `BulkProductUploadServiceTest`.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/BulkProductUploadServiceTest.java` | Row validation, conflict flow, partial success. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/BulkProductTemplateTest.java` | Template content. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S3-commerce-customer/src/main/java/com/lbos/commercecustomer/service/impl/BulkProductUploadService.java` |
+| Place | method `upload(MultipartFile, Map)` |
+| Why this is the main place | Parses, validates, classifies and writes a whole product file in one transaction. |
+
+A banner comment `CR_CHG0030048_Retailer_Bulk_Product_Upload_3238281` marks this place in the source code.

@@ -41,4 +41,27 @@ public interface LocationManagerRepository extends JpaRepository<LocationManager
             @Param("operationsManagerId") UUID operationsManagerId,
             @Param("assignmentStatus") AssignmentStatus assignmentStatus,
             Pageable pageable);
+
+    /**
+     * Same filters as {@link #search}, plus a case-insensitive "contains" match of a pattern (already lower-cased and wrapped in
+     * %...%) against the officer's full name or e-mail - the Operations Manager's Location Managers page filter by name.
+     */
+    @Query(value = "select locationManager from LocationManager locationManager join locationManager.userAccount ua " +
+           "where (:zoneId is null or locationManager.zone.id = :zoneId) " +
+           "and (:operationsManagerId is null or locationManager.operationsManager.id = :operationsManagerId) " +
+           "and (:assignmentStatus is null or locationManager.assignmentStatus = :assignmentStatus) " +
+           "and (lower(concat(coalesce(ua.firstName, ''), ' ', coalesce(ua.lastName, ''))) like :namePattern " +
+           "or lower(coalesce(ua.email, '')) like :namePattern)",
+           countQuery = "select count(locationManager) from LocationManager locationManager join locationManager.userAccount ua " +
+           "where (:zoneId is null or locationManager.zone.id = :zoneId) " +
+           "and (:operationsManagerId is null or locationManager.operationsManager.id = :operationsManagerId) " +
+           "and (:assignmentStatus is null or locationManager.assignmentStatus = :assignmentStatus) " +
+           "and (lower(concat(coalesce(ua.firstName, ''), ' ', coalesce(ua.lastName, ''))) like :namePattern " +
+           "or lower(coalesce(ua.email, '')) like :namePattern)")
+    Page<LocationManager> searchByName(
+            @Param("zoneId") UUID zoneId,
+            @Param("operationsManagerId") UUID operationsManagerId,
+            @Param("assignmentStatus") AssignmentStatus assignmentStatus,
+            @Param("namePattern") String namePattern,
+            Pageable pageable);
 }

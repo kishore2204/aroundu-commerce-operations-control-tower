@@ -88,6 +88,13 @@ public class LocationDashboardService {
 
     // ------------------------------------------------------------------ summary
 
+    /*
+    ##################################################################
+    
+                                               CR_CHG0030046_Location_Manager_Dashboard_3239859
+    
+    #####################################################################
+    */
     @Transactional(readOnly = true)
     public Summary summary(LocalDate fromDate, LocalDate toDate) {
         LocationManagerSummary lm = zoneScope.assignment();

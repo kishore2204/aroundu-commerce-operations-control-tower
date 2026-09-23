@@ -56,7 +56,7 @@ public class AuthController {
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto request) {
         UserAccount account = userAccountRepository.findByEmailIgnoreCase(request.getEmail().trim().toLowerCase())
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid email or password"));
-        if (!passwordEncoder.matches(request.getPassword(), account.getPasswordHash())) {
+        if (!passwordMatches(request.getPassword(), account.getPasswordHash())) {
             throw new InvalidCredentialsException("Invalid email or password");
         }
         if (!"ACTIVE".equalsIgnoreCase(account.getAccountStatus())) {
@@ -76,6 +76,19 @@ public class AuthController {
         userAccountRepository.save(account);
         String token = jwtService.generateToken(account.getId(), account.getEmail(), account.getRole());
         return ResponseEntity.ok(new LoginResponseDto(token, jwtService.expirationSeconds(), account.getId(), account.getEmail(), account.getRole()));
+    }
+
+    /**
+     * The exact password always wins. Only when it does not match AND it has leading/trailing whitespace is the trimmed
+     * value tried as well: a phone keyboard's predictive-text space, an autofill or a copy/paste routinely adds one, and
+     * that showed up as a random "Invalid email or password" on another device. The extra bcrypt check happens only for
+     * an already-failing attempt that has such whitespace, so a correct login costs exactly what it did before.
+     */
+    boolean passwordMatches(String submitted, String passwordHash) {
+        if (submitted == null) return false;
+        if (passwordEncoder.matches(submitted, passwordHash)) return true;
+        String trimmed = submitted.strip();
+        return !trimmed.equals(submitted) && !trimmed.isEmpty() && passwordEncoder.matches(trimmed, passwordHash);
     }
 
     @PostMapping("/register/customer")

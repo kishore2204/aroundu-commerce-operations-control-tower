@@ -5,11 +5,9 @@ import { SettlementService } from '../../../core/services/settlement.service';
 import { Settlement } from '../../../core/models/settlement.model';
 
 /**
- * GET /api/settlements is `.authenticated()` in S6's SecurityConfig (not staff-only, despite
- * the stale message this used to show) - any signed-in retailer can call it. The Settlement
- * entity itself has no retailer_id (only operationsManagerId/paymentTransactionId, see
- * database.sql:582), so there is no server-side "my settlements" filter yet - this shows the
- * real platform settlement list rather than inventing a filter the schema doesn't support.
+ * GET /api/settlements is scoped server-side: for a RETAILER it returns only that retailer's own
+ * settlements (payeeType RETAILER + their retailerId, resolved from the JWT subject in S6), so no
+ * client-side filtering is needed or trusted here.
  */
 @Component({
   selector: 'app-retailer-finance',

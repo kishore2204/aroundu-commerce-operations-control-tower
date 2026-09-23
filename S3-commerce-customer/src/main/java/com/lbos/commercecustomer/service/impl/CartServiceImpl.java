@@ -35,8 +35,8 @@ package com.lbos.commercecustomer.service.impl; import com.lbos.commercecustomer
     var cart=get();
     var issues=new ArrayList<CartValidationIssue>();
     for(CartItemResponse line:cart.items()){
-      if(!line.productActive())issues.add(new CartValidationIssue(line.productId(),"PRODUCT_INACTIVE","Product "+line.productId()+" is no longer active"));
-      if(line.quantity()<1||line.quantity()>line.availableStock())issues.add(new CartValidationIssue(line.productId(),"INSUFFICIENT_STOCK","Requested quantity for product "+line.productId()+" exceeds available stock"));
+      if(!line.productActive())issues.add(new CartValidationIssue(line.productId(),"PRODUCT_INACTIVE",line.productName()+" is no longer available. Please remove it from your cart."));
+      if(line.quantity()<1||line.quantity()>line.availableStock())issues.add(new CartValidationIssue(line.productId(),"INSUFFICIENT_STOCK",line.availableStock()<=0?line.productName()+" is out of stock. Please remove it from your cart.":"Only "+line.availableStock()+" of "+line.productName()+" left, but you have "+line.quantity()+" in your cart. Please reduce the quantity."));
     }
     return new CartValidationResponse(cart,issues.isEmpty(),issues);
   }

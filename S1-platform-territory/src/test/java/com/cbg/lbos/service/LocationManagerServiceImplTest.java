@@ -48,6 +48,7 @@ class LocationManagerServiceImplTest {
     @Mock S2PartnerClient s2PartnerClient;
     @Mock com.cbg.lbos.repository.LocationManagerAssignmentHistoryRepository historyRepository;
     @Mock UserAccountService userAccountService;
+    OperationsManagerStatusSync statusSync;
 
     private LocationManagerServiceImpl locationManagerService;
     private UUID userAccountId;
@@ -67,9 +68,10 @@ class LocationManagerServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        statusSync = new OperationsManagerStatusSync(operationsManagerRepository, userAccountRepository, locationManagerRepository);
         locationManagerService = new LocationManagerServiceImpl(
                 locationManagerRepository, userAccountRepository, zoneRepository, operationsManagerRepository,
-                s2PartnerClient, userAccountService, historyRepository);
+                s2PartnerClient, userAccountService, historyRepository, statusSync);
         userAccountId = UUID.randomUUID();
         zoneId = UUID.randomUUID();
         cityId = UUID.randomUUID();
@@ -390,6 +392,57 @@ class LocationManagerServiceImplTest {
 
         assertEquals(AssignmentStatus.INACTIVE, result.getAssignmentStatus());
         verify(locationManagerRepository).save(locationManager);
+    }
+
+    @Test
+    void deactivatingTheAssignmentAlsoDeactivatesTheOfficersAccountShownOnTheAccountsPage() {
+        when(locationManagerRepository.findById(locationManagerId)).thenReturn(Optional.of(locationManager));
+        when(s2PartnerClient.getPendingReviewCount(eq(userAccountId), any()))
+                .thenReturn(new S2PartnerClient.PendingReviewCountResponse(0));
+        when(locationManagerRepository.save(locationManager)).thenReturn(locationManager);
+
+        locationManagerService.deactivateAssignment(locationManagerId);
+
+        assertEquals("INACTIVE", userAccount.getAccountStatus());
+        verify(userAccountRepository).save(userAccount);
+    }
+
+    @Test
+    void aBlockedPendingReviewLeavesTheAccountActive() {
+        when(locationManagerRepository.findById(locationManagerId)).thenReturn(Optional.of(locationManager));
+        when(s2PartnerClient.getPendingReviewCount(eq(userAccountId), any()))
+                .thenReturn(new S2PartnerClient.PendingReviewCountResponse(2));
+
+        assertThrows(InvalidAssignmentException.class, () -> locationManagerService.deactivateAssignment(locationManagerId));
+
+        assertEquals("ACTIVE", userAccount.getAccountStatus());
+        verify(userAccountRepository, never()).save(any());
+    }
+
+    @Test
+    void activatingADeactivatedOfficerSwitchesTheAccountBackOn() {
+        locationManager.setAssignmentStatus(AssignmentStatus.INACTIVE);
+        userAccount.setAccountStatus("INACTIVE");
+        when(locationManagerRepository.findById(locationManagerId)).thenReturn(Optional.of(locationManager));
+        when(zoneRepository.findById(zoneId)).thenReturn(Optional.of(zone));
+        when(operationsManagerRepository.findById(operationsManagerId)).thenReturn(Optional.of(operationsManager));
+        when(locationManagerRepository.save(locationManager)).thenReturn(locationManager);
+
+        locationManagerService.activateAssignment(locationManagerId);
+
+        assertEquals("ACTIVE", userAccount.getAccountStatus());
+        assertEquals(AssignmentStatus.ACTIVE, locationManager.getAssignmentStatus());
+    }
+
+    @Test
+    void aSuspendedAccountIsStillRefusedWhenActivatingTheAssignment() {
+        locationManager.setAssignmentStatus(AssignmentStatus.INACTIVE);
+        userAccount.setAccountStatus("SUSPENDED");
+        when(locationManagerRepository.findById(locationManagerId)).thenReturn(Optional.of(locationManager));
+
+        assertThrows(InvalidAssignmentException.class, () -> locationManagerService.activateAssignment(locationManagerId));
+
+        assertEquals("SUSPENDED", userAccount.getAccountStatus());
     }
 
     @Test

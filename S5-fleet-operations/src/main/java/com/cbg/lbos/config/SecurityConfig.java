@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new ServiceSecretCachingPasswordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
     }
 
     @Bean
@@ -34,7 +34,9 @@ public class SecurityConfig {
             PasswordEncoder passwordEncoder) {
         return new InMemoryUserDetailsManager(
                 User.withUsername("lbos-service")
-                        .password(passwordEncoder.encode(servicePassword))
+                        .password(passwordEncoder instanceof ServiceSecretCachingPasswordEncoder cachingEncoder
+                                ? cachingEncoder.encodeServiceSecret(servicePassword)
+                                : passwordEncoder.encode(servicePassword))
                         .roles("SERVICE")
                         .build());
     }

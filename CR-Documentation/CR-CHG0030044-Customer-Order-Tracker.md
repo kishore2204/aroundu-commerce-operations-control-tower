@@ -441,3 +441,37 @@ Automated: `OrderTrackingGroupServiceTest` — same-checkout grouping with shop 
 ## 12. Final Result
 
 The customer sees one horizontal tracker for the whole checkout, chooses a store from a dropdown, and sees that store's own status, milestones, driver details and estimated delivery without leaving the page — with a single poll and no change to how orders are stored.
+
+---
+
+## Addendum - switching shops no longer flashes "Order not found"
+
+**Problem found later:** on the tracking page of a checkout with several shops, picking another shop in the dropdown showed "Order not found" for a moment. The tracking of every shop is already in memory, but the shop's own order and items are fetched the first time it is picked; until they arrived the page had no order to show and fell into the "not found" branch.
+
+**Change (frontend only, `order-detail.component.ts` / `.html`):** the dropdown value (`selectedOrderId`) and the shop the page body shows (`viewOrderId`) are separate. The body moves to the newly picked shop only when that shop's order and items have loaded; meanwhile the previous shop stays visible with a thin loading bar, and "Order not found" appears only when loading really failed.
+
+**Checked live:** switching between the two shops of a two-shop order - no "Order not found" at any moment, loading bar shown, header switched to the other order.
+
+No backend code changed for this addendum. The existing test `OrderTrackingGroupServiceTest.etaCountsDownFromTheRetailEstimateAndDisappearsWhenDeliveredOrHalted` was made deterministic (its orders were dated only a few milliseconds after "25 minutes ago", so a fast run could round to 24 minutes); a 30-second margin was added to the test data.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/service/OrderTrackingGroupServiceTest.java` | Grouping of shop orders, driver info and ETA of the tracker. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S4-order-logistics/src/main/java/com/cbg/lbos/service/OrderTrackingGroupService.java` |
+| Place | method `getGroup(Long)` |
+| Why this is the main place | Builds the one tracking payload for every shop order of a checkout. |
+
+A banner comment `CR_CHG0030044_Customer_Order_Tracker_3240071` marks this place in the source code.

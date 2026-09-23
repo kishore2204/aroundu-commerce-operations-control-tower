@@ -32,6 +32,12 @@ export class OrderService {
     return this.http.post<OrderItem>('/api/order-items', item);
   }
 
+  /** Every line of ONE order in a single request (one transaction, one totals recalculation on the server) - checkout used to
+   *  send one POST per line at the same moment, which was slower and let concurrent lines overwrite each other's order totals. */
+  addItems(items: OrderItem[]): Observable<OrderItem[]> {
+    return this.http.post<OrderItem[]>('/api/order-items/batch', { items });
+  }
+
   /** This order's line items (product names, quantities, prices) - see OrderItemController. */
   itemsForOrder(orderId: number): Observable<OrderItem[]> {
     return this.http.get<OrderItem[]>(`/api/order-items/by-order/${orderId}`);

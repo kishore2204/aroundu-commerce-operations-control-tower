@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
 import { BulkUploadResult } from '../../../core/models/bulk-upload.model';
-import { RejectionLogDialogComponent } from './rejection-log-dialog.component';
+import { RejectionLogChange, RejectionLogDialogComponent } from './rejection-log-dialog.component';
 
 /**
  * "Bulk Upload Completed" - the final outcome of an upload, with created / updated / rejected counts
@@ -21,6 +21,8 @@ export class BulkResultDialogComponent {
   @Output() readonly closed = new EventEmitter<void>();
   @Output() readonly downloadRejected = new EventEmitter<void>();
   @Output() readonly downloadRejectedCsv = new EventEmitter<void>();
+  /** The result after a row was saved, deleted or rejected again in the Rejection Log (counts and rejected rows kept in step). */
+  @Output() readonly resultChange = new EventEmitter<BulkUploadResult>();
 
   /** The Rejection Log popup sits on top of this one; closing it leaves this result (and the rejected rows) as they were. */
   readonly logOpen = signal(false);
@@ -30,6 +32,20 @@ export class BulkResultDialogComponent {
     // Esc closes the topmost popup only
     if (this.logOpen()) this.logOpen.set(false);
     else this.closed.emit();
+  }
+
+  /** A Save / Delete in the log: a saved row moves from "rejected" to created / updated / unchanged, a deleted one just leaves. */
+  onLogChanged(change: RejectionLogChange): void {
+    this.resultChange.emit({
+      ...this.result,
+      created: this.result.created + change.created,
+      updated: this.result.updated + change.updated,
+      unchanged: this.result.unchanged + change.unchanged,
+      rejected: change.rows.length,
+      rejectedRows: change.rows,
+    });
+    // nothing left to correct: the log has done its job
+    if (change.rows.length === 0) this.logOpen.set(false);
   }
 
   /** Rows that did not end up rejected: created, updated, or already up to date / kept as is. */

@@ -39,7 +39,7 @@ class UserAccountServiceTest {
     @BeforeEach
     void setUp() {
         userAccountService = new UserAccountService(userAccountRepository, passwordResetTokenRepository, passwordEncoder,
-                new OperationsManagerStatusSync(operationsManagerRepository, userAccountRepository));
+                new OperationsManagerStatusSync(operationsManagerRepository, userAccountRepository, org.mockito.Mockito.mock(com.cbg.lbos.repository.LocationManagerRepository.class)));
         userAccountId = UUID.randomUUID();
         userAccount = new UserAccount();
         org.springframework.test.util.ReflectionTestUtils.setField(userAccount, "id", userAccountId);

@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
 import { EmptyStateComponent } from '../../../shared/empty-state/empty-state.component';
 import { FieldHintComponent } from '../../../shared/field-hint/field-hint.component';
 import { CatalogueService } from '../../../core/services/catalogue.service';
@@ -70,26 +70,34 @@ export class RetailerCatalogueComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategories();
-    this.searchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe(() => this.load());
+    // a stray space is not a different search: compare and send the trimmed text
+    this.searchControl.valueChanges.pipe(map((value) => value.trim()), debounceTime(300), distinctUntilChanged()).subscribe(() => this.load());
     this.categoryFilterControl.valueChanges.subscribe(() => this.load());
     this.load();
   }
 
+  /** Only the newest search may fill the list: a slow answer to an earlier keystroke must not overwrite a later one. */
+  private loadSequence = 0;
+
   private load(): void {
+    const sequence = ++this.loadSequence;
     this.loading.set(true);
     this.catalogueService
       .search({
-        q: this.searchControl.value || undefined,
+        q: this.searchControl.value.trim() || undefined,
         categoryId: this.categoryFilterControl.value ?? undefined,
         page: 0,
         size: 50,
       })
       .subscribe({
       next: (page) => {
+        if (sequence !== this.loadSequence) return;
         this.products.set(page.items);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        if (sequence === this.loadSequence) this.loading.set(false);
+      },
     });
   }
 
@@ -144,6 +152,14 @@ export class RetailerCatalogueComponent implements OnInit {
   onConflictsCancelled(): void {
     this.bulkConflicts.set(null);
     this.bulkFile = null;
+  }
+
+  /** A row was saved / deleted in the Rejection Log: keep the counts and the rejected rows (and so the downloads) in step,
+   *  and refresh the product list when a row was actually added or updated. */
+  onBulkResultChanged(next: BulkUploadResult): void {
+    const previous = this.bulkResult();
+    this.bulkResult.set(next);
+    if (previous && next.created + next.updated > previous.created + previous.updated) this.load();
   }
 
   closeBulkResult(): void {

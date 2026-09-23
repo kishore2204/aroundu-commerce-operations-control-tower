@@ -52,6 +52,13 @@ public class TaxCalculationService {
         this.catalogServiceClient = catalogServiceClient;
     }
 
+    /*
+    ##################################################################
+    
+                                               TK_INC0010084_Product_Category_Tax_Synchronization_3239293
+    
+    #####################################################################
+    */
     public TaxCalculationResponse calculate(TaxCalculationRequest request) {
         List<TaxItemRequest> items = request.items() == null ? List.of() : request.items();
         if (items.isEmpty()) {

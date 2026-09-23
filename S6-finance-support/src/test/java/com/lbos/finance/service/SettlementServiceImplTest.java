@@ -359,4 +359,51 @@ class SettlementServiceImplTest {
 		// each distinct payee is looked up once - duplicates do not cause extra calls
 		verify(partnerServiceClient, org.mockito.Mockito.times(1)).getRetailer(retailerId);
 	}
+
+	/* Regression: GET /api/settlements used to return every business's payouts to any signed-in user. A retailer must
+	 * only ever be given rows whose payee is THEIR retailer id, resolved from their user account id. */
+	@Test
+	void aRetailerOnlyReceivesTheirOwnSettlements() {
+		UUID userAccountId = UUID.randomUUID();
+		UUID myRetailerId = UUID.randomUUID();
+		when(partnerServiceClient.getRetailerByUser(userAccountId))
+				.thenReturn(new PartnerServiceClient.RetailerSummary(myRetailerId, userAccountId, "Fresh Mart"));
+		Settlement mine = new Settlement();
+		mine.setPayeeType("RETAILER");
+		mine.setPayeeId(myRetailerId);
+		when(settlementRepository.findByPayeeTypeAndPayeeId("RETAILER", myRetailerId)).thenReturn(List.of(mine));
+
+		List<Settlement> result = service.getSettlementsForPartner("RETAILER", userAccountId);
+
+		assertEquals(1, result.size());
+		assertEquals("Fresh Mart", result.get(0).getPayeeName());
+		verify(settlementRepository, never()).findAll();
+		verify(partnerServiceClient, never()).getRetailer(any());
+	}
+
+	@Test
+	void anAccountWithNoPartnerProfileGetsNoSettlementsAndNoQuery() {
+		UUID userAccountId = UUID.randomUUID();
+		feign.FeignException notFound = org.mockito.Mockito.mock(feign.FeignException.class);
+		when(notFound.status()).thenReturn(404);
+		when(partnerServiceClient.getRetailerByUser(userAccountId)).thenThrow(notFound);
+
+		assertTrue(service.getSettlementsForPartner("RETAILER", userAccountId).isEmpty());
+		verify(settlementRepository, never()).findByPayeeTypeAndPayeeId(any(), any());
+	}
+
+	@Test
+	void aRetailerCannotReadAnotherBusinessesSettlementById() {
+		UUID userAccountId = UUID.randomUUID();
+		UUID myRetailerId = UUID.randomUUID();
+		when(partnerServiceClient.getRetailerByUser(userAccountId))
+				.thenReturn(new PartnerServiceClient.RetailerSummary(myRetailerId, userAccountId, "Fresh Mart"));
+		Settlement someoneElses = new Settlement();
+		someoneElses.setPayeeType("RETAILER");
+		someoneElses.setPayeeId(UUID.randomUUID());
+		UUID id = UUID.randomUUID();
+		when(settlementRepository.findById(id)).thenReturn(Optional.of(someoneElses));
+
+		assertThrows(ResourceNotFoundException.class, () -> service.getSettlementByIdForPartner(id, "RETAILER", userAccountId));
+	}
 }

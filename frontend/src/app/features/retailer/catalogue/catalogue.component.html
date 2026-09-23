@@ -48,6 +48,7 @@
     (closed)="closeBulkResult()"
     (downloadRejected)="downloadRejectedProducts('xlsx')"
     (downloadRejectedCsv)="downloadRejectedProducts('csv')"
+    (resultChange)="onBulkResultChanged($event)"
   ></app-bulk-result-dialog>
 }
 

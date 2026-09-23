@@ -1,5 +1,12 @@
 import { Observable, catchError, shareReplay, throwError } from 'rxjs';
 
+/*
+##################################################################
+
+                                           CR_CHG0030033_Performance_Optimization_3232575_3235381
+
+#####################################################################
+*/
 /**
  * Tiny in-memory cache for read-only REFERENCE data (product categories, city/zone lists, product
  * image lists) - the kind that changes rarely and is identical for every user. Concurrent callers

@@ -25,6 +25,9 @@
       }
     </div>
   </div>
+  @if (switching()) {
+    <div class="mb-3 h-1 w-full animate-pulse rounded bg-zepto-200" aria-label="Loading the selected shop"></div>
+  }
   @if (hasMultipleShops()) {
     <p class="-mt-3 mb-4 text-sm text-slate-500">
       Your items shipped from {{ shops().length }} shops - pick a shop to see its tracking.

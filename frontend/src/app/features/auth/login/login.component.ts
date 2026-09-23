@@ -42,12 +42,17 @@ export class LoginComponent {
       this.toast.show(this.firstValidationMessage(), 'error');
       return;
     }
+    if (this.loading()) return;
     this.loading.set(true);
     this.errorMessage.set(null);
-    this.auth.login(this.form.getRawValue()).subscribe({
+    const { email, password } = this.form.getRawValue();
+    // Surrounding spaces are never part of an email address (a phone keyboard / autofill often adds one).
+    this.auth.login({ email: email.trim(), password }).subscribe({
       next: (response) => {
-        this.loading.set(false);
-        this.router.navigate(landingRouteFor(response.role));
+        // Stay in the busy state until the landing page has actually opened: the route guards of the landing
+        // page (address, retailer/fleet profile ...) make their own requests, and re-enabling the button before
+        // that made the sign-in look finished/failed for a few seconds and invited a second click.
+        this.router.navigate(landingRouteFor(response.role)).finally(() => this.loading.set(false));
       },
       error: (err) => {
         this.loading.set(false);

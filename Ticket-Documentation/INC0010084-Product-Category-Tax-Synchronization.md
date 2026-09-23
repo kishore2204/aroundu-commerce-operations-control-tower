@@ -552,3 +552,31 @@ After the fix:
 - A missing rule blocks checkout with a clear message; there is no default rate.
 - Old rules are preserved and auto-linked; historical orders and multi-retailer splitting are untouched.
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+These are the backend test files that belong to this ticket (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S6-finance-support/src/test/java/com/lbos/finance/service/TaxCalculationServiceTest.java` | Tax calculated per product category. |
+| `S6-finance-support/src/test/java/com/lbos/finance/service/TaxConfigurationServiceImplTest.java` | Tax configuration validation. |
+| `S6-finance-support/src/test/java/com/lbos/finance/service/TaxConfigurationByCategoryNameServiceTest.java` | Category-name based configuration. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/CategoryResolveByNameTest.java` | A typed category name is reused when it exists, otherwise created ACTIVE. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/CategoryServiceImplTest.java` | Category service. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/CatalogueServiceImplTest.java` | Catalogue rules. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/comprehensive/CheckoutServiceComprehensiveTest.java` | Category sent to the tax calculation; checkout blocked when tax cannot be calculated. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S6-finance-support/src/main/java/com/lbos/finance/service/TaxCalculationService.java` |
+| Place | method `calculate(TaxCalculationRequest)` |
+| Why this is the main place | Finds the tax rule of each product's category in the customer's state. |
+
+A banner comment `TK_INC0010084_Product_Category_Tax_Synchronization_3239293` marks this place in the source code.

@@ -238,3 +238,26 @@ After the fix:
 - S3 enforces the same rule, so the API cannot store an invalid code.
 - The field remains optional and empty values are sent as null.
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+These are the backend test files that belong to this ticket (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/AddressRequestPostalCodeTest.java` | Backend rule: exactly 6 digits, empty allowed; wrong length / letters / spaces rejected. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/comprehensive/AddressServiceComprehensiveTest.java` | Address service behaviour. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S3-commerce-customer/src/main/java/com/lbos/commercecustomer/dto/request/AddressRequest.java` |
+| Place | record `AddressRequest`, field `postalCode` (`@Pattern`) |
+| Why this is the main place | The backend postal-code rule. |
+
+A banner comment `TK_INC0010079_Postal_Code_Validation_3248237` marks this place in the source code.

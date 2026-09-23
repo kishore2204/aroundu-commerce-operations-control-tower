@@ -9,6 +9,7 @@ import { DriverService } from '../../../core/services/driver.service';
 import { FleetExpense } from '../../../core/models/fleet-expense.model';
 import { Driver } from '../../../core/models/driver.model';
 import { ToastService } from '../../../shared/toast/toast.service';
+import { AuthService } from '../../../core/auth/auth.service';
 import { extractErrorMessage } from '../../../core/api/http-error.util';
 
 interface PendingConfirmation {
@@ -43,7 +44,14 @@ export class FleetExpensesComponent implements OnInit, OnDestroy {
     private readonly driverService: DriverService,
     private readonly toast: ToastService,
     private readonly sanitizer: DomSanitizer,
+    private readonly auth: AuthService,
   ) {}
+
+  /** An expense this account recorded itself: the server never lets the recorder approve it (self-approval), so Reimburse is not offered. */
+  recordedByMe(expense: FleetExpense): boolean {
+    const me = this.auth.userAccountId();
+    return !!me && expense.createdByAccountId === me;
+  }
 
   /** Mirrors FleetTripsComponent.driverNameFor - same "name if known, else license number,
    *  else Unassigned" fallback for a driver-attributed record. */

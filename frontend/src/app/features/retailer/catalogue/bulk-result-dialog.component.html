@@ -73,5 +73,5 @@
 </div>
 
 @if (logOpen()) {
-  <app-rejection-log-dialog [rows]="result.rejectedRows" (closed)="logOpen.set(false)"></app-rejection-log-dialog>
+  <app-rejection-log-dialog [rows]="result.rejectedRows" (closed)="logOpen.set(false)" (changed)="onLogChanged($event)"></app-rejection-log-dialog>
 }

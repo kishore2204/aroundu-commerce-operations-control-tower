@@ -301,3 +301,26 @@ After the fix:
   creation, officer and driver creation.
 - The screen can no longer accept a password the server would reject.
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+These are the backend test files that belong to this ticket (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/validation/InputRulesTest.java` | `passwordNeedsLengthUppercaseLowercaseNumberAndSpecialCharacter`, `passwordIsCappedAtTheExistingBackendLimit` - the single S1 password rule. |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/UserAccountServiceTest.java` | Password validation in the account service. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S1-platform-territory/src/main/java/com/cbg/lbos/validation/PasswordPolicy.java` |
+| Place | class `PasswordPolicy` |
+| Why this is the main place | The single password rule used by registration, admin account creation, officers, drivers and reset. |
+
+A banner comment `TK_INC0010075_Password_Validation_3247835` marks this place in the source code.

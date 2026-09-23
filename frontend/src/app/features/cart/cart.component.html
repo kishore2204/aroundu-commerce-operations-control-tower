@@ -47,6 +47,10 @@
           }
           @if (!item.productActive) {
             <p class="mt-0.5 text-xs font-semibold text-rose-600">This product is no longer available</p>
+          } @else if (item.availableStock <= 0) {
+            <p class="stock-problem mt-0.5 text-xs font-semibold text-rose-600">Out of stock - remove it to continue</p>
+          } @else if (item.quantity > item.availableStock) {
+            <p class="stock-problem mt-0.5 text-xs font-semibold text-rose-600">Only {{ item.availableStock }} left - reduce the quantity to continue</p>
           }
           <p class="mt-1 text-sm text-slate-500">{{ item.unitPrice | currency: 'INR' }} each</p>
         </div>
@@ -92,7 +96,7 @@
         <p class="text-sm text-slate-500">{{ cart()!.totalQuantity }} item(s)</p>
         <p class="text-lg font-extrabold text-slate-900">Subtotal: {{ cart()!.subtotal | currency: 'INR' }}</p>
       </div>
-      <button type="button" class="btn-primary" (click)="proceedToCheckout()" [disabled]="busy()">
+      <button type="button" class="btn-primary" (click)="proceedToCheckout()" [disabled]="busy() || stockProblem()">
         Proceed to checkout
       </button>
     </div>

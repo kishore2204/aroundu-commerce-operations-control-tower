@@ -21,7 +21,7 @@ package com.lbos.commercecustomer.service.impl; import com.lbos.commercecustomer
         ProductSpecifications.status(statusFilter),
         ProductSpecifications.inventoryStatus(inventoryFilter),
         ProductSpecifications.fetchCategory());
-    var productPage=repo.findAll(spec,PageRequest.of(p,z));
+    var productPage=repo.findAll(spec,PageRequest.of(p,z,org.springframework.data.domain.Sort.by("id")));
     return new PageResponse<>(productPage.map(map::product).getContent(),p,z,productPage.getTotalElements(),productPage.getTotalPages());
   }
 

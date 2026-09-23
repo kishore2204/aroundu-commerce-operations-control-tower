@@ -35,6 +35,10 @@ public interface LocationManagerService {
 	Page<LocationManagerDto> getLocationManagers(UUID zoneId, UUID operationsManagerId, AssignmentStatus status,
 			Pageable pageable);
 
+	/** Same list, additionally narrowed to officers whose name or e-mail contains {@code name} (blank = no name filter). */
+	Page<LocationManagerDto> getLocationManagers(UUID zoneId, UUID operationsManagerId, AssignmentStatus status,
+			String name, Pageable pageable);
+
 	/** Transfers an officer to another Zone. */
 	LocationManagerDto transferLocationManager(UUID id, LocationManagerDto dto);
 

@@ -216,7 +216,7 @@ class FleetExpenseServiceImplTest {
 
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> service.approve(id, createdBy));
 
-		assertEquals("Cannot approve", ex.getMessage());
+		assertEquals("You recorded this expense yourself, so it has to be approved by someone else (for example an Operations Manager)", ex.getMessage());
 		assertEquals(ExpenseApprovalStatus.PENDING, existing.getApprovalStatus());
 		verify(expenseRepository, never()).save(any(FleetExpense.class));
 	}
@@ -230,7 +230,7 @@ class FleetExpenseServiceImplTest {
 
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> service.approve(id, UUID.randomUUID()));
 
-		assertEquals("Cannot approve", ex.getMessage());
+		assertEquals("Only a pending expense can be approved - this one is already approved", ex.getMessage());
 		verify(expenseRepository, never()).save(any(FleetExpense.class));
 	}
 

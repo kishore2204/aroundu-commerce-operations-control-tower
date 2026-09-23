@@ -14,7 +14,11 @@ export class UserAccountService {
    *  mutation so a create/status-change/delete is reflected on the very next read. */
   private readonly listCache = new TtlCache<'all', UserAccount[]>(60_000);
 
-  all(): Observable<UserAccount[]> {
+  /** `fresh` skips the remembered list: the Accounts screen is where an admin checks the CURRENT status of an account, and a
+   *  status can be changed by someone else (e.g. a Location Manager blocking a retailer), which this session's own
+   *  mutations cannot clear. The dashboard's role counts are fine with the short-lived copy. */
+  all(fresh = false): Observable<UserAccount[]> {
+    if (fresh) this.listCache.clear();
     return this.listCache.get('all', () => this.http.get<UserAccount[]>('/api/user-accounts'));
   }
 

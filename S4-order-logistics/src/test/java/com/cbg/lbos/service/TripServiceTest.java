@@ -30,6 +30,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.List;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.HashMap;
@@ -46,6 +47,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -1057,5 +1059,59 @@ class TripServiceTest {
 
         assertThrows(ResourceNotFoundException.class,
                 () -> tripService.completeDelivery(TRIP_ID, DELIVERY_IMAGE));
+    }
+
+    // ---- list reads: each distinct driver / vehicle / fleet owner is looked up once per request, not once per trip
+
+    private com.cbg.lbos.entity.Trip tripOnOrder(long orderId, UUID vehicleId, UUID driverId) {
+        Order order = new Order();
+        order.setId(orderId);
+        order.setOrderType("FLEET_SERVICE");
+        com.cbg.lbos.entity.Trip trip = new com.cbg.lbos.entity.Trip();
+        trip.setOrder(order);
+        trip.setVehicleId(vehicleId);
+        trip.setDriverId(driverId);
+        trip.setFleetOwnerId(FLEET_OWNER_ID);
+        trip.setTripStatus("PLANNED");
+        return trip;
+    }
+
+    @Test
+    void aFleetOwnersTripsShareOneLookupPerDriverVehicleAndFleetOwner() {
+        UUID otherDriver = UUID.randomUUID();
+        when(tripRepository.findByFleetOwnerId(FLEET_OWNER_ID)).thenReturn(List.of(
+                tripOnOrder(1L, VEHICLE_ID, DRIVER_ID),
+                tripOnOrder(2L, VEHICLE_ID, DRIVER_ID),
+                tripOnOrder(3L, VEHICLE_ID, otherDriver),
+                tripOnOrder(4L, VEHICLE_ID, DRIVER_ID)));
+        when(driverClient.getDriver(any())).thenReturn(driver("ACTIVE", FLEET_OWNER_ID, LocalDate.now().plusYears(1)));
+        when(vehicleClient.getVehicle(VEHICLE_ID)).thenReturn(vehicle("ACTIVE", FLEET_OWNER_ID));
+
+        List<com.cbg.lbos.dto.TripDto> trips = tripService.getMineForFleetOwner(FLEET_OWNER_ID);
+
+        assertEquals(4, trips.size());
+        // 2 distinct drivers, 1 vehicle, 1 fleet owner = 4 lookups for 4 trips (it used to be 12)
+        verify(driverClient, times(1)).getDriver(DRIVER_ID);
+        verify(driverClient, times(1)).getDriver(otherDriver);
+        verify(vehicleClient, times(1)).getVehicle(VEHICLE_ID);
+        verify(fleetOwnerClient, times(1)).getFleetOwner(FLEET_OWNER_ID);
+    }
+
+    @Test
+    void aLookupThatFailedIsNotRetriedForEveryRowAndLeavesThatFieldEmpty() {
+        when(tripRepository.findByFleetOwnerId(FLEET_OWNER_ID)).thenReturn(List.of(
+                tripOnOrder(1L, VEHICLE_ID, DRIVER_ID), tripOnOrder(2L, VEHICLE_ID, DRIVER_ID)));
+        when(driverClient.getDriver(DRIVER_ID)).thenThrow(feign.FeignException.errorStatus("x",
+                feign.Response.builder().status(503).reason("x").request(feign.Request.create(feign.Request.HttpMethod.GET, "/x",
+                        new java.util.HashMap<>(), null, java.nio.charset.StandardCharsets.UTF_8, new feign.RequestTemplate()))
+                        .headers(new java.util.HashMap<>()).build()));
+        when(vehicleClient.getVehicle(VEHICLE_ID)).thenReturn(vehicle("ACTIVE", FLEET_OWNER_ID));
+
+        List<com.cbg.lbos.dto.TripDto> trips = tripService.getMineForFleetOwner(FLEET_OWNER_ID);
+
+        assertEquals(2, trips.size());
+        assertNull(trips.get(0).getDriver());
+        assertNull(trips.get(1).getDriver());
+        verify(driverClient, times(1)).getDriver(DRIVER_ID);
     }
 }

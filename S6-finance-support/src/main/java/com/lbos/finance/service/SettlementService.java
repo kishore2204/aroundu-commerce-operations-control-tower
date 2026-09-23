@@ -7,7 +7,18 @@ import com.lbos.finance.entity.Settlement;
 public interface SettlementService {
     Settlement createSettlement(SettlementRequest request);
     List<Settlement> getAllSettlements();
+
+    /**
+     * A retailer's ("RETAILER") or fleet owner's ("FLEET_OWNER") own settlements only. The payee is resolved
+     * server-side from the caller's user account id (the JWT subject) - never from anything the client sends.
+     * An account with no such profile has no settlements (empty list).
+     */
+    List<Settlement> getSettlementsForPartner(String payeeType, UUID userAccountId);
+
     Settlement getSettlementById(UUID id);
+
+    /** Same as getSettlementById, but only if the settlement belongs to the caller - otherwise "not found". */
+    Settlement getSettlementByIdForPartner(UUID id, String payeeType, UUID userAccountId);
     Settlement updateSettlement(UUID id, SettlementUpdateRequest request);
     Settlement completeSettlement(UUID id);
 

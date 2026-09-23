@@ -38,11 +38,64 @@ public class SettlementServiceImpl implements SettlementService {
 
     @Override public List<Settlement> getAllSettlements() { List<Settlement> all = settlementRepository.findAll(); resolvePayeeNames(all); return all; }
     @Override public Settlement getSettlementById(UUID id) { Settlement settlement = findSettlement(id); resolvePayeeNames(List.of(settlement)); return settlement; }
+
+    private record Payee(UUID id, String businessName) {}
+
+    /** The caller's own retailer / fleet-owner profile, looked up by their user account id (the JWT subject); null when they have none. */
+    private Payee resolvePayee(String payeeType, UUID userAccountId) {
+        try {
+            if ("RETAILER".equals(payeeType)) {
+                var retailer = partnerServiceClient.getRetailerByUser(userAccountId);
+                return retailer == null || retailer.retailerId() == null ? null : new Payee(retailer.retailerId(), retailer.businessName());
+            }
+            if ("FLEET_OWNER".equals(payeeType)) {
+                var owner = partnerServiceClient.getFleetOwnerByUser(userAccountId);
+                return owner == null || owner.fleetOwnerId() == null ? null : new Payee(owner.fleetOwnerId(), owner.businessName());
+            }
+            return null;
+        } catch (feign.FeignException failure) {
+            if (failure.status() == 404) return null;
+            throw failure;
+        }
+    }
+
+    /**
+     * Only the caller's own rows are read (one indexed lookup on payee_type + payee_id) instead of every settlement on
+     * the platform, and their display name is already known from the profile lookup, so no per-payee name call is needed.
+     */
+    @Override @Transactional(readOnly = true)
+    public List<Settlement> getSettlementsForPartner(String payeeType, UUID userAccountId) {
+        Payee payee = resolvePayee(payeeType, userAccountId);
+        if (payee == null) return List.of();
+        List<Settlement> mine = settlementRepository.findByPayeeTypeAndPayeeId(payeeType, payee.id());
+        String name = payee.businessName() == null || payee.businessName().isBlank() ? UNKNOWN_PAYEE_NAME : payee.businessName();
+        mine.forEach(settlement -> settlement.setPayeeName(name));
+        return mine;
+    }
+
+    @Override @Transactional(readOnly = true)
+    public Settlement getSettlementByIdForPartner(UUID id, String payeeType, UUID userAccountId) {
+        Settlement settlement = findSettlement(id);
+        Payee payee = resolvePayee(payeeType, userAccountId);
+        // Someone else's settlement is reported exactly like a missing one, so ids cannot be probed.
+        if (payee == null || !payeeType.equals(settlement.getPayeeType()) || !payee.id().equals(settlement.getPayeeId())) {
+            throw new ResourceNotFoundException("Settlement not found: " + id);
+        }
+        settlement.setPayeeName(payee.businessName() == null || payee.businessName().isBlank() ? UNKNOWN_PAYEE_NAME : payee.businessName());
+        return settlement;
+    }
     private Settlement findSettlement(UUID id) { return settlementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Settlement not found: " + id)); }
 
     static final String PLATFORM_PAYEE_NAME = "AroundU Platform";
     static final String UNKNOWN_PAYEE_NAME = "N/A";
 
+    /*
+    ##################################################################
+    
+                                               TK_INC0010080_Settlement_Business_Value_3239886
+    
+    #####################################################################
+    */
     /**
      * Fills the transient payeeName of each settlement so screens can show a business name instead of the internal
      * payeeId: RETAILER / FLEET_OWNER are looked up once per distinct payee through the existing S2 partner client,

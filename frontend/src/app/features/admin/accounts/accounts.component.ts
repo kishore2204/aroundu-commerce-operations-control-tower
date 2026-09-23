@@ -80,7 +80,7 @@ export class AdminAccountsComponent implements OnInit {
 
   private load(): void {
     this.loading.set(true);
-    this.userAccountService.all().subscribe({
+    this.userAccountService.all(true).subscribe({
       next: (accounts) => {
         this.accounts.set(accounts.sort((a, b) => a.email.localeCompare(b.email)));
         this.applyFilter();
@@ -99,6 +99,13 @@ export class AdminAccountsComponent implements OnInit {
     return value.toLowerCase().split('_').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   }
 
+  /*
+  ##################################################################
+  
+                                             TK_INC0010081_User_Account_Filters_3239293
+  
+  #####################################################################
+  */
   /** Search, role and status narrow the same list together; the account actions work on the filtered rows as before. */
   private applyFilter(): void {
     const q = this.searchControl.value.trim().toLowerCase();

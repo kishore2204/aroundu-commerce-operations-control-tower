@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -65,6 +66,12 @@ public class OrderItemService {
     }
 
     public OrderItemDto create(OrderItemDto dto) {
+        OrderItemDto saved = createWithoutTotals(dto);
+        orderService.recalculateTotals(saved.getOrderId());
+        return saved;
+    }
+
+    private OrderItemDto createWithoutTotals(OrderItemDto dto) {
         OrderItem item = new OrderItem();
         copyDtoToEntity(dto, item);
 
@@ -77,10 +84,46 @@ public class OrderItemService {
          * automatically rolled back. A true cross-service compensating transaction (saga) is
          * out of scope for this pass.
          */
-        deductStock(item.getProductId(), item.getQuantity());
+        deductStock(item.getProductId(), item.getQuantity(), item.getProductNameSnapshot());
 
-        OrderItemDto saved = toDto(orderItemRepository.save(item));
-        orderService.recalculateTotals(saved.getOrderId());
+        return toDto(orderItemRepository.save(item));
+    }
+
+    /**
+     * Every line of ONE order in a single request and a single transaction. Checkout used to send one POST per line at the
+     * same moment; each one recalculated the order's totals from the lines it could see, so concurrent lines could overwrite
+     * each other's subtotal, and every line paid its own request, transaction and totals write. Here all lines are validated
+     * and priced first (so a bad line fails before any stock is taken), stock is reserved line by line - giving back what was
+     * already reserved if a later line cannot be - then everything is saved and the totals are recalculated once.
+     */
+    public List<OrderItemDto> createBatch(List<OrderItemDto> dtos) {
+        if (dtos == null || dtos.isEmpty()) {
+            throw new IllegalArgumentException("At least one order item is required");
+        }
+        Long orderId = dtos.get(0).getOrderId();
+        if (dtos.stream().anyMatch(dto -> !java.util.Objects.equals(dto.getOrderId(), orderId))) {
+            throw new IllegalArgumentException("Every item in a batch must belong to the same order");
+        }
+        java.util.Map<Long, ProductSummary> products = prefetchProducts(dtos);
+        List<OrderItem> items = new ArrayList<>();
+        for (OrderItemDto dto : dtos) {
+            OrderItem item = new OrderItem();
+            copyDtoToEntity(dto, item, products.get(dto.getProductId()));
+            items.add(item);
+        }
+        List<OrderItem> reserved = new ArrayList<>();
+        try {
+            for (OrderItem item : items) {
+                deductStock(item.getProductId(), item.getQuantity(), item.getProductNameSnapshot());
+                reserved.add(item);
+            }
+        } catch (RuntimeException failure) {
+            reserved.forEach(item -> restoreStock(item.getProductId(), item.getQuantity()));
+            throw failure;
+        }
+        // stored snapshot fields only: the live product/retailer/customer enrichment of toDto() would cost three Feign calls per line
+        List<OrderItemDto> saved = orderItemRepository.saveAll(items).stream().map(this::toSnapshotDto).toList();
+        orderService.recalculateTotals(orderId);
         return saved;
     }
 
@@ -122,7 +165,7 @@ public class OrderItemService {
         Long previousProductId = item.getProductId();
         Integer previousQuantity = item.getQuantity();
         copyDtoToEntity(dto, item);
-        adjustStockForQuantityChange(previousProductId, previousQuantity, item.getProductId(), item.getQuantity());
+        adjustStockForQuantityChange(previousProductId, previousQuantity, item.getProductId(), item.getQuantity(), item.getProductNameSnapshot());
         OrderItemDto saved = toDto(orderItemRepository.save(item));
         orderService.recalculateTotals(saved.getOrderId());
         return saved;
@@ -162,14 +205,26 @@ public class OrderItemService {
      * order-item creation fails cleanly instead of silently succeeding with no stock actually
      * reserved.
      */
-    private void deductStock(Long productId, Integer quantity) {
+    private void deductStock(Long productId, Integer quantity, String productName) {
+        String label = productName == null || productName.isBlank() ? "this product" : productName.trim();
         try {
             inventoryClient.deductStock(productId, new InventoryClient.StockMutationRequest(quantity));
         } catch (FeignException exception) {
             // The raw Feign exception message (S3's own HTTP response, possibly with internal detail)
             // is deliberately not included here - it is never safe to forward verbatim to the client.
+            // S3 answers 422 when the stock really is short; anything else (timeout, 5xx, 401) is not a stock problem
+            // and must not be reported as one - the customer is told to retry instead.
+            log.warn("Stock reservation failed for product {} (qty {}): S3 answered {} - {}", productId, quantity, exception.status(), exception.getMessage());
+            if (exception.status() == 404) {
+                throw new InsufficientStockException(
+                        label + " is no longer available. Please remove it from your cart.");
+            }
+            if (exception.status() == 422 || exception.status() == 409) {
+                throw new InsufficientStockException(
+                        "Not enough stock of " + label + " for " + quantity + " unit(s). Please reduce the quantity or remove it from your cart.");
+            }
             throw new InsufficientStockException(
-                    "Unable to reserve " + quantity + " unit(s) of product " + productId + ". Please check the available stock and try again.");
+                    "Could not reserve " + label + " right now. Please try again in a moment.");
         }
     }
 
@@ -199,21 +254,26 @@ public class OrderItemService {
      * one, since there's no meaningful "delta" between two different products' stock.
      */
     private void adjustStockForQuantityChange(Long previousProductId, Integer previousQuantity,
-            Long newProductId, Integer newQuantity) {
+            Long newProductId, Integer newQuantity, String newProductName) {
         if (!previousProductId.equals(newProductId)) {
             restoreStock(previousProductId, previousQuantity);
-            deductStock(newProductId, newQuantity);
+            deductStock(newProductId, newQuantity, newProductName);
             return;
         }
         int delta = newQuantity - previousQuantity;
         if (delta > 0) {
-            deductStock(newProductId, delta);
+            deductStock(newProductId, delta, newProductName);
         } else if (delta < 0) {
             restoreStock(newProductId, -delta);
         }
     }
 
     private void copyDtoToEntity(OrderItemDto dto, OrderItem item) {
+        copyDtoToEntity(dto, item, null);
+    }
+
+    /** {@code prefetched} is the product already read for this line (batch create) - null means read it now. */
+    private void copyDtoToEntity(OrderItemDto dto, OrderItem item, ProductSummary prefetched) {
         Order order = findRequiredOrder(dto.getOrderId());
         requireEditableOrder(order);
         item.setOrder(order);
@@ -229,7 +289,7 @@ public class OrderItemService {
          * The product itself lives in S3. Fetch it so the line-item snapshot
          * is taken from the authoritative source at write time.
          */
-        ProductSummary product = fetchProduct(dto.getProductId());
+        ProductSummary product = prefetched != null ? prefetched : fetchProduct(dto.getProductId());
 
         item.setSkuSnapshot(product.sku());
         item.setProductNameSnapshot(product.name());
@@ -262,6 +322,27 @@ public class OrderItemService {
          * other fields.
          */
         item.setLineTotal(grossLineTotal.subtract(discountAmount));
+    }
+
+    /**
+     * Every distinct product of the batch in ONE call to S3 instead of one call per line (each of which made S3 ask S2 which
+     * shops are open). Anything it does not return - or the whole call failing - simply falls back to the per-line read in
+     * copyDtoToEntity(), so a missing / inactive product fails exactly as it always did.
+     */
+    private java.util.Map<Long, ProductSummary> prefetchProducts(List<OrderItemDto> dtos) {
+        List<Long> ids = dtos.stream().map(OrderItemDto::getProductId).filter(java.util.Objects::nonNull).distinct().toList();
+        if (ids.size() < 2) {
+            return java.util.Map.of();
+        }
+        try {
+            ApiResponseEnvelope<List<ProductSummary>> response = productClient.getProductsByIds(ids);
+            if (response == null || response.data() == null) {
+                return java.util.Map.of();
+            }
+            return response.data().stream().collect(java.util.stream.Collectors.toMap(ProductSummary::id, p -> p, (a, b) -> a));
+        } catch (FeignException exception) {
+            return java.util.Map.of();
+        }
     }
 
     private Order findRequiredOrder(Long orderId) {

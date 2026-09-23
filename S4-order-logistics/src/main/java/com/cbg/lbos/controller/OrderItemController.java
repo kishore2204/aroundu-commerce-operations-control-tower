@@ -25,6 +25,16 @@ public class OrderItemController {
                 .body(orderItemService.create(dto));
     }
 
+    public record BatchRequest(@jakarta.validation.Valid @jakarta.validation.constraints.NotEmpty
+                               @jakarta.validation.constraints.Size(max = 50) List<OrderItemDto> items) {
+    }
+
+    /** All lines of one order in one call - see OrderItemService.createBatch(). Matched before "/{id}" (it is a POST, so no clash). */
+    @PostMapping("/batch")
+    public ResponseEntity<List<OrderItemDto>> createBatch(@Valid @RequestBody BatchRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderItemService.createBatch(request.items()));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<OrderItemDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(orderItemService.getById(id));

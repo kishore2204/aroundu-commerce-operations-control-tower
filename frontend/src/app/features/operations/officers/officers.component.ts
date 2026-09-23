@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { of, switchMap } from 'rxjs';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { AbstractControl, FormBuilder, FormControl, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ToastService } from '../../../shared/toast/toast.service';
 import { EmptyStateComponent } from '../../../shared/empty-state/empty-state.component';
 import { LocationManagerAssignmentService } from '../../../core/services/location-manager-assignment.service';
@@ -13,7 +13,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { extractErrorMessage } from '../../../core/api/http-error.util';
 import { VerificationQueueService } from '../../../core/services/verification-queue.service';
 import { WorkTransferDialogComponent } from '../../../shared/work-transfer/work-transfer-dialog.component';
-import { LocationManagerAssignment } from '../../../core/models/location-manager-assignment.model';
+import { AssignmentStatus, LocationManagerAssignment } from '../../../core/models/location-manager-assignment.model';
 import { UserAccount } from '../../../core/models/user-account.model';
 import { Zone } from '../../../core/models/territory.model';
 import { OperationsManagerAssignment } from '../../../core/models/operations-manager.model';
@@ -77,6 +77,14 @@ export class OfficersComponent implements OnInit {
    *  Super Admin, who still sees every Location Manager across every city. */
   private myOperationsManagerId: string | null = null;
 
+  /** List filters (all applied by the server): officer name / e-mail, zone and assignment status. */
+  readonly nameFilter = new FormControl('', { nonNullable: true });
+  readonly zoneFilter = signal('');
+  readonly statusFilter = signal('');
+  readonly statusOptions: AssignmentStatus[] = ['ACTIVE', 'INACTIVE', 'SUSPENDED', 'TRANSFERRED'];
+  private loadSequence = 0;
+  hasFilters(): boolean { return !!(this.nameFilter.value.trim() || this.zoneFilter() || this.statusFilter()); }
+
   readonly form = this.fb.nonNullable.group({
     userAccountId: ['', [Validators.required]],
     zoneId: ['', [Validators.required]],
@@ -104,6 +112,13 @@ export class OfficersComponent implements OnInit {
     private readonly snackBar: ToastService,
     private readonly queueService: VerificationQueueService,
   ) {
+    /*
+    ##################################################################
+    
+                                               TK_INC0010083_Zone_Based_Ops_Manager_Filtering_3235425
+    
+    #####################################################################
+    */
     // The supervising Operations Manager must belong to the selected Zone's city: whenever the Zone changes, drop
     // the previous choice and load that city's Operations Managers (any assignment status - not only ACTIVE).
     this.form.controls.zoneId.valueChanges
@@ -120,6 +135,19 @@ export class OfficersComponent implements OnInit {
         next: (page) => this.operationsManagers.set(page?.content ?? []),
         error: (err) => this.loadError.set(extractErrorMessage(err, 'Could not load operations managers for this zone.')),
       });
+
+    this.nameFilter.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged((a, b) => a.trim() === b.trim()), takeUntilDestroyed())
+      .subscribe(() => this.load());
+  }
+
+  setZoneFilter(zoneId: string): void { this.zoneFilter.set(zoneId); this.load(); }
+  setStatusFilter(status: string): void { this.statusFilter.set(status); this.load(); }
+  clearFilters(): void {
+    this.nameFilter.setValue('', { emitEvent: false });
+    this.zoneFilter.set('');
+    this.statusFilter.set('');
+    this.load();
   }
 
   ngOnInit(): void {
@@ -160,13 +188,17 @@ export class OfficersComponent implements OnInit {
    *  city, not just their own. */
   private load(): void {
     this.loading.set(true);
-    this.service.list(undefined, this.myOperationsManagerId ?? undefined).subscribe({
-      next: (page) => {
-        this.assignments.set(page.content);
-        this.loading.set(false);
-      },
-      error: () => this.loading.set(false),
-    });
+    const sequence = ++this.loadSequence;
+    this.service
+      .list(this.zoneFilter() || undefined, this.myOperationsManagerId ?? undefined, this.statusFilter() || undefined, this.nameFilter.value)
+      .subscribe({
+        next: (page) => {
+          if (sequence !== this.loadSequence) return; // a newer filter change is already loading
+          this.assignments.set(page.content);
+          this.loading.set(false);
+        },
+        error: () => { if (sequence === this.loadSequence) this.loading.set(false); },
+      });
   }
 
   startCreate(): void {

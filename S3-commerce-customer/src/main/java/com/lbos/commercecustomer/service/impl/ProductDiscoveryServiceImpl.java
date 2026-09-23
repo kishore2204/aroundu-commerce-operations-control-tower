@@ -26,7 +26,7 @@ package com.lbos.commercecustomer.service.impl; import com.lbos.commercecustomer
         ProductSpecifications.retailerIdIn(openRetailerIds),
         ProductSpecifications.inStock(stock),
         ProductSpecifications.fetchCategory());
-    var productPage=repo.findAll(spec,PageRequest.of(p,z));
+    var productPage=repo.findAll(spec,PageRequest.of(p,z,org.springframework.data.domain.Sort.by("id")));
     var retailerById=retailers.resolve(productPage.getContent());
     var content=productPage.getContent().stream().map(product->map.product(product,retailerById.get(product.getRetailerId()))).toList();
     return new PageResponse<>(content,p,z,productPage.getTotalElements(),productPage.getTotalPages());

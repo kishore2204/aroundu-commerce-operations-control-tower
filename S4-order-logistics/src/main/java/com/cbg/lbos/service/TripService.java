@@ -192,7 +192,8 @@ public class TripService {
      */
     @Transactional(readOnly = true)
     public List<TripDto> getAll() {
-        return tripRepository.findAll().stream().map(this::toDto).toList();
+        SummaryLookups lookups = new SummaryLookups();
+        return tripRepository.findAll().stream().map(trip -> toDto(trip, lookups)).toList();
     }
 
     /*
@@ -200,7 +201,8 @@ public class TripService {
      */
     @Transactional(readOnly = true)
     public List<TripDto> getMineForFleetOwner(UUID fleetOwnerId) {
-        return tripRepository.findByFleetOwnerId(fleetOwnerId).stream().map(this::toDto).toList();
+        SummaryLookups lookups = new SummaryLookups();
+        return tripRepository.findByFleetOwnerId(fleetOwnerId).stream().map(trip -> toDto(trip, lookups)).toList();
     }
 
     @Transactional(readOnly = true)
@@ -208,7 +210,8 @@ public class TripService {
         try {
             DriverSummary driver = driverClient.getDriverByUserAccountId(userAccountId);
             if (driver != null && driver.driverId() != null) {
-                return tripRepository.findByDriverId(driver.driverId()).stream().map(this::toDto).toList();
+                SummaryLookups lookups = new SummaryLookups();
+                return tripRepository.findByDriverId(driver.driverId()).stream().map(trip -> toDto(trip, lookups)).toList();
             }
         } catch (Exception ignored) {
         }
@@ -473,6 +476,13 @@ public class TripService {
         }
     }
 
+    /*
+    ##################################################################
+    
+                                               CR_CHG0030041_Product_Weight_Vehicle_Validation_3240010
+    
+    #####################################################################
+    */
     /*
      * VEHICLE CAPACITY
      *
@@ -790,6 +800,34 @@ public class TripService {
      * ENTITY TO DTO CONVERSION
      */
     private TripDto toDto(Trip trip) {
+        return toDto(trip, new SummaryLookups());
+    }
+
+    /**
+     * The driver / vehicle / fleet owner behind a list of trips, each looked up ONCE per request. A fleet owner's trips
+     * share one fleet owner and usually a handful of drivers and vehicles, yet every row used to make its own three calls
+     * to other services (24 calls for 8 trips). A failed lookup is remembered as "unknown" too, so it is not retried for
+     * every row. Created per request, so nothing is ever served stale.
+     */
+    private final class SummaryLookups {
+        private final java.util.Map<UUID, java.util.Optional<DriverSummary>> drivers = new java.util.HashMap<>();
+        private final java.util.Map<UUID, java.util.Optional<VehicleSummary>> vehicles = new java.util.HashMap<>();
+        private final java.util.Map<UUID, java.util.Optional<FleetOwnerSummary>> fleetOwners = new java.util.HashMap<>();
+
+        DriverSummary driver(UUID id) {
+            return id == null ? null : drivers.computeIfAbsent(id, key -> java.util.Optional.ofNullable(fetchDriverSummaryQuietly(key))).orElse(null);
+        }
+
+        VehicleSummary vehicle(UUID id) {
+            return id == null ? null : vehicles.computeIfAbsent(id, key -> java.util.Optional.ofNullable(fetchVehicleSummaryQuietly(key))).orElse(null);
+        }
+
+        FleetOwnerSummary fleetOwner(UUID id) {
+            return id == null ? null : fleetOwners.computeIfAbsent(id, key -> java.util.Optional.ofNullable(fetchFleetOwnerSummaryQuietly(key))).orElse(null);
+        }
+    }
+
+    private TripDto toDto(Trip trip, SummaryLookups lookups) {
         TripDto dto = new TripDto();
         dto.setId(trip.getId());
         dto.setOrderId(trip.getOrder().getId());
@@ -815,14 +853,13 @@ public class TripService {
          * upstream record or a downed dependency leaves that one nested field null rather than
          * failing the whole response. fleetOwner is additionally guarded against a null
          * fleetOwnerId, even though today a trip's fleetOwnerId is effectively always set.
-         * Note this means getAll() now issues up to 3 extra Feign calls per row (N+1) -
-         * acceptable at this training system's scale, intentionally not "fixed" with a batch
-         * endpoint here.
+         * A list shares one SummaryLookups, so each distinct driver / vehicle / fleet owner is
+         * fetched once per request instead of three calls per row.
          */
-        DriverSummary driver = fetchDriverSummaryQuietly(trip.getDriverId());
+        DriverSummary driver = lookups.driver(trip.getDriverId());
         dto.setDriver(driver);
-        dto.setVehicle(fetchVehicleSummaryQuietly(trip.getVehicleId()));
-        dto.setFleetOwner(fetchFleetOwnerSummaryQuietly(trip.getFleetOwnerId()));
+        dto.setVehicle(lookups.vehicle(trip.getVehicleId()));
+        dto.setFleetOwner(lookups.fleetOwner(trip.getFleetOwnerId()));
 
         BigDecimal deliveryCharge = trip.getOrder().getDeliveryCharge();
         dto.setOrderDeliveryCharge(deliveryCharge);
