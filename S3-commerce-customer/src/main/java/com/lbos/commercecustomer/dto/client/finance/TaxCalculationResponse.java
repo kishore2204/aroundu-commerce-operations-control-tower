@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.client.finance; import java.util.*;import java.math.*; public record TaxCalculationResponse(BigDecimal subtotal,BigDecimal taxAmount,BigDecimal totalAfterTax,String currencyCode) {}

@@ -1,0 +1,101 @@
+<h1 class="text-2xl font-bold text-slate-900 mb-4">Inventory</h1>
+
+@if (toastMessage()) {
+  <div class="fixed top-4 right-4 z-50 card px-4 py-3 text-sm font-medium text-slate-800 shadow-card-hover animate-fade-in">
+    {{ toastMessage() }}
+  </div>
+}
+
+@if (summary(); as s) {
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="card p-4">
+      <p class="text-xl font-bold text-slate-900">{{ s.totalProducts }}</p>
+      <p class="text-sm text-slate-500">Products</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xl font-bold text-slate-900">{{ s.totalStock }}</p>
+      <p class="text-sm text-slate-500">Total stock</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xl font-bold text-slate-900">{{ s.lowStock }}</p>
+      <p class="text-sm text-slate-500">Low stock</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xl font-bold text-slate-900">{{ s.outOfStock }}</p>
+      <p class="text-sm text-slate-500">Out of stock</p>
+    </div>
+  </div>
+}
+
+<div class="flex flex-wrap gap-3 mb-4">
+  <div class="relative flex-1 min-w-[240px]">
+    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+    <input class="input pl-9" [formControl]="searchControl" placeholder="Search inventory..." />
+  </div>
+  <select class="select w-48" [formControl]="statusControl">
+    <option [ngValue]="null">All statuses</option>
+    <option value="HEALTHY">Healthy</option>
+    <option value="LOW_STOCK">Low stock</option>
+    <option value="OUT_OF_STOCK">Out of stock</option>
+  </select>
+</div>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (products().length === 0) {
+  <app-empty-state icon="inventory" title="No inventory to show"></app-empty-state>
+} @else {
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Status</th>
+          <th>Stock</th>
+          <th>Adjust</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products(); track product.id) {
+          <tr>
+            <td>
+              <p class="font-medium text-slate-800">{{ product.name }}</p>
+              <p class="text-xs text-slate-500">{{ product.sku }}</p>
+            </td>
+            <td>
+              <span
+                class="badge"
+                [class.badge-active]="product.inventoryStatus === 'HEALTHY'"
+                [class.badge-pending]="product.inventoryStatus === 'LOW_STOCK'"
+                [class.badge-danger]="product.inventoryStatus === 'OUT_OF_STOCK'"
+              >
+                {{ product.inventoryStatus }}
+              </span>
+            </td>
+            <td class="font-semibold text-slate-900">{{ product.stock }} units</td>
+            <td>
+              <div class="flex items-center gap-2">
+                <input
+                  class="input w-20"
+                  type="number"
+                  min="1"
+                  step="1"
+                  appIntegerOnly
+                  [ngModel]="quantityFor(product.id)"
+                  (ngModelChange)="setQuantityFor(product.id, $event)"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <button type="button" class="btn-icon" (click)="adjust(product, 'ADD_STOCK')" [disabled]="adjusting()" aria-label="Add stock">
+                  <i class="fa-solid fa-circle-plus text-zgreen-500"></i>
+                </button>
+                <button type="button" class="btn-icon" (click)="adjust(product, 'REMOVE_STOCK')" [disabled]="adjusting()" aria-label="Remove stock">
+                  <i class="fa-solid fa-circle-minus text-rose-500"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

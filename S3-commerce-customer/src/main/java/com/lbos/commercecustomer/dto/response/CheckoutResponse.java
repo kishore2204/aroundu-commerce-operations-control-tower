@@ -1,0 +1,5 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*;import com.lbos.commercecustomer.dto.client.order.LineServiceabilityResult;
+/** serviceabilityLines carries one per-product/per-retailer verdict - see requirement that a
+ * multi-retailer cart must be checked, and shown, one product/retailer at a time rather than
+ * failing checkout closed on the first unserviceable line. */
+public record CheckoutResponse(UUID addressId,List<CartItemResponse> items,BigDecimal subtotal,BigDecimal tax,BigDecimal deliveryCharge,BigDecimal platformFee,BigDecimal grandTotal,boolean serviceable,BigDecimal pointsRedeemed,BigDecimal pointsEarned,BigDecimal rewardPointsBalance,List<LineServiceabilityResult> serviceabilityLines,List<CheckoutRetailerBreakdown> retailerBreakdowns) {}

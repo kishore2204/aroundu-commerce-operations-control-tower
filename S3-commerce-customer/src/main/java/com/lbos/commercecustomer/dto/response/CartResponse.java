@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*; public record CartResponse(List<CartItemResponse> items,int distinctProducts,int totalQuantity,BigDecimal subtotal) {}

@@ -1,0 +1,12 @@
+package com.lbos.commercecustomer.dto.request; import java.util.UUID;import java.time.LocalDate;import java.math.BigDecimal;import jakarta.validation.constraints.*;import com.lbos.commercecustomer.enums.StockAdjustmentType;import com.lbos.commercecustomer.enums.ProductStatus; /*
+ * stock is intentionally NOT @NotNull here even though it's required on create - this record
+ * is shared by CatalogueController's create() AND update()/apply(), and update must never
+ * require or touch stock (inventory adjustment is a separate concern, POST .../inventory/
+ * adjustments). @NotNull here would 400 every PATCH that omits it. create()'s own null-check
+ * (CatalogueServiceImpl.create()) is what actually enforces "stock is required on create".
+ */
+public record ProductRequest(@NotBlank(message="Name is required.") @Size(min=3,max=80,message="Name must be between 3 and 80 characters.") String name,@NotBlank(message="SKU is required.") @Pattern(regexp="[A-Za-z0-9_-]{3,20}",message="SKU must be 3-20 characters: letters, digits, '-' or '_'.") String sku,@NotNull(message="Category is required.") Long categoryId,@NotNull(message="Unit price is required.") @DecimalMin(value="0.01",message="Price must be greater than 0.") @Digits(integer=10,fraction=2,message="Price can have at most 2 decimal places.") BigDecimal unitPrice,@Min(value=0,message="Stock cannot be negative.") Integer stock,@NotNull(message="Status is required.") ProductStatus status,@NotBlank(message="Description is required.") @Size(min=10,max=300,message="Description must be between 10 and 300 characters.") String description,@Min(value=0,message="Low stock threshold cannot be negative.") Integer lowStockThreshold,
+    /** Weight of one unit in kg. Optional: empty means 1 kg. Must be positive when given. */
+    @DecimalMin(value="0.001",message="Weight must be greater than 0 kg.") @Digits(integer=6,fraction=3,message="Weight can have at most 3 decimal places.") BigDecimal weightKg) {
+  public ProductRequest(String name,String sku,Long categoryId,BigDecimal unitPrice,Integer stock,ProductStatus status,String description,Integer lowStockThreshold){this(name,sku,categoryId,unitPrice,stock,status,description,lowStockThreshold,null);}
+}

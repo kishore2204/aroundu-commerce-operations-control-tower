@@ -1,0 +1,14 @@
+<div class="card mb-4">
+  <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
+    <i class="fa-solid fa-truck text-zepto-600"></i>
+    Deliver to
+  </h2>
+  <app-address-list [embedded]="true" (addressSelected)="onAddressPicked($event)"></app-address-list>
+  @if (checking()) {
+    <app-loading-state message="Checking serviceability for this address..." [diameter]="24"></app-loading-state>
+  }
+</div>
+
+@if (conflictData(); as cd) {
+  <app-serviceability-conflict-dialog [data]="cd" (closed)="onConflictClosed($event)"></app-serviceability-conflict-dialog>
+}

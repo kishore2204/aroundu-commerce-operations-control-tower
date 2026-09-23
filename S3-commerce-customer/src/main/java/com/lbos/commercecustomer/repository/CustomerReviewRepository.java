@@ -1,0 +1,10 @@
+package com.lbos.commercecustomer.repository; import com.lbos.commercecustomer.entity.*;import java.util.*;import org.springframework.data.domain.*;import org.springframework.data.jpa.repository.*;import org.springframework.data.repository.query.Param; public interface CustomerReviewRepository extends JpaRepository<CustomerReview,UUID> {Page<CustomerReview> findByProductId(Long p,Pageable page); Page<CustomerReview> findByProductIdAndRating(Long p,Short rating,Pageable page); Optional<CustomerReview> findById(UUID id); boolean existsByOrderIdAndProductId(Long o,Long p); boolean existsByProduct_Id(Long productId); @Query("select avg(r.rating) from CustomerReview r where r.product.id=:p") Double average(@Param("p") Long p); long countByProductId(Long p);
+/** Retailer-level aggregate across every one of the retailer's products - see RetailerRatingSummaryResponse. */
+@Query("select avg(r.rating) from CustomerReview r where r.product.retailerId=:retailerId") Double averageByRetailerId(@Param("retailerId") UUID retailerId);
+@Query("select count(r) from CustomerReview r where r.product.retailerId=:retailerId") long countByRetailerId(@Param("retailerId") UUID retailerId);
+/** Per-retailer average and count for many retailers in ONE grouped query (Location Manager dashboard). */
+@Query("select r.product.retailerId as retailerId, avg(r.rating) as average, count(r) as total from CustomerReview r where r.product.retailerId in :ids group by r.product.retailerId") List<RetailerRatingRow> ratingsByRetailerIds(@Param("ids") Collection<UUID> ids);
+interface RetailerRatingRow { UUID getRetailerId(); Double getAverage(); Long getTotal(); }
+/** A retailer's individual reviews across all its products, newest first. */
+@Query(value="select r from CustomerReview r join fetch r.product p where p.retailerId=:retailerId order by r.createdAt desc", countQuery="select count(r) from CustomerReview r where r.product.retailerId=:retailerId") Page<CustomerReview> pageByRetailerId(@Param("retailerId") UUID retailerId, Pageable pageable);
+}

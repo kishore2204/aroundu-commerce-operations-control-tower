@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.client.finance; import java.util.*;import java.math.*; public record TaxItemRequest(Long productId,Long productCategoryId,Integer quantity,BigDecimal unitPrice) {}

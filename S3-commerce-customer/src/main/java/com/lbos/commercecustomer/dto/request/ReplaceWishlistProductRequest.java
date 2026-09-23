@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.request; import java.util.UUID;import java.time.LocalDate;import java.math.BigDecimal;import jakarta.validation.constraints.*;import com.lbos.commercecustomer.enums.StockAdjustmentType; public record ReplaceWishlistProductRequest(@NotNull Long productId) {}

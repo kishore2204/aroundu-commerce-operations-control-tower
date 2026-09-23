@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class ForbiddenOperationException extends RuntimeException {public ForbiddenOperationException(String m){super(m);} public ForbiddenOperationException(String m,Throwable c){super(m,c);}}

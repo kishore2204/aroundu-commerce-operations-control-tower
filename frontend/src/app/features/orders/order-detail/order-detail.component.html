@@ -1,0 +1,210 @@
+<a routerLink="/orders" class="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-zepto-600 hover:text-zepto-700">
+  <i class="fa-solid fa-arrow-left"></i> Back to orders
+</a>
+
+@if (loading()) {
+  <div class="flex justify-center py-10"><div class="spinner"></div></div>
+} @else if (!order()) {
+  <app-empty-state icon="error_outline" title="Order not found"></app-empty-state>
+} @else {
+  <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h1 class="text-2xl font-extrabold text-slate-900">Order {{ order()!.orderNumber }}</h1>
+      <p class="text-sm text-slate-500">Placed {{ order()!.orderDate | date: 'medium' }}</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="badge" [ngClass]="statusBadgeClass(tracking()?.displayStage ?? order()!.orderStatus)">
+        {{ tracking()?.displayStage ?? order()!.orderStatus }}
+      </span>
+      @if (hasMultipleShops()) {
+        <select class="select !w-auto min-w-[10rem]" aria-label="Shop" [value]="selectedOrderId()" (change)="selectShop($any($event.target).value)">
+          @for (shop of shops(); track shop.orderId; let i = $index) {
+            <option [value]="shop.orderId" [selected]="shop.orderId === selectedOrderId()">{{ shopLabel(shop, i) }}</option>
+          }
+        </select>
+      }
+    </div>
+  </div>
+  @if (hasMultipleShops()) {
+    <p class="-mt-3 mb-4 text-sm text-slate-500">
+      Your items shipped from {{ shops().length }} shops - pick a shop to see its tracking.
+      Overall: <strong class="text-slate-800">{{ overallStatus() }}</strong>
+    </p>
+  }
+
+  @if (tracking(); as t) {
+    <section class="card mb-4">
+      <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
+        <i class="fa-solid fa-route text-violet-500"></i> Tracking
+      </h2>
+      <app-order-status-stepper [steps]="t.steps" [haltedState]="t.haltedState"></app-order-status-stepper>
+      @if (selectedShop()?.etaText; as eta) {
+        <p class="mt-3 flex items-center gap-2 text-sm font-semibold text-slate-700">
+          <i class="fa-regular fa-clock text-violet-500"></i> Estimated delivery: <span class="text-zepto-700">{{ eta }}</span>
+        </p>
+      }
+      @if (selectedShop()?.delivery; as d) {
+        <div class="mt-3 rounded-xl border border-slate-100 bg-slate-50 p-3 text-sm">
+          <p class="mb-2 flex items-center gap-2 font-bold text-slate-800"><i class="fa-solid fa-truck-fast text-violet-500"></i> Delivery details</p>
+          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            @if (d.fleetOwnerBusinessName) { <p><span class="text-slate-400">Fleet owner</span><br><strong>{{ d.fleetOwnerBusinessName }}</strong></p> }
+            @if (d.driverName) { <p><span class="text-slate-400">Driver</span><br><strong>{{ d.driverName }}</strong></p> }
+            @if (d.vehicleNumber) { <p><span class="text-slate-400">Vehicle number</span><br><strong>{{ d.vehicleNumber }}</strong></p> }
+            @if (d.phoneNumber) { <p><span class="text-slate-400">Phone number</span><br><strong>{{ d.phoneNumber }}</strong></p> }
+          </div>
+        </div>
+      }
+      @if (t.haltedState) {
+        <a class="btn-primary mt-3" routerLink="/products">Find Another Shop</a>
+      }
+      <p class="mt-3 text-xs text-slate-400">Last updated {{ t.updatedDatetime | date: 'medium' }}</p>
+    </section>
+  }
+
+  @if (items().length > 0) {
+    <section class="card mb-4">
+      <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
+        <i class="fa-solid fa-box-open text-violet-500"></i> Items
+      </h2>
+      <ul class="divide-y divide-slate-100">
+        @for (item of items(); track item.id) {
+          <li class="flex items-start gap-3 py-3 text-sm">
+            <span class="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-zepto-50 to-violet-50 text-zepto-600">
+              @if (productImageById()[item.productId]; as imageUrl) {<img [src]="imageUrl" [alt]="item.productNameSnapshot || 'Product'" class="h-full w-full object-cover" />} @else {<i class="fa-solid fa-cube text-sm"></i>}
+            </span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-2">
+                <span class="truncate font-semibold text-slate-800">{{ item.productNameSnapshot || 'Product' }}</span>
+                <span class="shrink-0 font-bold text-slate-900">{{ item.lineTotal | currency: 'INR' }}</span>
+              </div>
+              <div class="mt-0.5 flex items-center justify-between text-xs text-slate-500">
+                <span>
+                  {{ item.retailer?.businessName ?? 'Unknown store' }} &middot; Qty {{ item.quantity }}
+                  @if (item.unitPrice) { &middot; {{ item.unitPrice | currency: 'INR' }} each }
+                </span>
+                @if (item.discountAmount) {
+                  <span class="text-emerald-600 font-semibold">-{{ item.discountAmount | currency: 'INR' }}</span>
+                }
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  @if (canCancel()) {
+    <section class="card mb-4">
+      @if (cancelError()) {
+        <p class="text-sm text-rose-600 mb-2">{{ cancelError() }}</p>
+      }
+      <button type="button" class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50" [disabled]="cancelling()" (click)="cancelOrder()">
+        @if (cancelling()) {
+          <span class="spinner !h-4 !w-4 !border-rose-500/40 !border-t-rose-600"></span> Cancelling...
+        } @else {
+          <i class="fa-solid fa-ban"></i> Cancel Order
+        }
+      </button>
+    </section>
+  }
+
+  <section class="card mb-4 space-y-1">
+    <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
+      <i class="fa-solid fa-receipt text-violet-500"></i> Payment
+    </h2>
+    <p class="flex justify-between text-sm text-slate-600"><span>Method</span><span>{{ order()!.paymentMethod }}</span></p>
+    <p class="flex justify-between text-sm text-slate-600"><span>Status</span><span>{{ order()!.paymentStatus }}</span></p>
+    @if (order()!.transactionReference) {<p class="flex justify-between text-sm text-slate-600"><span>Transaction</span><span>{{ order()!.transactionReference }}</span></p>}
+    @if (order()!.orderType === 'FLEET_SERVICE') {
+      <!-- a logistics booking has no products: its charge is the delivery charge the booking stored -->
+      <p class="flex justify-between text-sm text-slate-600"><span>Logistics charge</span><span>{{ order()!.deliveryCharge | currency: 'INR' }}</span></p>
+      @if (order()!.taxAmount) {
+        <p class="flex justify-between text-sm text-slate-600"><span>Tax</span><span>{{ order()!.taxAmount | currency: 'INR' }}</span></p>
+      }
+    } @else {
+      <p class="flex justify-between text-sm text-slate-600"><span>Subtotal</span><span>{{ order()!.subtotalAmount | currency: 'INR' }}</span></p>
+      <p class="flex justify-between text-sm text-slate-600"><span>Tax</span><span>{{ order()!.taxAmount | currency: 'INR' }}</span></p>
+      <p class="flex justify-between text-sm text-slate-600"><span>Delivery</span><span>{{ order()!.deliveryCharge | currency: 'INR' }}</span></p>
+      <p class="flex justify-between text-sm text-slate-600"><span>Platform fee</span><span>{{ order()!.platformFeeAmount | currency: 'INR' }}</span></p>
+    }
+    @if (order()!.discountAmount) {
+      <p class="flex justify-between text-sm text-emerald-600"><span>Discount</span><span>-{{ order()!.discountAmount | currency: 'INR' }}</span></p>
+    }
+    <p class="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 px-3 py-2.5 text-lg font-extrabold text-slate-900">
+      <span>{{ order()!.paymentStatus === 'PAID' ? 'Total paid' : 'Total amount' }}</span><span class="text-zepto-700">{{ order()!.totalAmount | currency: 'INR' }}</span>
+    </p>
+    @if (order()!.paymentStatus === 'PENDING' || order()!.paymentStatus === 'FAILED') {
+      <p class="text-xs text-slate-500">Payment status: {{ order()!.paymentStatus }} - this amount has not been paid yet.</p>
+    }
+  </section>
+
+  @if (order()!.deliveryAddress) {
+    <section class="card mb-4">
+      <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
+        <i class="fa-solid fa-location-dot text-violet-500"></i> Delivery address
+      </h2>
+      <p class="text-sm text-slate-600">{{ order()!.deliveryAddress }}</p>
+    </section>
+  }
+
+  <section class="card">
+    <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
+      <i class="fa-solid fa-headset text-violet-500"></i> Customer Support
+    </h2>
+    @if (ticketRaised()) {
+      <div class="flex items-start gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+        <i class="fa-solid fa-circle-check mt-0.5 text-emerald-500"></i>
+        <p class="text-sm text-emerald-700">
+          Support Ticket <strong>#{{ ticketNumber() }}</strong> raised! Routed to Support Admin for review and resolution.
+        </p>
+      </div>
+    } @else if (ticketFormOpen()) {
+      <form [formGroup]="ticketForm" (ngSubmit)="raiseTicket()" class="space-y-3">
+        <div>
+          <label class="form-label req-mark">What went wrong?</label>
+          <select class="select" formControlName="ticketSubCategory">
+            @for (s of orderIssueSubCategories; track s) {
+              <option [value]="s">{{ categoryLabel(s) }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label class="form-label req-mark">Subject</label>
+          <input class="input" formControlName="subject" placeholder="e.g. Item missing from delivery" />
+        </div>
+        <div>
+          <label class="form-label req-mark">Description</label>
+          <textarea class="input" formControlName="description" rows="3" placeholder="Describe the issue"></textarea>
+        </div>
+        @if (ticketError()) {
+          <p class="text-sm font-semibold text-rose-600">{{ ticketError() }}</p>
+        }
+        <button class="btn-primary !bg-gradient-to-br !from-rose-600 !to-rose-500" type="submit" [disabled]="raisingTicket()">
+          @if (raisingTicket()) {
+            <span class="spinner h-4 w-4 border-2 border-white/40 border-t-white"></span>
+          } @else {
+            Submit Ticket
+          }
+        </button>
+      </form>
+    } @else {
+      <button type="button" class="btn-outline border-rose-500 text-rose-600 hover:bg-rose-50" (click)="openTicketForm()">
+        <i class="fa-regular fa-circle-question"></i> Raise Support Ticket
+      </button>
+    }
+  </section>
+}
+
+@if (confirmingCancel() && order(); as current) {
+  <app-confirm-dialog
+    title="Cancel this order?"
+    [message]="'Cancel order ' + current.orderNumber + '? This cannot be undone.'"
+    confirmLabel="Cancel order"
+    cancelLabel="Keep order"
+    busyLabel="Cancelling..."
+    [danger]="true"
+    [busy]="cancelling()"
+    (confirmed)="confirmCancelOrder()"
+    (cancelled)="cancelCancelOrder()"
+  ></app-confirm-dialog>
+}

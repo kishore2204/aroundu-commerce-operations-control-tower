@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.request; import java.util.UUID;import java.time.LocalDate;import java.math.BigDecimal;import jakarta.validation.constraints.*;import com.lbos.commercecustomer.enums.StockAdjustmentType; public record UpdateReviewRequest(@NotNull @Min(1) @Max(5) Short rating,@Size(max=2000) String reviewText) {}

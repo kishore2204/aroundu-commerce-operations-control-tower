@@ -1,0 +1,127 @@
+<h1 class="text-2xl font-bold text-slate-900 mb-4">Expenses</h1>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (expenses().length === 0) {
+  <app-empty-state icon="receipt_long" title="No expenses recorded yet"></app-empty-state>
+} @else {
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Driver</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Proof</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (e of expenses(); track e.fleetExpenseId) {
+          <tr>
+            <td>{{ e.expenseDate | date: 'mediumDate' }}</td>
+            <td>{{ driverNameFor(e.driverId) }}</td>
+            <td>{{ e.expenseType }}</td>
+            <td class="font-semibold text-slate-900">{{ e.amount | currency: 'INR' }}</td>
+            <td>
+              <span
+                class="badge"
+                [class.badge-active]="e.approvalStatus === 'APPROVED'"
+                [class.badge-pending]="e.approvalStatus === 'PENDING'"
+                [class.badge-danger]="e.approvalStatus === 'REJECTED'"
+                [class.badge-inactive]="e.approvalStatus !== 'APPROVED' && e.approvalStatus !== 'PENDING' && e.approvalStatus !== 'REJECTED'"
+              >
+                {{ e.approvalStatus }}
+              </span>
+            </td>
+            <td>
+              @if (e.hasProof) {
+                <button type="button" class="btn-outline !py-1 !px-2 !text-xs" (click)="viewProof(e)">
+                  <i class="fa-solid fa-file-image"></i> View
+                </button>
+              } @else {
+                <span class="text-slate-400 text-sm">-</span>
+              }
+            </td>
+            <td>
+              @if (e.approvalStatus === 'PENDING') {
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    class="btn-secondary !py-1 !px-2 !text-xs"
+                    [disabled]="actingOnId() === e.fleetExpenseId"
+                    (click)="reimburse(e)"
+                  >
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Reimburse
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50 !py-1 !px-2 !text-xs"
+                    [disabled]="actingOnId() === e.fleetExpenseId"
+                    (click)="reject(e)"
+                  >
+                    <i class="fa-solid fa-ban"></i> Reject
+                  </button>
+                </div>
+              } @else if (e.approvalStatus === 'APPROVED') {
+                <button
+                  type="button"
+                  class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50 !py-1 !px-2 !text-xs"
+                  [disabled]="actingOnId() === e.fleetExpenseId"
+                  (click)="reject(e)"
+                >
+                  <i class="fa-solid fa-rotate-left"></i> Reverse &amp; Reject
+                </button>
+              } @else {
+                <span class="text-slate-400 text-sm">-</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+
+
+@if (selectedProofUrl(); as proofUrl) {
+  <div class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/60 p-4" (click)="closeProof()">
+    <section class="w-full max-w-4xl rounded-2xl bg-white p-5 shadow-2xl" (click)="$event.stopPropagation()">
+      <div class="mb-4 flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Expense proof</p>
+          <h2 class="text-lg font-bold text-slate-900">{{ selectedProofName() }}</h2>
+        </div>
+        <button type="button" class="btn-outline !px-3 !py-2" (click)="closeProof()" aria-label="Close proof preview">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      @if (selectedProofType().startsWith('image/')) {
+        <div class="flex max-h-[70vh] justify-center overflow-auto rounded-xl bg-slate-50 p-3">
+          <img [src]="proofUrl" [alt]="selectedProofName()" class="max-h-[66vh] max-w-full object-contain" />
+        </div>
+      } @else if (selectedProofType() === 'application/pdf') {
+        <iframe [src]="selectedProofSafeUrl()" class="h-[70vh] w-full rounded-xl border border-slate-200" title="Expense proof PDF"></iframe>
+      } @else {
+        <div class="rounded-xl bg-slate-50 p-6 text-center text-sm text-slate-600">
+          Preview is not available for this file type.
+        </div>
+      }
+    </section>
+  </div>
+}
+
+@if (pendingConfirmation()) {
+  <app-confirm-dialog
+    [title]="confirmDialogTitle"
+    [message]="confirmDialogMessage"
+    confirmLabel="Yes, continue"
+    busyLabel="Processing..."
+    [busy]="confirming()"
+    (confirmed)="confirmPending()"
+    (cancelled)="cancelPending()"
+  ></app-confirm-dialog>
+}

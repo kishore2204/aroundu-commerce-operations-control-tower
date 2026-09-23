@@ -1,0 +1,109 @@
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-slate-900">Delivery Requests</h1>
+  <p class="text-sm text-slate-500 mt-1">Review pickup, drop, distance and load details before assigning a vehicle and driver.</p>
+</div>
+
+@if (toastMessage()) {
+  <div class="fixed top-4 right-4 z-50 card px-4 py-3 text-sm font-medium text-slate-800 shadow-card-hover animate-fade-in">
+    {{ toastMessage() }}
+  </div>
+}
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (orders().length === 0) {
+  <app-empty-state icon="local_shipping" title="No delivery requests right now" subtitle="Orders waiting for a delivery partner will appear here in real-time.">
+  </app-empty-state>
+} @else {
+  @if (availableVehicles().length === 0 || availableDrivers().length === 0) {
+    <div class="mb-5 flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>You need at least one verified active vehicle and one verified active driver before you can dispatch an order.</span>
+    </div>
+  }
+
+  <div class="grid grid-cols-1 gap-5 xl:grid-cols-2">
+    @for (order of orders(); track order.id) {
+      @let context = contextFor(order);
+      <div class="card card-hover flex flex-col">
+        <div class="flex items-center justify-between border-b border-dashed border-slate-200 pb-3 mb-4">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-receipt text-zepto-600"></i>
+            <span class="font-bold text-slate-900">{{ order.orderNumber }}</span>
+          </div>
+          <span class="badge" [class.badge-pending]="order.orderType === 'RETAIL'" [class.badge-active]="order.orderType === 'FLEET_SERVICE'">
+            {{ order.orderType === 'FLEET_SERVICE' ? 'LOGISTICS BOOKING' : 'RETAIL DELIVERY' }}
+          </span>
+        </div>
+
+        <div class="mb-4 grid gap-3 rounded-xl bg-slate-50 p-4 text-sm sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Pickup</p>
+            <p class="mt-1 font-semibold text-slate-800"><i class="fa-solid fa-store mr-1 text-zepto-500"></i>{{ context?.pickup || 'Loading...' }}</p>
+          </div>
+          <div class="sm:col-span-2">
+            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Drop</p>
+            <p class="mt-1 font-semibold text-slate-800"><i class="fa-solid fa-location-dot mr-1 text-violet-500"></i>{{ context?.drop || order.deliveryAddress || 'Loading...' }}</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Distance</p>
+            <p class="mt-1 font-semibold text-slate-800">{{ context?.distanceKm | number: '1.1-1' }} km</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">{{ order.orderType === 'RETAIL' ? 'Total Order Weight' : 'Approx. load' }}</p>
+            <p class="mt-1 font-semibold text-slate-800">{{ context?.weightLabel || 'Loading...' }}</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Order total</p>
+            <p class="mt-1 font-extrabold text-zepto-600">{{ order.totalAmount | currency: 'INR' }}</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Status</p>
+            <p class="mt-1 font-semibold text-slate-800">{{ order.orderStatus }}</p>
+          </div>
+        </div>
+
+        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="form-group">
+            <label class="form-label req-mark">Assign Vehicle</label>
+            <select class="select" [(ngModel)]="selectedVehicleIds[order.id]">
+              <option value="" disabled>Select vehicle</option>
+              <option *ngFor="let vehicle of availableVehicles()" [value]="vehicle.vehicleId">
+                {{ vehicle.registrationNumber }} · {{ vehicle.capacityKg ?? '?' }} kg{{ !vehicleCanHandle(vehicle, order) ? ' (insufficient capacity)' : '' }}
+              </option>
+            </select>
+            @if (selectedVehicle(order); as vehicle) {
+              <span class="text-xs text-slate-500">Vehicle capacity: {{ vehicle.capacityKg == null ? 'not recorded' : (vehicle.capacityKg | number: '1.0-3') + ' kg' }}</span>
+            }
+            @if (capacityError(order); as message) {
+              <span class="text-xs text-rose-600">{{ message }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label class="form-label req-mark">Assign Driver</label>
+            <select class="select" [(ngModel)]="selectedDriverIds[order.id]">
+              <option value="" disabled>Select driver</option>
+              <option *ngFor="let driver of availableDrivers()" [value]="driver.driverId">
+                {{ (driver.firstName || driver.lastName) ? ((driver.firstName || '') + ' ' + (driver.lastName || '')) : driver.licenseNumber }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn-primary mt-auto w-full"
+          (click)="accept(order)"
+          [disabled]="accepting() !== null || !canAccept(order)"
+        >
+          @if (accepting() === order.id) {
+            <div class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></div>
+          } @else {
+            <i class="fa-solid fa-circle-check"></i> Accept & Dispatch
+          }
+        </button>
+      </div>
+    }
+  </div>
+}

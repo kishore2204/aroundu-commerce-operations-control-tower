@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class InsufficientStockException extends RuntimeException {public InsufficientStockException(String m){super(m);} public InsufficientStockException(String m,Throwable c){super(m,c);}}

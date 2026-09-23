@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class MissingAuthenticatedUserException extends RuntimeException {public MissingAuthenticatedUserException(String m){super(m);} public MissingAuthenticatedUserException(String m,Throwable c){super(m,c);}}

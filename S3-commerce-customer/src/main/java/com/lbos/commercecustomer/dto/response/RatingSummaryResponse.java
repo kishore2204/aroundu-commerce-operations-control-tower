@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*; public record RatingSummaryResponse(Long productId,double average,long count,Map<Short,Long> distribution) {}

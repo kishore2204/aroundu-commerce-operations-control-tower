@@ -1,0 +1,322 @@
+<h1 class="mb-4 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-headset text-sm"></i>
+  </span>
+  Support
+</h1>
+
+<div class="flex gap-2 border-b border-slate-200 mb-5 overflow-x-auto">
+  <button
+    type="button"
+    class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors"
+    [class.text-zepto-600]="activeTab() === 'tickets'"
+    [class.border-b-2]="activeTab() === 'tickets'"
+    [class.border-zepto-600]="activeTab() === 'tickets'"
+    [class.text-slate-500]="activeTab() !== 'tickets'"
+    (click)="activeTab.set('tickets')"
+  >
+    Tickets
+  </button>
+  <button
+    type="button"
+    class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors"
+    [class.text-zepto-600]="activeTab() === 'escalated'"
+    [class.border-b-2]="activeTab() === 'escalated'"
+    [class.border-zepto-600]="activeTab() === 'escalated'"
+    [class.text-slate-500]="activeTab() !== 'escalated'"
+    (click)="activeTab.set('escalated')"
+  >
+    Escalated to me
+  </button>
+  @if (auth.role() === 'SUPER_ADMIN') {
+    <button type="button" class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors" [class.text-zepto-600]="activeTab() === 'developers'" [class.border-b-2]="activeTab() === 'developers'" [class.border-zepto-600]="activeTab() === 'developers'" (click)="activeTab.set('developers')">Contact Developers</button>
+  } @else {
+  <button
+    type="button"
+    class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors"
+    [class.text-zepto-600]="activeTab() === 'mine'"
+    [class.border-b-2]="activeTab() === 'mine'"
+    [class.border-zepto-600]="activeTab() === 'mine'"
+    [class.text-slate-500]="activeTab() !== 'mine'"
+    (click)="activeTab.set('mine')"
+  >
+    My tickets
+  </button>
+  }
+  <button
+    type="button"
+    class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors"
+    [class.text-zepto-600]="activeTab() === 'notify'"
+    [class.border-b-2]="activeTab() === 'notify'"
+    [class.border-zepto-600]="activeTab() === 'notify'"
+    [class.text-slate-500]="activeTab() !== 'notify'"
+    (click)="activeTab.set('notify')"
+  >
+    Send notification
+  </button>
+</div>
+
+@if (activeTab() === 'tickets') {
+  <div>
+    @if (!ticketsLoading() && tickets().length > 0) {
+      <div class="mb-3">
+        <select class="select max-w-xs" [ngModel]="categoryFilter()" (ngModelChange)="categoryFilter.set($event)">
+          <option value="ALL">All categories</option>
+          @for (c of categoryFilterOptions(); track c) {
+            <option [value]="c">{{ categoryLabel(c) }}</option>
+          }
+        </select>
+      </div>
+    }
+    @if (ticketsLoading()) {
+      <div class="flex justify-center py-10"><span class="spinner"></span></div>
+    } @else if (tickets().length === 0) {
+      <app-empty-state icon="support_agent" title="No support tickets"></app-empty-state>
+    } @else {
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>SLA</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (t of filteredTickets(); track t.customerTicketId) {
+              <tr>
+                <td>
+                  <a [routerLink]="[t.customerTicketId]" class="text-slate-900 hover:text-zepto-600">
+                    <p class="font-semibold">{{ t.ticketNumber }} - {{ t.subject }}</p>
+                    <p class="text-sm text-slate-500 mt-0.5">
+                      {{ categoryLabel(t.ticketCategory) }} / {{ categoryLabel(t.ticketSubCategory ?? '') }}
+                      - {{ t.raisedByRole }} - priority {{ t.priority }} - {{ t.raisedAt | date: 'medium' }}
+                    </p>
+                  </a>
+                </td>
+                <td>
+                  @if (slaLabel(t); as label) {
+                    <span
+                      class="badge"
+                      [class.badge-active]="slaState(t) === 'ok'"
+                      [class.badge-pending]="slaState(t) === 'at-risk'"
+                      [class.badge-danger]="slaState(t) === 'breached'"
+                    >{{ label }}</span>
+                  } @else {
+                    <span class="text-slate-400 text-sm">-</span>
+                  }
+                </td>
+                <td>
+                  <span class="badge" [class.badge-active]="t.ticketStatus === 'RESOLVED' || t.ticketStatus === 'CLOSED'" [class.badge-pending]="t.ticketStatus !== 'RESOLVED' && t.ticketStatus !== 'CLOSED'">
+                    {{ t.ticketStatus }}
+                  </span>
+                </td>
+                <td>
+                  <div class="flex justify-end">
+                    <a [routerLink]="[t.customerTicketId]" class="btn-outline !py-1.5 !px-3 !text-xs whitespace-nowrap">
+                      <i class="fa-solid fa-arrow-right"></i> Open ticket
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+}
+
+@if (activeTab() === 'escalated') {
+  <div>
+    @if (escalatedLoading()) {
+      <div class="flex justify-center py-10"><span class="spinner"></span></div>
+    } @else if (escalatedTickets().length === 0) {
+      <app-empty-state icon="call_made" title="Nothing escalated to you"></app-empty-state>
+    } @else {
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>SLA</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (t of escalatedTickets(); track t.customerTicketId) {
+              <tr>
+                <td>
+                  <a [routerLink]="[t.customerTicketId]" class="text-slate-900 hover:text-zepto-600">
+                    <p class="font-semibold">{{ t.ticketNumber }} - {{ t.subject }}</p>
+                    <p class="text-sm text-slate-500 mt-0.5">Escalated by {{ t.escalatedByAccountId }}: {{ t.escalationReason }}</p>
+                  </a>
+                </td>
+                <td>
+                  @if (slaLabel(t); as label) {
+                    <span
+                      class="badge"
+                      [class.badge-active]="slaState(t) === 'ok'"
+                      [class.badge-pending]="slaState(t) === 'at-risk'"
+                      [class.badge-danger]="slaState(t) === 'breached'"
+                    >{{ label }}</span>
+                  } @else {
+                    <span class="text-slate-400 text-sm">-</span>
+                  }
+                </td>
+                <td><span class="badge badge-pending">{{ t.ticketStatus }}</span></td>
+                <td>
+                  <div class="flex justify-end">
+                    <a [routerLink]="[t.customerTicketId]" class="btn-outline !py-1.5 !px-3 !text-xs whitespace-nowrap">
+                      <i class="fa-solid fa-arrow-right"></i> Open ticket
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+}
+
+@if (activeTab() === 'mine' && auth.role() !== 'SUPER_ADMIN') {
+  <div>
+    <app-my-tickets></app-my-tickets>
+  </div>
+}
+
+@if (activeTab() === 'developers' && auth.role() === 'SUPER_ADMIN') {
+  <div class="card max-w-2xl">
+    <h2 class="text-lg font-extrabold text-slate-900">Contact Developers</h2>
+    <p class="mt-1 text-sm text-slate-500">Send a technical message to the developer team.</p>
+    <form [formGroup]="developerForm" (ngSubmit)="sendDeveloperMessage()" class="mt-5 flex flex-col gap-4">
+      <div>
+        <label class="form-label req-mark">Title</label>
+        <input class="input" formControlName="title" maxlength="160" placeholder="Enter message title" />
+      </div>
+      <div>
+        <label class="form-label req-mark">Message</label>
+        <textarea class="input" formControlName="message" rows="6" maxlength="4000" placeholder="Describe the issue or request"></textarea>
+      </div>
+      <button type="submit" class="btn-primary self-start" [disabled]="developerForm.invalid">
+        <i class="fa-solid fa-paper-plane"></i> Send
+      </button>
+    </form>
+  </div>
+}
+
+@if (developerMailSent()) {
+  <div class="fixed inset-0 z-[80] grid place-items-center bg-slate-900/55 p-4" (click)="closeDeveloperMailPopup()">
+    <section class="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-2xl" role="dialog" aria-modal="true" aria-label="Developer message sent" (click)="$event.stopPropagation()">
+      <div class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-100 text-xl text-emerald-600">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 class="mt-4 text-lg font-extrabold text-slate-900">Message sent</h3>
+      <p class="mt-2 text-sm text-slate-600">A mail has been sent to the developer team.</p>
+      <button type="button" class="btn-primary mt-5" (click)="closeDeveloperMailPopup()">OK</button>
+    </section>
+  </div>
+}
+
+@if (activeTab() === 'notify') {
+  <div>
+    <div class="card max-w-2xl mb-6">
+      <form [formGroup]="notifyForm" (ngSubmit)="sendNotification()">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Recipient</label>
+            @if (!useCustomRecipient()) {
+              <select class="select" formControlName="userAccountId">
+                <option value="">Select recipient</option>
+                @for (r of recipientOptions(); track r.userAccountId) {
+                  <option [value]="r.userAccountId">{{ r.label }}</option>
+                }
+              </select>
+              @if (recipientOptions().length === 0) {
+                <p class="text-xs text-slate-500 mt-1">No recipients found for your zone yet.</p>
+              }
+              <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" (click)="useCustomRecipient.set(true)">
+                Enter a user account ID manually instead
+              </button>
+            } @else {
+              <input class="input" formControlName="userAccountId" placeholder="UUID" />
+              @if (recipientOptions().length > 0) {
+                <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" (click)="useCustomRecipient.set(false)">
+                  Pick from list instead
+                </button>
+              }
+            }
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Type</label>
+            @if (!useCustomNotificationType()) {
+              <select class="select" formControlName="notificationType" (change)="onNotificationTypeChange($any($event.target).value)">
+                <option value="" disabled>Select a type</option>
+                @for (t of notificationTypeOptions; track t) {
+                  <option [value]="t">{{ t.split('_').join(' ') }}</option>
+                }
+              </select>
+            } @else {
+              <input class="input" formControlName="notificationType" placeholder="e.g. VERIFICATION_UPDATE" />
+              <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" (click)="useCustomNotificationType.set(false)">
+                Pick from list instead
+              </button>
+            }
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Title</label>
+            <input class="input" formControlName="title" />
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Message</label>
+            <textarea class="input" formControlName="message" rows="3"></textarea>
+          </div>
+        </div>
+        @if (notifyError()) {
+          <p class="text-rose-600 text-sm mb-3">{{ notifyError() }}</p>
+        }
+        @if (notifySent()) {
+          <p class="text-emerald-600 text-sm mb-3">Notification sent.</p>
+        }
+        <button type="submit" class="btn-primary" [disabled]="notifyForm.invalid || sendingNotify()">
+          Send
+        </button>
+      </form>
+    </div>
+
+    <h2 class="text-lg font-bold text-slate-900 mb-3">Recent notifications</h2>
+    @if (notificationsLoading()) {
+      <div class="flex justify-center py-10"><span class="spinner"></span></div>
+    } @else if (notifications().length === 0) {
+      <app-empty-state icon="notifications" title="No notifications sent yet"></app-empty-state>
+    } @else {
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Notification</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (n of notifications(); track n.notificationId) {
+              <tr>
+                <td>
+                  <p class="font-semibold">{{ n.title }}</p>
+                  <p class="text-sm text-slate-500 mt-0.5">{{ n.message }} - {{ n.sentAt | date: 'medium' }}</p>
+                </td>
+                <td>
+                  <span class="badge" [class.badge-active]="n.read" [class.badge-pending]="!n.read">{{ n.read ? 'Read' : 'Unread' }}</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+}

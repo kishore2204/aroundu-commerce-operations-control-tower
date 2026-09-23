@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*;import com.lbos.commercecustomer.enums.CategoryStatus; public record CategoryResponse(Long id,String name,String description,CategoryStatus status) {}

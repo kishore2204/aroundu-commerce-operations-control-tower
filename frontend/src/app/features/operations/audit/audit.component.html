@@ -1,0 +1,43 @@
+<div class="flex items-start justify-between gap-4 mb-1">
+  <h1 class="flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+      <i class="fa-solid fa-clipboard-list text-sm"></i>
+    </span>
+    Audit log
+  </h1>
+  @if (!loading() && logs().length > 0) {
+    <button type="button" class="btn-outline" (click)="exportCsv()">
+      <i class="fa-solid fa-file-csv"></i> Export CSV
+    </button>
+  }
+</div>
+<p class="text-sm text-slate-500 mb-5">Write-once, read-many - entries are recorded by the platform, not editable here.</p>
+
+@if (loading()) {
+  <div class="flex justify-center py-10"><span class="spinner"></span></div>
+} @else if (logs().length === 0) {
+  <app-empty-state icon="history" title="No audit log entries"></app-empty-state>
+} @else {
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Source module</th>
+          <th>Performed at</th>
+          <th>IP address</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (log of rows(); track log.auditLogId) {
+          <tr>
+            <td class="font-semibold">{{ log.action }}</td>
+            <td>{{ log.module }}</td>
+            <td>{{ log.performedAt | date: 'medium' }}</td>
+            <td class="font-mono text-sm">{{ log.ipAddress || '-' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class ExternalServiceTimeoutException extends RuntimeException {public ExternalServiceTimeoutException(String m){super(m);} public ExternalServiceTimeoutException(String m,Throwable c){super(m,c);}}

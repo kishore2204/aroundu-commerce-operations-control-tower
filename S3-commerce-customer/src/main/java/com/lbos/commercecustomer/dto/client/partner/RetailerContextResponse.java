@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.client.partner; import java.util.*;import java.math.*; public record RetailerContextResponse(UUID retailerId,UUID userAccountId,String businessName,UUID cityId) {}

@@ -1,0 +1,458 @@
+/* Zepto-inspired Modern E-Commerce & Control Tower Design System */
+/* Fonts and icons are vendored locally (see assets/fonts and the @fortawesome npm package)
+ * rather than fetched from fonts.googleapis.com/cdnjs.cloudflare.com at build or runtime -
+ * a network-restricted build environment (e.g. behind a corporate proxy) must not depend on
+ * reaching either host. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('assets/fonts/inter-var.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('assets/fonts/outfit-var.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('assets/fonts/plus-jakarta-sans-var.woff2') format('woff2');
+}
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-orange: #7c1fb8;
+  --primary-orange-dark: #6a1899;
+  --primary-pink: #8534c9;
+  --accent-coral: #7c1fb8;
+  --heading-dark: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --bg-surface: #ffffff;
+  --border-light: #e2e8f0;
+  --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  --hover-shadow: 0 12px 30px -5px rgba(124, 31, 184, 0.16);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Status Colors */
+  --status-active-bg: #f0fdf4;
+  --status-active-text: #16a34a;
+  --status-pending-bg: #fff7ed;
+  --status-pending-text: #ea580c;
+  --status-inactive-bg: #f1f5f9;
+  --status-inactive-text: #64748b;
+  --status-danger-bg: #fef2f2;
+  --status-danger-text: #dc2626;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page Layout Container */
+.page-container {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1.25rem 3rem 1.25rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-header h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--heading-dark);
+  margin: 0;
+  background: linear-gradient(135deg, #0f172a 0%, #7c1fb8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+/* Glassmorphism & Card Utilities */
+.instamart-card, .card {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  transition: var(--transition-smooth);
+  padding: 1.25rem;
+}
+
+.instamart-card:hover {
+  box-shadow: var(--hover-shadow);
+  transform: translateY(-2px);
+}
+
+/* Form Controls & Inputs */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--heading-dark);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--heading-dark);
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: var(--accent-coral);
+  box-shadow: 0 0 0 3px rgba(124, 31, 184, 0.14);
+}
+
+/* Modern Pill Badges */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.badge-status.active, .badge-status.ACTIVE, .badge-status.COMPLETED, .badge-status.DELIVERED, .badge-status.VERIFIED {
+  background: var(--status-active-bg);
+  color: var(--status-active-text);
+  border: 1px solid #bbf7d0;
+}
+
+.badge-status.pending, .badge-status.PENDING, .badge-status.IN_TRANSIT, .badge-status.PICKED, .badge-status.FINDING_DELIVERY_PARTNER {
+  background: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border: 1px solid #ffedd5;
+}
+
+.badge-status.inactive, .badge-status.INACTIVE, .badge-status.CANCELLED {
+  background: var(--status-inactive-bg);
+  color: var(--status-inactive-text);
+  border: 1px solid #e2e8f0;
+}
+
+.badge-status.danger, .badge-status.SUSPENDED, .badge-status.REJECTED {
+  background: var(--status-danger-bg);
+  color: var(--status-danger-text);
+  border: 1px solid #fecaca;
+}
+
+/* Instamart Vibrant Buttons */
+.btn-instamart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--primary-orange) 0%, var(--accent-coral) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(124, 31, 184, 0.3);
+  transition: var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-instamart:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-orange-dark) 0%, var(--accent-coral) 100%);
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 20px rgba(124, 31, 184, 0.4);
+}
+
+.btn-instamart:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-instamart-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #ffffff;
+  color: var(--accent-coral);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 1.5px solid var(--accent-coral);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-instamart-outline:hover:not(:disabled) {
+  background: #f4eefb;
+  transform: translateY(-1px);
+}
+
+/* Tables */
+.table-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  /*
+   * overflow-x: auto (not hidden) - every call site also adds the Tailwind `overflow-x-auto`
+   * utility class for wide tables, but that utility and this hand-written rule have equal
+   * specificity, and this rule is declared later in the compiled CSS (after @tailwind
+   * utilities), so a bare `overflow: hidden` here silently won regardless of what each page
+   * asked for - confirmed live: a driver's trip-history table clipped its Proofs/History
+   * columns completely, with no scrollbar and no way to reach them. overflow-y stays hidden
+   * so the card's rounded corners still clip the table header's flat background correctly.
+   */
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.custom-table th {
+  background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.custom-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  color: var(--heading-dark);
+  vertical-align: middle;
+}
+
+.custom-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f7f8ff;
+}
+
+.custom-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.thumb-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================================================
+   Zepto-style Tailwind component primitives (replace Material)
+   ============================================================ */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 px-5 py-2.5 text-sm font-bold text-white shadow-glow transition-all duration-200 hover:brightness-[1.06] hover:shadow-card-hover hover:-translate-y-px active:scale-[0.98] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:brightness-100;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-zgreen-500 to-zgreen-400 px-5 py-2.5 text-sm font-bold text-white shadow-card transition-all duration-200 hover:shadow-card-hover hover:-translate-y-px active:scale-[0.98] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-[1.5px] border-zepto-200 bg-white px-5 py-2.5 text-sm font-bold text-zepto-600 transition-all duration-200 hover:border-zepto-400 hover:bg-zepto-50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-icon {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-600 transition-all duration-150 hover:bg-zepto-50 hover:text-zepto-600 active:scale-90;
+  }
+
+  .card {
+    @apply rounded-2xl border border-slate-100 bg-white p-5 shadow-card transition-shadow duration-300;
+  }
+  .card-hover {
+    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-zepto-100;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide;
+  }
+  .badge-active { @apply bg-emerald-50 text-emerald-600 border border-emerald-200; }
+  .badge-pending { @apply bg-amber-50 text-amber-600 border border-amber-200; }
+  .badge-inactive { @apply bg-slate-100 text-slate-500 border border-slate-200; }
+  .badge-danger { @apply bg-rose-50 text-rose-600 border border-rose-200; }
+
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800 outline-none transition-all duration-150 placeholder:text-slate-400 focus:border-zepto-500 focus:ring-4 focus:ring-zepto-100;
+  }
+  /*
+   * Every dropdown in the app is a <select class="select"> (or a control that borrows the class). The native
+   * arrow is removed by appearance: none, so the arrow is supplied here, once: a chevron on the right, the
+   * value area keeps clear of it (pr-10) and long values are truncated instead of running under it.
+   * The input look (height, padding, border, radius, focus ring) comes from .input, so a dropdown and a text
+   * field always line up.
+   */
+  .select {
+    @apply input cursor-pointer appearance-none truncate bg-no-repeat pr-10;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E");
+    background-position: right 0.85rem center;
+    background-size: 1rem 1rem;
+  }
+  .select:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%237c1fb8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E");
+  }
+  .select:disabled {
+    @apply cursor-not-allowed bg-slate-50 text-slate-400;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23cbd5e1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E");
+  }
+  .select[multiple],
+  .select[size]:not([size='1']) {
+    background-image: none;
+    @apply pr-4;
+  }
+  .form-label {
+    @apply mb-1.5 block text-sm font-bold text-slate-800;
+  }
+  /* Red "*" after the label of a MANDATORY field. Add `req-mark` only where the form control's
+   * validators (or the submit guard) genuinely require a value - optional fields stay unmarked. */
+  .req-mark::after {
+    content: ' *';
+    color: #dc2626;
+    font-weight: 700;
+  }
+
+  .spinner {
+    @apply inline-block h-6 w-6 animate-spin rounded-full border-[3px] border-zepto-100 border-t-zepto-600;
+  }
+
+  /*
+   * Shared chrome primitives (header/dropdown/nav) - introduced for the wireframe-matched
+   * design pass (home.html.txt): glassmorphic sticky header, gradient brandmark, soft-lift
+   * nav pills, and a reusable dropdown-panel animation. Used by every portal shell so the
+   * chrome looks and behaves identically across the app.
+   */
+  .header-glass {
+    @apply sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl transition-shadow duration-300;
+  }
+  .brandmark {
+    @apply grid h-10 w-10 shrink-0 -rotate-6 place-items-center rounded-2xl bg-gradient-to-br from-zepto-600 to-violet-500 text-lg font-black text-white shadow-glow transition-transform duration-300;
+  }
+  .nav-pill {
+    @apply rounded-full px-3.5 py-1.5 text-sm font-semibold text-slate-600 no-underline transition-all duration-150 hover:bg-zepto-50 hover:text-zepto-600;
+  }
+  .nav-pill.active,
+  .nav-pill[aria-current='page'] {
+    @apply bg-gradient-to-br from-zepto-50 to-violet-50 text-zepto-700;
+  }
+  .dropdown-panel {
+    @apply animate-pop-in rounded-2xl border border-slate-100 bg-white py-1.5 text-slate-700 shadow-card-hover;
+  }
+}
+
+/*
+ * Password fields: the application provides exactly one show/hide toggle per field (the button next to the
+ * input). Edge/Chrome add their own reveal (eye) and clear controls inside password inputs, which showed up as
+ * a second eye - suppress the browser-native ones so only the application's toggle is ever visible.
+ */
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear,
+input[type='password']::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+}

@@ -1,0 +1,6 @@
+<div class="flex flex-col items-center justify-center gap-3 py-12 px-4">
+  <div class="spinner" [style.width.px]="diameter" [style.height.px]="diameter"></div>
+  @if (message) {
+    <p class="message text-sm text-slate-500 m-0">{{ message }}</p>
+  }
+</div>

@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class BusinessValidationException extends RuntimeException {public BusinessValidationException(String m){super(m);} public BusinessValidationException(String m,Throwable c){super(m,c);}}

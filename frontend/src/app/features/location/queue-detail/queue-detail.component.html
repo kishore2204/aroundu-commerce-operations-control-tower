@@ -1,0 +1,161 @@
+<a [routerLink]="[queueListPath()]" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-zepto-600 mb-4">
+  <i class="fa-solid fa-arrow-left"></i> Back to queue
+</a>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><span class="spinner"></span></div>
+} @else if (!queue()) {
+  <app-empty-state icon="error_outline" title="Entry not found"></app-empty-state>
+} @else {
+  <div class="flex items-start justify-between mb-2 gap-4">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">{{ subjectTitle() }}</h1>
+      <p class="text-sm text-slate-500 mt-1">{{ queue()!.subjectType | titlecase }} application · submitted {{ queue()!.createdAt | date: 'medium' }}</p>
+    </div>
+    <span class="badge" [class.badge-active]="queue()!.verificationStatus === 'APPROVED'" [class.badge-danger]="queue()!.verificationStatus === 'REJECTED' || queue()!.verificationStatus === 'RESUBMISSION_REQUIRED'" [class.badge-pending]="queue()!.verificationStatus !== 'APPROVED' && queue()!.verificationStatus !== 'REJECTED' && queue()!.verificationStatus !== 'RESUBMISSION_REQUIRED'">{{ queue()!.verificationStatus }}</span>
+  </div>
+
+  @if (retailer(); as r) {
+    <section class="card mt-6">
+      <h2 class="text-base font-bold text-slate-900 mb-3">Retailer business details to cross-check</h2>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+        <p><span class="text-slate-400">Business</span><br><strong>{{ r.businessName }}</strong></p>
+        <p><span class="text-slate-400">GST</span><br><strong>{{ r.gstNumber || '-' }}</strong></p>
+        <p><span class="text-slate-400">Registration</span><br><strong>{{ r.registrationNumber || '-' }}</strong></p>
+        <p><span class="text-slate-400">City</span><br>{{ cityName() || '-' }}</p>
+        <p><span class="text-slate-400">Zone</span><br>{{ zoneName() || '-' }}</p>
+        <p><span class="text-slate-400">Retailer status</span><br>{{ r.retailerStatus }}</p>
+      </div>
+    </section>
+  }
+  @if (fleetOwner(); as f) {
+    <section class="card mt-6">
+      <h2 class="text-base font-bold text-slate-900 mb-3">Fleet owner details to cross-check</h2>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+        <p><span class="text-slate-400">Business</span><br><strong>{{ f.businessName || '-' }}</strong></p>
+        <p><span class="text-slate-400">City</span><br>{{ cityName() || '-' }}</p>
+        <p><span class="text-slate-400">Zone</span><br>{{ zoneName() || '-' }}</p>
+        <p><span class="text-slate-400">Status</span><br>{{ f.profileStatus }} / {{ f.ownerStatus }}</p>
+      </div>
+    </section>
+  }
+  @if (driver(); as d) {
+    <section class="card mt-6">
+      <h2 class="text-base font-bold text-slate-900 mb-3">Driver details entered by Fleet Owner</h2>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+        <p><span class="text-slate-400">Driver</span><br><strong>{{ d.firstName }} {{ d.lastName }}</strong></p>
+        <p><span class="text-slate-400">Email</span><br>{{ d.email || '-' }}</p>
+        <p><span class="text-slate-400">License number</span><br><strong>{{ d.licenseNumber }}</strong></p>
+        <p><span class="text-slate-400">License expiry</span><br>{{ d.licenseExpiryDate | date: 'mediumDate' }}</p>
+        <p><span class="text-slate-400">City</span><br>{{ d.cityName || cityName() || '-' }}</p>
+        <p><span class="text-slate-400">Driver status</span><br>{{ d.driverStatus }}</p>
+      </div>
+      @if (owningFleet(); as owner) { <div class="mt-3 rounded-xl bg-zepto-50 p-3 text-sm text-zepto-800"><strong>Uploaded by fleet:</strong> {{ owner.businessName || '-' }}</div> }
+    </section>
+  }
+  @if (vehicle(); as v) {
+    <section class="card mt-6">
+      <h2 class="text-base font-bold text-slate-900 mb-3">Vehicle details entered by Fleet Owner</h2>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+        <p><span class="text-slate-400">Registration</span><br><strong>{{ v.registrationNumber }}</strong></p>
+        <p><span class="text-slate-400">Vehicle type</span><br>{{ v.vehicleType }}</p>
+        <p><span class="text-slate-400">Make / model</span><br>{{ v.make || '-' }} {{ v.model || '' }}</p>
+        <p><span class="text-slate-400">Model year</span><br>{{ v.modelYear || '-' }}</p>
+        <p><span class="text-slate-400">Capacity</span><br>{{ v.capacityKg || '-' }} kg</p>
+        <p><span class="text-slate-400">Vehicle status</span><br>{{ v.vehicleStatus }}</p>
+      </div>
+      @if (owningFleet(); as owner) { <div class="mt-3 rounded-xl bg-zepto-50 p-3 text-sm text-zepto-800"><strong>Uploaded by fleet:</strong> {{ owner.businessName || '-' }}</div> }
+    </section>
+  }
+
+  @if (isWaitingForResubmission()) {
+    <section class="card mt-6 !border-amber-200 bg-amber-50/50">
+      <h2 class="font-bold text-amber-800"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Waiting for document resubmission</h2>
+      <p class="mt-1 text-sm text-amber-700">{{ queue()!.rejectionReason || 'A document was rejected. The application cannot be approved until the requested file is uploaded again and verified.' }}</p>
+    </section>
+  }
+
+  <section class="card mt-6">
+    <div class="mb-4 flex items-center justify-between gap-3">
+      <div><h2 class="text-base font-bold text-slate-900">Required documents</h2><p class="text-sm text-slate-500">Expected for this {{ queue()!.subjectType | titlecase }} application: {{ expectedDocuments().length }}</p></div>
+      <span class="badge" [class.badge-active]="allRequiredDocumentsApproved()" [class.badge-pending]="!allRequiredDocumentsApproved()">{{ documents().length }} / {{ expectedDocuments().length }} uploaded</span>
+    </div>
+    <div class="space-y-3">
+      @for (expected of expectedDocuments(); track expected.type) {
+        @if (documentForType(expected.type); as doc) {
+          <article class="rounded-xl border border-slate-200 p-4">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <button type="button" class="flex min-w-0 flex-1 items-center gap-3 text-left" [disabled]="!doc.fileName" (click)="toggleDocumentPreview(doc)">
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-slate-100 text-slate-600"><i class="fa-solid fa-file-shield"></i></span>
+                <span class="min-w-0"><strong class="block text-sm text-slate-800">{{ expected.label }}</strong><span class="block truncate text-xs text-slate-500">{{ doc.fileName || 'No file uploaded' }} · version {{ doc.versionNumber }}</span></span>
+              </button>
+              <span class="badge" [class]="statusBadgeClass(doc.documentStatus)">{{ statusLabel(doc.documentStatus) }}</span>
+            </div>
+            @if (doc.rejectReason) { <p class="mt-2 rounded-lg bg-rose-50 p-2 text-xs text-rose-700"><strong>Re-upload reason:</strong> {{ doc.rejectReason }}</p> }
+            <button type="button" class="mt-2 text-xs font-semibold text-zepto-600 hover:underline" (click)="historyFor.set(expected)"><i class="fa-solid fa-clock-rotate-left mr-1"></i>View Document History</button>
+
+            @if (expandedDocumentId() === doc.documentId) {
+              <div class="mt-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
+                @if (loadingPreview()) {
+                  <div class="flex justify-center py-6"><span class="spinner"></span></div>
+                } @else {
+                  @if (previewError()) {
+                    <p class="text-sm text-rose-600">{{ previewError() }}</p>
+                  } @else {
+                    @if (previewUrls()[doc.documentId]; as url) {
+                      @if (previewIsImage()[doc.documentId]) {
+                        <img [src]="url" [alt]="expected.label" class="max-h-96 w-full rounded-lg bg-white object-contain" />
+                      } @else {
+                        <a [href]="url" [download]="doc.fileName" class="btn-outline inline-flex"><i class="fa-solid fa-file-arrow-down"></i> Open {{ doc.fileName }}</a>
+                      }
+                    }
+                  }
+                }
+              </div>
+            }
+
+            @if (canReviewDocuments() && doc.documentStatus !== 'APPROVED' && doc.documentStatus !== 'REJECTED') {
+              <div class="mt-4 grid grid-cols-1 gap-2 md:grid-cols-[auto_1fr_auto]">
+                <button type="button" class="btn-secondary" [disabled]="!!decidingDocumentId()" (click)="reviewDocument(doc, 'APPROVED')"><i class="fa-solid fa-circle-check"></i> Approve document</button>
+                <input class="input" [(ngModel)]="documentRejectReasons[doc.documentId]" placeholder="Reason required if this document must be re-uploaded" />
+                <button type="button" class="btn-outline !border-rose-500 !text-rose-600" [disabled]="!!decidingDocumentId() || !documentRejectReasons[doc.documentId]" (click)="reviewDocument(doc, 'REJECTED')"><i class="fa-solid fa-rotate-left"></i> Request re-upload</button>
+              </div>
+            }
+          </article>
+        } @else {
+          <article class="rounded-xl border border-dashed border-rose-300 bg-rose-50/50 p-4">
+            <p class="font-semibold text-rose-700"><i class="fa-solid fa-circle-exclamation mr-2"></i>{{ expected.label }} is missing</p>
+            <p class="mt-1 text-xs text-rose-600">Do not approve this application until the submitter uploads this required document.</p>
+          </article>
+        }
+      }
+    </div>
+  </section>
+
+  @if (!isTerminal() && canReview() && !isOwnSubmission() && !isWaitingForResubmission()) {
+    <section class="card mt-6">
+      <h2 class="text-base font-bold text-slate-900 mb-2">Final application decision</h2>
+      @if (!allRequiredDocumentsApproved()) { <p class="mb-3 text-sm text-slate-500">Approve each required document above first. Final approval stays disabled until all required documents are approved.</p> }
+      <button type="button" class="btn-primary" [disabled]="deciding() || !allRequiredDocumentsApproved()" (click)="approveApplication()"><i class="fa-solid fa-badge-check"></i> Approve application</button>
+    </section>
+  }
+
+  @if (isOwnSubmission() && !isTerminal()) { <p class="card mt-6 text-sm text-slate-500">You submitted this entry, so you cannot review it yourself.</p> }
+
+  @if (isApproved()) {
+    <section class="card mt-6 !border-rose-200">
+      <h2 class="text-base font-bold text-slate-900 mb-1">Block this approved subject</h2>
+      <div class="mt-3 flex flex-wrap items-end gap-3">
+        <div class="form-group flex-1 min-w-[240px] !gap-1"><label class="form-label req-mark !mb-0 !text-xs">Reason</label><input class="input" [formControl]="revokeReasonControl" /></div>
+        <button type="button" class="btn-outline !border-rose-500 !text-rose-600" [disabled]="revoking() || !revokeReasonControl.value" (click)="revoke()"><i class="fa-solid fa-ban"></i> Revoke Approval &amp; Block</button>
+      </div>
+    </section>
+  }
+
+  @if (historyFor(); as history) {
+    <app-document-history-dialog [queueId]="queue()!.verificationQueueId" [documentType]="history.type" [label]="history.label" (closed)="historyFor.set(null)" />
+  }
+
+  @if (actionMessage()) { <p class="mt-4 rounded-xl bg-emerald-50 p-3 text-sm font-semibold text-emerald-700">{{ actionMessage() }}</p> }
+  @if (actionError()) { <p class="mt-4 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700">{{ actionError() }}</p> }
+}

@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.time.OffsetDateTime; public record ApiResponse<T>(OffsetDateTime timestamp,String correlationId,String message,T data){public static <T> ApiResponse<T> of(String c,String m,T d){return new ApiResponse<>(OffsetDateTime.now(),c,m,d);}}

@@ -1,0 +1,163 @@
+<div class="animate-fade-in">
+  <div *ngIf="resubmissionNotice() as notice" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4">
+    <div class="card w-full max-w-lg bg-white">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900"><i class="fa-solid fa-file-circle-exclamation text-amber-500"></i> {{ notice.title }}</h3>
+          <p class="text-sm text-slate-600 mt-2">{{ notice.message }}</p>
+          <p class="text-xs text-slate-500 mt-2">Use the Re-upload Insurance action in the vehicle table. Only the rejected document needs to be replaced.</p>
+        </div>
+        <button type="button" class="btn-icon" (click)="resubmissionNotice.set(null)" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="flex justify-end mt-4"><button type="button" class="btn-primary" (click)="resubmissionNotice.set(null)">OK</button></div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">Fleet Vehicles</h1>
+      <p class="text-sm text-slate-500 mt-1">Manage delivery vehicles, capacity, and insurance documents</p>
+    </div>
+    <button type="button" class="btn-primary" (click)="showForm.set(!showForm())">
+      <i class="fa-solid" [ngClass]="showForm() ? 'fa-xmark' : 'fa-truck-medical'"></i>
+      {{ showForm() ? 'Cancel' : 'Add New Vehicle' }}
+    </button>
+  </div>
+
+  <!-- Add Vehicle Form -->
+  <div *ngIf="showForm()" class="card mb-6">
+    <h3 class="text-lg font-bold text-slate-900 mb-5"><i class="fa-solid fa-truck text-zepto-600"></i> Register Vehicle</h3>
+
+    <div *ngIf="formError()" class="bg-rose-50 text-rose-700 rounded-lg px-3.5 py-2.5 mb-4 text-sm">
+      <i class="fa-solid fa-triangle-exclamation"></i> {{ formError() }}
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label req-mark">Registration Number<app-field-hint field="vehicleNumber" /></label>
+          <input type="text" class="input" formControlName="registrationNumber" placeholder="KA-01-AB-1234" maxlength="13" [appFormatInput]="'vehicle'" />
+          @if (registrationNumberError(); as message) { <p class="mt-1 text-xs font-semibold text-rose-600">{{ message }}</p> }
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Vehicle Type</label>
+          <select class="select" formControlName="vehicleType">
+            <option value="BIKE">BIKE (Two-Wheeler)</option>
+            <option value="SCOOTER">SCOOTER</option>
+            <option value="VAN">VAN (Cargo)</option>
+            <option value="TRUCK">TRUCK (Light Commercial)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Make / Manufacturer</label>
+          <input type="text" class="input" formControlName="make" placeholder="Honda, Hero, Tata..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Vehicle Model</label>
+          <input type="text" class="input" formControlName="model" placeholder="Activa 6G, Splendor..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Model Year</label>
+          <input type="number" class="input" min="1900" step="1" appIntegerOnly formControlName="modelYear" />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Payload Capacity (kg)<app-field-hint field="vehicleCapacity" /></label>
+          <input type="number" class="input" formControlName="capacityKg" placeholder="50" />
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Insurance Document Photo / File</label>
+          <input type="file" accept="image/*" class="input" (change)="onInsuranceFileSelected($event)" />
+          <div *ngIf="insuranceImageBase64()" class="flex items-center gap-3 mt-2">
+            <img [src]="insuranceImageBase64()" alt="Insurance Document" class="thumb-img" />
+            <span class="text-emerald-600 text-sm">Photo selected</span>
+          </div>
+          <input *ngIf="!insuranceImageBase64()" type="text" class="input mt-1.5" formControlName="insuranceDocumentUrl" placeholder="Or enter image URL" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3">
+        <button type="button" class="btn-outline" (click)="showForm.set(false)">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid || saving()">
+          <span *ngIf="!saving()"><i class="fa-solid fa-check"></i> Register Vehicle</span>
+          <span *ngIf="saving()"><i class="fa-solid fa-spinner fa-spin"></i> Registering...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Vehicles Table -->
+  <div class="table-card">
+    <div *ngIf="loading()" class="text-center text-slate-400 py-12">
+      <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+      <p class="mt-2">Loading vehicles...</p>
+    </div>
+
+    <div *ngIf="!loading() && vehicles().length === 0" class="text-center text-slate-400 py-12">
+      <i class="fa-solid fa-truck-ramp-box fa-3x"></i>
+      <h3 class="text-slate-700 font-semibold mt-3">No Vehicles Registered</h3>
+      <p class="text-sm">Add your fleet vehicles to begin creating assignments.</p>
+    </div>
+
+    <table *ngIf="!loading() && vehicles().length > 0" class="custom-table">
+      <thead>
+        <tr>
+          <th>Vehicle</th>
+          <th>Type & Make</th>
+          <th>Capacity</th>
+          <th>Insurance Doc</th>
+          <th>Status</th>
+          <th>Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of vehicles(); trackBy: trackByVehicleId">
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center">
+                <i class="fa-solid fa-truck"></i>
+              </div>
+              <div>
+                <strong>{{ v.registrationNumber }}</strong>
+                <div class="text-xs text-slate-400">{{ v.vehicleType || 'Vehicle' }}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div><strong>{{ v.vehicleType }}</strong></div>
+            <div class="text-xs text-slate-400">{{ v.make }} {{ v.model }}</div>
+          </td>
+          <td>{{ v.capacityKg }} kg</td>
+          <td>
+            <div *ngIf="v.insuranceDocumentUrl">
+              <img *ngIf="v.insuranceDocumentUrl.startsWith('data:image') || v.insuranceDocumentUrl.startsWith('http')" [src]="v.insuranceDocumentUrl" alt="Insurance" class="thumb-img" />
+              <span *ngIf="!v.insuranceDocumentUrl.startsWith('data:image') && !v.insuranceDocumentUrl.startsWith('http')" class="text-xs text-slate-400">{{ v.insuranceDocumentUrl }}</span>
+            </div>
+            <span *ngIf="!v.insuranceDocumentUrl" class="text-slate-400">-</span>
+          </td>
+          <td>
+            <span
+              class="badge"
+              [class.badge-active]="v.vehicleStatus === 'ACTIVE'"
+              [class.badge-pending]="v.vehicleStatus === 'MAINTENANCE'"
+              [class.badge-inactive]="v.vehicleStatus === 'INACTIVE' || v.vehicleStatus === 'RETIRED'"
+              [class.badge-danger]="v.vehicleStatus === 'SUSPENDED'"
+            >
+              {{ v.vehicleStatus }}
+            </span>
+          </td>
+          <td>
+            <ng-container *ngIf="resubmissionQueues()[v.vehicleId] as queue; else noVehicleResubmission">
+              <div class="text-xs text-rose-600 mb-2 max-w-xs">{{ queue.rejectionReason || 'Insurance document must be re-uploaded.' }}</div>
+              <label class="btn-outline cursor-pointer" [class.opacity-50]="resubmittingId() === v.vehicleId">
+                <i class="fa-solid" [ngClass]="resubmittingId() === v.vehicleId ? 'fa-spinner fa-spin' : 'fa-upload'"></i>
+                {{ resubmittingId() === v.vehicleId ? 'Uploading...' : 'Re-upload Insurance' }}
+                <input type="file" class="hidden" accept="image/*,.pdf" [disabled]="!!resubmittingId()" (change)="onResubmitInsurance(v, $event)" />
+              </label>
+            </ng-container>
+            <ng-template #noVehicleResubmission><span class="text-xs text-slate-400">No re-upload requested</span></ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

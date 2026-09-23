@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*;import com.lbos.commercecustomer.enums.InventoryStatus; public record StockAdjustmentResponse(Long productId,int resultingQuantity,InventoryStatus inventoryStatus) {}

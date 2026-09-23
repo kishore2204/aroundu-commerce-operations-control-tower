@@ -1,0 +1,197 @@
+<h1 class="mb-4 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-bag-shopping text-sm"></i>
+  </span>
+  Checkout
+</h1>
+
+@if (loading()) {
+  <div class="flex justify-center py-10"><div class="spinner"></div></div>
+} @else if (!cart() || cart()!.items.length === 0) {
+  <app-empty-state icon="shopping_cart" title="Your cart is empty" subtitle="Add something before checking out.">
+  </app-empty-state>
+  <div class="mt-4 flex justify-center"><a class="btn-primary" routerLink="/products">Browse products</a></div>
+} @else if (step() === 'done' && placedOrders().length > 0) {
+  <div class="card flex flex-col items-center gap-3 py-10 text-center">
+    <i class="fa-solid fa-circle-check text-5xl text-emerald-500"></i>
+    <h2 class="text-xl font-extrabold text-slate-900">{{ placedOrders().length === 1 ? 'Order placed' : 'Orders placed' }}</h2>
+    <p class="text-sm text-slate-600">Your cart has been separated correctly by shop. Each shop receives only its own items and order total.</p>
+    <div class="mt-1 flex max-w-xl flex-wrap justify-center gap-2">
+      @for (order of placedOrders(); track order.id) {
+        <a class="btn-outline !py-1.5 !px-3 !text-xs" [routerLink]="['/orders', order.id]">Order #{{ order.orderNumber }}</a>
+      }
+    </div>
+    <a class="btn-primary mt-2" routerLink="/orders">View all orders</a>
+  </div>
+} @else {
+  <section class="card mb-4">
+    <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
+      <i class="fa-solid fa-location-dot text-violet-500"></i> Delivery address
+    </h2>
+    @if (selectedAddress; as address) {
+      <div class="flex items-start justify-between gap-3 rounded-xl border border-zepto-100 bg-zepto-50/40 p-3.5">
+        <div>
+          <span class="badge badge-active !inline-block mb-1.5">{{ address.addressTag }}</span>
+          <p class="text-sm font-semibold text-slate-800 m-0">{{ address.line1 }}{{ address.line2 ? ', ' + address.line2 : '' }}</p>
+          <p class="text-sm text-slate-500 m-0">{{ address.zoneName ?? address.cityName }}{{ address.postalCode ? ' - ' + address.postalCode : '' }}</p>
+        </div>
+      </div>
+      <p class="mt-2 text-xs text-slate-500">
+        To deliver somewhere else, <a routerLink="/profile" class="font-semibold text-zepto-600 hover:text-zepto-700">change your address in Profile</a> first.
+      </p>
+    } @else {
+      <app-empty-state icon="location_off" title="No delivery address set" subtitle="Add one from your profile before checking out.">
+      </app-empty-state>
+      <a routerLink="/profile" class="btn-primary mt-3 inline-flex">Go to Profile</a>
+    }
+  </section>
+
+  <section class="card mb-4">
+    <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
+      <i class="fa-solid fa-credit-card text-violet-500"></i> <span class="req-mark">Payment method</span>
+    </h2>
+    <div class="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+      <label class="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-slate-200 p-3 text-center transition-all duration-150 has-[:checked]:border-zepto-500 has-[:checked]:bg-zepto-50 has-[:checked]:shadow-card hover:border-zepto-200">
+        <input type="radio" name="paymentMethod" value="COD" [(ngModel)]="paymentMethod" class="sr-only" />
+        <i class="fa-solid fa-money-bill-wave text-lg text-zepto-600"></i>
+        <span class="text-xs font-bold text-slate-700">Cash on delivery</span>
+      </label>
+      <label class="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-slate-200 p-3 text-center transition-all duration-150 has-[:checked]:border-zepto-500 has-[:checked]:bg-zepto-50 has-[:checked]:shadow-card hover:border-zepto-200">
+        <input type="radio" name="paymentMethod" value="CARD" [(ngModel)]="paymentMethod" class="sr-only" />
+        <i class="fa-regular fa-credit-card text-lg text-zepto-600"></i>
+        <span class="text-xs font-bold text-slate-700">Card</span>
+      </label>
+      <label class="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-slate-200 p-3 text-center transition-all duration-150 has-[:checked]:border-zepto-500 has-[:checked]:bg-zepto-50 has-[:checked]:shadow-card hover:border-zepto-200">
+        <input type="radio" name="paymentMethod" value="UPI" [(ngModel)]="paymentMethod" class="sr-only" />
+        <i class="fa-solid fa-mobile-screen-button text-lg text-zepto-600"></i>
+        <span class="text-xs font-bold text-slate-700">UPI</span>
+      </label>
+      <label class="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-slate-200 p-3 text-center transition-all duration-150 has-[:checked]:border-zepto-500 has-[:checked]:bg-zepto-50 has-[:checked]:shadow-card hover:border-zepto-200">
+        <input type="radio" name="paymentMethod" value="WALLET" [(ngModel)]="paymentMethod" class="sr-only" />
+        <i class="fa-solid fa-wallet text-lg text-zepto-600"></i>
+        <span class="text-xs font-bold text-slate-700">Wallet</span>
+      </label>
+    </div>
+  </section>
+
+  @if (prepareError()) {
+    <p class="mb-3 text-sm font-semibold text-rose-600">{{ prepareError() }}</p>
+  }
+
+  @if (preparing()) {
+    <div class="mb-4 flex items-center gap-2 rounded-xl border border-zepto-100 bg-zepto-50/40 px-4 py-3 text-sm font-semibold text-zepto-700">
+      <span class="spinner h-4 w-4 border-2"></span> Calculating order total...
+    </div>
+  }
+
+  @if (summary(); as s) {
+    <section class="card mb-4 space-y-1">
+      <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
+        <i class="fa-solid fa-receipt text-violet-500"></i> Order summary
+      </h2>
+      <p class="flex justify-between text-sm text-slate-600"><span>Subtotal</span><span>{{ s.subtotal | currency: 'INR' }}</span></p>
+      <p class="flex justify-between text-sm text-slate-600"><span>Tax</span><span>{{ s.tax | currency: 'INR' }}</span></p>
+      <p class="flex justify-between text-sm text-slate-600"><span>Delivery</span><span>{{ s.deliveryCharge | currency: 'INR' }}</span></p>
+      <p class="flex justify-between text-sm text-slate-600"><span>Platform fee</span><span>{{ s.platformFee | currency: 'INR' }}</span></p>
+      @if (s.pointsRedeemed > 0) {
+        <p class="flex justify-between text-sm text-emerald-600"><span>Reward points redeemed</span><span>-{{ s.pointsRedeemed | currency: 'INR' }}</span></p>
+      }
+      <p class="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 px-3 py-2.5 text-lg font-extrabold text-slate-900">
+        <span>Total</span><span class="text-zepto-700">{{ s.grandTotal | currency: 'INR' }}</span>
+      </p>
+      @if (!s.serviceable) {
+        <p class="text-sm font-semibold text-rose-600">This product is not serviceable at this location.</p>
+      }
+    </section>
+  } @else {
+    <section class="card mb-4 space-y-1">
+      <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
+        <i class="fa-solid fa-receipt text-violet-500"></i> Order summary
+      </h2>
+      <p class="flex justify-between text-sm text-slate-600"><span>Subtotal</span><span>{{ cart()!.subtotal | currency: 'INR' }}</span></p>
+      <p class="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 px-3 py-2.5 text-lg font-extrabold text-slate-900">
+        <span>Total (estimated)</span><span class="text-zepto-700">{{ cart()!.subtotal | currency: 'INR' }}</span>
+      </p>
+    </section>
+  }
+
+  @if (placeError()) {
+    <p class="mb-3 text-sm font-semibold text-rose-600">{{ placeError() }}</p>
+  }
+
+  @if (placing()) {
+    <app-loading-state [message]="placingStage()"></app-loading-state>
+  } @else {
+    <div class="flex flex-col gap-3 pb-24 sm:flex-row sm:justify-end sm:pb-0">
+      <button type="button" class="btn-primary hidden sm:inline-flex" (click)="placeOrder()" [disabled]="!selectedAddressId || preparing() || placing() || gatewayProcessing() || showPaymentGateway()">
+        {{ paymentMethod === 'COD' ? 'Place order' : 'Proceed to Pay' }}
+      </button>
+    </div>
+
+    <!-- Sticky place-order bar on mobile -->
+    <div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-100 bg-white p-3 shadow-card-hover sm:hidden">
+      <button type="button" class="btn-primary w-full" (click)="placeOrder()" [disabled]="!selectedAddressId || preparing() || placing() || gatewayProcessing() || showPaymentGateway()">
+        {{ paymentMethod === 'COD' ? 'Place order' : 'Proceed to Pay' }}
+      </button>
+    </div>
+  }
+}
+
+@if (conflictData(); as cd) {
+  <app-serviceability-conflict-dialog [data]="cd" [allowAddressChange]="false" (closed)="onConflictClosed($event)"></app-serviceability-conflict-dialog>
+}
+
+<!-- Mock payment gateway overlay (Razorpay-style) -->
+@if (showPaymentGateway()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
+    <div class="animate-pop-in w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl">
+      <div class="mb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-zepto-600 to-violet-500 text-white">
+            <i class="fa-solid fa-shield-halved text-xs"></i>
+          </span>
+          <span class="font-extrabold text-slate-900">AroundU Secure Pay</span>
+        </div>
+        <button type="button" class="btn-icon" (click)="cancelPayment()" [disabled]="gatewayProcessing()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="mb-4 rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 p-3 text-center">
+        <p class="text-xs text-slate-500">Amount payable</p>
+        <p class="text-2xl font-extrabold text-zepto-700">{{ summary()?.grandTotal ?? cart()?.subtotal ?? 0 | currency: 'INR' }}</p>
+      </div>
+
+      @if (paymentMethod === 'UPI') {
+        <div class="space-y-2">
+          <label class="form-label">Enter UPI ID</label>
+          <input class="input" [(ngModel)]="upiId" placeholder="name@upi" [disabled]="gatewayProcessing()" />
+        </div>
+      } @else if (paymentMethod === 'CARD') {
+        <div class="space-y-2">
+          <label class="form-label">Card Number</label>
+          <input class="input" [(ngModel)]="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" [disabled]="gatewayProcessing()" />
+          <div class="flex gap-2">
+            <input class="input" [(ngModel)]="cardExpiry" placeholder="MM/YY" maxlength="5" [disabled]="gatewayProcessing()" />
+            <input class="input" [(ngModel)]="cardCvv" placeholder="CVV" maxlength="3" [disabled]="gatewayProcessing()" />
+          </div>
+        </div>
+      } @else {
+        <p class="text-sm text-slate-600">You'll be redirected to your wallet app to complete payment.</p>
+      }
+
+      <p class="mt-3 text-center text-[11px] text-slate-400">This is a simulated payment gateway for demo purposes. No real payment is processed.</p>
+
+      <div class="mt-4 flex gap-3">
+        <button type="button" class="btn-outline flex-1" [disabled]="gatewayProcessing()" (click)="cancelPayment()">Cancel</button>
+        <button type="button" class="btn-primary flex-1" [disabled]="gatewayProcessing()" (click)="submitGatewayPayment()">
+          @if (gatewayProcessing()) {
+            <span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> Processing...
+          } @else {
+            Pay Now
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}

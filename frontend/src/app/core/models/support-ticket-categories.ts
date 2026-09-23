@@ -1,0 +1,82 @@
+/**
+ * Mirrors S6's SupportTicketCategories.java exactly - that class is the actual source of truth
+ * and the only place a category/subcategory combination is enforced (POST /api/support-tickets
+ * rejects anything not listed there for the given raisedByRole). Kept in sync manually, the
+ * same way order/trip/expense status strings are already duplicated rather than fetched from
+ * an API elsewhere in this codebase.
+ *
+ * LOCATION_MANAGER/OPERATIONS_MANAGER/SUPER_ADMIN/SUPPORT_STAFF share one "internal staff"
+ * taxonomy since all four raise tickets for the same kind of reason: an internal/systemic issue
+ * they can't resolve themselves, not a customer-facing complaint.
+ */
+export type SupportTicketCategoryMap = Record<string, string[]>;
+
+const STAFF_CATEGORIES: SupportTicketCategoryMap = {
+  ZONE_OPERATIONS: ['STAFFING_SHORTAGE', 'COVERAGE_GAP', 'PARTNER_DISPUTE'],
+  POLICY_CLARIFICATION: ['POLICY_QUERY', 'APPROVAL_REQUEST'],
+  SYSTEM_TECHNICAL: ['PLATFORM_BUG', 'DATA_DISCREPANCY', 'ACCESS_PERMISSION_ISSUE'],
+  OTHER: ['GENERAL_QUERY'],
+};
+
+export const SUPPORT_TICKET_CATEGORIES: Record<string, SupportTicketCategoryMap> = {
+  CUSTOMER: {
+    ORDER_ISSUE: [
+      'ITEM_MISSING', 'WRONG_ITEM_DELIVERED', 'ITEM_DAMAGED',
+      'ORDER_NOT_DELIVERED', 'LATE_DELIVERY', 'ORDER_CANCELLED_BY_RETAILER',
+    ],
+    PAYMENT_ISSUE: ['PAYMENT_FAILED_AMOUNT_DEBITED', 'REFUND_NOT_RECEIVED', 'DOUBLE_CHARGE', 'INVOICE_DISCREPANCY'],
+    DELIVERY_ISSUE: ['DELIVERY_PARTNER_BEHAVIOR', 'WRONG_DELIVERY_ADDRESS', 'CONTACTLESS_DELIVERY_NOT_FOLLOWED'],
+    RETURN_REFUND: ['RETURN_REQUEST', 'REFUND_STATUS_QUERY', 'REPLACEMENT_REQUEST'],
+    ACCOUNT_ISSUE: ['LOGIN_ISSUE', 'OTP_NOT_RECEIVED', 'PROFILE_UPDATE_ISSUE'],
+    APP_TECHNICAL: ['APP_CRASH_OR_ERROR', 'PAYMENT_GATEWAY_ERROR', 'BUG_REPORT'],
+    OTHER: ['GENERAL_QUERY', 'FEEDBACK_SUGGESTION'],
+  },
+  RETAILER: {
+    ORDER_MANAGEMENT: ['ORDER_NOT_VISIBLE', 'CANNOT_ACCEPT_REJECT_ORDER', 'CANCELLATION_DISPUTE'],
+    PAYOUT_SETTLEMENT: ['SETTLEMENT_DELAYED', 'SETTLEMENT_AMOUNT_MISMATCH', 'BANK_ACCOUNT_UPDATE_REQUEST'],
+    PRODUCT_LISTING: ['CANNOT_ADD_EDIT_PRODUCT', 'INVENTORY_SYNC_ISSUE', 'PRICING_ISSUE'],
+    ACCOUNT_VERIFICATION: ['DOCUMENT_REJECTED', 'VERIFICATION_DELAYED', 'GST_REGISTRATION_UPDATE'],
+    APP_TECHNICAL: ['APP_CRASH_OR_ERROR', 'LOGIN_ISSUE', 'BUG_REPORT'],
+    OTHER: ['GENERAL_QUERY', 'FEEDBACK_SUGGESTION'],
+  },
+  FLEET_MANAGER: {
+    VEHICLE_ISSUE: ['VEHICLE_BREAKDOWN', 'DOCUMENT_EXPIRY_RENEWAL', 'VERIFICATION_DELAYED'],
+    DRIVER_ISSUE: ['DRIVER_UNAVAILABLE', 'LICENSE_EXPIRY', 'DRIVER_CONDUCT_CONCERN'],
+    ASSIGNMENT_ISSUE: ['TRIP_NOT_ASSIGNED', 'INCORRECT_ASSIGNMENT', 'ASSIGNMENT_CONFLICT'],
+    PAYMENT_EXPENSE: ['EXPENSE_NOT_APPROVED', 'SETTLEMENT_DELAYED', 'SALARY_PAYMENT_DELAY'],
+    APP_TECHNICAL: ['APP_CRASH_OR_ERROR', 'LOGIN_ISSUE', 'BUG_REPORT'],
+    OTHER: ['SAFETY_CONCERN', 'GENERAL_QUERY'],
+  },
+  DRIVER: {
+    PAYOUT_ISSUE: ['SALARY_PAYMENT_DELAY', 'EXPENSE_NOT_REIMBURSED', 'PAYOUT_AMOUNT_MISMATCH'],
+    TRIP_ISSUE: ['TRIP_NOT_ASSIGNED', 'INCORRECT_ROUTE_INFO', 'CUSTOMER_BEHAVIOR_CONCERN'],
+    SAFETY_CONDUCT: ['HARASSMENT_COMPLAINT', 'UNSAFE_ROUTE_CONDITION', 'ACCIDENT_REPORT'],
+    VEHICLE_ISSUE: ['VEHICLE_CONDITION_CONCERN', 'MAINTENANCE_REQUEST'],
+    APP_TECHNICAL: ['APP_CRASH_OR_ERROR', 'LOGIN_ISSUE', 'BUG_REPORT'],
+    OTHER: ['GENERAL_QUERY'],
+  },
+  LOCATION_MANAGER: STAFF_CATEGORIES,
+  OPERATIONS_MANAGER: STAFF_CATEGORIES,
+  SUPER_ADMIN: STAFF_CATEGORIES,
+  SUPPORT_STAFF: STAFF_CATEGORIES,
+};
+
+/** Human-readable labels for the enum-like category/subcategory codes above. */
+const LABEL_OVERRIDES: Record<string, string> = {
+  APP_CRASH_OR_ERROR: 'App crash or error',
+  OTP_NOT_RECEIVED: 'OTP not received',
+  GST_REGISTRATION_UPDATE: 'GST registration update',
+};
+
+export function categoryLabel(code: string): string {
+  if (LABEL_OVERRIDES[code]) return LABEL_OVERRIDES[code];
+  return code
+    .toLowerCase()
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+export function categoriesForRole(role: string): SupportTicketCategoryMap {
+  return SUPPORT_TICKET_CATEGORIES[role] ?? {};
+}

@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*; public record CatalogueSummaryResponse(long total,long active,long draft,long outOfStock) {}

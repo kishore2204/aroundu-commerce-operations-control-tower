@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.client.platform; import java.util.*;import java.math.*; public record UserAccountSummaryResponse(UUID userAccountId,String firstName,String lastName,String email,String phoneNumber) {}

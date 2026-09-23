@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.enums; public enum ProductStatus { ACTIVE, DRAFT }

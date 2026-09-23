@@ -1,0 +1,48 @@
+<h1 class="text-2xl font-bold text-slate-900 mb-1">Escalations</h1>
+<p class="text-sm text-slate-500 mb-4">Support tickets escalated directly to {{ entityType === 'RETAILER' ? 'your store' : 'your fleet' }} for a response.</p>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (tickets().length === 0) {
+  <app-empty-state icon="call_made" title="Nothing escalated to you" subtitle="Tickets support escalates directly to you will show up here."></app-empty-state>
+} @else {
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Ticket</th>
+          <th>SLA</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of tickets(); track t.customerTicketId) {
+          <tr>
+            <td>
+              <a [routerLink]="detailPath(t.customerTicketId)" class="text-slate-900 hover:text-zepto-600">
+                <p class="font-semibold">{{ t.ticketNumber }} - {{ t.subject }}</p>
+                <p class="text-sm text-slate-500 mt-0.5">
+                  {{ categoryLabel(t.ticketCategory) }} / {{ categoryLabel(t.ticketSubCategory ?? '') }}
+                  - {{ t.escalationReason }}
+                </p>
+              </a>
+            </td>
+            <td>
+              @if (slaLabel(t); as label) {
+                <span
+                  class="badge"
+                  [class.badge-active]="slaState(t) === 'ok'"
+                  [class.badge-pending]="slaState(t) === 'at-risk'"
+                  [class.badge-danger]="slaState(t) === 'breached'"
+                >{{ label }}</span>
+              } @else {
+                <span class="text-slate-400 text-sm">-</span>
+              }
+            </td>
+            <td><span class="badge badge-pending">{{ t.ticketStatus }}</span></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

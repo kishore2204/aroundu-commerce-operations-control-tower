@@ -1,0 +1,165 @@
+<h1 class="mb-5 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-earth-asia text-sm"></i>
+  </span>
+  Territory
+</h1>
+
+<section class="mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold text-slate-900">Cities</h2>
+    @if (canManageCities()) {
+      <button type="button" class="btn-outline" (click)="showCityForm.set(!showCityForm())">
+        <i class="fa-solid fa-plus"></i> New city
+      </button>
+    }
+  </div>
+
+  @if (showCityForm() && canManageCities()) {
+    <div class="card max-w-xl mb-4">
+      <form [formGroup]="cityForm" (ngSubmit)="createCity()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label req-mark">City name</label>
+            <input class="input" formControlName="cityName" />
+          </div>
+          <div class="form-group">
+            <label class="form-label req-mark">State</label>
+            <select class="select" formControlName="stateId">
+              <option value="" disabled>Select a state</option>
+              @for (s of states(); track s.id) {
+                <option [value]="s.id">{{ s.stateName }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        @if (cityFormError()) {
+          <p class="text-rose-600 text-sm mb-3">{{ cityFormError() }}</p>
+        }
+        <button type="submit" class="btn-primary" [disabled]="cityForm.invalid || savingCity()">
+          Create
+        </button>
+      </form>
+    </div>
+  }
+
+  @if (citiesLoading()) {
+    <div class="flex justify-center py-8"><span class="spinner"></span></div>
+  } @else if (cities().length === 0) {
+    <app-empty-state icon="location_city" title="No cities found"></app-empty-state>
+  } @else {
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>State</th>
+            <th>Status</th>
+            @if (canManageCities()) { <th></th> }
+          </tr>
+        </thead>
+        <tbody>
+          @for (city of cities(); track city.id) {
+            <tr [class.bg-zepto-50]="city.id === selectedCityId()">
+              <td>
+                <button type="button" class="font-semibold text-slate-900 hover:text-zepto-600" (click)="selectCity(city.id)">
+                  {{ city.cityName }}
+                </button>
+              </td>
+              <td class="text-slate-500">{{ city.stateName }}</td>
+              <td>
+                <span class="badge" [class.badge-active]="city.active" [class.badge-inactive]="!city.active">
+                  {{ city.active ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              @if (canManageCities()) {
+                <td>
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" (click)="toggleCity(city)">
+                    {{ city.active ? 'Deactivate' : 'Activate' }}
+                  </button>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
+
+<section>
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold text-slate-900">
+      Zones @if (selectedCityName(); as name) { in {{ name }} }
+    </h2>
+    <button
+      type="button"
+      class="btn-outline"
+      [disabled]="!selectedCityId()"
+      [title]="selectedCityId() ? '' : 'Select a city above first'"
+      (click)="showZoneForm.set(!showZoneForm())"
+    >
+      <i class="fa-solid fa-plus"></i> New zone
+    </button>
+  </div>
+  @if (!selectedCityId()) {
+    <p class="text-xs text-slate-500 -mt-2 mb-3">Select a city above to add a zone to it.</p>
+  }
+
+  @if (showZoneForm()) {
+    <div class="card max-w-xl mb-4">
+      <form [formGroup]="zoneForm" (ngSubmit)="createZone()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label req-mark">Zone name</label>
+            <input class="input" formControlName="zoneName" />
+          </div>
+        </div>
+        @if (zoneFormError()) {
+          <p class="text-rose-600 text-sm mb-3">{{ zoneFormError() }}</p>
+        }
+        <button type="submit" class="btn-primary" [disabled]="zoneForm.invalid || savingZone()">
+          Create in {{ selectedCityName() }}
+        </button>
+      </form>
+    </div>
+  }
+
+  @if (zonesLoading()) {
+    <div class="flex justify-center py-8"><span class="spinner"></span></div>
+  } @else if (zones().length === 0) {
+    <app-empty-state icon="map" title="No zones found" subtitle="Select a city above to see or add its zones.">
+    </app-empty-state>
+  } @else {
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Zone</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (zone of zones(); track zone.zoneId) {
+            <tr>
+              <td class="font-semibold text-slate-900">{{ zone.zoneName }}</td>
+              <td class="text-slate-500">{{ zone.cityName }}, {{ zone.stateName }}</td>
+              <td>
+                <span class="badge" [class.badge-active]="zone.active" [class.badge-inactive]="!zone.active">
+                  {{ zone.active ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" (click)="toggleZone(zone)">
+                  {{ zone.active ? 'Deactivate' : 'Activate' }}
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

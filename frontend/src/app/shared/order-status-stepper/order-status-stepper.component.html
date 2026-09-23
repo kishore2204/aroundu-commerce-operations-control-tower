@@ -1,0 +1,41 @@
+@if (haltedCopy) {
+  <div class="halted-banner flex items-start gap-3 p-4 rounded-xl bg-rose-50">
+    <i class="fa-solid fa-triangle-exclamation text-rose-600 mt-0.5"></i>
+    <div>
+      <p class="halted-title font-semibold text-slate-800 m-0">{{ haltedCopy.title }}</p>
+      @if (haltedCopy.message) {
+        <p class="halted-message text-sm text-slate-600 mt-1 mb-0">{{ haltedCopy.message }}</p>
+      }
+    </div>
+  </div>
+} @else if (steps) {
+  <div class="stepper-scroll">
+    <ol class="stepper list-none m-0 p-0" [style.--steps]="steps.length">
+      @for (step of steps; track step.key; let i = $index) {
+        <li
+          class="step"
+          [class]="'state-' + step.state.toLowerCase()"
+          [class.line-done]="i > 0 && steps[i - 1].state === 'DONE'"
+        >
+          <span class="step-marker">
+            <i
+              class="step-icon fa-solid"
+              [class]="iconFor(step.state)"
+              [class.text-emerald-600]="step.state === 'DONE'"
+              [class.text-zepto-600]="step.state === 'CURRENT'"
+              [class.text-rose-600]="step.state === 'FAILED'"
+              [class.text-slate-300]="step.state !== 'DONE' && step.state !== 'CURRENT' && step.state !== 'FAILED'"
+            ></i>
+          </span>
+          <span
+            class="step-label text-xs"
+            [class.font-bold]="step.state === 'CURRENT'"
+            [class.text-slate-900]="step.state === 'CURRENT'"
+            [class.text-slate-700]="step.state === 'DONE'"
+            [class.text-slate-400]="step.state !== 'DONE' && step.state !== 'CURRENT'"
+          >{{ step.label }}</span>
+        </li>
+      }
+    </ol>
+  </div>
+}

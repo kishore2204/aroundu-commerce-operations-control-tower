@@ -1,0 +1,34 @@
+<h1 class="text-2xl font-bold text-slate-900 mb-4">Fleet business profile</h1>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (!fleetOwner()) {
+  <p class="text-sm text-slate-500">Complete onboarding first to set up your business profile.</p>
+} @else {
+  <div class="card max-w-2xl">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Business name</label>
+          <input class="input" formControlName="businessName" />
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label">Zone</label>
+          <p class="text-sm font-semibold text-slate-800 m-0">
+            <i class="fa-solid fa-map-location-dot text-zepto-600"></i>
+            {{ myTerritory() ?? 'Not assigned yet' }}
+          </p>
+        </div>
+      </div>
+      @if (saveError()) {
+        <p class="text-sm text-rose-600 mb-3">{{ saveError() }}</p>
+      }
+      @if (saved()) {
+        <p class="text-sm text-emerald-600 mb-3">Saved.</p>
+      }
+      <button type="submit" class="btn-primary" [disabled]="form.invalid || saving()">
+        Save changes
+      </button>
+    </form>
+  </div>
+}

@@ -1,0 +1,79 @@
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-slate-900">Fleet Trips & Tracking</h1>
+  <p class="text-sm text-slate-500 mt-1">Monitor assigned trips, driver progress, and uploaded delivery proofs</p>
+</div>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (trips().length === 0) {
+  <app-empty-state icon="local_taxi" title="No trips found" subtitle="Trips appear here automatically once a delivery request is accepted."></app-empty-state>
+} @else {
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Trip Details</th>
+          <th>Driver</th>
+          <th>Planned Start</th>
+          <th>Distance</th>
+          <th>Status</th>
+          <th>Pickup Proof</th>
+          <th>Delivery Proof</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of trips(); track t.id) {
+          <tr>
+            <td>
+              <div class="flex flex-col">
+                <span class="font-bold text-slate-900">{{ t.tripNumber }}</span>
+                <span class="text-xs text-slate-500">Order #{{ t.orderId }}</span>
+              </div>
+            </td>
+            <td>{{ driverNameFor(t.driverId) }}</td>
+            <td>{{ t.plannedStartAt | date: 'medium' }}</td>
+            <td>
+              <span class="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-semibold text-sm">{{ t.distanceKm ?? '-' }} km</span>
+            </td>
+            <td>
+              <span
+                class="badge"
+                [class.badge-active]="t.tripStatus === 'COMPLETED'"
+                [class.badge-pending]="t.tripStatus === 'ASSIGNED' || t.tripStatus === 'IN_PROGRESS'"
+                [class.badge-inactive]="t.tripStatus === 'PLANNED'"
+              >
+                {{ t.tripStatus }}
+              </span>
+            </td>
+            <td>
+              @if (t.proofOfPickup) {
+                <div class="flex items-center">
+                  @if (t.proofOfPickup.startsWith('data:image') || t.proofOfPickup.startsWith('http')) {
+                    <img [src]="t.proofOfPickup" alt="Pickup Proof" class="thumb-img" />
+                  } @else {
+                    <span class="text-xs font-semibold text-slate-600">{{ t.proofOfPickup }}</span>
+                  }
+                </div>
+              } @else {
+                <span class="text-slate-400">Pending Pickup</span>
+              }
+            </td>
+            <td>
+              @if (t.proofOfDelivery) {
+                <div class="flex items-center">
+                  @if (t.proofOfDelivery.startsWith('data:image') || t.proofOfDelivery.startsWith('http')) {
+                    <img [src]="t.proofOfDelivery" alt="Delivery Proof" class="thumb-img" />
+                  } @else {
+                    <span class="text-xs font-semibold text-slate-600">{{ t.proofOfDelivery }}</span>
+                  }
+                </div>
+              } @else {
+                <span class="text-slate-400">Pending Delivery</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

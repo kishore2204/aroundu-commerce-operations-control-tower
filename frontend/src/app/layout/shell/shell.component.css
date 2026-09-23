@@ -1,0 +1,18 @@
+/*
+ * Sticky footer (normal flow, not position: fixed): the shell is a full-height column whose <main>
+ * takes all leftover height. On a short page the footer therefore sits at the bottom of the
+ * viewport; on a long page <main> simply grows and the footer follows the content - it can never
+ * overlap it. Same pattern the portal shells (retailer/admin/...) already use.
+ * width: 100% keeps <main> at its max-width like before - a flex item with auto side margins
+ * would otherwise shrink to its content.
+ */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+:host > main {
+  flex: 1 0 auto;
+  width: 100%;
+}

@@ -1,0 +1,65 @@
+<h1 class="text-2xl font-bold text-slate-900">Dashboard</h1>
+@if (retailerName(); as name) {
+  <p class="text-slate-500 mb-6">{{ name }}</p>
+}
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else {
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <a routerLink="/retailer/catalogue" class="card card-hover p-5 flex flex-col gap-1">
+      <div class="w-10 h-10 rounded-full bg-zepto-50 text-zepto-600 flex items-center justify-center mb-2">
+        <i class="fa-solid fa-boxes-stacked"></i>
+      </div>
+      <p class="text-2xl font-bold text-slate-900">{{ catalogueSummary()?.total ?? '-' }}</p>
+      <p class="text-sm text-slate-500">Products ({{ catalogueSummary()?.active ?? 0 }} active)</p>
+    </a>
+    <a routerLink="/retailer/catalogue" class="card card-hover p-5 flex flex-col gap-1">
+      <div class="w-10 h-10 rounded-full bg-zepto-50 text-zepto-600 flex items-center justify-center mb-2">
+        <i class="fa-solid fa-file-pen"></i>
+      </div>
+      <p class="text-2xl font-bold text-slate-900">{{ catalogueSummary()?.draft ?? '-' }}</p>
+      <p class="text-sm text-slate-500">Draft listings</p>
+    </a>
+    <a routerLink="/retailer/inventory" class="card card-hover p-5 flex flex-col gap-1">
+      <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mb-2">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <p class="text-2xl font-bold text-slate-900">{{ inventorySummary()?.lowStock ?? '-' }}</p>
+      <p class="text-sm text-slate-500">Low stock</p>
+    </a>
+    <a routerLink="/retailer/inventory" class="card card-hover p-5 flex flex-col gap-1">
+      <div class="w-10 h-10 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mb-2">
+        <i class="fa-solid fa-ban"></i>
+      </div>
+      <p class="text-2xl font-bold text-slate-900">{{ inventorySummary()?.outOfStock ?? '-' }}</p>
+      <p class="text-sm text-slate-500">Out of stock</p>
+    </a>
+  </div>
+
+  <section>
+    <h2 class="text-lg font-semibold text-slate-900 mb-3">Recent orders</h2>
+    @if (ordersLoading()) {
+      <div class="flex justify-center py-8"><div class="spinner"></div></div>
+    } @else if (recentOrders().length === 0) {
+      <app-empty-state
+        icon="receipt_long"
+        title="No orders yet"
+        subtitle="Orders placed with your store will show up here."
+      ></app-empty-state>
+    } @else {
+      <div class="table-card">
+        <a
+          routerLink="/retailer/orders"
+          class="flex items-center justify-between px-4 py-3 border-b border-slate-100 last:border-b-0 hover:bg-zepto-50 transition-colors"
+          *ngFor="let order of recentOrders()"
+        >
+          <span class="font-medium text-slate-800">{{ order.orderNumber }}</span>
+          <span class="badge badge-pending">{{ order.orderStatus }}</span>
+          <span class="font-semibold text-slate-900">{{ order.totalAmount | currency:'INR' }}</span>
+        </a>
+      </div>
+      <a routerLink="/retailer/orders" class="inline-block mt-3 text-sm font-medium text-zepto-600 hover:text-zepto-700">View all orders</a>
+    }
+  </section>
+}

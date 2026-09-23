@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; public record FieldErrorResponse(String field,Object rejectedValue,String message,String errorCode) {}

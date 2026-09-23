@@ -1,0 +1,216 @@
+spring:
+  application:
+    name: lbos-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOriginPatterns: "${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173}"
+                allowedMethods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+                allowedHeaders: "*"
+                exposedHeaders: [Authorization]
+                allowCredentials: true
+                maxAge: 3600
+          # Without these the Gateway waits indefinitely on a downstream that is unreachable or
+          # stuck, which is what turns one bad hop into a multi-minute page load. A healthy
+          # service connects in milliseconds and answers well inside a minute.
+          httpclient:
+            connect-timeout: 3000
+            response-timeout: 60s
+          routes:
+            # S1 - Platform & Territory (lbos-platform, port 8081)
+            - id: s1-auth
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/v1/auth/**
+            - id: s1-users-me
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/v1/users/me
+            - id: s1-cities
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/v1/cities/**
+            - id: s1-zones
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/v1/zones/**
+            - id: s1-operations-managers
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/v1/operations-managers/**
+            - id: s1-location-managers
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/v1/location-managers/**
+            - id: s1-states
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/states/**
+            - id: s1-user-accounts
+              uri: lb://lbos-platform
+              predicates:
+                - Path=/api/user-accounts/**
+
+            # S2 - Partner Onboarding & Verification (lbos-partner, port 8082)
+            - id: s2-retailers
+              uri: lb://lbos-partner
+              predicates:
+                - Path=/api/retailers/**
+            - id: s2-fleet-owners
+              uri: lb://lbos-partner
+              predicates:
+                - Path=/api/fleet-owners/**
+            - id: s2-verification-documents
+              uri: lb://lbos-partner
+              predicates:
+                - Path=/api/verification-documents/**
+            - id: s2-location-dashboard
+              uri: lb://lbos-partner
+              predicates:
+                - Path=/api/location-dashboard/**
+            - id: s2-verification-queues
+              uri: lb://lbos-partner
+              predicates:
+                - Path=/api/verification-queues/**
+
+            # S3 - Commerce & Customer (lbos-commerce, port 8083)
+            - id: s3-customers
+              uri: lb://lbos-commerce
+              predicates:
+                - Path=/api/v1/customers/**
+            - id: s3-product-categories
+              uri: lb://lbos-commerce
+              predicates:
+                - Path=/api/v1/product-categories/**
+            - id: s3-products
+              uri: lb://lbos-commerce
+              predicates:
+                - Path=/api/v1/products/**
+            - id: s3-retailer-catalogue
+              uri: lb://lbos-commerce
+              predicates:
+                - Path=/api/v1/retailers/**
+            - id: s3-cart
+              uri: lb://lbos-commerce
+              predicates:
+                - Path=/api/v1/cart/**
+            - id: s3-checkout
+              uri: lb://lbos-commerce
+              predicates:
+                - Path=/api/v1/checkout/**
+            - id: s3-reviews
+              uri: lb://lbos-commerce
+              predicates:
+                - Path=/api/v1/reviews/**
+
+            # S4 - Order & Logistics (lbos-order, port 8084)
+            - id: s4-orders
+              uri: lb://lbos-order
+              predicates:
+                - Path=/api/orders/**
+            - id: s4-order-items
+              uri: lb://lbos-order
+              predicates:
+                - Path=/api/order-items/**
+            - id: s4-logistics-bookings
+              uri: lb://lbos-order
+              predicates:
+                - Path=/api/logistics-bookings/**
+            - id: s4-logistics-rates
+              uri: lb://lbos-order
+              predicates:
+                - Path=/api/logistics-rates/**
+            - id: s4-trips
+              uri: lb://lbos-order
+              predicates:
+                - Path=/api/trips/**
+
+            # S5 - Fleet Operations (lbos-fleet, port 8085)
+            - id: s5-drivers
+              uri: lb://lbos-fleet
+              predicates:
+                - Path=/api/drivers/**
+            - id: s5-vehicles
+              uri: lb://lbos-fleet
+              predicates:
+                - Path=/api/vehicles/**
+            - id: s5-assignments
+              uri: lb://lbos-fleet
+              predicates:
+                - Path=/api/assignments/**
+            - id: s5-expenses
+              uri: lb://lbos-fleet
+              predicates:
+                - Path=/api/expenses/**
+            - id: s5-fleet
+              uri: lb://lbos-fleet
+              predicates:
+                - Path=/api/fleet/**
+
+            # S6 - Finance, Support & Engagement (lbos-finance, port 8086)
+            - id: s6-payment-transactions
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/payment-transactions/**
+            - id: s6-customer-invoices
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/customer-invoices/**
+            - id: s6-customer-refunds
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/customer-refunds/**
+            - id: s6-settlements
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/settlements/**
+            - id: s6-support-tickets
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/support-tickets/**
+            - id: s6-tax-configurations
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/tax-configurations/**
+            - id: s6-notifications
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/notifications/**
+            - id: s6-audit-logs
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/audit-logs/**
+            - id: s6-analytics
+              uri: lb://lbos-finance
+              predicates:
+                - Path=/api/analytics/**
+
+
+server:
+  port: 8080
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:lbos-dev-shared-jwt-signing-secret-change-in-production-32bytes}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

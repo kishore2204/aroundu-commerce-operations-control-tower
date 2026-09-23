@@ -1,0 +1,97 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+  <div class="card flex w-full max-w-3xl max-h-[88vh] flex-col overflow-hidden !p-0" role="dialog" aria-modal="true" aria-labelledby="bulk-conflict-title">
+    <div class="flex items-start justify-between gap-3 border-b border-slate-100 p-5">
+      <div>
+        <h2 id="bulk-conflict-title" class="m-0 text-lg font-bold text-slate-900">Existing Products Detected</h2>
+        <p class="mt-1 text-sm text-slate-500">
+          Some uploaded products already exist in your account. Review the differences and choose how you want to proceed.
+        </p>
+        <p class="mt-2 text-sm font-semibold text-slate-800">
+          {{ conflicts.length }} existing {{ conflicts.length === 1 ? 'product requires' : 'products require' }} your attention.
+        </p>
+      </div>
+      <button type="button" class="btn-icon !h-8 !w-8 shrink-0" aria-label="Cancel" [disabled]="busy" (click)="cancel()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 space-y-4 overflow-y-auto p-5">
+      @for (conflict of conflicts; track conflict.sku) {
+        <section
+          class="rounded-xl border p-4"
+          [class.border-slate-200]="!isUnresolved(conflict.sku)"
+          [class.border-rose-400]="isUnresolved(conflict.sku)"
+          [class.bg-rose-50]="isUnresolved(conflict.sku)"
+        >
+          <h3 class="m-0 text-sm font-bold text-slate-900">
+            SKU: {{ conflict.sku }} <span class="font-medium text-slate-500">&middot; {{ conflict.existingName }}</span>
+          </h3>
+
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="text-left text-xs uppercase tracking-wide text-slate-400">
+                  <th class="py-1 pr-3 font-semibold">Field</th>
+                  <th class="py-1 pr-3 font-semibold">Existing product</th>
+                  <th class="py-1 font-semibold">Uploaded data</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (change of conflict.changes; track change.field) {
+                  <tr class="border-t border-slate-100">
+                    <td class="py-1.5 pr-3 font-semibold text-slate-700">{{ change.field }}</td>
+                    <td class="py-1.5 pr-3 text-slate-600">{{ display(change.field, change.existing) }}</td>
+                    <td class="py-1.5 font-semibold text-zepto-700">{{ display(change.field, change.uploaded) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-3 flex flex-wrap gap-2" role="radiogroup" [attr.aria-label]="'Action for ' + conflict.sku">
+            @for (option of options; track option.value) {
+              <label
+                class="flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold transition-colors"
+                [class.border-zepto-500]="choices()[conflict.sku] === option.value"
+                [class.bg-zepto-50]="choices()[conflict.sku] === option.value"
+                [class.text-zepto-700]="choices()[conflict.sku] === option.value"
+                [class.border-slate-200]="choices()[conflict.sku] !== option.value"
+                [class.text-slate-600]="choices()[conflict.sku] !== option.value"
+                [title]="option.hint"
+              >
+                <input
+                  type="radio"
+                  class="h-4 w-4 text-zepto-600"
+                  [name]="'action-' + conflict.sku"
+                  [value]="option.value"
+                  [checked]="choices()[conflict.sku] === option.value"
+                  [disabled]="busy"
+                  (change)="choose(conflict.sku, option.value)"
+                />
+                {{ option.label }}
+              </label>
+            }
+          </div>
+        </section>
+      }
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 p-4">
+      <p class="m-0 text-sm font-semibold text-rose-600">
+        @if (attemptedContinue() && unresolvedCount() > 0) {
+          Choose an action for {{ unresolvedCount() === 1 ? 'the highlighted product' : 'each highlighted product' }} to continue.
+        }
+      </p>
+      <div class="flex gap-2">
+        <button type="button" class="btn-outline" [disabled]="busy" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn-primary" [disabled]="busy" (click)="continue()">
+          @if (busy) {
+            <span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> Applying...
+          } @else {
+            Continue
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

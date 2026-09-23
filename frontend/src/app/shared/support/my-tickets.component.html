@@ -1,0 +1,88 @@
+<h1 class="text-xl font-extrabold text-slate-900 mb-4">Support</h1>
+
+@if (ticketsLoading()) {
+  <div class="flex justify-center py-8"><div class="spinner"></div></div>
+} @else {
+  @if (tickets().length === 0) {
+    <app-empty-state icon="support_agent" title="No support tickets" subtitle="Submit one below if you need help."></app-empty-state>
+  } @else {
+    <ul class="list-none p-0 flex flex-col gap-1 mb-4">
+      @for (t of tickets(); track t.customerTicketId) {
+        <li>
+          <a [routerLink]="[t.customerTicketId]" class="flex justify-between items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-200 no-underline text-inherit hover:border-zepto-300 hover:bg-zepto-50">
+            <div>
+              <p class="font-medium text-slate-800 m-0">{{ t.ticketNumber }} - {{ t.subject }}</p>
+              <p class="text-xs text-slate-500 mt-0.5 mb-0">
+                {{ categoryLabel(t.ticketCategory) }} / {{ categoryLabel(t.ticketSubCategory ?? '') }}
+                - {{ t.raisedAt | date: 'medium' }}
+              </p>
+            </div>
+            <span
+              class="badge"
+              [class.badge-active]="t.ticketStatus === 'RESOLVED' || t.ticketStatus === 'CLOSED'"
+              [class.badge-pending]="t.ticketStatus !== 'RESOLVED' && t.ticketStatus !== 'CLOSED'"
+            >{{ t.ticketStatus }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+
+  @if (formOpen()) {
+    <div class="card">
+      <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-3">
+        <div>
+          <label class="form-label req-mark">Category</label>
+          <select class="select" formControlName="ticketCategory" (change)="onCategoryChange($any($event.target).value)">
+            <option value="" disabled>Select a category</option>
+            @for (c of categoryKeys(); track c) {
+              <option [value]="c">{{ categoryLabel(c) }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label class="form-label req-mark">Subcategory</label>
+          <select class="select" formControlName="ticketSubCategory">
+            <option value="" disabled>Select a subcategory</option>
+            @for (s of subcategoryOptions(); track s) {
+              <option [value]="s">{{ categoryLabel(s) }}</option>
+            }
+          </select>
+        </div>
+        @if (showOrderPicker()) {
+          <div>
+            <label class="form-label">Which order is this about? (optional)</label>
+            <select class="select" formControlName="orderId">
+              <option value="">Not linked to a specific order</option>
+              @for (o of orderOptions(); track o.id) {
+                <option [value]="o.id">{{ o.orderNumber }} - {{ o.orderStatus }}</option>
+              }
+            </select>
+          </div>
+        }
+        <div>
+          <label class="form-label req-mark">Priority</label>
+          <select class="select" formControlName="priority">
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label req-mark">Subject</label>
+          <input class="input" type="text" formControlName="subject" />
+        </div>
+        <div>
+          <label class="form-label req-mark">Description</label>
+          <textarea class="input" formControlName="description" rows="3"></textarea>
+        </div>
+        @if (saveError()) {
+          <p class="text-sm font-semibold text-rose-600">{{ saveError() }}</p>
+        }
+        <button type="submit" class="btn-primary self-start" [disabled]="form.invalid || saving()">Submit ticket</button>
+      </form>
+    </div>
+  } @else {
+    <button type="button" class="btn-outline" (click)="openForm()">Raise a support ticket</button>
+  }
+}

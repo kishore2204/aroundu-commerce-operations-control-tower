@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.service; import com.lbos.commercecustomer.dto.request.*;import com.lbos.commercecustomer.dto.response.*;import java.util.*; public interface CheckoutService {CheckoutResponse prepare(CheckoutRequest r); CheckoutResponse confirm(CheckoutRequest r);}

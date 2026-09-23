@@ -1,0 +1,5 @@
+package com.lbos.commercecustomer.service; import com.lbos.commercecustomer.dto.request.*;import com.lbos.commercecustomer.dto.response.*;import java.util.*; public interface CategoryService {CategoryResponse create(CategoryRequest r); CategoryResponse get(Long id); PageResponse<CategoryResponse> search(String q,String status,int page,int size); CategoryResponse update(Long id,CategoryRequest r); void delete(Long id); List<CategoryResponse> active();
+    /** Outcome of {@link #resolveByName}: the category and whether this call created it. */
+    record CategoryResolution(CategoryResponse category, boolean created) {}
+    /** Finds the category called {@code name} (trimmed, case-insensitive) or, when {@code createIfMissing}, creates it ACTIVE. An existing INACTIVE category is never reused or duplicated - it is reported instead. */
+    CategoryResolution resolveByName(String name, boolean createIfMissing);}

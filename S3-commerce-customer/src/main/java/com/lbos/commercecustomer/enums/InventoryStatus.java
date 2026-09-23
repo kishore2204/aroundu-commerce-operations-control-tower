@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.enums; public enum InventoryStatus { OUT_OF_STOCK, LOW_STOCK, HEALTHY }

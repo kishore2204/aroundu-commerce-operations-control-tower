@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*; public record InventorySummaryResponse(long totalProducts,long totalStock,long lowStock,long outOfStock) {}

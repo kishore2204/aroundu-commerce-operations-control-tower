@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*; public record AddressResponse(UUID id,UUID cityId,String cityName,UUID zoneId,String zoneName,String addressTag,String line1,String line2,String postalCode,BigDecimal latitude,BigDecimal longitude,boolean defaultAddress) {}

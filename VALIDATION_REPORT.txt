@@ -1,0 +1,18 @@
+=== TypeScript syntax ===
+TS files parsed: 212
+TypeScript syntax: PASS
+
+=== Relative imports ===
+Relative TS imports checked: 212
+Relative TS imports: PASS
+
+=== Java syntax ===
+Java files parsed: 554
+Java syntax: PASS
+
+=== SQL/database integrity ===
+PASS: 3 original SQL/database files are byte-for-byte unchanged.
+
+=== S3 config ===
+application.properties: present
+application.yml: removed

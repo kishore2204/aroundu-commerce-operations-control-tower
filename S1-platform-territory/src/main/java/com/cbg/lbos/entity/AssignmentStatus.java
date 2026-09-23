@@ -1,0 +1,1 @@
+package com.cbg.lbos.entity; public enum AssignmentStatus{ACTIVE,INACTIVE,SUSPENDED,TRANSFERRED}

@@ -1,0 +1,129 @@
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+  <div>
+    <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+      <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+        <i class="fa-solid fa-headset text-sm"></i>
+      </span>
+      Ticket resolution overview
+    </h1>
+    <p class="mt-1 text-sm text-slate-500">Customer support workload and resolution progress at a glance.</p>
+  </div>
+  <a routerLink="/support-staff/support" class="btn-primary"><i class="fa-solid fa-list-check"></i> Review tickets</a>
+</div>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><span class="spinner"></span></div>
+} @else {
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="card flex items-center justify-between">
+      <div>
+        <p class="text-sm font-semibold text-slate-500">Total tickets</p>
+        <p class="mt-1.5 text-3xl font-extrabold text-slate-900">{{ totalCount() }}</p>
+        <p class="mt-1 text-xs text-slate-400">All recorded requests</p>
+      </div>
+      <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-zepto-500 to-violet-500 text-xl text-white shadow-glow">
+        <i class="fa-solid fa-ticket"></i>
+      </div>
+    </div>
+    <div class="card flex items-center justify-between">
+      <div>
+        <p class="text-sm font-semibold text-slate-500">In progress</p>
+        <p class="mt-1.5 text-3xl font-extrabold text-slate-900">{{ inProgressCount() }}</p>
+        <p class="mt-1 text-xs text-slate-400">Currently being handled</p>
+      </div>
+      <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-xl text-white shadow-card">
+        <i class="fa-solid fa-hourglass-half"></i>
+      </div>
+    </div>
+    <div class="card flex items-center justify-between">
+      <div>
+        <p class="text-sm font-semibold text-slate-500">Resolved</p>
+        <p class="mt-1.5 text-3xl font-extrabold text-slate-900">{{ resolvedCount() }}</p>
+        <p class="mt-1 text-xs text-slate-400">Completed successfully</p>
+      </div>
+      <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-xl text-white shadow-card">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+    </div>
+    <div class="card flex items-center justify-between">
+      <div>
+        <p class="text-sm font-semibold text-slate-500">Returns &amp; replacements</p>
+        <p class="mt-1.5 text-3xl font-extrabold text-slate-900">{{ returnRefundCount() }}</p>
+        <p class="mt-1 text-xs text-slate-400">Dedicated verification queue</p>
+      </div>
+      <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-sky-400 to-blue-500 text-xl text-white shadow-card">
+        <i class="fa-solid fa-rotate-left"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+    <section class="card lg:col-span-2">
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <h2 class="text-lg font-bold text-slate-900">Tickets requiring attention</h2>
+        <a routerLink="/support-staff/support" class="text-xs font-semibold text-zepto-600 hover:text-zepto-700">Open ticket queue</a>
+      </div>
+      @if (ticketsNeedingAttention().length === 0) {
+        <p class="py-8 text-center text-sm text-slate-400">Nothing needs attention right now.</p>
+      } @else {
+        <div class="table-card overflow-x-auto">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Ticket</th>
+                <th>Raised by</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (t of ticketsNeedingAttention(); track t.customerTicketId) {
+                <tr>
+                  <td>
+                    <p class="font-semibold text-slate-800">{{ t.ticketNumber }}</p>
+                    <p class="text-xs text-slate-400">{{ t.subject }}</p>
+                  </td>
+                  <td class="text-slate-600">{{ t.raisedByRole || 'Customer' }}</td>
+                  <td class="text-slate-600">{{ categoryLabel(t.ticketCategory) }}</td>
+                  <td>
+                    <span class="badge" [class.badge-danger]="t.ticketStatus === 'OPEN'" [class.badge-pending]="t.ticketStatus === 'IN_PROGRESS'">
+                      {{ t.ticketStatus }}
+                    </span>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/support-staff/support', t.customerTicketId]" class="btn-outline !py-1.5 !px-3 !text-xs whitespace-nowrap">
+                      <i class="fa-solid fa-arrow-right"></i> Review
+                    </a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+    <section class="card">
+      <h2 class="mb-4 text-lg font-bold text-slate-900">Today</h2>
+      <div class="space-y-3 text-sm">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <span class="text-slate-500">Resolved today</span>
+          <strong class="text-slate-900">{{ resolvedTodayCount() }}</strong>
+        </div>
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <span class="text-slate-500">Assigned to me</span>
+          <strong class="text-slate-900">{{ assignedToMeCount() }}</strong>
+        </div>
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <span class="text-slate-500">Escalated to me</span>
+          <strong class="text-slate-900">{{ escalatedToMeCount() }}</strong>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-500">SLA breached</span>
+          <strong [class.text-rose-600]="slaBreachedCount() > 0" [class.text-slate-900]="slaBreachedCount() === 0">{{ slaBreachedCount() }}</strong>
+        </div>
+      </div>
+    </section>
+  </div>
+}

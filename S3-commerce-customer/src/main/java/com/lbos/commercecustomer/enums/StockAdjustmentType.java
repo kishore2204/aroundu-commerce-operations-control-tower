@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.enums; public enum StockAdjustmentType { ADD_STOCK, REMOVE_STOCK }

@@ -1,0 +1,30 @@
+# Build output
+target/
+*.class
+
+# Maven wrapper downloads (not the wrapper scripts/properties themselves)
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# JaCoCo/build reports (regenerate via scripts/test-all.ps1)
+target/site/
+
+# Reference materials supplied for this integration pass (not project source)
+/AroundU_Full_Application_Workflow.md
+/AroundU_REST_API_and_Feign_Master_List.md
+/aroundu_New.zip

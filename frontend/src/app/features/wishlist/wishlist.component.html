@@ -1,0 +1,42 @@
+<h1 class="mb-4 text-2xl font-extrabold text-slate-900">Your wishlist</h1>
+
+@if (loading()) {
+  <div class="flex justify-center py-10"><div class="spinner"></div></div>
+} @else if (loadError()) {
+  <app-empty-state icon="error_outline" title="Could not load your wishlist" [subtitle]="loadError()!">
+    <button type="button" class="btn-outline mt-3" (click)="load()">Retry</button>
+  </app-empty-state>
+} @else if (items().length === 0) {
+  <app-empty-state icon="favorite_border" title="Your wishlist is empty" subtitle="Save products you love for later.">
+  </app-empty-state>
+  <div class="mt-4 flex justify-center">
+    <a class="btn-primary" routerLink="/products">Browse products</a>
+  </div>
+} @else {
+  <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    @for (item of items(); track item.id) {
+      <div class="flex flex-col gap-2">
+        <app-product-card [product]="item.product"></app-product-card>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="btn-outline flex-1 !px-3 !py-2 text-xs"
+            [disabled]="item.product.stock <= 0 || busy()"
+            (click)="moveToCart(item)"
+          >
+            Move to cart
+          </button>
+          <button
+            type="button"
+            class="btn-icon text-rose-500 hover:bg-rose-50 hover:text-rose-600"
+            [disabled]="busy()"
+            (click)="remove(item)"
+            aria-label="Remove"
+          >
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}

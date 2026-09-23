@@ -1,0 +1,216 @@
+<div class="flex items-center justify-between mb-5">
+  <h1 class="text-2xl font-bold text-slate-900">Catalogue</h1>
+  @if (!showForm()) {
+    <div class="flex flex-wrap items-center justify-end gap-2">
+      <input #bulkInput type="file" class="hidden" accept=".xlsx,.csv" (change)="onBulkFileChosen($event)" />
+      <div class="flex flex-col items-end gap-0.5">
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+          Template:
+          <button type="button" class="font-semibold text-zepto-600 hover:underline" (click)="downloadBulkTemplate('xlsx')">Download XLSX Template</button>
+          <button type="button" class="font-semibold text-zepto-600 hover:underline" (click)="downloadBulkTemplate('csv')">Download CSV Template</button>
+        </div>
+        <span class="text-[11px] text-slate-400">XLSX includes Category and Status dropdowns. CSV includes the same field guidance in its headers.</span>
+      </div>
+      <button type="button" class="btn-outline" [disabled]="bulkBusy()" (click)="bulkInput.click()">
+        @if (bulkBusy() && !bulkConflicts()) {
+          <span class="spinner !h-4 !w-4"></span> Processing...
+        } @else {
+          <i class="fa-solid fa-file-arrow-up"></i> Bulk upload
+        }
+      </button>
+      <button type="button" class="btn-primary" (click)="startCreate()">
+        <i class="fa-solid fa-plus"></i> New product
+      </button>
+    </div>
+  }
+</div>
+
+@if (bulkError()) {
+  <div class="mb-4 flex items-start justify-between gap-3 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700">
+    <span>{{ bulkError() }}</span>
+    <button type="button" class="shrink-0 text-rose-700 hover:underline" (click)="bulkError.set(null)">Dismiss</button>
+  </div>
+}
+
+@if (bulkConflicts(); as conflicts) {
+  <app-bulk-conflict-dialog
+    [conflicts]="conflicts"
+    [busy]="bulkBusy()"
+    (confirmed)="onConflictsConfirmed($event)"
+    (cancelled)="onConflictsCancelled()"
+  ></app-bulk-conflict-dialog>
+}
+
+@if (bulkResult(); as result) {
+  <app-bulk-result-dialog
+    [result]="result"
+    [downloading]="bulkDownloading()"
+    (closed)="closeBulkResult()"
+    (downloadRejected)="downloadRejectedProducts('xlsx')"
+    (downloadRejectedCsv)="downloadRejectedProducts('csv')"
+  ></app-bulk-result-dialog>
+}
+
+@if (toastMessage()) {
+  <div class="fixed top-4 right-4 z-50 card px-4 py-3 text-sm font-medium text-slate-800 shadow-card-hover animate-fade-in">
+    {{ toastMessage() }}
+  </div>
+}
+
+@if (showForm()) {
+  <div class="card max-w-2xl">
+    <h2 class="text-lg font-semibold text-slate-900 mb-4">{{ editingId() ? 'Edit product' : 'New product' }}</h2>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Name</label>
+          <input class="input" formControlName="name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">SKU<app-field-hint field="sku" /></label>
+          <input class="input" formControlName="sku" placeholder="RICE-5KG" />
+          <span class="text-xs text-slate-400">Letters, numbers, - and _ only</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Category</label>
+          <select class="select" formControlName="categoryId">
+            @if (keptCategoryInactive()) {
+              <option [ngValue]="form.controls.categoryId.value" disabled>Current category (no longer active)</option>
+            }
+            @for (category of categories(); track category.id) {
+              <option [ngValue]="category.id">{{ category.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Unit price<app-field-hint field="price" /></label>
+          <input class="input" type="number" formControlName="unitPrice" step="0.01" />
+        </div>
+        @if (!editingId()) {
+          <div class="form-group">
+            <label class="form-label req-mark">Initial stock<app-field-hint field="stock" /></label>
+            <input class="input" type="number" min="0" step="1" appIntegerOnly formControlName="stock" />
+          </div>
+        }
+        <div class="form-group">
+          <label class="form-label req-mark">Status</label>
+          <select class="select" formControlName="status">
+            <option value="ACTIVE">Active</option>
+            <option value="DRAFT">Draft</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Description</label>
+          <textarea class="input" formControlName="description" rows="3"></textarea>
+          <span class="text-xs text-slate-400">10-300 characters</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Low stock threshold (optional)<app-field-hint field="lowStock" /></label>
+          <input class="input" type="number" min="0" step="1" appIntegerOnly formControlName="lowStockThreshold" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Weight (kg) (optional)<app-field-hint field="weight" /></label>
+          <input class="input" type="number" min="0.001" step="0.001" formControlName="weightKg" placeholder="1" />
+          @if (form.controls.weightKg.invalid) {
+            <span class="text-xs text-rose-600">Weight must be a positive number in kg.</span>
+          } @else {
+            <span class="text-xs text-slate-400">Weight of one unit in kg. Leave blank for 1 kg.</span>
+          }
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label">Product images</label>
+          <input class="input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple (change)="onImagesSelected($event)" />
+          <span class="text-xs text-slate-400">Up to 8 images. The first selected image is used as the customer-facing thumbnail.</span>
+          @if (selectedImageFiles().length > 0) {
+            <div class="mt-2 flex flex-wrap gap-2">
+              @for (file of selectedImageFiles(); track file.name) {
+                <span class="badge badge-active">{{ file.name }}</span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (formError()) {
+        <p class="text-sm text-rose-600 mb-3">{{ formError() }}</p>
+      }
+      <div class="flex justify-end gap-2">
+        <button type="button" class="btn-outline" (click)="cancelForm()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid || saving()">
+          {{ editingId() ? 'Save changes' : 'Create product' }}
+        </button>
+      </div>
+    </form>
+  </div>
+} @else {
+  <div class="mb-4 flex flex-wrap gap-3">
+    <div class="max-w-sm relative flex-1 min-w-[200px]">
+      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <input class="input pl-9" [formControl]="searchControl" placeholder="Search my products..." />
+    </div>
+    <select class="select max-w-[220px]" [formControl]="categoryFilterControl">
+      <option [ngValue]="null">All categories</option>
+      @for (category of categories(); track category.id) {
+        <option [ngValue]="category.id">{{ category.name }}</option>
+      }
+    </select>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-center py-12"><div class="spinner"></div></div>
+  } @else if (products().length === 0) {
+    <app-empty-state icon="inventory_2" title="No products yet" subtitle="Add your first product to get started.">
+    </app-empty-state>
+  } @else {
+    <div class="table-card">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>SKU / Category</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products(); track product.id) {
+            <tr>
+              <td>
+                <div class="flex items-center gap-2">
+                  <span class="font-medium text-slate-800">{{ product.name }}</span>
+                  <span class="badge" [class.badge-active]="product.status !== 'DRAFT'" [class.badge-inactive]="product.status === 'DRAFT'">
+                    {{ product.status }}
+                  </span>
+                </div>
+              </td>
+              <td class="text-slate-500">{{ product.sku }} - {{ product.categoryName }}</td>
+              <td>{{ product.stock }}</td>
+              <td class="font-semibold text-slate-900">{{ product.unitPrice | currency: 'INR' }}</td>
+              <td>
+                <div class="flex items-center gap-1 justify-end">
+                  <button type="button" class="btn-icon" (click)="startEdit(product)" aria-label="Edit"><i class="fa-solid fa-pen"></i></button>
+                  <button type="button" class="btn-icon" (click)="duplicate(product)" aria-label="Duplicate"><i class="fa-solid fa-copy"></i></button>
+                  <button type="button" class="btn-icon" (click)="remove(product)" aria-label="Delete"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+}
+
+@if (pendingDelete(); as product) {
+  <app-confirm-dialog
+    title="Delete this product?"
+    [message]="'Delete ' + product.name + ' (SKU ' + product.sku + ')? This cannot be undone.'"
+    confirmLabel="Delete"
+    busyLabel="Deleting..."
+    [danger]="true"
+    [busy]="deleting()"
+    (confirmed)="confirmDelete()"
+    (cancelled)="cancelDelete()"
+  ></app-confirm-dialog>
+}

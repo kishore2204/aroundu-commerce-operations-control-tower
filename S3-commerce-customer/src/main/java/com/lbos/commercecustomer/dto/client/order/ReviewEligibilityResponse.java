@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.client.order; import java.util.*;import java.math.*; public record ReviewEligibilityResponse(boolean eligible,Long orderId,UUID customerProfileId,Long productId,String reasonCode) {}

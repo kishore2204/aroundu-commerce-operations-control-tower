@@ -1,0 +1,52 @@
+<h1 class="mb-4 text-2xl font-extrabold text-slate-900">Browse products</h1>
+
+<form [formGroup]="filters" class="mb-5 flex flex-wrap items-center gap-3">
+  <div class="relative w-full sm:w-72">
+    <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+    <input class="input pl-9" formControlName="q" placeholder="Search products..." />
+  </div>
+
+  <select class="select w-full sm:w-56" formControlName="categoryId">
+    <option [ngValue]="null">All categories</option>
+    @for (category of categories(); track category.id) {
+      <option [ngValue]="category.id">{{ category.name }}</option>
+    }
+  </select>
+
+  <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+    <input type="checkbox" formControlName="inStock" class="h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+    In stock only
+  </label>
+</form>
+
+@if (loading()) {
+  <div class="flex justify-center py-10"><div class="spinner"></div></div>
+} @else if (products().length === 0) {
+  <app-empty-state icon="search_off" title="No products found" subtitle="Try a different search or filter."></app-empty-state>
+} @else {
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    @for (product of products(); track product.id) {
+      <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+
+  <div class="mt-6 flex items-center justify-center gap-4">
+    <button
+      type="button"
+      class="btn-outline disabled:opacity-50"
+      [disabled]="page() === 0"
+      (click)="changePage(page() - 1)"
+    >
+      <i class="fa-solid fa-chevron-left"></i> Prev
+    </button>
+    <span class="text-sm font-semibold text-slate-600">Page {{ page() + 1 }} of {{ totalPages() || 1 }}</span>
+    <button
+      type="button"
+      class="btn-outline disabled:opacity-50"
+      [disabled]="page() + 1 >= totalPages()"
+      (click)="changePage(page() + 1)"
+    >
+      Next <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+}

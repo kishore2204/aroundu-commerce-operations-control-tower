@@ -1,0 +1,51 @@
+<h1 class="mb-4 text-2xl font-extrabold text-slate-900">Your orders</h1>
+
+@if (loading()) {
+  <div class="flex justify-center py-10"><div class="spinner"></div></div>
+} @else if (loadError()) {
+  <app-empty-state icon="error_outline" title="Could not load your orders" [subtitle]="loadError()!">
+    <button type="button" class="btn-outline mt-3" (click)="load()">Retry</button>
+  </app-empty-state>
+} @else if (orders().length === 0) {
+  <app-empty-state icon="receipt_long" title="No orders yet" subtitle="Orders you place will show up here.">
+  </app-empty-state>
+  <div class="mt-4 flex justify-center"><a class="btn-primary" routerLink="/products">Start shopping</a></div>
+} @else {
+  <ul class="space-y-3">
+    @for (order of orders(); track order.id) {
+      <li class="card">
+        <div [routerLink]="['/orders', order.id]" class="card-hover -m-4 flex cursor-pointer flex-wrap items-center justify-between gap-3 rounded-2xl p-4">
+          <div class="min-w-0 flex-1">
+            <p class="font-bold text-slate-900">{{ order.title }}</p>
+            <p class="truncate text-sm text-slate-500">{{ order.itemSummary }}</p>
+            <p class="text-xs text-slate-400">{{ order.orderNumber }} · {{ order.orderDate | date: 'medium' }}</p>
+          </div>
+          <span class="badge" [ngClass]="statusBadgeClass(order.orderStatus)">{{ order.orderStatus }}</span>
+          <p class="font-extrabold text-slate-900">{{ order.totalAmount | currency: 'INR' }}</p>
+          @if (order.orderStatus === 'DELIVERED' && order.items.length > 0) {
+            <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" (click)="toggleReview($event, order)">Write Review</button>
+          }
+        </div>
+        @if (reviewOrderId() === order.id) {
+          <form [formGroup]="reviewForm" (ngSubmit)="submitReview($event, order)" (click)="$event.stopPropagation()" class="mt-5 grid gap-3 border-t border-slate-100 pt-4 sm:grid-cols-2">
+            <div><label class="form-label req-mark">Product</label><select class="select" formControlName="productId">@for (item of order.items; track item.id) {<option [ngValue]="item.productId">{{ item.productNameSnapshot }} x{{ item.quantity }}</option>}</select></div>
+            <div><label class="form-label req-mark">Rating</label><select class="select" formControlName="rating">@for (rating of [5,4,3,2,1]; track rating) {<option [ngValue]="rating">{{ rating }} star{{ rating === 1 ? '' : 's' }}</option>}</select></div>
+            <div class="sm:col-span-2"><label class="form-label">Review / comment</label><textarea class="input" rows="3" formControlName="reviewText"></textarea></div>
+            @if (reviewError()) {<p class="text-sm font-semibold text-rose-600 sm:col-span-2">{{ reviewError() }}</p>}
+            <div class="sm:col-span-2"><button type="submit" class="btn-primary" [disabled]="reviewForm.invalid || submittingReview()">Submit Review</button></div>
+          </form>
+        }
+      </li>
+    }
+  </ul>
+
+  <!-- Scroll sentinel: fetches the next page of orders once it enters the viewport (see the
+       IntersectionObserver wired up in the component's constructor). Invisible once every page
+       has been loaded (hasMore() false), so nothing is left observing the bottom of the list. -->
+  @if (hasMore()) {
+    <div #scrollSentinel class="h-4"></div>
+  }
+  @if (loadingMore()) {
+    <div class="flex justify-center py-4"><div class="spinner"></div></div>
+  }
+}

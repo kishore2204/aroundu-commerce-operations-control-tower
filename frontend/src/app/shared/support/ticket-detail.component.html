@@ -1,0 +1,344 @@
+<button type="button" class="mb-3 inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-zepto-600" (click)="goBack()">
+  <i class="fa-solid fa-arrow-left"></i> Back to tickets
+</button>
+
+@if (loading()) {
+  <div class="flex justify-center py-8"><div class="spinner"></div></div>
+} @else if (!ticket()) {
+  <p class="text-sm text-rose-600">Ticket not found, or you don't have access to it.</p>
+} @else {
+  <div class="flex items-start justify-between gap-3 mb-2">
+    <div>
+      <h1 class="text-xl font-extrabold text-slate-900 m-0">{{ ticket()!.ticketNumber }} - {{ ticket()!.subject }}</h1>
+      <p class="text-xs text-slate-500 mt-1">
+        {{ categoryLabel(ticket()!.ticketCategory) }} / {{ categoryLabel(ticket()!.ticketSubCategory ?? '') }}
+        - Priority {{ ticket()!.priority }} - Raised {{ ticket()!.raisedAt | date: 'medium' }}
+      </p>
+    </div>
+    <div class="flex flex-col items-end gap-1.5">
+      <span
+        class="badge"
+        [class.badge-active]="ticket()!.ticketStatus === 'RESOLVED' || ticket()!.ticketStatus === 'CLOSED'"
+        [class.badge-pending]="ticket()!.ticketStatus !== 'RESOLVED' && ticket()!.ticketStatus !== 'CLOSED'"
+      >{{ ticket()!.ticketStatus }}</span>
+      @if (slaLabel(ticket()!); as label) {
+        <span
+          class="badge"
+          [class.badge-active]="slaState(ticket()!) === 'ok'"
+          [class.badge-pending]="slaState(ticket()!) === 'at-risk'"
+          [class.badge-danger]="slaState(ticket()!) === 'breached'"
+        >{{ label }}</span>
+      }
+    </div>
+  </div>
+
+  <p class="whitespace-pre-wrap text-sm text-slate-700">{{ ticket()!.description }}</p>
+
+  @if (ticket()!.escalatedToRole) {
+    <p class="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
+      Escalated to {{ roleLabel(ticket()!.escalatedToRole!) }}: {{ ticket()!.escalationReason }}
+    </p>
+  }
+  @if (ticket()!.escalatedToEntityType) {
+    <p class="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
+      Escalated to the {{ ticket()!.escalatedToEntityType === 'RETAILER' ? 'retailer' : 'fleet owner' }} for this order: {{ ticket()!.escalationReason }}
+    </p>
+  }
+
+  @if (isStaff() && ticket()!.ticketStatus !== 'CLOSED') {
+    <div class="flex flex-row flex-wrap gap-2 my-3">
+      @if (!ticket()!.assignedSupportAccountId && ticket()!.ticketStatus === 'OPEN') {
+        <button type="button" class="btn-outline" [disabled]="acting()" (click)="assignToMe()">Assign to me</button>
+      }
+      @if (ticket()!.ticketStatus === 'IN_PROGRESS') {
+        <button type="button" class="btn-outline" [disabled]="acting()" (click)="resolve()">Resolve</button>
+        <button type="button" class="btn-outline" [disabled]="acting()" (click)="openEscalateForm()">Escalate</button>
+      }
+      @if (ticket()!.ticketStatus === 'RESOLVED') {
+        <button type="button" class="btn-outline" [disabled]="acting()" (click)="close()">Close</button>
+      }
+    </div>
+
+    @if (escalateFormOpen() && ticket()!.ticketStatus === 'IN_PROGRESS') {
+      <div class="my-3">
+        <div class="flex gap-2 mb-3">
+          <button
+            type="button"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold border"
+            [class.bg-zepto-600]="escalateMode() === 'role'"
+            [class.text-white]="escalateMode() === 'role'"
+            [class.border-zepto-600]="escalateMode() === 'role'"
+            [class.border-slate-200]="escalateMode() !== 'role'"
+            (click)="escalateMode.set('role')"
+          >To an internal role</button>
+          <button
+            type="button"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold border"
+            [class.bg-zepto-600]="escalateMode() === 'entity'"
+            [class.text-white]="escalateMode() === 'entity'"
+            [class.border-zepto-600]="escalateMode() === 'entity'"
+            [class.border-slate-200]="escalateMode() !== 'entity'"
+            (click)="escalateMode.set('entity')"
+          >Directly to the retailer/fleet owner</button>
+        </div>
+
+        @if (escalateMode() === 'role') {
+          <form [formGroup]="escalateForm" (ngSubmit)="escalate()" class="flex flex-col gap-3">
+            <div>
+              <label class="form-label req-mark">Escalate to</label>
+              <select class="select" formControlName="toRole">
+                <option value="" disabled>Select a role</option>
+                @for (role of escalationTargetRoles(); track role) {
+                  <option [value]="role">{{ roleLabel(role) }}</option>
+                }
+              </select>
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <textarea class="input" formControlName="reason" rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn-primary self-start" [disabled]="escalateForm.invalid || acting()">
+              Confirm escalation
+            </button>
+          </form>
+        } @else {
+          <form [formGroup]="escalateEntityForm" (ngSubmit)="escalateToEntity()" class="flex flex-col gap-3">
+            <div>
+              <label class="form-label req-mark">Escalate directly to</label>
+              <div class="flex gap-2 flex-wrap">
+                @if (suggestedRetailerId(); as retailerId) {
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" (click)="escalateToSuggestedEntity('RETAILER', retailerId)">
+                    <i class="fa-solid fa-store"></i> {{ context()?.retailerBusinessName || "Order retailer" }}
+                  </button>
+                }
+                @if (suggestedFleetOwnerId(); as fleetOwnerId) {
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" (click)="escalateToSuggestedEntity('FLEET_OWNER', fleetOwnerId)">
+                    <i class="fa-solid fa-truck"></i> {{ context()?.fleetOwnerBusinessName || "Order fleet owner" }}
+                  </button>
+                }
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Business type</label>
+              <input class="input bg-slate-50" [value]="escalateEntityForm.controls.toEntityType.value === 'RETAILER' ? 'Retailer' : escalateEntityForm.controls.toEntityType.value === 'FLEET_OWNER' ? 'Fleet owner' : ''" readonly placeholder="Choose a business above" />
+            </div>
+            <div>
+              <label class="form-label">Business name</label>
+              <input class="input bg-slate-50" [value]="selectedEntityName()" readonly placeholder="Choose a business above" />
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <textarea class="input" formControlName="reason" rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn-primary self-start" [disabled]="escalateEntityForm.invalid || acting()">
+              Confirm escalation
+            </button>
+          </form>
+        }
+      </div>
+    }
+  }
+
+  @if (actionError()) {
+    <p class="text-sm font-semibold text-rose-600">{{ actionError() }}</p>
+  }
+
+  @if ((isStaff() || isEscalationTargetViewer()) && ticket()!.orderId) {
+    <section class="card mt-4">
+      <h2 class="text-base font-extrabold text-slate-900 mb-3">Order context</h2>
+      @if (contextLoading()) {
+        <div class="flex justify-center py-4"><span class="spinner"></span></div>
+      } @else {
+        @if (context(); as ctx) {
+          @if (ctx.order; as order) {
+            <div class="rounded-lg bg-slate-50 p-3 mb-3 text-sm">
+              <p class="font-semibold text-slate-800 m-0">Order {{ order.orderNumber }} - {{ order.orderStatus }}</p>
+              <p class="text-slate-500 mt-1 mb-0">
+                ₹{{ order.totalAmount }} - Payment {{ order.paymentStatus }} ({{ order.paymentMethod }})
+                @if (order.deliveredAt) { - Delivered {{ order.deliveredAt | date: 'medium' }} }
+              </p>
+            </div>
+          }
+          @if (ctx.items.length > 0) {
+            <ul class="list-none p-0 m-0 mb-3 flex flex-col gap-1.5">
+              @for (item of ctx.items; track item.orderItemId) {
+                <li class="text-sm text-slate-700 flex justify-between">
+                  <span>{{ item.productNameSnapshot }} x {{ item.quantity }}</span>
+                  <span class="font-semibold">₹{{ item.lineTotal }}</span>
+                </li>
+              }
+            </ul>
+          }
+          @if (ctx.trip; as trip) {
+            <p class="text-sm text-slate-500 mb-0">Trip status: {{ trip.tripStatus }}</p>
+          }
+        }
+      }
+    </section>
+  }
+
+  @if (isStaff() && isOrderIssueClaim() && ticket()!.orderId) {
+    <section class="card mt-4">
+      <h2 class="text-base font-extrabold text-slate-900 mb-3">Order &amp; refund review</h2>
+
+      <h3 class="text-sm font-bold text-slate-700 mb-2">Driver's delivery proof</h3>
+      @if (deliveryProofLoading()) {
+        <div class="flex justify-center py-4"><span class="spinner"></span></div>
+      } @else {
+        @if (deliveryProof(); as proof) {
+          @if (proof.startsWith('data:image') || proof.startsWith('http')) {
+            <img [src]="proof" alt="Delivery proof" class="max-h-72 rounded-lg border border-slate-200 object-contain" />
+          } @else {
+            <p class="text-sm text-slate-700">{{ proof }}</p>
+          }
+        } @else {
+          <p class="text-sm text-slate-500">No delivery proof was found for this order's trip.</p>
+        }
+      }
+
+      <h3 class="text-sm font-bold text-slate-700 mt-5 mb-2">Refund / return decision</h3>
+      <p class="text-xs text-slate-500 mb-3">Refund eligibility and item limits are validated by the backend from the linked ticket, delivered order and successful payment.</p>
+
+      @if (refundsLoading()) {
+        <div class="flex justify-center py-4"><span class="spinner"></span></div>
+      } @else if (refunds().length > 0) {
+        <div class="flex flex-col gap-2 mb-4">
+          @for (refund of refunds(); track refund.customerRefundId) {
+            <div class="rounded-lg border border-slate-200 p-3">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-sm font-semibold text-slate-800">Refund amount: ₹{{ refund.refundAmount }}</p>
+                  <p class="text-xs text-slate-500 mt-0.5">Item #{{ refund.orderItemId }} · {{ refund.reason }}</p>
+                </div>
+                <span
+                  class="badge"
+                  [class.badge-active]="refund.refundStatus === 'APPROVED' || refund.refundStatus === 'COMPLETED'"
+                  [class.badge-pending]="refund.refundStatus === 'REQUESTED'"
+                  [class.badge-danger]="refund.refundStatus === 'REJECTED'"
+                >
+                  {{ refund.refundStatus }}
+                </span>
+              </div>
+
+              @if (isStaff() && ticket()!.ticketStatus !== 'CLOSED' && refund.refundStatus === 'REQUESTED') {
+                <div class="flex items-center gap-2 mt-3 flex-wrap">
+                  <button
+                    type="button"
+                    class="btn-secondary !py-1 !px-3 !text-xs"
+                    [disabled]="refundActionId() === refund.customerRefundId"
+                    (click)="approveRefund(refund)"
+                  >
+                    <i class="fa-solid fa-circle-check"></i> Approve refund
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50 !py-1 !px-3 !text-xs"
+                    [disabled]="refundActionId() === refund.customerRefundId"
+                    (click)="disapproveRefund(refund)"
+                  >
+                    <i class="fa-solid fa-ban"></i> Reject refund
+                  </button>
+                </div>
+              }
+
+              @if (canFinalizeRefund() && ticket()!.ticketStatus !== 'CLOSED' && refund.refundStatus === 'APPROVED') {
+                <button
+                  type="button"
+                  class="btn-secondary !py-1 !px-3 !text-xs mt-3"
+                  [disabled]="refundActionId() === refund.customerRefundId"
+                  (click)="completeRefund(refund)"
+                >
+                  <i class="fa-solid fa-money-check-dollar"></i> Mark refund completed
+                </button>
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="text-sm text-slate-500 mb-3">No refund request has been recorded for this ticket.</p>
+      }
+
+      @if (isStaff() && ticket()!.ticketStatus !== 'CLOSED' && refundEligibility()?.eligible) {
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50/60 p-4 mt-3">
+          <h4 class="text-sm font-bold text-emerald-900 mb-3">Create eligible refund request</h4>
+          <form [formGroup]="refundForm" (ngSubmit)="createRefund()" class="flex flex-col gap-3">
+            <div>
+              <label class="form-label req-mark">Item to refund</label>
+              <select class="select" formControlName="orderItemId">
+                <option value="" disabled>Select an item</option>
+                @for (item of orderItemOptions(); track item.orderItemId) {
+                  <option [value]="item.orderItemId">
+                    {{ item.productName || 'Order item #' + item.orderItemId }} · qty {{ item.quantity }} · up to ₹{{ item.remainingRefundableAmount }}
+                  </option>
+                }
+              </select>
+            </div>
+            <div>
+              <label class="form-label req-mark">Refund amount (₹)</label>
+              <input class="input" type="number" min="0.01" step="0.01" formControlName="refundAmount" />
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <textarea class="input" formControlName="reason" rows="2" placeholder="Reason supported by the ticket/order evidence"></textarea>
+            </div>
+            <button type="submit" class="btn-primary self-start" [disabled]="refundForm.invalid || creatingRefund()">
+              @if (creatingRefund()) {
+                <span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span>
+              } @else {
+                Raise refund request
+              }
+            </button>
+          </form>
+        </div>
+      }
+
+      @if (refundSetupError()) {
+        <p class="text-sm font-semibold text-amber-700 bg-amber-50 rounded-lg px-3 py-2 mt-3">{{ refundSetupError() }}</p>
+      }
+    </section>
+  }
+
+  <h2 class="text-base font-extrabold text-slate-900 mt-5 mb-2">Conversation</h2>
+  @if (messagesLoading()) {
+    <div class="flex justify-center py-6"><div class="spinner"></div></div>
+  } @else if (messages().length === 0) {
+    <p class="text-sm text-slate-500">No messages yet.</p>
+  } @else {
+    <ul class="list-none m-0 p-0 flex flex-col gap-3">
+      @for (m of messages(); track m.supportTicketMessageId) {
+        <li class="border-l-[3px] pl-3 py-1.5" [class.border-slate-200]="!m.internalNote" [class.border-amber-400]="m.internalNote" [class.bg-amber-50]="m.internalNote">
+          <p class="text-xs text-slate-500 m-0">
+            {{ m.senderRole }} - {{ m.sentAt | date: 'medium' }}
+            @if (m.internalNote) { <span class="font-semibold text-amber-600">Internal note</span> }
+          </p>
+          <p class="whitespace-pre-wrap text-sm text-slate-700 mt-1 mb-0">{{ m.message }}</p>
+        </li>
+      }
+    </ul>
+  }
+
+  @if (ticket()!.ticketStatus !== 'CLOSED' && (isMine() || isStaff() || isEscalationTargetViewer())) {
+    <form [formGroup]="replyForm" (ngSubmit)="sendReply()" class="flex flex-col gap-3 mt-4">
+      <div>
+        <label class="form-label req-mark">Add a message</label>
+        <textarea class="input" formControlName="message" rows="3"></textarea>
+      </div>
+      @if (isStaff()) {
+        <label class="inline-flex items-center gap-2 text-sm text-slate-600">
+          <input type="checkbox" formControlName="internalNote" class="h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+          Internal note (not visible to the raiser)
+        </label>
+      }
+      <button type="submit" class="btn-primary self-start" [disabled]="replyForm.invalid || acting()">Send</button>
+    </form>
+  }
+}
+
+@if (toastMessage(); as msg) {
+  <div class="fixed bottom-4 right-4 z-50 flex items-center gap-3 rounded-xl bg-slate-900 px-4 py-3 text-sm text-white shadow-card-hover">
+    <span>{{ msg }}</span>
+    <button type="button" class="text-white/70 hover:text-white" (click)="dismissToast()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+}

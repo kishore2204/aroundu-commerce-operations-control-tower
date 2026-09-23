@@ -1,0 +1,169 @@
+<div class="flex items-center justify-between mb-6">
+  <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+      <i class="fa-solid fa-user-tie text-sm"></i>
+    </span>
+    Operations managers
+  </h1>
+  @if (!showForm()) {
+    <button type="button" class="btn-primary" (click)="showForm.set(true)">
+      <i class="fa-solid fa-plus"></i> Assign officer
+    </button>
+  }
+</div>
+
+@if (summary(); as s) {
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 max-w-2xl">
+    <div class="card"><p class="text-xl font-bold text-slate-900">{{ s.total }}</p><p class="text-sm text-slate-500">Total</p></div>
+    <div class="card"><p class="text-xl font-bold text-slate-900">{{ s.active }}</p><p class="text-sm text-slate-500">Active</p></div>
+    <div class="card"><p class="text-xl font-bold text-slate-900">{{ s.inactive }}</p><p class="text-sm text-slate-500">Inactive</p></div>
+    <div class="card"><p class="text-xl font-bold text-slate-900">{{ s.suspended }}</p><p class="text-sm text-slate-500">Suspended</p></div>
+  </div>
+}
+
+@if (!showForm()) {
+  <div class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,2fr)_1fr_1fr_auto] items-end">
+    <div class="form-group !mb-0">
+      <label class="form-label" for="om-search">Search</label>
+      <input id="om-search" class="input" type="search" autocomplete="off" placeholder="Search by name, email, phone, city..."
+        [value]="searchText()" (input)="onSearch($any($event.target).value)" />
+    </div>
+    <div class="form-group !mb-0">
+      <label class="form-label" for="om-status">Status</label>
+      <select id="om-status" class="select" [value]="statusFilter()" (change)="setStatusFilter($any($event.target).value)">
+        @for (option of statusOptions; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group !mb-0">
+      <label class="form-label" for="om-city">City</label>
+      <select id="om-city" class="select" [value]="cityFilter()" (change)="setCityFilter($any($event.target).value)">
+        <option value="">All</option>
+        @for (c of cities(); track c.id) {
+          <option [value]="c.id">{{ c.cityName }}, {{ c.stateName }}</option>
+        }
+      </select>
+    </div>
+    @if (hasFilters()) {
+      <button type="button" class="btn-outline !py-2" (click)="clearFilters()">Clear filters</button>
+    }
+  </div>
+}
+
+@if (showForm()) {
+  <div class="card mb-6 max-w-xl">
+    <h2 class="text-lg font-bold text-slate-900 mb-4">New assignment</h2>
+    @if (candidateOfficers().length === 0) {
+      <p class="badge badge-pending !inline-block mb-4 normal-case font-medium">
+        No accounts with the OPERATIONS_MANAGER role exist yet - create one from the Accounts
+        tab first, then come back here to assign them to a city.
+      </p>
+    }
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Officer</label>
+          <select class="select" formControlName="userAccountId">
+            <option value="" disabled>Select an officer</option>
+            @for (a of candidateOfficers(); track a.id) {
+              <option [value]="a.id">{{ a.firstName }} {{ a.lastName }} - {{ a.email }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">City</label>
+          <select class="select" formControlName="cityId">
+            <option value="" disabled>Select a city</option>
+            @for (c of cities(); track c.id) {
+              <option [value]="c.id">{{ c.cityName }}, {{ c.stateName }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      @if (formError()) {
+        <p class="text-sm text-rose-600 mb-2">{{ formError() }}</p>
+      }
+      <div class="flex justify-end gap-2">
+        <button type="button" class="btn-outline" (click)="showForm.set(false)">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid || saving()">Assign</button>
+      </div>
+    </form>
+  </div>
+} @else if (loading()) {
+  <div class="flex justify-center py-12"><span class="spinner"></span></div>
+} @else if (managers().length === 0) {
+  @if (hasFilters()) {
+    <app-empty-state icon="manage_accounts" title="No operations managers match these filters" subtitle="Change or clear the search and filters to see more."></app-empty-state>
+  } @else {
+    <app-empty-state icon="manage_accounts" title="No operations managers assigned yet"></app-empty-state>
+  }
+} @else {
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th><button type="button" class="inline-flex items-center gap-1.5 font-semibold" (click)="sortBy('userAccount.firstName')">Officer <i class="fa-solid text-xs text-slate-400" [class]="sortIcon('userAccount.firstName')"></i></button></th>
+          <th><button type="button" class="inline-flex items-center gap-1.5 font-semibold" (click)="sortBy('city.cityName')">City / assigned <i class="fa-solid text-xs text-slate-400" [class]="sortIcon('city.cityName')"></i></button></th>
+          <th><button type="button" class="inline-flex items-center gap-1.5 font-semibold" (click)="sortBy('assignmentStatus')">Status <i class="fa-solid text-xs text-slate-400" [class]="sortIcon('assignmentStatus')"></i></button></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (m of managers(); track m.id) {
+          <tr>
+            <td class="font-semibold text-slate-800">{{ m.displayName || m.email || 'N/A' }}
+              @if (m.email && m.displayName) { <span class="block text-xs font-normal text-slate-400">{{ m.email }}</span> }</td>
+            <td>
+              @if (reassigningId() === m.id) {
+                <select class="select !py-1.5 max-w-[220px]" [value]="reassignCityId()" (change)="reassignCityId.set($any($event.target).value)">
+                  @for (c of cities(); track c.id) {
+                    <option [value]="c.id">{{ c.cityName }}, {{ c.stateName }}</option>
+                  }
+                </select>
+              } @else {
+                <span class="text-slate-500">{{ m.cityName }} - assigned {{ m.assignedAt ? (m.assignedAt | date: 'mediumDate') : '-' }}</span>
+              }
+            </td>
+            <td>
+              <span class="badge" [class.badge-active]="m.assignmentStatus === 'ACTIVE'" [class.badge-danger]="m.assignmentStatus === 'SUSPENDED'"
+                [class.badge-pending]="m.assignmentStatus === 'TRANSFERRED'" [class.badge-inactive]="m.assignmentStatus === 'INACTIVE'">
+                {{ m.assignmentStatus }}
+              </span>
+            </td>
+            <td class="text-right whitespace-nowrap">
+              @if (reassigningId() === m.id) {
+                <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" (click)="confirmReassign(m)">Save</button>
+                <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" (click)="cancelReassign()">Cancel</button>
+              } @else {
+                <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" (click)="startReassign(m)">Reassign city</button>
+                @if (m.assignmentStatus === 'ACTIVE') {
+                  <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" (click)="setStatus(m, 'SUSPENDED')">Suspend</button>
+                  <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" (click)="setStatus(m, 'INACTIVE')">Deactivate</button>
+                } @else {
+                  <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" (click)="setStatus(m, 'ACTIVE')">Activate</button>
+                }
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500">
+    <span>{{ totalElements() }} operations manager{{ totalElements() === 1 ? '' : 's' }}</span>
+    @if (totalPages() > 1) {
+      <div class="flex items-center gap-2">
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" [disabled]="page() === 0" (click)="goToPage(page() - 1)">Previous</button>
+        <span>Page {{ page() + 1 }} of {{ totalPages() }}</span>
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" [disabled]="page() + 1 >= totalPages()" (click)="goToPage(page() + 1)">Next</button>
+      </div>
+    }
+  </div>
+}
+
+@if (toastMessage()) {
+  <div class="fixed bottom-6 right-6 z-50 card !py-3 !px-4 text-sm font-medium text-slate-800 shadow-card-hover">
+    {{ toastMessage() }}
+  </div>
+}

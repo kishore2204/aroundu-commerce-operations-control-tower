@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.context; import java.util.UUID; public interface AuthenticatedUserProvider {UUID currentUserAccountId();}

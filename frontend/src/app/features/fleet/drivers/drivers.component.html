@@ -1,0 +1,188 @@
+<div class="animate-fade-in">
+  <div *ngIf="resubmissionNotice() as notice" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4">
+    <div class="card w-full max-w-lg bg-white">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900"><i class="fa-solid fa-file-circle-exclamation text-amber-500"></i> {{ notice.title }}</h3>
+          <p class="text-sm text-slate-600 mt-2">{{ notice.message }}</p>
+          <p class="text-xs text-slate-500 mt-2">Use the Re-upload License action in the driver table. Only the rejected document needs to be replaced.</p>
+        </div>
+        <button type="button" class="btn-icon" (click)="resubmissionNotice.set(null)" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="flex justify-end mt-4"><button type="button" class="btn-primary" (click)="resubmissionNotice.set(null)">OK</button></div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">Fleet Drivers</h1>
+      <p class="text-sm text-slate-500 mt-1">Manage drivers, assigned credentials, and licenses</p>
+    </div>
+    <button type="button" class="btn-primary" (click)="showForm.set(!showForm())">
+      <i class="fa-solid" [ngClass]="showForm() ? 'fa-xmark' : 'fa-user-plus'"></i>
+      {{ showForm() ? 'Cancel' : 'Add New Driver' }}
+    </button>
+  </div>
+
+  <!-- Created Credentials Banner -->
+  <div *ngIf="createdCredentials() as creds" class="card bg-emerald-50 border-emerald-200 mb-6">
+    <div class="font-bold text-emerald-700 mb-2">
+      <i class="fa-solid fa-circle-check"></i> Driver Account Created Successfully!
+    </div>
+    <p class="text-sm text-slate-700">Please share these credentials with your driver to allow them to log into the Driver App:</p>
+    <div class="bg-white rounded-lg border border-emerald-100 my-3 p-3 flex flex-wrap gap-6">
+      <div><strong>Username/Email:</strong> <code class="bg-slate-100 px-2 py-0.5 rounded font-bold text-zepto-600">{{ creds.email }}</code></div>
+      <div class="flex items-center gap-2">
+        <strong>Temporary Password:</strong>
+        <code class="bg-slate-100 px-2 py-0.5 rounded font-bold text-zepto-600">{{ credentialsRevealed() ? creds.password : '••••••••' }}</code>
+        <button type="button" class="btn-icon" (click)="credentialsRevealed.set(!credentialsRevealed())" [attr.aria-label]="credentialsRevealed() ? 'Hide password' : 'Show password'">
+          <i class="fa-solid" [ngClass]="credentialsRevealed() ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </button>
+      </div>
+    </div>
+    <button type="button" class="btn-outline" (click)="createdCredentials.set(null)">Dismiss</button>
+  </div>
+
+  <!-- Add Driver Form -->
+  <div *ngIf="showForm()" class="card mb-6">
+    <h3 class="text-lg font-bold text-slate-900 mb-5"><i class="fa-solid fa-user-gear text-zepto-600"></i> Register Driver</h3>
+
+    <div *ngIf="formError()" class="bg-rose-50 text-rose-700 rounded-lg px-3.5 py-2.5 mb-4 text-sm">
+      <i class="fa-solid fa-triangle-exclamation"></i> {{ formError() }}
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label req-mark">First Name</label>
+          <input type="text" class="input" formControlName="firstName" placeholder="First name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Last Name</label>
+          <input type="text" class="input" formControlName="lastName" placeholder="Last name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Email Address<app-field-hint field="email" /></label>
+          <input type="email" class="input" formControlName="email" placeholder="driver@aroundu.com" />
+          @if (emailError(); as message) { <p class="mt-1 text-xs font-semibold text-rose-600">{{ message }}</p> }
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Temporary Password<app-field-hint field="password" /></label>
+          <div class="flex items-center gap-2">
+            <input [type]="showPassword() ? 'text' : 'password'" class="input" formControlName="password" placeholder="Driver@123" />
+            <button type="button" class="btn-icon" (click)="showPassword.set(!showPassword())" [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+              <i class="fa-solid" [ngClass]="showPassword() ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+          <app-password-requirements [value]="form.controls.password.value" />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Operating City</label>
+          <select class="select" formControlName="cityId">
+            <option value="">Select City</option>
+            <option *ngFor="let c of cities()" [value]="c.id">{{ c.cityName }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">License Number<app-field-hint field="licence" /></label>
+          <input type="text" class="input" formControlName="licenseNumber" placeholder="DL-1420110012345" maxlength="16" [appFormatInput]="'licence'" />
+          @if (licenceError(); as message) { <p class="mt-1 text-xs font-semibold text-rose-600">{{ message }}</p> }
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">License Expiry Date</label>
+          <input type="date" class="input" formControlName="licenseExpiryDate" />
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">License Document Photo / File</label>
+          <input type="file" accept="image/*" class="input" (change)="onLicenseFileSelected($event)" />
+          <div *ngIf="licenseImageBase64()" class="flex items-center gap-3 mt-2">
+            <img [src]="licenseImageBase64()" alt="Driver License" class="thumb-img" />
+            <span class="text-emerald-600 text-sm">Photo selected</span>
+          </div>
+          <input *ngIf="!licenseImageBase64()" type="text" class="input mt-1.5" formControlName="licenseDocumentUrl" placeholder="Or enter image URL" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3">
+        <button type="button" class="btn-outline" (click)="showForm.set(false)">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid || saving()">
+          <span *ngIf="!saving()"><i class="fa-solid fa-check"></i> Save & Register Driver</span>
+          <span *ngIf="saving()"><i class="fa-solid fa-spinner fa-spin"></i> Saving...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Drivers Table -->
+  <div class="table-card">
+    <div *ngIf="loading()" class="text-center text-slate-400 py-12">
+      <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+      <p class="mt-2">Loading drivers...</p>
+    </div>
+
+    <div *ngIf="!loading() && drivers().length === 0" class="text-center text-slate-400 py-12">
+      <i class="fa-solid fa-users-slash fa-3x"></i>
+      <h3 class="text-slate-700 font-semibold mt-3">No Drivers Registered Yet</h3>
+      <p class="text-sm">Click "Add New Driver" to add drivers to your fleet.</p>
+    </div>
+
+    <table *ngIf="!loading() && drivers().length > 0" class="custom-table">
+      <thead>
+        <tr>
+          <th>Driver</th>
+          <th>Contact & Email</th>
+          <th>City</th>
+          <th>License Details</th>
+          <th>Status</th>
+          <th>Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of drivers(); trackBy: trackByDriverId">
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-zepto-50 text-zepto-600 flex items-center justify-center">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div>
+                <strong>{{ (d.firstName || d.lastName) ? ((d.firstName || '') + ' ' + (d.lastName || '')) : (d.email || 'Unnamed Driver') }}</strong>
+                <div class="text-xs text-slate-400">{{ d.licenseNumber }}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div>{{ d.email || 'Registered' }}</div>
+            <div class="text-xs text-slate-400">Password set by fleet owner</div>
+          </td>
+          <td>{{ d.cityName || getCityName(d.cityId) }}</td>
+          <td>
+            <div><strong>{{ d.licenseNumber }}</strong></div>
+            <div class="text-xs text-slate-400">Exp: {{ d.licenseExpiryDate | date:'mediumDate' }}</div>
+          </td>
+          <td>
+            <span
+              class="badge"
+              [class.badge-active]="d.driverStatus === 'ACTIVE'"
+              [class.badge-pending]="d.driverStatus === 'PENDING'"
+              [class.badge-inactive]="d.driverStatus === 'INACTIVE' || d.driverStatus === 'LICENSE_EXPIRED'"
+              [class.badge-danger]="d.driverStatus === 'SUSPENDED'"
+            >
+              {{ d.driverStatus }}
+            </span>
+          </td>
+          <td>
+            <ng-container *ngIf="resubmissionQueues()[d.driverId] as queue; else noDriverResubmission">
+              <div class="text-xs text-rose-600 mb-2 max-w-xs">{{ queue.rejectionReason || 'Driving license must be re-uploaded.' }}</div>
+              <label class="btn-outline cursor-pointer" [class.opacity-50]="resubmittingId() === d.driverId">
+                <i class="fa-solid" [ngClass]="resubmittingId() === d.driverId ? 'fa-spinner fa-spin' : 'fa-upload'"></i>
+                {{ resubmittingId() === d.driverId ? 'Uploading...' : 'Re-upload License' }}
+                <input type="file" class="hidden" accept="image/*,.pdf" [disabled]="!!resubmittingId()" (change)="onResubmitLicense(d, $event)" />
+              </label>
+            </ng-container>
+            <ng-template #noDriverResubmission><span class="text-xs text-slate-400">No re-upload requested</span></ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

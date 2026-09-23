@@ -1,0 +1,80 @@
+:host {
+  display: block;
+}
+
+/*
+ * Horizontal tracker. Every step is an equal-width column with a minimum width, so long stage
+ * names wrap under their icon instead of overlapping; if the columns don't fit the container the
+ * tracker scrolls sideways rather than clipping.
+ * The connector is drawn by each step (except the first) from the CENTRE of the previous column
+ * to the centre of its own, so the progress line is continuous and always meets the icons.
+ */
+.stepper-scroll {
+  overflow-x: auto;
+  padding: 0.25rem 0 0.5rem;
+}
+
+.stepper {
+  display: flex;
+  width: 100%;
+  min-width: calc(var(--steps, 1) * 96px);
+}
+
+.step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.step::before {
+  content: '';
+  position: absolute;
+  top: 14px; /* vertical centre of the 28px marker */
+  left: -50%;
+  width: 100%;
+  height: 3px;
+  transform: translateY(-50%);
+  background: #e2e8f0;
+  z-index: 0;
+}
+
+.step:first-child::before {
+  display: none;
+}
+
+.step.line-done::before {
+  background: #059669;
+}
+
+.step-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #ffffff; /* masks the connector behind the icon */
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.step-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.state-current .step-marker {
+  box-shadow: 0 0 0 4px rgba(124, 31, 184, 0.16);
+}
+
+.step-label {
+  margin-top: 0.5rem;
+  padding: 0 0.25rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}

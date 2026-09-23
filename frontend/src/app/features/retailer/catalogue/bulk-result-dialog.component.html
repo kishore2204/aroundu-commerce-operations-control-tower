@@ -1,0 +1,77 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+  <div class="card w-full max-w-lg" role="dialog" aria-modal="true" aria-labelledby="bulk-result-title">
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span
+          class="grid h-10 w-10 shrink-0 place-items-center rounded-full"
+          [class.bg-emerald-50]="result.rejected === 0"
+          [class.text-emerald-600]="result.rejected === 0"
+          [class.bg-amber-50]="result.rejected > 0 && succeeded > 0"
+          [class.text-amber-600]="result.rejected > 0 && succeeded > 0"
+          [class.bg-rose-50]="result.rejected > 0 && succeeded === 0"
+          [class.text-rose-600]="result.rejected > 0 && succeeded === 0"
+        >
+          <i class="fa-solid" [class.fa-circle-check]="result.rejected === 0" [class.fa-triangle-exclamation]="result.rejected > 0"></i>
+        </span>
+        <h2 id="bulk-result-title" class="m-0 text-lg font-bold text-slate-900">Bulk Upload Completed</h2>
+      </div>
+      <button type="button" class="btn-icon !h-8 !w-8 shrink-0" aria-label="Close" (click)="closed.emit()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <p class="mb-1 mt-4 text-base font-bold text-slate-900">{{ headline }}</p>
+    <p class="m-0 text-sm text-slate-500">{{ summary }}</p>
+
+    <dl class="mt-4 grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
+      @if (result.created > 0) {
+        <div class="rounded-xl bg-emerald-50 p-3"><dt class="text-xs text-emerald-700">Created</dt><dd class="m-0 text-xl font-extrabold text-emerald-800">{{ result.created }}</dd></div>
+      }
+      @if (result.updated > 0) {
+        <div class="rounded-xl bg-violet-50 p-3"><dt class="text-xs text-violet-700">Updated</dt><dd class="m-0 text-xl font-extrabold text-violet-800">{{ result.updated }}</dd></div>
+      }
+      @if (result.unchanged > 0) {
+        <div class="rounded-xl bg-slate-50 p-3"><dt class="text-xs text-slate-500">Unchanged</dt><dd class="m-0 text-xl font-extrabold text-slate-700">{{ result.unchanged }}</dd></div>
+      }
+      @if (result.rejected > 0) {
+        <div class="rounded-xl bg-rose-50 p-3"><dt class="text-xs text-rose-700">Rejected</dt><dd class="m-0 text-xl font-extrabold text-rose-800">{{ result.rejected }}</dd></div>
+      }
+    </dl>
+
+    @if (result.rejected > 0) {
+      <p class="mt-4 text-sm text-slate-500">
+        The downloads list every rejected product with your original values and the reason for each. Correct the file and upload it again.
+      </p>
+      <div class="mt-2">
+        <button type="button" class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+          (click)="logOpen.set(true)">
+          <i class="fa-solid fa-table-list text-violet-500"></i> Rejection Log
+        </button>
+      </div>
+    }
+
+    <div class="mt-5 flex flex-wrap justify-end gap-2">
+      @if (result.rejected > 0) {
+        <button type="button" class="btn-outline" [disabled]="downloading !== null" (click)="downloadRejected.emit()">
+          @if (downloading === 'xlsx') {
+            <span class="spinner !h-4 !w-4"></span> Preparing...
+          } @else {
+            <i class="fa-solid fa-file-excel"></i> Download Rejected XLSX
+          }
+        </button>
+        <button type="button" class="btn-outline" [disabled]="downloading !== null" (click)="downloadRejectedCsv.emit()">
+          @if (downloading === 'csv') {
+            <span class="spinner !h-4 !w-4"></span> Preparing...
+          } @else {
+            <i class="fa-solid fa-file-csv"></i> Download Rejected CSV
+          }
+        </button>
+      }
+      <button type="button" class="btn-primary" (click)="closed.emit()">Close</button>
+    </div>
+  </div>
+</div>
+
+@if (logOpen()) {
+  <app-rejection-log-dialog [rows]="result.rejectedRows" (closed)="logOpen.set(false)"></app-rejection-log-dialog>
+}

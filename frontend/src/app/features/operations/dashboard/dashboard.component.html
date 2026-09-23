@@ -1,0 +1,83 @@
+<h1 class="mb-6 flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-gauge-high text-sm"></i>
+  </span>
+  Operations overview
+</h1>
+
+@if (loading()) {
+  <div class="flex justify-center py-10"><span class="spinner"></span></div>
+} @else {
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <a routerLink="/operations/queue" class="card card-hover flex items-center gap-4 border-zepto-200 bg-gradient-to-br from-zepto-50/60 to-violet-50/40">
+      <div class="h-12 w-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-zepto-500 to-violet-500 text-white text-xl shadow-glow">
+        <i class="fa-solid fa-clipboard-check"></i>
+      </div>
+      <div>
+        <p class="text-2xl font-extrabold text-slate-900">{{ pendingReview() }}</p>
+        <p class="text-sm text-slate-500">Awaiting verification review</p>
+      </div>
+    </a>
+    <a routerLink="/operations/support" class="card card-hover flex items-center gap-4">
+      <div class="h-12 w-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 text-white text-xl shadow-card">
+        <i class="fa-solid fa-headset"></i>
+      </div>
+      <div>
+        <p class="text-2xl font-extrabold text-slate-900">{{ overview()?.supportTickets ?? '-' }}</p>
+        <p class="text-sm text-slate-500">Support tickets</p>
+      </div>
+    </a>
+    <a routerLink="/operations/finance" class="card card-hover flex items-center gap-4">
+      <div class="h-12 w-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white text-xl shadow-card">
+        <i class="fa-solid fa-sack-dollar"></i>
+      </div>
+      <div>
+        <p class="text-2xl font-extrabold text-slate-900">{{ overview()?.settlements ?? '-' }}</p>
+        <p class="text-sm text-slate-500">Settlements</p>
+      </div>
+    </a>
+    <a routerLink="/operations/audit" class="card card-hover flex items-center gap-4">
+      <div class="h-12 w-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white text-xl shadow-card">
+        <i class="fa-solid fa-clipboard-list"></i>
+      </div>
+      <div>
+        <p class="text-2xl font-extrabold text-slate-900">{{ overview()?.auditLogs ?? '-' }}</p>
+        <p class="text-sm text-slate-500">Audit log entries</p>
+      </div>
+    </a>
+  </div>
+
+  @if (overview(); as o) {
+    <section>
+      <h2 class="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
+        <i class="fa-solid fa-coins text-violet-500"></i> Platform finance snapshot
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="card">
+          <p class="text-xl font-extrabold text-slate-900">{{ o.recordedPaymentAmount | currency: 'INR' }}</p>
+          <p class="text-sm text-slate-500 mt-1">Total recorded payments ({{ o.paymentTransactions }} transactions)</p>
+        </div>
+        <div class="card">
+          <p class="text-xl font-extrabold text-slate-900">{{ o.refundRate | number: '1.0-1' }}%</p>
+          <p class="text-sm text-slate-500 mt-1">Refund rate ({{ o.refunds }} refunds)</p>
+        </div>
+        <div class="card">
+          <p class="text-xl font-extrabold text-slate-900">{{ o.settlementFeeRatio | number: '1.1-2' }}%</p>
+          <p class="text-sm text-slate-500 mt-1">Average settlement fee ratio</p>
+        </div>
+        <div class="card">
+          <p class="text-xl font-extrabold text-slate-900">{{ o.averageTicketResolutionHours | number: '1.0-1' }}h</p>
+          <p class="text-sm text-slate-500 mt-1">Average ticket resolution time</p>
+        </div>
+        <div class="card">
+          <p class="text-xl font-extrabold text-slate-900">{{ o.invoices }}</p>
+          <p class="text-sm text-slate-500 mt-1">Customer invoices</p>
+        </div>
+        <div class="card">
+          <p class="text-xl font-extrabold text-slate-900">{{ o.notifications }}</p>
+          <p class="text-sm text-slate-500 mt-1">Notifications sent</p>
+        </div>
+      </div>
+    </section>
+  }
+}

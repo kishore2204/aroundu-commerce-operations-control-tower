@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.client.platform; import java.util.*;import java.math.*; public record TerritoryValidationRequest(UUID cityId,UUID zoneId,String postalCode,BigDecimal latitude,BigDecimal longitude) {}

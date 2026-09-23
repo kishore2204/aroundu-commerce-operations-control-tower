@@ -1,0 +1,63 @@
+<h1 class="text-2xl font-bold text-slate-900 mb-4">Orders</h1>
+
+@if (toastMessage()) {
+  <div class="fixed top-4 right-4 z-50 card px-4 py-3 text-sm font-medium text-slate-800 shadow-card-hover animate-fade-in">
+    {{ toastMessage() }}
+  </div>
+}
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (orders().length === 0) {
+  <app-empty-state icon="receipt_long" title="No orders" subtitle="New orders will show up here.">
+  </app-empty-state>
+} @else {
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Products</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders(); track order.id) {
+          <tr>
+            <td class="font-semibold text-slate-800">{{ order.orderNumber }}</td>
+            <td class="text-slate-600 text-sm">{{ order.productSummary }}</td>
+            <td><span class="badge badge-pending">{{ order.orderStatus }}</span></td>
+            <td class="font-semibold text-slate-900">{{ order.totalAmount | currency: 'INR' }}</td>
+            <td>
+              @if (isAwaitingResponse(order)) {
+                <div class="flex gap-2 justify-end">
+                  <button type="button" class="btn-secondary" (click)="accept(order)" [disabled]="acting() === order.id">
+                    Accept
+                  </button>
+                  <button type="button" class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50" (click)="reject(order)" [disabled]="acting() === order.id">
+                    Reject
+                  </button>
+                </div>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+
+@if (pendingReject(); as order) {
+  <app-confirm-dialog
+    title="Reject this order?"
+    [message]="'Reject order ' + order.orderNumber + '? The customer will be notified and this cannot be undone.'"
+    confirmLabel="Reject order"
+    busyLabel="Rejecting..."
+    [danger]="true"
+    [busy]="acting() === order.id"
+    (confirmed)="confirmReject()"
+    (cancelled)="cancelReject()"
+  ></app-confirm-dialog>
+}

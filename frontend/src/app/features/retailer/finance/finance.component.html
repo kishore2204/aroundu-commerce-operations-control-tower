@@ -1,0 +1,43 @@
+<h1 class="text-2xl font-bold text-slate-900 mb-4">Finance</h1>
+
+@if (loading()) {
+  <div class="flex justify-center py-12"><div class="spinner"></div></div>
+} @else if (settlements().length === 0) {
+  <app-empty-state icon="account_balance" title="No settlements yet"></app-empty-state>
+} @else {
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Reference</th>
+          <th>Date</th>
+          <th>Gross</th>
+          <th>Fee</th>
+          <th>Net</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (s of settlements(); track s.settlementId) {
+          <tr>
+            <td>{{ s.settlementReference || s.payeeName || 'N/A' }}</td>
+            <td>{{ s.settlementDate | date: 'mediumDate' }}</td>
+            <td>{{ s.grossAmount | currency: 'INR' }}</td>
+            <td>{{ s.feeAmount | currency: 'INR' }}</td>
+            <td class="font-semibold text-slate-900">{{ s.netAmount | currency: 'INR' }}</td>
+            <td>
+              <span
+                class="badge"
+                [class.badge-active]="s.settlementStatus === 'COMPLETED'"
+                [class.badge-pending]="s.settlementStatus === 'PENDING'"
+                [class.badge-inactive]="s.settlementStatus !== 'COMPLETED' && s.settlementStatus !== 'PENDING'"
+              >
+                {{ s.settlementStatus }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

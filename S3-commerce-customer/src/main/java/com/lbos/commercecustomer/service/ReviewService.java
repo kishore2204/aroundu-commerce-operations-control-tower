@@ -1,0 +1,5 @@
+package com.lbos.commercecustomer.service; import com.lbos.commercecustomer.dto.client.order.ReviewEligibilityResponse;import com.lbos.commercecustomer.dto.request.*;import com.lbos.commercecustomer.dto.response.*;import java.util.*; public interface ReviewService {ReviewResponse create(ReviewRequest r); ReviewResponse get(UUID id); PageResponse<ReviewResponse> search(Long productId,Short rating,int page,int size); ReviewResponse update(UUID id,UpdateReviewRequest r); void delete(UUID id); RatingSummaryResponse rating(Long productId); RetailerRatingSummaryResponse retailerRating(UUID retailerId);
+/** Whether the CURRENT customer (resolved from their own auth context) has ever purchased/
+ *  received this product - backs the product-detail page's up-front "can I even review this"
+ *  check, no manual Order ID required. */
+ReviewEligibilityResponse eligibility(Long productId);}

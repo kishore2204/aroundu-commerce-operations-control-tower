@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.util.*;import java.time.*;import java.math.*; public record ReviewResponse(UUID id,Long orderId,Long productId,short rating,String reviewText,OffsetDateTime createdAt) {}

@@ -1,0 +1,86 @@
+<h1 class="mb-2 flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-map-location-dot text-sm"></i>
+  </span>
+  Location command center
+</h1>
+<p class="badge badge-pending !inline-block normal-case font-medium mb-6 max-w-2xl">
+  Read-only: creating or editing cities/zones is an Operations Manager/Super Admin action on
+  this backend (a Location Manager token gets 403 on writes here by design) - this screen
+  lets you browse the territory structure your verification work depends on.
+</p>
+
+<section class="mb-10">
+  <h2 class="text-lg font-bold text-slate-900 mb-3">Cities</h2>
+  @if (citiesLoading()) {
+    <div class="flex justify-center py-8"><span class="spinner"></span></div>
+  } @else if (cities().length === 0) {
+    <app-empty-state icon="location_city" title="No cities found"></app-empty-state>
+  } @else {
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>State</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (city of cities(); track city.id) {
+            <tr
+              class="cursor-pointer"
+              [class.bg-zepto-50]="city.id === selectedCityId()"
+              (click)="selectCity(city.id)"
+            >
+              <td class="font-semibold text-slate-800">{{ city.cityName }}</td>
+              <td class="text-slate-500">{{ city.stateName }}</td>
+              <td>
+                <span class="badge" [class.badge-active]="city.active" [class.badge-inactive]="!city.active">
+                  {{ city.active ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
+
+<section>
+  <h2 class="text-lg font-bold text-slate-900 mb-3">
+    Zones @if (selectedCityName(); as name) { <span class="font-normal text-slate-500">in {{ name }}</span> }
+  </h2>
+  @if (zonesLoading()) {
+    <div class="flex justify-center py-8"><span class="spinner"></span></div>
+  } @else if (zones().length === 0) {
+    <app-empty-state icon="map" title="No zones found" subtitle="Select a city above to see its zones.">
+    </app-empty-state>
+  } @else {
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Zone</th>
+            <th>City / State</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (zone of zones(); track zone.zoneId) {
+            <tr>
+              <td class="font-semibold text-slate-800">{{ zone.zoneName }}</td>
+              <td class="text-slate-500">{{ zone.cityName }}, {{ zone.stateName }}</td>
+              <td>
+                <span class="badge" [class.badge-active]="zone.active" [class.badge-inactive]="!zone.active">
+                  {{ zone.active ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

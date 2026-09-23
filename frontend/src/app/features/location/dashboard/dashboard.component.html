@@ -1,0 +1,402 @@
+<!-- 1. Heading + assigned zone + date range -->
+<div class="mb-6 flex flex-wrap items-start justify-between gap-4">
+  <div>
+    <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+      <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+        <i class="fa-solid fa-gauge-high text-sm"></i>
+      </span>
+      Dashboard
+    </h1>
+    @if (summary(); as s) {
+      <p class="mt-1 text-sm text-slate-500"><i class="fa-solid fa-location-dot mr-1 text-violet-500"></i>Assigned zone: <strong class="text-slate-700">{{ s.zoneName }}</strong> · {{ s.cityName }}</p>
+    }
+  </div>
+
+  <div class="flex flex-col items-end gap-2">
+    <div class="flex flex-wrap items-center gap-2">
+      @for (option of [['today', 'Today'], ['7', 'Last 7 days'], ['30', 'Last 30 days'], ['custom', 'Custom range']]; track option[0]) {
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" [class.!border-violet-500]="preset() === option[0]" [class.!text-violet-700]="preset() === option[0]"
+          (click)="setPreset($any(option[0]))">{{ option[1] }}</button>
+      }
+      <button type="button" class="btn-icon !h-8 !w-8" aria-label="Refresh" title="Refresh" (click)="refresh()"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+    @if (preset() === 'custom') {
+      <div class="flex flex-wrap items-center gap-2">
+        <input type="date" class="input !w-auto !py-1.5 !text-xs" [value]="customFrom()" [max]="customTo()" (change)="customFrom.set($any($event.target).value)" />
+        <span class="text-xs text-slate-400">to</span>
+        <input type="date" class="input !w-auto !py-1.5 !text-xs" [value]="customTo()" [min]="customFrom()" (change)="customTo.set($any($event.target).value)" />
+        <button type="button" class="btn-primary !px-3 !py-1.5 !text-xs" [disabled]="!customRangeValid() || summaryLoading()" (click)="applyCustomRange()">Apply</button>
+      </div>
+    }
+    <p class="text-xs text-slate-400">The date range applies to decisions, completed orders and onboarding activity. Totals and pending work are current.</p>
+  </div>
+</div>
+
+@if (summaryError()) {
+  <p class="mb-4 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700">{{ summaryError() }}</p>
+}
+
+@if (summary(); as s) {
+  <!-- 2. KPI cards -->
+  <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" [class.opacity-60]="summaryLoading()">
+    <button type="button" class="card card-hover flex items-center gap-4 text-left" (click)="showList('RETAILER')">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-zepto-500 to-violet-500 text-xl text-white shadow-glow"><i class="fa-solid fa-store"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900">{{ s.totalRetailers }}</p>
+        <p class="text-sm text-slate-500">Total Retailers</p>
+        <p class="text-xs text-slate-400">{{ s.activeRetailers }} active</p>
+      </div>
+    </button>
+    <button type="button" class="card card-hover flex items-center gap-4 text-left" (click)="showList('FLEET_OWNER')">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 text-xl text-white shadow-card"><i class="fa-solid fa-truck-fast"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900">{{ s.totalFleetOwners }}</p>
+        <p class="text-sm text-slate-500">Total Fleet Owners</p>
+        <p class="text-xs text-slate-400">{{ s.activeFleetOwners }} active</p>
+      </div>
+    </button>
+    <a routerLink="/location/queue" [queryParams]="{ status: 'SENT_TO_LOCATION_MANAGER' }" class="card card-hover flex items-center gap-4">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-xl text-white shadow-card"><i class="fa-solid fa-clipboard-list"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900">{{ s.pendingVerifications }}</p>
+        <p class="text-sm text-slate-500">Pending Verifications</p>
+        <p class="text-xs text-slate-400">awaiting review or re-upload</p>
+      </div>
+    </a>
+    <a routerLink="/location/queue" [queryParams]="{ status: 'APPROVED' }" class="card card-hover flex items-center gap-4">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 text-xl text-white shadow-card"><i class="fa-solid fa-circle-check"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900">{{ s.completedVerifications }}</p>
+        <p class="text-sm text-slate-500">Completed Verifications</p>
+        <p class="text-xs text-slate-400">{{ rangeLabel() }}</p>
+      </div>
+    </a>
+    <a routerLink="/location/queue" [queryParams]="{ status: 'REJECTED' }" class="card card-hover flex items-center gap-4">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-rose-400 to-red-500 text-xl text-white shadow-card"><i class="fa-solid fa-circle-xmark"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900">{{ s.rejectedRequests }}</p>
+        <p class="text-sm text-slate-500">Rejected Requests</p>
+        <p class="text-xs text-slate-400">{{ rangeLabel() }}</p>
+      </div>
+    </a>
+    <div class="card flex items-center gap-4">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-400 to-fuchsia-500 text-xl text-white shadow-card"><i class="fa-solid fa-bag-shopping"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900">{{ s.activeOrders ?? '-' }}</p>
+        <p class="text-sm text-slate-500">Active Orders</p>
+        <p class="text-xs text-slate-400">right now</p>
+      </div>
+    </div>
+    <div class="card flex items-center gap-4">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-lime-400 to-green-500 text-xl text-white shadow-card"><i class="fa-solid fa-box-open"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900">{{ s.completedOrders ?? '-' }}</p>
+        <p class="text-sm text-slate-500">Completed Orders</p>
+        <p class="text-xs text-slate-400">{{ rangeLabel() }}</p>
+      </div>
+    </div>
+  </div>
+  @if (s.activeOrders === null) {
+    <p class="-mt-5 mb-6 text-xs text-amber-600">Order figures are temporarily unavailable.</p>
+  }
+
+  <!-- 3. Analytics -->
+  <div class="mb-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
+    <section class="card">
+      <div class="mb-3 flex items-start justify-between gap-3">
+        <div>
+          <h2 class="flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-chart-column text-violet-500"></i> Onboarding trends</h2>
+          <p class="text-xs text-slate-400">New applications, {{ rangeLabel() }}</p>
+        </div>
+        <div class="flex items-center gap-3 text-xs text-slate-500">
+          <span class="flex items-center gap-1"><span class="inline-block h-2.5 w-2.5 rounded-sm bg-violet-500"></span>Retailers {{ trendTotals().retailers }}</span>
+          <span class="flex items-center gap-1"><span class="inline-block h-2.5 w-2.5 rounded-sm bg-amber-400"></span>Fleet Owners {{ trendTotals().fleetOwners }}</span>
+        </div>
+      </div>
+      @if (trendTotals().retailers + trendTotals().fleetOwners === 0) {
+        <p class="py-10 text-center text-sm text-slate-400">No onboarding activity in this range.</p>
+      } @else {
+        <div class="flex h-40 items-end gap-px border-b border-slate-200">
+          @for (point of trend(); track point.date) {
+            <div class="flex h-full min-w-0 flex-1 items-end justify-center gap-px" [title]="trendLabel(point.date) + ': ' + point.retailers + ' retailers, ' + point.fleetOwners + ' fleet owners'">
+              <div class="w-1/2 rounded-t-sm bg-violet-500" [style.height.%]="point.retailerPct"></div>
+              <div class="w-1/2 rounded-t-sm bg-amber-400" [style.height.%]="point.ownerPct"></div>
+            </div>
+          }
+        </div>
+        <div class="mt-1 flex justify-between text-xs text-slate-400">
+          <span>{{ trendLabel(trend()[0].date) }}</span>
+          <span>{{ trendLabel(trend()[trend().length - 1].date) }}</span>
+        </div>
+      }
+    </section>
+
+    <section class="card">
+      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-clipboard-check text-violet-500"></i> Verification analytics</h2>
+      <p class="mb-3 text-xs text-slate-400">Pending now · approved and rejected {{ rangeLabel() }}</p>
+      @if (verificationRows().length === 0) {
+        <p class="py-10 text-center text-sm text-slate-400">No verification activity to show.</p>
+      } @else {
+        <div class="flex flex-col gap-4">
+          @for (row of verificationRows(); track row.subjectType) {
+            <div>
+              <div class="mb-1 flex justify-between text-xs">
+                <span class="font-semibold text-slate-600">{{ subjectLabel(row.subjectType) }}</span>
+                <span class="text-slate-400">{{ row.pending }} pending · {{ row.approved }} approved · {{ row.rejected }} rejected</span>
+              </div>
+              <div class="flex h-4 overflow-hidden rounded-full bg-slate-100">
+                <div class="h-full bg-amber-400" [style.width.%]="row.pendingPct" title="Pending"></div>
+                <div class="h-full bg-emerald-500" [style.width.%]="row.approvedPct" title="Approved"></div>
+                <div class="h-full bg-rose-500" [style.width.%]="row.rejectedPct" title="Rejected"></div>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="mt-3 flex gap-4 text-xs text-slate-500">
+          <span class="flex items-center gap-1"><span class="inline-block h-2.5 w-2.5 rounded-sm bg-amber-400"></span>Pending</span>
+          <span class="flex items-center gap-1"><span class="inline-block h-2.5 w-2.5 rounded-sm bg-emerald-500"></span>Approved</span>
+          <span class="flex items-center gap-1"><span class="inline-block h-2.5 w-2.5 rounded-sm bg-rose-500"></span>Rejected</span>
+        </div>
+      }
+    </section>
+
+    <section class="card">
+      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-bag-shopping text-violet-500"></i> Order analytics</h2>
+      <p class="mb-3 text-xs text-slate-400">Orders of the retailers in your zone</p>
+      @if (s.activeOrders === null) {
+        <p class="py-10 text-center text-sm text-slate-400">Order figures are temporarily unavailable.</p>
+      } @else {
+        <div class="grid grid-cols-2 gap-4">
+          <div class="rounded-xl bg-violet-50 p-4"><p class="text-2xl font-extrabold text-violet-700">{{ s.activeOrders }}</p><p class="text-xs text-violet-600">Active orders (now)</p></div>
+          <div class="rounded-xl bg-emerald-50 p-4"><p class="text-2xl font-extrabold text-emerald-700">{{ s.completedOrders }}</p><p class="text-xs text-emerald-600">Completed ({{ rangeLabel() }})</p></div>
+        </div>
+        <div class="mt-4 flex h-3 overflow-hidden rounded-full bg-slate-100">
+          <div class="h-full bg-violet-500" [style.width.%]="orderSplit().activePct"></div>
+          <div class="h-full bg-emerald-500" [style.width.%]="orderSplit().completedPct"></div>
+        </div>
+      }
+    </section>
+
+    <section class="card">
+      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-people-arrows text-violet-500"></i> Workload distribution</h2>
+      <p class="mb-3 text-xs text-slate-400">Your pending verification work, by kind</p>
+      @if (workloadRows().length === 0) {
+        <p class="py-10 text-center text-sm text-slate-400">Nothing pending - you are all caught up.</p>
+      } @else {
+        <div class="flex flex-col gap-3">
+          @for (row of workloadRows(); track row.category + row.subjectType) {
+            <div class="flex items-center gap-3">
+              <span class="w-44 shrink-0 truncate text-xs font-semibold text-slate-500" [title]="row.category + ' · ' + subjectLabel(row.subjectType)">{{ row.category }} · {{ subjectLabel(row.subjectType) }}</span>
+              <div class="h-4 flex-1 overflow-hidden rounded-full bg-slate-100">
+                <div class="h-full rounded-full" [class.bg-amber-400]="row.category === 'Awaiting review'" [class.bg-rose-400]="row.category !== 'Awaiting review'" [style.width.%]="row.pct"></div>
+              </div>
+              <span class="w-8 shrink-0 text-right text-xs font-bold text-slate-700">{{ row.count }}</span>
+            </div>
+          }
+        </div>
+      }
+    </section>
+  </div>
+} @else if (summaryLoading()) {
+  <div class="flex justify-center py-12"><span class="spinner"></span></div>
+}
+
+<!-- 4. Controls + partner list -->
+<section id="zone-partners">
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+    <h2 class="flex items-center gap-2 text-lg font-bold text-slate-900"><i class="fa-solid fa-users text-violet-500"></i> Users in your zone</h2>
+    <div class="flex rounded-xl border border-slate-200 p-0.5">
+      <button type="button" class="rounded-lg px-4 py-1.5 text-sm font-semibold" [class.bg-violet-600]="userType() === 'RETAILER'" [class.text-white]="userType() === 'RETAILER'"
+        [class.text-slate-600]="userType() !== 'RETAILER'" (click)="selectType('RETAILER')">Retailers</button>
+      <button type="button" class="rounded-lg px-4 py-1.5 text-sm font-semibold" [class.bg-violet-600]="userType() === 'FLEET_OWNER'" [class.text-white]="userType() === 'FLEET_OWNER'"
+        [class.text-slate-600]="userType() !== 'FLEET_OWNER'" (click)="selectType('FLEET_OWNER')">Fleet Owners</button>
+    </div>
+  </div>
+
+  <div class="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="relative lg:col-span-1">
+      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <input class="input pl-9" [formControl]="searchControl" placeholder="Name, business, email or phone" />
+    </div>
+    <select class="select" [value]="onboardingFilter()" (change)="setFilter('onboarding', $any($event.target).value)">
+      <option value="">Onboarding: all</option>
+      <option value="PENDING_VERIFICATION">Pending verification</option>
+      <option value="SENT_TO_LOCATION_MANAGER">Under review</option>
+      <option value="VERIFIED">Verified</option>
+      <option value="REJECTED">Rejected</option>
+      <option value="SUSPENDED">Suspended</option>
+    </select>
+    <select class="select" [value]="verificationFilter()" (change)="setFilter('verification', $any($event.target).value)">
+      <option value="">Verification: all</option>
+      <option value="NOT_SUBMITTED">Not submitted</option>
+      <option value="DOCUMENTS_SUBMITTED">Documents uploaded</option>
+      <option value="SENT_TO_LOCATION_MANAGER">Awaiting review</option>
+      <option value="RESUBMISSION_REQUIRED">Re-upload required</option>
+      <option value="APPROVED">Approved</option>
+      <option value="REJECTED">Rejected</option>
+    </select>
+    <select class="select" [value]="activationFilter()" (change)="setFilter('activation', $any($event.target).value)">
+      <option value="">Activation: all</option>
+      <option value="ACTIVE">Active</option>
+      <option value="INACTIVE">Inactive</option>
+    </select>
+    <select class="select" [value]="pendingActionFilter()" (change)="setFilter('pendingAction', $any($event.target).value)">
+      <option value="">Pending action: all</option>
+      <option value="REVIEW_DOCUMENTS">Review documents</option>
+      <option value="AWAITING_REUPLOAD">Awaiting document re-upload</option>
+      <option value="AWAITING_SUBMISSION">Awaiting submission</option>
+      <option value="NONE">None</option>
+    </select>
+  </div>
+  @if (filtersActive()) {
+    <p class="-mt-2 mb-3 text-xs text-slate-500">{{ users()?.totalElements ?? 0 }} match. <button type="button" class="font-semibold text-violet-600 hover:underline" (click)="clearFilters()">Clear filters</button></p>
+  }
+
+  @if (usersError()) {
+    <p class="mb-3 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700">{{ usersError() }}</p>
+  }
+
+  <div class="table-card overflow-x-auto" [class.opacity-60]="usersLoading()">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th><button type="button" class="font-semibold" (click)="sortBy('businessName')">{{ userType() === 'RETAILER' ? 'Retailer' : 'Fleet Owner' }} <i class="fa-solid" [class]="sortIcon('businessName')"></i></button></th>
+          <th>Contact</th>
+          <th><button type="button" class="font-semibold" (click)="sortBy('onboardingStatus')">Onboarding <i class="fa-solid" [class]="sortIcon('onboardingStatus')"></i></button></th>
+          <th>Verification</th>
+          <th><button type="button" class="font-semibold" (click)="sortBy('activationStatus')">Activation <i class="fa-solid" [class]="sortIcon('activationStatus')"></i></button></th>
+          <th>Pending action</th>
+          @if (userType() === 'RETAILER') { <th>Rating</th> }
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of users()?.items ?? []; track row.id) {
+          <tr>
+            <td><p class="font-semibold text-slate-900">{{ row.businessName }}</p>
+              @if (row.onboardingStartedAt) { <p class="text-xs text-slate-400">Applied {{ row.onboardingStartedAt | date: 'mediumDate' }}</p> }</td>
+            <td><p class="text-sm text-slate-700">{{ row.contactName || '-' }}</p><p class="text-xs text-slate-400">{{ row.email || '' }}{{ row.email && row.phone ? ' · ' : '' }}{{ row.phone || '' }}</p></td>
+            <td>{{ onboardingLabel(row.onboardingStatus) }}</td>
+            <td><span class="badge" [class]="verificationBadge(row.verificationStatus)">{{ verificationLabel(row.verificationStatus) }}</span></td>
+            <td><span class="badge" [class.badge-active]="row.activationStatus === 'ACTIVE'" [class.badge-inactive]="row.activationStatus !== 'ACTIVE'">{{ row.activationStatus === 'ACTIVE' ? 'Active' : 'Inactive' }}</span></td>
+            <td>
+              @if (row.pendingAction !== 'NONE' && row.verificationQueueId) {
+                <a class="text-sm font-semibold text-violet-600 hover:underline" [routerLink]="['/location/queue', row.verificationQueueId]">{{ pendingActionLabel(row.pendingAction) }}</a>
+              } @else { <span class="text-sm text-slate-400">{{ pendingActionLabel(row.pendingAction) }}</span> }
+            </td>
+            @if (userType() === 'RETAILER') {
+              <td class="whitespace-nowrap text-sm">
+                @if (row.rating != null) { <span class="text-amber-500">★</span> {{ row.rating | number: '1.1-1' }} <span class="text-xs text-slate-400">({{ row.ratingCount }})</span> }
+                @else { <span class="text-slate-400">Not rated</span> }
+              </td>
+            }
+            <td class="text-right">
+              <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" (click)="toggle(row)">{{ expandedId() === row.id ? 'Hide' : 'Details' }}</button>
+            </td>
+          </tr>
+
+          @if (expandedId() === row.id) {
+            <tr>
+              <td [attr.colspan]="userType() === 'RETAILER' ? 8 : 7" class="!bg-slate-50/60">
+                <!-- detail order: details, onboarding, verification, activation, pending action, reviews / drivers / vehicles -->
+                <div class="grid grid-cols-2 gap-4 py-2 text-sm lg:grid-cols-5">
+                  <p><span class="text-xs text-slate-400">{{ row.userType === 'RETAILER' ? 'Business' : 'Fleet' }}</span><br><strong>{{ row.businessName }}</strong></p>
+                  <p><span class="text-xs text-slate-400">Onboarding</span><br>{{ onboardingLabel(row.onboardingStatus) }}</p>
+                  <p><span class="text-xs text-slate-400">Verification</span><br>{{ verificationLabel(row.verificationStatus) }}</p>
+                  <p><span class="text-xs text-slate-400">Activation</span><br>{{ row.activationStatus === 'ACTIVE' ? 'Active' : 'Inactive' }}</p>
+                  <p><span class="text-xs text-slate-400">Pending action</span><br>{{ pendingActionLabel(row.pendingAction) }}</p>
+                </div>
+
+                @if (detailError()) { <p class="mb-2 text-sm font-semibold text-rose-600">{{ detailError() }}</p> }
+                @if (detailLoading() === row.id) { <div class="flex justify-center py-4"><span class="spinner"></span></div> }
+
+                @if (row.userType === 'RETAILER') {
+                  @if (reviews()[row.id]; as review) {
+                    <h3 class="mb-2 mt-2 text-sm font-bold text-slate-900">Customer reviews
+                      @if (review.count > 0) { <span class="font-normal text-slate-500">· <span class="text-amber-500">★</span> {{ review.average | number: '1.1-1' }} from {{ review.count }} review{{ review.count === 1 ? '' : 's' }}</span> }
+                    </h3>
+                    @if (review.items.length === 0) {
+                      <p class="text-sm text-slate-400">No customer reviews yet.</p>
+                    } @else {
+                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                        @for (item of review.items; track $index) {
+                          <li class="py-2">
+                            <div class="flex items-center justify-between gap-3 text-sm">
+                              <span class="text-amber-500">{{ stars(item.rating) }}</span>
+                              <span class="text-xs text-slate-400">{{ item.createdAt | date: 'medium' }}</span>
+                            </div>
+                            @if (item.comment) { <p class="mt-0.5 text-sm text-slate-700">{{ item.comment }}</p> }
+                            @if (item.productName) { <p class="text-xs text-slate-400">on {{ item.productName }}</p> }
+                          </li>
+                        }
+                      </ul>
+                      @if (reviewPages(row.id) > 1) {
+                        <div class="mt-2 flex items-center justify-end gap-2 text-xs">
+                          <button type="button" class="btn-outline !px-2 !py-1 !text-xs" [disabled]="review.page === 0" (click)="loadReviews(row, review.page - 1)">Newer</button>
+                          <span class="text-slate-500">Page {{ review.page + 1 }} of {{ reviewPages(row.id) }}</span>
+                          <button type="button" class="btn-outline !px-2 !py-1 !text-xs" [disabled]="review.page + 1 >= reviewPages(row.id)" (click)="loadReviews(row, review.page + 1)">Older</button>
+                        </div>
+                      }
+                    }
+                  }
+                } @else {
+                  @if (assets()[row.id]; as fleet) {
+                  <div class="mt-2 grid grid-cols-1 gap-5 lg:grid-cols-2">
+                    <div>
+                      <h3 class="mb-2 text-sm font-bold text-slate-900">Drivers ({{ fleet.drivers.length }})</h3>
+                      @if (fleet.drivers.length === 0) { <p class="text-sm text-slate-400">No drivers registered.</p> }
+                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                        @for (driver of fleet.drivers; track $index) {
+                          <li class="flex items-center justify-between gap-3 py-1.5 text-sm">
+                            <span class="min-w-0 truncate font-semibold text-slate-800">{{ driver.name || 'Driver' }}</span>
+                            <span class="shrink-0 text-xs text-slate-500">
+                              @if (driver.rating != null) { <span class="text-amber-500">★</span> {{ driver.rating | number: '1.1-1' }} } @else { Not rated }
+                            </span>
+                          </li>
+                        }
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 class="mb-2 text-sm font-bold text-slate-900">Vehicles ({{ fleet.vehicles.length }})</h3>
+                      @if (fleet.vehicles.length === 0) { <p class="text-sm text-slate-400">No vehicles registered.</p> }
+                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                        @for (vehicle of fleet.vehicles; track $index) {
+                          <li class="py-1.5 text-sm">
+                            <span class="font-semibold text-slate-800">{{ vehicle.registrationNumber }}</span>
+                            <span class="text-slate-500"> · {{ vehicle.vehicleType }}</span>
+                            <span class="block text-xs text-slate-400">{{ vehicle.make }} {{ vehicle.model }}{{ vehicle.modelYear ? ' (' + vehicle.modelYear + ')' : '' }}{{ vehicle.capacityKg ? ' · ' + vehicle.capacityKg + ' kg' : '' }}{{ vehicle.status ? ' · ' + vehicle.status : '' }}</span>
+                          </li>
+                        }
+                      </ul>
+                    </div>
+                  </div>
+                  @if (!fleet.ratingsAvailable) {
+                    <p class="mt-3 text-xs text-slate-400">Customer ratings are not collected for fleet owners or drivers yet, so none can be shown.</p>
+                  }
+                  }
+                }
+              </td>
+            </tr>
+          }
+        } @empty {
+          @if (!usersLoading()) {
+            <tr><td [attr.colspan]="userType() === 'RETAILER' ? 8 : 7" class="py-10 text-center text-sm text-slate-400">
+              {{ filtersActive() ? 'No one matches these filters.' : 'No ' + (userType() === 'RETAILER' ? 'retailers' : 'fleet owners') + ' are registered in your zone yet.' }}
+            </td></tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if ((users()?.totalElements ?? 0) > pageSize) {
+    <div class="mt-3 flex items-center justify-between text-sm text-slate-500">
+      <span>{{ page() * pageSize + 1 }}-{{ page() * pageSize + (users()?.items?.length ?? 0) }} of {{ users()?.totalElements }}</span>
+      <div class="flex items-center gap-2">
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" [disabled]="page() === 0" (click)="goToPage(page() - 1)">Previous</button>
+        <span>Page {{ page() + 1 }} of {{ totalPages() }}</span>
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" [disabled]="page() + 1 >= totalPages()" (click)="goToPage(page() + 1)">Next</button>
+      </div>
+    </div>
+  }
+</section>

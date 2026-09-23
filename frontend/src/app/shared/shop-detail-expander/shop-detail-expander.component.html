@@ -1,0 +1,38 @@
+<div class="border-t border-slate-100 pt-2" (click)="$event.stopPropagation()">
+  <button type="button" class="flex items-center gap-1.5 text-xs text-zepto-600 font-medium hover:underline" (click)="toggle()">
+    <i class="fa-solid fa-store text-slate-400"></i>
+    <span>{{ retailer()?.businessName ?? collapsedLabel }}</span>
+    <i class="fa-solid fa-chevron-down text-[10px] transition-transform" [class.rotate-180]="expanded()"></i>
+  </button>
+
+  <div class="pt-2" [hidden]="!expanded()">
+    @if (loading()) {
+      <app-loading-state message="Loading shop details..." [diameter]="24"></app-loading-state>
+    } @else if (error()) {
+      <p class="error text-xs text-rose-600">Couldn't load shop details right now.</p>
+    } @else if (retailer()) {
+      @let shop = retailer()!;
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-1.5">
+          <span class="name font-semibold text-sm text-slate-800">{{ shop.businessName }}</span>
+          @if (shop.retailerStatus === 'VERIFIED' || shop.retailerStatus === 'ACTIVE') {
+            <i class="fa-solid fa-circle-check text-emerald-600 text-sm" title="Verified shop"></i>
+          }
+        </div>
+        @if (rating(); as r) {
+          <app-star-rating [rating]="r.average" [count]="r.count"></app-star-rating>
+        }
+        <p class="text-xs text-slate-500 m-0">Status: {{ shop.retailerStatus }}</p>
+        @if (shop.latitude != null && shop.longitude != null) {
+          <p class="text-xs text-slate-500 m-0 flex items-center gap-1">
+            <i class="fa-solid fa-location-dot text-[11px]"></i>
+            {{ shop.latitude }}, {{ shop.longitude }}
+          </p>
+        }
+        <button type="button" class="btn-outline !py-1 !px-3 text-xs self-start" (click)="$event.stopPropagation(); selectShop()">
+          Select this shop
+        </button>
+      </div>
+    }
+  </div>
+</div>

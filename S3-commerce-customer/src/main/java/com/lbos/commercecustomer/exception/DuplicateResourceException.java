@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class DuplicateResourceException extends RuntimeException {public DuplicateResourceException(String m){super(m);} public DuplicateResourceException(String m,Throwable c){super(m,c);}}

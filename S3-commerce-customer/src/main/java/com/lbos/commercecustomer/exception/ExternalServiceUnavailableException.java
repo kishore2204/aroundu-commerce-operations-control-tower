@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class ExternalServiceUnavailableException extends RuntimeException {public ExternalServiceUnavailableException(String m){super(m);} public ExternalServiceUnavailableException(String m,Throwable c){super(m,c);}}

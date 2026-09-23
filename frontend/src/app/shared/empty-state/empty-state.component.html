@@ -1,0 +1,11 @@
+<div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+  <i class="icon text-5xl mb-3 opacity-60" [class]="'fa-solid ' + iconClass"></i>
+  <p class="title text-lg font-medium text-slate-600 m-0">{{ title }}</p>
+  @if (subtitle) {
+    <p class="subtitle mt-1 text-sm max-w-md text-slate-400">{{ subtitle }}</p>
+  }
+  <!-- Optional action (e.g. a Retry button for a failed-to-load state, or Clear Filters for a
+       filtered-empty state) - unused call sites are unaffected, since content projection with
+       nothing passed in renders nothing. -->
+  <ng-content></ng-content>
+</div>

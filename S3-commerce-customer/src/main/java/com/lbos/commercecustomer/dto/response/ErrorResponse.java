@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.response; import java.time.OffsetDateTime;import java.util.List; public record ErrorResponse(OffsetDateTime timestamp,int status,String errorCode,String category,String technicalMessage,String userMessage,List<FieldErrorResponse> fieldErrors,String path,String correlationId,boolean retryable) {}

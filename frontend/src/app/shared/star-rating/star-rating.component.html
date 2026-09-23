@@ -1,0 +1,16 @@
+<span class="inline-flex items-center gap-0.5" [attr.aria-label]="ratingValue() + ' out of 5 stars'">
+  @for (i of [1, 2, 3, 4, 5]; track i) {
+    <i
+      class="star text-[13px]"
+      [class.fa-solid]="i <= Math.round(ratingValue())"
+      [class.fa-regular]="i > Math.round(ratingValue())"
+      [class.fa-star]="true"
+      [class.filled]="i <= Math.round(ratingValue())"
+      [class.text-amber-400]="i <= Math.round(ratingValue())"
+      [class.text-slate-300]="i > Math.round(ratingValue())"
+    ></i>
+  }
+</span>
+@if (showCount && count != null) {
+  <span class="text-xs text-slate-500 ml-1">({{ count }})</span>
+}

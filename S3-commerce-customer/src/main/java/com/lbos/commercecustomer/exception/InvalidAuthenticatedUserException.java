@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class InvalidAuthenticatedUserException extends RuntimeException {public InvalidAuthenticatedUserException(String m){super(m);} public InvalidAuthenticatedUserException(String m,Throwable c){super(m,c);}}

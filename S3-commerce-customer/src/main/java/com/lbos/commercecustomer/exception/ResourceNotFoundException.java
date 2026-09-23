@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.exception; public class ResourceNotFoundException extends RuntimeException {public ResourceNotFoundException(String m){super(m);} public ResourceNotFoundException(String m,Throwable c){super(m,c);}}

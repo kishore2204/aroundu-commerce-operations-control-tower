@@ -1,0 +1,1 @@
+package com.lbos.commercecustomer.dto.client.order; import java.util.*;import java.math.*; public record ServiceabilityRequest(UUID customerProfileId,UUID addressId,UUID cityId,UUID zoneId,List<Long> productIds) {}
