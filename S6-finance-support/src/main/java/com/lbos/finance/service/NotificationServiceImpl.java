@@ -25,5 +25,10 @@ public class NotificationServiceImpl implements NotificationService {
     @Override public Notification markNotificationRead(Long id) { Notification existingEntity = getNotificationById(id); existingEntity.setRead(true); return notificationRepository.save(existingEntity); }
     @Override public List<Notification> markAllNotificationsRead(UUID userAccountId) { List<Notification> recipientNotifications = notificationRepository.findByUserAccountId(userAccountId); for (Notification notification : recipientNotifications) { notification.setRead(true); } return notificationRepository.saveAll(recipientNotifications); }
     @Override public List<Notification> getNotificationsByUserAccountId(UUID userAccountId) { return notificationRepository.findByUserAccountId(userAccountId); }
+    @Override @Transactional(readOnly = true) public NotificationPopupResponse getPopup(UUID userAccountId) {
+        return new NotificationPopupResponse(notificationRepository.countUnread(userAccountId),
+                notificationRepository.findUnreadNewestFirst(userAccountId, org.springframework.data.domain.PageRequest.of(0, POPUP_LIMIT)));
+    }
+    @Override public int clearUnread(UUID userAccountId) { return notificationRepository.markAllReadFor(userAccountId); }
     @Override public void deleteNotification(Long id) { notificationRepository.delete(getNotificationById(id)); }
 }

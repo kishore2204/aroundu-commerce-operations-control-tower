@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../shared/toast/toast.service';
 import { EmptyStateComponent } from '../../shared/empty-state/empty-state.component';
@@ -21,6 +21,9 @@ export class CartComponent implements OnInit {
   readonly loadError = signal<string | null>(null);
   readonly busy = signal(false);
   readonly validationIssues = signal<CartValidationIssue[]>([]);
+  /** A line whose product has run out (or has less stock than the cart asks for) - checkout is blocked until it is fixed. */
+  readonly stockProblem = computed(() =>
+    (this.cart()?.items ?? []).some((item) => !item.productActive || item.quantity > item.availableStock));
 
   constructor(
     private readonly cartService: CartService,

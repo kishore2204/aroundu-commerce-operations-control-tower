@@ -18,6 +18,36 @@
   </p>
 }
 
+@if (!showForm() && !moveFor()) {
+  <div class="card mb-4 flex flex-wrap items-end gap-3">
+    <div class="form-group !gap-1 min-w-[220px] flex-1">
+      <label class="form-label !mb-0 !text-xs">Search by name</label>
+      <input class="input" type="search" [formControl]="nameFilter" placeholder="Name or e-mail" autocomplete="off" />
+    </div>
+    <div class="form-group !gap-1 min-w-[180px]">
+      <label class="form-label !mb-0 !text-xs">Zone</label>
+      <select class="select" [value]="zoneFilter()" (change)="setZoneFilter($any($event.target).value)">
+        <option value="">All zones</option>
+        @for (z of zones(); track z.zoneId) {
+          <option [value]="z.zoneId" [selected]="z.zoneId === zoneFilter()">{{ z.zoneName }}{{ z.cityName ? ' - ' + z.cityName : '' }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group !gap-1 min-w-[160px]">
+      <label class="form-label !mb-0 !text-xs">Status</label>
+      <select class="select" [value]="statusFilter()" (change)="setStatusFilter($any($event.target).value)">
+        <option value="">All statuses</option>
+        @for (status of statusOptions; track status) {
+          <option [value]="status" [selected]="status === statusFilter()">{{ status }}</option>
+        }
+      </select>
+    </div>
+    @if (hasFilters()) {
+      <button type="button" class="btn-outline" (click)="clearFilters()">Clear filters</button>
+    }
+  </div>
+}
+
 @if (showForm() && isOperationsManager()) {
   <div class="card max-w-2xl mb-5">
     <h2 class="text-lg font-bold text-slate-900 mb-3">New officer</h2>
@@ -163,7 +193,11 @@
     </div>
   </div>
 } @else if (assignments().length === 0) {
-  <app-empty-state icon="badge" title="No location managers assigned yet"></app-empty-state>
+  @if (hasFilters()) {
+    <app-empty-state icon="badge" title="No location managers match these filters"></app-empty-state>
+  } @else {
+    <app-empty-state icon="badge" title="No location managers assigned yet"></app-empty-state>
+  }
 } @else {
   <div class="table-card overflow-x-auto">
     <table class="custom-table">

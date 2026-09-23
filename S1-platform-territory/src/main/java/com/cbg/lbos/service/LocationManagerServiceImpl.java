@@ -24,6 +24,7 @@ public class LocationManagerServiceImpl implements LocationManagerService {
     private final S2PartnerClient s2PartnerClient;
     private final UserAccountService userAccountService;
     private final LocationManagerAssignmentHistoryRepository historyRepository;
+    private final OperationsManagerStatusSync statusSync;
 
     public LocationManagerServiceImpl(LocationManagerRepository locationManagerRepository,
                                       UserAccountRepository userAccountRepository,
@@ -31,8 +32,10 @@ public class LocationManagerServiceImpl implements LocationManagerService {
                                       OperationsManagerRepository operationsManagerRepository,
                                       S2PartnerClient s2PartnerClient,
                                       UserAccountService userAccountService,
-                                      LocationManagerAssignmentHistoryRepository historyRepository) {
+                                      LocationManagerAssignmentHistoryRepository historyRepository,
+                                      OperationsManagerStatusSync statusSync) {
         this.historyRepository = historyRepository;
+        this.statusSync = statusSync;
         this.locationManagerRepository = locationManagerRepository;
         this.userAccountRepository = userAccountRepository;
         this.zoneRepository = zoneRepository;
@@ -119,7 +122,18 @@ public class LocationManagerServiceImpl implements LocationManagerService {
     @Transactional(readOnly = true)
     public Page<LocationManagerDto> getLocationManagers(UUID zoneId, UUID operationsManagerId,
                                                         AssignmentStatus assignmentStatus, Pageable pageable) {
-        Page<LocationManagerDto> page = locationManagerRepository.search(zoneId, operationsManagerId, assignmentStatus, pageable).map(this::toDto);
+        return getLocationManagers(zoneId, operationsManagerId, assignmentStatus, null, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<LocationManagerDto> getLocationManagers(UUID zoneId, UUID operationsManagerId,
+                                                        AssignmentStatus assignmentStatus, String name, Pageable pageable) {
+        String term = name == null ? "" : name.trim();
+        Page<LocationManager> found = term.isEmpty()
+                ? locationManagerRepository.search(zoneId, operationsManagerId, assignmentStatus, pageable)
+                : locationManagerRepository.searchByName(zoneId, operationsManagerId, assignmentStatus,
+                        "%" + term.toLowerCase() + "%", pageable);
+        Page<LocationManagerDto> page = found.map(this::toDto);
         applyLastTransfers(page.getContent());
         return page;
     }
@@ -141,6 +155,13 @@ public class LocationManagerServiceImpl implements LocationManagerService {
                 .ifPresent(this::validateNoPendingReviews);
     }
 
+    /*
+    ##################################################################
+    
+                                               CR_CHG0030038_Reassign_Location_Managers_3238451
+    
+    #####################################################################
+    */
     public LocationManagerDto transferLocationManager(UUID locationManagerId, LocationManagerDto request) {
         LocationManager locationManager = findLocationManager(locationManagerId);
         Zone zone = findActiveZone(request.getZoneId());
@@ -173,20 +194,30 @@ public class LocationManagerServiceImpl implements LocationManagerService {
 
     public LocationManagerDto activateAssignment(UUID locationManagerId) {
         LocationManager locationManager = findLocationManager(locationManagerId);
+        // an account switched off together with the assignment (see deactivateAssignment) is switched back on with it;
+        // a SUSPENDED (blocked) account is still refused here
+        if ("INACTIVE".equalsIgnoreCase(locationManager.getUserAccount().getAccountStatus())) {
+            locationManager.getUserAccount().setAccountStatus("ACTIVE");
+        }
         validateEligibleUser(locationManager.getUserAccount());
         findActiveZone(locationManager.getZone().getId());
         OperationsManager operationsManager = findActiveOperationsManager(locationManager.getOperationsManager().getId());
         validateSameCity(operationsManager, locationManager.getZone());
         locationManager.setAssignmentStatus(AssignmentStatus.ACTIVE);
         locationManager.setAssignedAt(OffsetDateTime.now());
-        return toDto(locationManagerRepository.save(locationManager));
+        LocationManager saved = locationManagerRepository.save(locationManager);
+        statusSync.locationManagerAssignmentChanged(saved);
+        return toDto(saved);
     }
 
     public LocationManagerDto deactivateAssignment(UUID locationManagerId) {
         LocationManager locationManager = findLocationManager(locationManagerId);
         validateNoPendingReviews(locationManager);
         locationManager.setAssignmentStatus(AssignmentStatus.INACTIVE);
-        return toDto(locationManagerRepository.save(locationManager));
+        LocationManager saved = locationManagerRepository.save(locationManager);
+        // the admin Accounts page lists the user account, so the officer's account status follows the assignment
+        statusSync.locationManagerAssignmentChanged(saved);
+        return toDto(saved);
     }
 
     /** Keeps the officer's previous location (the LocationManager row only ever holds the current one). */

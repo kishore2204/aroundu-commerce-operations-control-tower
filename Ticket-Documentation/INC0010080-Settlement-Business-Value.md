@@ -272,3 +272,25 @@ After the fix:
 - PLATFORM, legacy and unresolvable payees are handled explicitly.
 - The UUIDs remain in the backend model; the database schema is unchanged.
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+These are the backend test files that belong to this ticket (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S6-finance-support/src/test/java/com/lbos/finance/service/SettlementServiceImplTest.java` | Payee-name resolution (business name instead of the internal id) and the settlement rules. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S6-finance-support/src/main/java/com/lbos/finance/service/SettlementServiceImpl.java` |
+| Place | method `resolvePayeeNames(Collection<Settlement>)` |
+| Why this is the main place | Fills the business name of each settlement's payee. |
+
+A banner comment `TK_INC0010080_Settlement_Business_Value_3239886` marks this place in the source code.

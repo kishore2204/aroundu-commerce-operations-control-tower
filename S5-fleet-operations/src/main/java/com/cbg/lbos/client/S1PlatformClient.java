@@ -33,6 +33,7 @@ public interface S1PlatformClient {
     @GetMapping("/internal/v1/user-accounts/{id}")
     UserAccountResponse getUserAccount(@PathVariable("id") UUID id);
 
-    @PatchMapping("/internal/v1/user-accounts/{id}/status")
+    /** POST, not PATCH: Feign's default HTTP client cannot send PATCH, so the old PATCH call never reached S1. */
+    @PostMapping("/internal/v1/user-accounts/{id}/status")
     UserAccountResponse updateAccountStatus(@PathVariable("id") UUID id, @RequestBody java.util.Map<String, String> request);
 }

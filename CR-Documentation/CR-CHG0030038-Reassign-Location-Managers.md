@@ -372,3 +372,25 @@ Automated (`LocationManagerServiceImplTest`): moving to another zone is blocked 
 ## 12. Final Result
 
 An Operations Manager can now move a Location Manager to another zone from the UI. The move is refused while the officer still has pending verification work, the officer's previous location is kept, and the officer's zone-scoped access follows the new assignment immediately.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/LocationManagerServiceImplTest.java` | Transfer to another zone / same-zone rejection / zones that already have officers; deactivation blocked while reviews are pending or S2 is unreachable. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S1-platform-territory/src/main/java/com/cbg/lbos/service/LocationManagerServiceImpl.java` |
+| Place | method `transferLocationManager(UUID, LocationManagerDto)` |
+| Why this is the main place | Moves a Location Manager to another zone (and Operations Manager) and records the assignment history. |
+
+A banner comment `CR_CHG0030038_Reassign_Location_Managers_3238451` marks this place in the source code.

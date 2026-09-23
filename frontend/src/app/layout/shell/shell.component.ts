@@ -21,6 +21,7 @@ export class ShellComponent implements OnInit {
   protected readonly accountMenuOpen = signal(false);
   protected readonly notificationsOpen = signal(false);
   protected readonly notifications = signal<Notification[]>([]);
+  protected readonly clearingNotifications = signal(false);
   protected readonly unreadCount = signal(0);
 
   protected readonly addressMenuOpen = signal(false);
@@ -86,13 +87,27 @@ export class ShellComponent implements OnInit {
   }
 
   private loadNotifications(): void {
-    this.notificationService.mine().subscribe({
-      next: (list) => {
-        const sorted = list.sort((a, b) => b.sentAt.localeCompare(a.sentAt));
-        this.notifications.set(sorted);
-        this.unreadCount.set(sorted.filter((n) => !n.read).length);
+    // only the newest few unread notifications and the unread total - the full history lives on the profile page
+    this.notificationService.popup().subscribe({
+      next: (popup) => {
+        this.notifications.set(popup.items);
+        this.unreadCount.set(popup.unreadCount);
       },
       error: () => {},
+    });
+  }
+
+  /** Empties the popup: the caller's unread notifications are marked read on the server (not deleted). */
+  clearNotifications(): void {
+    if (this.clearingNotifications() || this.unreadCount() === 0) return;
+    this.clearingNotifications.set(true);
+    this.notificationService.clearMine().subscribe({
+      next: () => {
+        this.clearingNotifications.set(false);
+        this.notifications.set([]);
+        this.unreadCount.set(0);
+      },
+      error: () => this.clearingNotifications.set(false),
     });
   }
 
@@ -106,13 +121,12 @@ export class ShellComponent implements OnInit {
     this.notificationsOpen.set(false);
   }
 
-  /** Patches the one clicked notification in place instead of re-fetching the whole list - the
-   *  server call is the same either way, this just avoids a redundant GET for a single-field change. */
+  /** The popup lists unread notifications only, so a clicked one leaves it (and the badge drops by one). */
   markRead(notification: Notification): void {
     if (notification.read) return;
     this.notificationService.markRead(notification.notificationId).subscribe({
       next: () => {
-        this.notifications.update((list) => list.map((n) => (n.notificationId === notification.notificationId ? { ...n, read: true } : n)));
+        this.notifications.update((list) => list.filter((n) => n.notificationId !== notification.notificationId));
         this.unreadCount.update((count) => Math.max(0, count - 1));
       },
       error: () => {},

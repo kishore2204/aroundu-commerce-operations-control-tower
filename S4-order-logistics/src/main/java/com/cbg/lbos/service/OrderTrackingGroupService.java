@@ -84,6 +84,13 @@ public class OrderTrackingGroupService {
         this.userAccountClient = userAccountClient;
     }
 
+    /*
+    ##################################################################
+    
+                                               CR_CHG0030044_Customer_Order_Tracker_3240071
+    
+    #####################################################################
+    */
     public OrderTrackingGroupDto getGroup(Long orderId) {
         Order anchor = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found: " + orderId));

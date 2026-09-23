@@ -262,3 +262,40 @@ After the fix:
 - Actions, sorting and the table layout are unchanged.
 - Dropdowns use the shared style; no UUIDs are displayed.
 ```
+
+---
+
+## Addendum - filters on the Operations Manager's Location Managers page
+
+The same kind of enhancement was added to **Operations -> Location managers** (the `officers` page): the Operations Manager can now search Location Managers by **name (or e-mail)** and filter by **zone** and **status**, with a *Clear filters* button and a "No location managers match these filters" message.
+
+The name part is done by the server, not in the browser:
+
+- `GET /api/v1/location-managers` accepts a new optional `name` parameter next to `zoneId`, `operationsManagerId` and `status`.
+- `LocationManagerRepository.searchByName(...)` - case-insensitive "contains" on the officer's full name or e-mail, combined with the other filters.
+- `LocationManagerServiceImpl.getLocationManagers(..., name, ...)` uses the plain query when the name is blank.
+- `OfficersComponent` sends the filters (name debounced 300 ms; a newer filter change makes an older answer be ignored).
+
+**Checked live** as the Operations Manager: name `karth` -> only Karthik; e-mail text `LM2.CHN` -> only Divya; zone; status INACTIVE; combined filters; clearing restores the full list.
+
+---
+
+## Test Files Created for This Ticket
+
+The original ticket changed only the Angular Accounts screen (no backend, so no backend test). The addendum above added a server-side name filter for the Location Managers page, and that has a test file:
+
+| Test file | What it checks |
+| --- | --- |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/LocationManagerNameFilterTest.java` | Location Managers page filter (see the addendum): the name part is applied by the server together with zone and status. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `frontend/src/app/features/admin/accounts/accounts.component.ts` |
+| Place | method `applyFilter()` |
+| Why this is the main place | Combines the search box with the Role and Status filters. |
+
+A banner comment `TK_INC0010081_User_Account_Filters_3239293` marks this place in the source code.

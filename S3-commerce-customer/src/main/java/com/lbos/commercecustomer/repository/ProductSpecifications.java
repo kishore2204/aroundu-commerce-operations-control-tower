@@ -56,12 +56,30 @@ public final class ProductSpecifications {
         return (root, query, cb) -> categoryId == null ? null : cb.equal(root.get("category").get("id"), categoryId);
     }
 
+    /** The escape character used with {@link #containsPattern}. */
+    private static final char LIKE_ESCAPE = '\\';
+
+    /**
+     * "Contains" pattern for a search box: trimmed (a stray leading / trailing space no longer changes the result) and
+     * lower-cased, with LIKE's own wildcards ({@code %}, {@code _}) and the escape character taken literally - searching for
+     * "50%" must find "50%", not "50" followed by anything, and "%" or "_" alone must not match every product.
+     */
+    public static String containsPattern(String q) {
+        String trimmed = q.trim().toLowerCase();
+        StringBuilder escaped = new StringBuilder("%");
+        for (char c : trimmed.toCharArray()) {
+            if (c == '%' || c == '_' || c == LIKE_ESCAPE) escaped.append(LIKE_ESCAPE);
+            escaped.append(c);
+        }
+        return escaped.append('%').toString();
+    }
+
     /** Matches against name or SKU only (used by the retailer catalogue/inventory search box). */
     public static Specification<Product> nameOrSkuContains(String q) {
         return (root, query, cb) -> {
             if (q == null || q.isBlank()) return null;
-            String like = "%" + q.toLowerCase() + "%";
-            return cb.or(cb.like(cb.lower(root.get("name")), like), cb.like(cb.lower(root.get("sku")), like));
+            String like = containsPattern(q);
+            return cb.or(cb.like(cb.lower(root.get("name")), like, LIKE_ESCAPE), cb.like(cb.lower(root.get("sku")), like, LIKE_ESCAPE));
         };
     }
 
@@ -69,11 +87,11 @@ public final class ProductSpecifications {
     public static Specification<Product> nameOrSkuOrDescriptionContains(String q) {
         return (root, query, cb) -> {
             if (q == null || q.isBlank()) return null;
-            String like = "%" + q.toLowerCase() + "%";
+            String like = containsPattern(q);
             return cb.or(
-                    cb.like(cb.lower(root.get("name")), like),
-                    cb.like(cb.lower(root.get("sku")), like),
-                    cb.like(cb.lower(root.get("description")), like));
+                    cb.like(cb.lower(root.get("name")), like, LIKE_ESCAPE),
+                    cb.like(cb.lower(root.get("sku")), like, LIKE_ESCAPE),
+                    cb.like(cb.lower(root.get("description")), like, LIKE_ESCAPE));
         };
     }
 

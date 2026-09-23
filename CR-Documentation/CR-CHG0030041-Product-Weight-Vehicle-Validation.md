@@ -420,3 +420,27 @@ Automated tests: `OrderWeightServiceTest` (16 kg case, null-weight case, no-item
 ## 12. Final Result
 
 Retailers can now maintain product weights (form and bulk upload). Every order line carries a weight, the fleet screen shows the real total order weight, and an order that is heavier than the selected vehicle can no longer be assigned — on the screen **and** on the server.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/service/OrderWeightServiceTest.java` | Order weight = SUM(unit weight x quantity), default 1 kg. |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/service/TripServiceTest.java` | Vehicle capacity validation on trip create and re-assign. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/BulkProductUploadServiceTest.java` | Optional Weight (kg) column and its validation in the bulk upload. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S4-order-logistics/src/main/java/com/cbg/lbos/service/TripService.java` |
+| Place | method `validateVehicleCapacity(Long, VehicleSummary)` |
+| Why this is the main place | Rejects a trip whose order weight exceeds the vehicle capacity. |
+
+A banner comment `CR_CHG0030041_Product_Weight_Vehicle_Validation_3240010` marks this place in the source code.

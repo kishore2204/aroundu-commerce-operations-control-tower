@@ -15,6 +15,12 @@ export interface Notification {
   sentAt: string;
 }
 
+/** S6 NotificationPopupResponse - GET /api/notifications/mine/popup */
+export interface NotificationPopup {
+  unreadCount: number;
+  items: Notification[];
+}
+
 /** S6 NotificationRequest */
 export interface NotificationRequest {
   userAccountId: string;

@@ -16,6 +16,9 @@ public interface SettlementRepository extends JpaRepository<Settlement, UUID> {
 
     java.util.List<Settlement> findByPaymentTransactionId(UUID paymentTransactionId);
 
+    /** A retailer's / fleet owner's OWN settlements - served by idx_settlement_payee (payee_type, payee_id). */
+    java.util.List<Settlement> findByPayeeTypeAndPayeeId(String payeeType, UUID payeeId);
+
     /** Sums the fee taken across all settlements, for use as the settlement-fee-ratio numerator. */
     @Query("select coalesce(sum(s.feeAmount), 0) from Settlement s")
     BigDecimal sumFeeAmount();

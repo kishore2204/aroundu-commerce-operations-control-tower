@@ -13,10 +13,14 @@ export class LocationManagerAssignmentService {
     return this.http.get<LocationManagerAssignment>('/api/v1/location-managers/me');
   }
 
-  list(zoneId?: string, operationsManagerId?: string): Observable<SpringPage<LocationManagerAssignment>> {
+  /** `status` and `name` (officer name or e-mail, "contains") are filtered by the server, so the Operations Manager's
+   *  Location Managers page never has to download every officer just to narrow the list. */
+  list(zoneId?: string, operationsManagerId?: string, status?: string, name?: string): Observable<SpringPage<LocationManagerAssignment>> {
     let params = new HttpParams().set('size', 100);
     if (zoneId) params = params.set('zoneId', zoneId);
     if (operationsManagerId) params = params.set('operationsManagerId', operationsManagerId);
+    if (status) params = params.set('status', status);
+    if (name?.trim()) params = params.set('name', name.trim());
     return this.http.get<SpringPage<LocationManagerAssignment>>('/api/v1/location-managers', { params });
   }
 

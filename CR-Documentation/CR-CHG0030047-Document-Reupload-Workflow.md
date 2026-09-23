@@ -503,3 +503,26 @@ Automated: `VerificationDocumentReuploadWorkflowTest` (reason required; reviewer
 ## 12. Final Result
 
 Document verification now supports unlimited correction cycles. Each cycle adds an immutable version with who uploaded it, who reviewed it, when, and why; users are notified in-app when a re-upload is needed; and reviewers and users can open a per-document history and view or download any earlier version.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S2-partner-verification/src/test/java/com/example/lbos/service/VerificationDocumentReuploadWorkflowTest.java` | The re-upload lifecycle. |
+| `S2-partner-verification/src/test/java/com/example/lbos/service/VerificationDocumentServiceImplTest.java` | Document service basics. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S2-partner-verification/src/main/java/com/example/lbos/service/VerificationDocumentServiceImpl.java` |
+| Place | method `uploadVerificationDocument(...)` |
+| Why this is the main place | Stores a new version of a document and applies the versioning / immutability rules. |
+
+A banner comment `CR_CHG0030047_Document_Reupload_Workflow_3239127` marks this place in the source code.

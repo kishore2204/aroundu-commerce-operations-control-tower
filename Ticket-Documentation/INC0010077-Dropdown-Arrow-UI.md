@@ -206,3 +206,21 @@ After the fix:
 - Long values do not overlap the arrow.
 - The fix lives in one shared CSS class, so new dropdowns get it automatically.
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+No backend code was changed for this ticket, so no backend test file was needed or created. The behaviour is checked on the screen (see the Testing section above).
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `frontend/src/styles.scss` |
+| Place | the shared select / dropdown rule |
+| Why this is the main place | The shared dropdown style that draws the arrow once for every select. |
+
+A banner comment `TK_INC0010077_Dropdown_Arrow_UI_3235425` marks this place in the source code.

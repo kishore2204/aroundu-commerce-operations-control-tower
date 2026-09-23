@@ -91,9 +91,14 @@
 
       @if (notificationsOpen()) {
         <div class="dropdown-panel absolute right-0 mt-2 max-h-96 w-80 overflow-y-auto shadow-2xl border border-slate-100/80 z-50" (click)="$event.stopPropagation()">
-          <div class="px-4 py-2.5 text-[11px] font-extrabold text-slate-400 uppercase tracking-wider border-b border-slate-100">Notifications</div>
+          <div class="flex items-center justify-between border-b border-slate-100 px-4 py-2.5">
+            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Notifications</span>
+            @if (unreadCount() > 0) {
+              <button type="button" class="clear-notifications text-xs font-bold text-zepto-600 hover:text-zepto-700 disabled:opacity-50" [disabled]="clearingNotifications()" (click)="clearNotifications()">Clear</button>
+            }
+          </div>
           @if (notifications().length === 0) {
-            <p class="px-4 py-3 text-sm text-slate-400">No notifications yet.</p>
+            <p class="px-4 py-3 text-sm text-slate-400">No new notifications.</p>
           } @else {
             @for (n of notifications(); track n.notificationId) {
               <button

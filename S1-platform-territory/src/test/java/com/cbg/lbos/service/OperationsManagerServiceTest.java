@@ -48,7 +48,7 @@ class OperationsManagerServiceTest {
     void setUp() {
         operationsManagerService = new OperationsManagerService(
                 operationsManagerRepository, userAccountRepository, cityRepository,
-                new OperationsManagerStatusSync(operationsManagerRepository, userAccountRepository));
+                new OperationsManagerStatusSync(operationsManagerRepository, userAccountRepository, org.mockito.Mockito.mock(com.cbg.lbos.repository.LocationManagerRepository.class)));
         userAccountId = UUID.randomUUID();
         cityId = UUID.randomUUID();
         operationsManagerId = UUID.randomUUID();

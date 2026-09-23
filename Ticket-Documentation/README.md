@@ -34,3 +34,7 @@ One study document per ticket, taken from `CR Ticket Tracker - Template - Copy (
 - Services: **S1** platform/accounts/territory, **S2** partner verification, **S3** commerce/customer, **S4** orders/logistics, **S5** fleet, **S6** finance/support/tax.
 - No database connection settings or credentials are reproduced in these documents; none are needed to explain the tickets.
 - Verification done for the implementation: Angular dev and production builds pass; S1, S3 and S4 unit tests pass; S6 unit tests pass (its `@SpringBootTest` context test needs the remote database and cannot run offline). Documented test cases in each file are practical manual scenarios; they were not all executed end to end in a running environment, apart from a browser check of the register page (mobile digits, live password checklist, single toggle) and of the dropdown arrow.
+
+## Test files and main code location
+
+Every document ends with a **Test Files Created** section (the backend test files that belong to it, or a note that no backend code changed) and a **Main Code Location** section. The main place is marked in the source code by a banner comment of the form `TK_<ticket id>_<name>_<employee id(s)>` (for example `TK_INC0010079_Postal_Code_Validation_3248237`).

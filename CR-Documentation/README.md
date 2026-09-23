@@ -78,3 +78,7 @@ These are stated in the individual documents; they are collected here so nothing
 ## 6. Testing
 
 Each document ends with a table of practical positive and negative scenarios. Automated tests that exist for each CR are named at the end of its testing section. Note that the S2, S5 and S6 `@SpringBootTest` context tests need the remote PostgreSQL server and cannot pass without it, and older frontend `*.spec.ts` files (about 29 type errors across them) do not compile and were already stale before these CRs, so `ng test` cannot run.
+
+## Test files and main code location
+
+Every document ends with a **Test Files Created** section (the backend test files that belong to it, or a note that no backend code changed) and a **Main Code Location** section. The main place is marked in the source code by a banner comment of the form `CR_<change id>_<name>_<employee id(s)>` (for example `CR_CHG0030048_Retailer_Bulk_Product_Upload_3238281`).

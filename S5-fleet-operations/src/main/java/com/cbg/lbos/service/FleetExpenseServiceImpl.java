@@ -79,9 +79,14 @@ public class FleetExpenseServiceImpl implements FleetExpenseService {
 	@Transactional
 	public FleetExpenseDto approve(UUID id, UUID approver) {
 		FleetExpense expense = find(id);
-		if (expense.getApprovalStatus() != ExpenseApprovalStatus.PENDING
-				|| approver.equals(expense.getCreatedByAccountId()))
-			throw new ConflictException("Cannot approve");
+		// Two different reasons, told apart so the screen can say what to do (the rules themselves are unchanged):
+		// only a PENDING expense can be approved, and nobody approves an expense they recorded themselves.
+		if (expense.getApprovalStatus() != ExpenseApprovalStatus.PENDING)
+			throw new ConflictException("Only a pending expense can be approved - this one is already "
+					+ expense.getApprovalStatus().name().toLowerCase(Locale.ROOT));
+		if (approver.equals(expense.getCreatedByAccountId()))
+			throw new ConflictException("You recorded this expense yourself, so it has to be approved by someone else "
+					+ "(for example an Operations Manager)");
 		expense.setApprovalStatus(ExpenseApprovalStatus.APPROVED);
 		expense.setApprovedByAccountId(approver);
 		return map(expenseRepository.save(expense));

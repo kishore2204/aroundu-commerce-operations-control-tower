@@ -20,6 +20,13 @@ function passwordsMatch(control: AbstractControl): ValidationErrors | null {
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
 })
+/*
+##################################################################
+
+                                           TK_INC0010078_Password_Visibility_Toggle_3239376
+
+#####################################################################
+*/
 export class ResetPasswordComponent {
   readonly loading = signal(false);
   readonly errorMessage = signal<string | null>(null);

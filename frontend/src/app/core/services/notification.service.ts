@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   DriverComplaintSummary,
   Notification,
+  NotificationPopup,
   NotificationRequest,
   SupportTicket,
   SupportTicketEscalateRequest,
@@ -31,6 +32,16 @@ export class NotificationService {
   /** The authenticated user's own notifications (GET /api/notifications/mine), scoped server-side. */
   mine(): Observable<Notification[]> {
     return this.http.get<Notification[]>('/api/notifications/mine');
+  }
+
+  /** The bell popup: the newest few UNREAD notifications and the unread total - never the whole history. */
+  popup(): Observable<NotificationPopup> {
+    return this.http.get<NotificationPopup>('/api/notifications/mine/popup');
+  }
+
+  /** "Clear" in the popup: marks the caller's unread notifications as read (they stay in the full list on the profile page). */
+  clearMine(): Observable<{ cleared: number }> {
+    return this.http.patch<{ cleared: number }>('/api/notifications/mine/clear', {});
   }
 
   create(request: NotificationRequest): Observable<Notification> {

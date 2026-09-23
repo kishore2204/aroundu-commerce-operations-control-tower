@@ -50,7 +50,8 @@ class OrderTrackingGroupServiceTest {
 
     private OrderTrackingGroupService service;
     private final UUID customer = UUID.randomUUID();
-    private final LocalDateTime placedAt = LocalDateTime.now().minusMinutes(25);
+    // 30 s of margin: the sibling orders are dated a few ms AFTER this, so without it a fast run could floor to 24 minutes
+    private final LocalDateTime placedAt = LocalDateTime.now().minusMinutes(25).minusSeconds(30);
 
     @BeforeEach
     void setUp() {

@@ -16,4 +16,12 @@ public interface PartnerServiceClient {
 
     @GetMapping("/internal/v1/fleet-owners/{id}/validation")
     FleetOwnerSummary getFleetOwner(@PathVariable("id") UUID id);
+
+    /** The retailer profile owned by a logged-in user account (404 when the account has none) - lets a
+     *  caller's own retailerId be resolved server-side from their JWT subject instead of trusting the client. */
+    @GetMapping("/internal/v1/retailers/by-user/{userAccountId}")
+    RetailerSummary getRetailerByUser(@PathVariable("userAccountId") UUID userAccountId);
+
+    @GetMapping("/internal/v1/fleet-owners/by-user-account/{userAccountId}")
+    FleetOwnerSummary getFleetOwnerByUser(@PathVariable("userAccountId") UUID userAccountId);
 }

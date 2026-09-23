@@ -992,3 +992,72 @@ After this iteration:
 - HikariCP connection-pool sizing is now explicit and documented for all 6 services instead of relying on an undocumented framework default; the change was evidence-based (measured idle-connection counts) and did not raise the maximum pool size, since no exhaustion was observed.
 - No authorization rule, business rule, response shape, or UUID-exposure boundary was changed. All 869 backend tests across the 6 services and the frontend production build remain green.
 - No performance percentage, timing figure, or cache-hit-rate is claimed anywhere in this document — every number given is a directly measured count (connections, requests, indexes, or test results).
+
+---
+
+## Iteration 3 - order flow, address list, lazy order history and duplicate requests
+
+Measured with live network traces on the running application (development data set). These are request counts and step timings on one machine, not load tests.
+
+| Area | What was found | Change |
+| --- | --- | --- |
+| Checkout `prepare` | S4 read every cart product from S3 one call at a time | S3 `GET /api/v1/products/by-ids` (`ProductDiscoveryServiceImpl.getByIds`) and one batched read in S4 `InternalOrderLogisticsController` |
+| Address list | one zone lookup call per distinct city among the addresses | S1 `GET /internal/v1/territories/zones/by-cities`, used by S3 `AddressServiceImpl` - one call for all cities |
+| Place order | one `POST /api/order-items` per cart line at the same time; each recalculated the order totals and each response added three extra service calls that checkout ignores | S4 `POST /api/order-items/batch` (`OrderItemService.createBatch`): one transaction, products read once, stock given back if a later line fails, totals recalculated once, light response; checkout uses `OrderService.addItems`. Same 2-shop / 4-line COD cart: item step 1.73 s -> 0.45 s, whole place-order about 3.2 s -> 1.6 s |
+| "View all orders" | every order and its item summary fetched and drawn at once | S4 `GET /api/orders/mine/page` + index `idx_orders_customer_profile_id_order_date`; `OrderListComponent` loads 10 orders at a time when the end of the list scrolls into view |
+| Indexes | more filter columns without an index | S1, S2, S4 and S6 entities (`@Table(indexes)`), all confirmed in `pg_indexes` |
+| Duplicate requests | the same GET fired several times on one page load | in-flight sharing (`shareReplay`, no time caching) in `WishlistStateService`, `CartService.get`, `AddressService.getDefault`, `RetailerService.resolveMine`, `FleetOwnerService.resolveMine` |
+| Product list cache | - | verified: four visits to Home and Products produced one product request and no image requests (30 s listing cache, 5 min image cache, cleared on stock changes) |
+
+Still open (needs a design decision, not changed): the in-transaction notification call when an order is submitted (about 150-450 ms), the two tax calls per retailer in checkout `prepare`, and the one-request-per-product-card image loading.
+
+---
+
+## Iteration 4 - fleet owner and driver screens
+
+Found by walking a full fleet-owner and driver lifecycle in the browser (dispatch an order, driver pickup and delivery, driver expense, reimbursement) and reading the request timings of every fleet and driver screen.
+
+| What was measured | Cause | Change |
+| --- | --- | --- |
+| Every service-to-service call cost about 90 ms (internal endpoint with the service credentials 95 ms, without credentials 4 ms) | The receiving service verified the shared service password with BCrypt on **every** internal request | `ServiceSecretCachingPasswordEncoder` (one copy in each of S1-S6, wired in each `SecurityConfig`): the correct service secret is verified with BCrypt once and remembered as a SHA-256 digest compared in constant time. Wrong secrets, unknown accounts and user passwords always take the normal BCrypt path, so guessing is not made faster |
+| `GET /api/trips/mine` for 8 trips: about 3.1 s | 3 lookups (driver, vehicle, fleet owner) per trip, one after another, each paying the 90 ms above | The BCrypt fix, plus `TripService.SummaryLookups`: a list looks each distinct driver / vehicle / fleet owner up once per request (24 calls for 8 trips became 7) |
+| `GET /api/drivers/mine` for 3 drivers: about 300 ms | one internal call per driver, each paying the 90 ms | the BCrypt fix |
+| Driver dashboard: `GET /api/logistics-bookings/{orderId}` answered 404 for every retail order, on every load | the pickup / drop addresses were fetched separately although the trip already carries them | the dashboard uses `pickupAddress` / `dropAddress` of the trip; the request is gone |
+
+Measured on the running stack after the change (development data): internal call with the correct secret 95 ms -> 9 ms (wrong secret still about 100 ms); `trips/mine` 3.1 s -> 0.13 s; `drivers/mine` 300 ms -> about 55 ms; `pending-fleet-assignment` 354 ms -> 75 ms; dispatching a trip (`POST /api/trips`) 356 ms -> 110 ms; completing a trip 776 ms -> 84 ms. Every fleet and driver screen now loads with no duplicate request and every call under about 120 ms.
+
+Caching seen on those screens: cities / zones and the fleet owner's own record are not requested again when moving between pages; drivers, trips, expenses, dashboard figures and notifications are requested again on every visit on purpose, because other people change them (verification, assignments, driver-recorded expenses). Not cached, not changed.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/AddressTerritoryNameCacheTest.java` | Address list: city/zone names are read once and reused; a customer with addresses in several cities costs ONE zone lookup call. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/ProductDiscoveryServiceBatchTest.java` | Many products read in one query (`getByIds`), only products of open shops returned. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/service/comprehensive/CartServiceComprehensiveTest.java` | Cart reads with the fetch-join query (iteration 1). |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/controller/InternalRetailerReviewControllerTest.java` | Ratings for many retailers come from one grouped query (dashboard / verification screens). |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/controller/InternalOrderLogisticsControllerTest.java` | The checkout serviceability check reads all cart products with ONE call to S3. |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/service/OrderItemServiceBatchTest.java` | Batch order-item creation: products read once, totals recalculated once, stock given back when a later line fails, mixed orders / empty batch rejected. |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/service/OrderServiceMinePagedTest.java` | Customer order history read one page at a time, newest first. |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/controller/InternalTerritoryControllerZonesByCitiesTest.java` | Zones of several cities from one repository query; empty / oversized city lists rejected. |
+| `S2-partner-verification/src/test/java/com/example/lbos/controller/PartnerMeEndpointsTest.java` | `/api/retailers/me` and `/api/fleet-owners/me` resolve the caller from the token in one lookup. |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/config/ServiceSecretCachingPasswordEncoderTest.java` (and the same file in S2 `com/example/lbos/config`, S3 `com/lbos/commercecustomer/config`, S4 `com/cbg/lbos/config`, S5 `com/cbg/lbos/config`, S6 `com/lbos/finance/config`) | The correct service secret is BCrypt-verified once and then answered from memory; a wrong secret is always checked and never accepted; user passwords are never remembered (iteration 4). |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/service/TripServiceTest.java` | A list of trips looks each distinct driver / vehicle / fleet owner up once, and a failed lookup is not retried per row (iteration 4). |
+
+The database indexes and the connection-pool sizes cannot be unit tested; they were checked against the running PostgreSQL (`pg_indexes`, `pg_stat_activity`). The front-end duplicate-request fixes were checked with live network traces (request counts before and after).
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `frontend/src/app/core/api/ttl-cache.ts` |
+| Place | class `TtlCache` (`get()` / `clear()`) |
+| Why this is the main place | The shared cache and in-flight request sharing the performance work is built on (product listings, image lists, cities / zones, addresses, user accounts). |
+
+A banner comment `CR_CHG0030033_Performance_Optimization_3232575_3235381` marks this place in the source code.

@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new ServiceSecretCachingPasswordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
     }
 
     @Bean
@@ -34,7 +34,9 @@ public class SecurityConfig {
             PasswordEncoder passwordEncoder) {
         return new InMemoryUserDetailsManager(
                 User.withUsername("lbos-service")
-                        .password(passwordEncoder.encode(servicePassword))
+                        .password(passwordEncoder instanceof ServiceSecretCachingPasswordEncoder cachingEncoder
+                                ? cachingEncoder.encodeServiceSecret(servicePassword)
+                                : passwordEncoder.encode(servicePassword))
                         .roles("SERVICE")
                         .build());
     }
@@ -124,10 +126,10 @@ public class SecurityConfig {
                          * The /mine endpoint filters by the caller's own userAccountId.
                          */
                         .requestMatchers(HttpMethod.GET,
-                                "/api/notifications", "/api/notifications/mine", "/api/notifications/*")
+                                "/api/notifications", "/api/notifications/mine", "/api/notifications/mine/popup", "/api/notifications/*")
                         .authenticated()
                         .requestMatchers(HttpMethod.PATCH,
-                                "/api/notifications/*/read", "/api/notifications/read-all")
+                                "/api/notifications/*/read", "/api/notifications/read-all", "/api/notifications/mine/clear")
                         .authenticated()
                         /*
                          * Support tickets: any authenticated user (any of the 7 roles - the new
@@ -171,12 +173,15 @@ public class SecurityConfig {
                                 "/api/support-tickets/*/close", "/api/support-tickets/*/escalate")
                         .hasAnyRole("SUPER_ADMIN", "OPERATIONS_MANAGER", "SUPPORT_STAFF", "LOCATION_MANAGER")
                         /*
-                         * Settlements: any authenticated user can read settlement data
-                         * (retailers checking their own settlements). Writes remain staff-only.
+                         * Settlements: staff see everything; a RETAILER / FLEET_MANAGER reads only their OWN
+                         * rows - SettlementController scopes the result to the caller (resolved from the JWT
+                         * subject). This used to be `.authenticated()` while the controller returned every
+                         * business's payouts, so any signed-in user (even a customer) could read all of them.
+                         * Writes remain staff-only.
                          */
                         .requestMatchers(HttpMethod.GET,
                                 "/api/settlements", "/api/settlements/*")
-                        .authenticated()
+                        .hasAnyRole("SUPER_ADMIN", "OPERATIONS_MANAGER", "RETAILER", "FLEET_MANAGER")
                         /*
                          * Damage-claim resolution: whichever staff role is handling an ITEM_DAMAGED
                          * support ticket (SUPPORT_STAFF first-line, or LOCATION_MANAGER once

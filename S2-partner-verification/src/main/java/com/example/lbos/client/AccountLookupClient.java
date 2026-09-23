@@ -26,6 +26,10 @@ public interface AccountLookupClient {
     java.util.List<UUID> searchIds(@org.springframework.web.bind.annotation.RequestParam("term") String term,
             @org.springframework.web.bind.annotation.RequestParam("roles") java.util.List<String> roles);
 
+    /** Sets a user account's status in S1 (the value the admin Accounts page shows), e.g. after a Location Manager blocks a partner. POST, because Feign's default client cannot send PATCH. */
+    @org.springframework.web.bind.annotation.PostMapping("/internal/v1/user-accounts/{id}/status")
+    AccountSummary updateStatus(@PathVariable("id") UUID id, @org.springframework.web.bind.annotation.RequestBody java.util.Map<String, String> request);
+
     record AccountSummary(UUID id, String email, String firstName, String lastName, String role,
                           String phoneNumber, String accountStatus) {
     }

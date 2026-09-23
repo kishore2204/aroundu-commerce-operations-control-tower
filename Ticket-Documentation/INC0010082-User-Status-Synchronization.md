@@ -321,3 +321,60 @@ After the fix:
 - SUSPENDED and TRANSFERRED assignments are never overwritten.
 - The one-active-manager-per-city rule still applies when activating.
 ```
+
+---
+
+## Addendum - a Location Manager blocking a partner is now reflected in the Accounts page
+
+**Problem found later:** when a Location Manager used *Revoke Approval & Block* on a retailer or fleet owner, only the partner record in S2 was changed (`SUSPENDED`). The S1 user account that the admin **Accounts** page lists stayed `ACTIVE`, so the two screens disagreed. Two further causes were found while fixing it:
+
+1. The S2 -> S1 status call (and the existing S5 driver call) used `PATCH`, which Feign's default HTTP client cannot send ("Invalid HTTP method: PATCH"), so the call never left the service and the failure was swallowed as best-effort. The internal S1 endpoint now also answers to `POST`, and both clients use it.
+2. The admin Accounts screen re-used a 60-second in-memory copy of the account list, so a status changed by someone else could stay hidden for up to a minute. The Accounts screen now always loads fresh (`UserAccountService.all(true)`).
+
+**Change:**
+
+- `S2 VerificationQueueServiceImpl.revokeApproval` suspends the retailer / fleet owner and then calls `syncAccountStatus(userAccountId, "SUSPENDED")` after the transaction commits (a failure there never undoes the block).
+- The repeat-offender suspension in `processVerificationResult` does the same, and a partner approved again reactivates an account that is `SUSPENDED` (`reactivateSuspendedAccount`).
+- A driver blocked from the same screen is synchronised by S5 (`DriverServiceImpl`), which now really reaches S1 through `S1PlatformClient.updateAccountStatus`.
+
+**Files:** `S2-partner-verification/.../service/VerificationQueueServiceImpl.java`, `S2-partner-verification/.../client/AccountLookupClient.java`, `S5-fleet-operations/.../client/S1PlatformClient.java`, `S1-platform-territory/.../controller/InternalUserAccountController.java`, `frontend/.../core/services/user-account.service.ts`, `frontend/.../admin/accounts/accounts.component.ts`.
+
+**Checked live:** an approved test retailer was blocked by the Location Manager; the admin account list then showed `SUSPENDED`.
+
+### Second addendum - deactivating a Location Manager from the Operations Manager's page
+
+**Problem found later:** *Deactivate* on the Operations Manager's **Location managers** page only changed the officer's assignment (`INACTIVE`); the officer's user account - the row the admin **Accounts** page lists - stayed `ACTIVE`. The Operations Manager sync already existed, but the Location Manager pair had no sync in either direction.
+
+**Change (S1):** `OperationsManagerStatusSync` now also keeps the Location Manager pair in step, with the same table as the Operations Manager pair (ACTIVE / INACTIVE / SUSPENDED mirrored, TRANSFERRED never touched):
+
+- `locationManagerAssignmentChanged(...)` - called by `LocationManagerServiceImpl.activateAssignment` and `deactivateAssignment`, so the account follows the assignment.
+- `accountStatusChanged(...)` - the admin Accounts screen / internal status API now also updates the officer's assignment. Switching an account back to `ACTIVE` is refused (`ConflictException`) when the officer's zone or supervising Operations Manager is not active, the same rule `activateAssignment` enforces.
+- `activateAssignment` switches an `INACTIVE` account back on together with the assignment (an account that is `SUSPENDED` is still refused).
+
+**Checked live:** Operations Manager activates then deactivates an officer - the admin account list showed `ACTIVE` then `INACTIVE`; the admin sets the account `ACTIVE` / `INACTIVE` - the officers page followed both times.
+
+---
+
+## Test Files Created for This Ticket
+
+These are the backend test files that belong to this ticket (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/OperationsManagerStatusSyncTest.java` | Both directions of the Accounts <-> Operations Manager sync and the preserved SUSPENDED / TRANSFERRED states. |
+| `S2-partner-verification/src/test/java/com/example/lbos/service/VerificationQueueAccountStatusSyncTest.java` | A Location Manager blocking a retailer / fleet owner also suspends their user account (addendum). |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/controller/InternalUserAccountControllerStatusTest.java` | The internal status endpoint answers to POST as well as PATCH (addendum). |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/LocationManagerAccountStatusSyncTest.java` | Location Manager account <-> assignment sync in both directions, TRANSFERRED / unverified accounts left alone, reactivation refused when the supervisor is inactive (second addendum). |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/LocationManagerServiceImplTest.java` | Deactivate / activate through the service also move the account; a blocked deactivation leaves the account `ACTIVE`; a `SUSPENDED` account is still refused on activation (second addendum). |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S1-platform-territory/src/main/java/com/cbg/lbos/service/OperationsManagerStatusSync.java` |
+| Place | method `accountStatusChanged(UserAccount)` |
+| Why this is the main place | The synchronisation rule between the account status and the assignment status. |
+
+A banner comment `TK_INC0010082_User_Status_Synchronization_3230833` marks this place in the source code.

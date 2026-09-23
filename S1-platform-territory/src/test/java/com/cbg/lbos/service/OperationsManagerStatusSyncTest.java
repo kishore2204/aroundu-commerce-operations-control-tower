@@ -36,7 +36,7 @@ class OperationsManagerStatusSyncTest {
 
     @BeforeEach
     void setUp() {
-        sync = new OperationsManagerStatusSync(operationsManagerRepository, userAccountRepository);
+        sync = new OperationsManagerStatusSync(operationsManagerRepository, userAccountRepository, org.mockito.Mockito.mock(com.cbg.lbos.repository.LocationManagerRepository.class));
         cityId = UUID.randomUUID();
         account = new UserAccount();
         ReflectionTestUtils.setField(account, "id", UUID.randomUUID());

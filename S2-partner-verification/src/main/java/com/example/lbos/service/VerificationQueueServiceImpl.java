@@ -35,6 +35,7 @@ public class VerificationQueueServiceImpl implements VerificationQueueService {
     private final S5FleetClient s5FleetClient;
     private final LocationManagerClient locationManagerClient;
     private final com.example.lbos.client.NotificationClient notificationClient;
+    private final com.example.lbos.client.AccountLookupClient accountClient;
 
     public VerificationQueueServiceImpl(VerificationQueueRepository verificationQueueRepository,
                                         com.example.lbos.repository.RetailerRepository retailerRepository,
@@ -42,8 +43,10 @@ public class VerificationQueueServiceImpl implements VerificationQueueService {
                                         com.example.lbos.repository.VerificationDocumentRepository verificationDocumentRepository,
                                         S5FleetClient s5FleetClient,
                                         LocationManagerClient locationManagerClient,
-                                        com.example.lbos.client.NotificationClient notificationClient) {
+                                        com.example.lbos.client.NotificationClient notificationClient,
+                                        com.example.lbos.client.AccountLookupClient accountClient) {
         this.notificationClient = notificationClient;
+        this.accountClient = accountClient;
         this.verificationQueueRepository = verificationQueueRepository;
         this.retailerRepository = retailerRepository;
         this.fleetOwnerRepository = fleetOwnerRepository;
@@ -343,6 +346,8 @@ public class VerificationQueueServiceImpl implements VerificationQueueService {
                 retailer.setRetailerStatus(result.equalsIgnoreCase("APPROVED") ? "VERIFIED" : "REJECTED");
             }
             retailerRepository.save(retailer);
+            if (repeatOffenderSuspension) syncAccountStatus(retailer.getUserAccountId(), "SUSPENDED");
+            else if ("APPROVED".equalsIgnoreCase(result)) reactivateSuspendedAccount(retailer.getUserAccountId());
         } else if ("FLEET_OWNER".equalsIgnoreCase(queue.getSubjectType())) {
             com.example.lbos.entity.FleetOwner fleetOwner = fleetOwnerRepository.findById(queue.getSubjectId())
                 .orElseThrow(() -> new FleetOwnerNotFoundException("FleetOwner not found with id: " + queue.getSubjectId()));
@@ -356,6 +361,8 @@ public class VerificationQueueServiceImpl implements VerificationQueueService {
                 }
             }
             fleetOwnerRepository.save(fleetOwner);
+            if (repeatOffenderSuspension) syncAccountStatus(fleetOwner.getUserAccountId(), "SUSPENDED");
+            else if ("APPROVED".equalsIgnoreCase(result)) reactivateSuspendedAccount(fleetOwner.getUserAccountId());
         } else if ("DRIVER".equalsIgnoreCase(queue.getSubjectType())) {
             // Driver/vehicle status itself lives entirely in S5 - S2 only owns the verification
             // decision. REJECTED needs no outbound call: the driver simply stays INACTIVE, its
@@ -417,12 +424,14 @@ public class VerificationQueueServiceImpl implements VerificationQueueService {
                     .orElseThrow(() -> new RetailerNotFoundException("Retailer not found with id: " + queue.getSubjectId()));
             retailer.setRetailerStatus("SUSPENDED");
             retailerRepository.save(retailer);
+            syncAccountStatus(retailer.getUserAccountId(), "SUSPENDED");
         } else if ("FLEET_OWNER".equalsIgnoreCase(queue.getSubjectType())) {
             com.example.lbos.entity.FleetOwner fleetOwner = fleetOwnerRepository.findById(queue.getSubjectId())
                     .orElseThrow(() -> new FleetOwnerNotFoundException("FleetOwner not found with id: " + queue.getSubjectId()));
             fleetOwner.setProfileStatus("SUSPENDED");
             fleetOwner.setOwnerStatus("INACTIVE");
             fleetOwnerRepository.save(fleetOwner);
+            syncAccountStatus(fleetOwner.getUserAccountId(), "SUSPENDED");
         } else if ("DRIVER".equalsIgnoreCase(queue.getSubjectType())) {
             try {
                 s5FleetClient.suspendDriver(queue.getSubjectId());
@@ -438,6 +447,28 @@ public class VerificationQueueServiceImpl implements VerificationQueueService {
                         queue.getSubjectId(), queue.getVerificationQueueId(), e.getMessage(), e);
             }
         }
+    }
+
+    /**
+     * Keeps the S1 account status (what the admin Accounts page lists) in step with a status a Location Manager sets
+     * here. Runs after the transaction commits and never fails the decision - the same best-effort posture as the
+     * dispatch and notification calls; a driver is synchronised the same way by S5 (DriverServiceImpl.changeStatus).
+     */
+    private void syncAccountStatus(UUID userAccountId, String accountStatus) {
+        if (userAccountId == null) return;
+        AfterCommit.run("Sync account " + userAccountId + " to " + accountStatus,
+                () -> accountClient.updateStatus(userAccountId, java.util.Map.of("accountStatus", accountStatus)));
+    }
+
+    /** A partner that is verified again after being blocked can sign in again: SUSPENDED -> ACTIVE (any other status is left alone). */
+    private void reactivateSuspendedAccount(UUID userAccountId) {
+        if (userAccountId == null) return;
+        AfterCommit.run("Reactivate account " + userAccountId, () -> {
+            var account = accountClient.get(userAccountId);
+            if (account != null && "SUSPENDED".equalsIgnoreCase(account.accountStatus())) {
+                accountClient.updateStatus(userAccountId, java.util.Map.of("accountStatus", "ACTIVE"));
+            }
+        });
     }
 
     /** Null (rather than throwing) when there is no authenticated caller - e.g. an internal/test call. */
@@ -507,6 +538,13 @@ public class VerificationQueueServiceImpl implements VerificationQueueService {
                 queue.getVerificationStatus(), queue.getCreatedAt())).collect(Collectors.toList());
     }
 
+    /*
+    ##################################################################
+    
+                                               CR_CHG0030050_Reassign_Verification_Deactivation_3239399_3241245
+    
+    #####################################################################
+    */
     /**
      * Each request is checked and moved on its own, so one that cannot move (already decided, not this officer's, the
      * target is its own submitter) is reported as failed and stays exactly where it was, while the rest still move.

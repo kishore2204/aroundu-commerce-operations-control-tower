@@ -594,3 +594,26 @@ case 'LOCATION_MANAGER':
 ## 12. Final Result
 
 Location Managers now have one screen for their zone: current workload, decisions and onboarding over a chosen period, orders, and a searchable list of every retailer and fleet owner with their reviews, drivers and vehicles. Every read is limited to the caller's own zone by the server, not by the browser.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S2-partner-verification/src/test/java/com/example/lbos/service/LocationDashboardServiceTest.java` | Partner detail is zone-scoped (other zones refused) and one failing downstream call does not blank the rest. |
+| `S3-commerce-customer/src/test/java/com/lbos/commercecustomer/controller/InternalRetailerReviewControllerTest.java` | Grouped ratings and paged, anonymous reviews used by the dashboard. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S2-partner-verification/src/main/java/com/example/lbos/service/LocationDashboardService.java` |
+| Place | method `summary(LocalDate, LocalDate)` |
+| Why this is the main place | Computes the dashboard KPIs for the Location Manager's own zone. |
+
+A banner comment `CR_CHG0030046_Location_Manager_Dashboard_3239859` marks this place in the source code.

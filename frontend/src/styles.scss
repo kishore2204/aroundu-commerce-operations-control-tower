@@ -381,6 +381,13 @@ html, body {
     @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800 outline-none transition-all duration-150 placeholder:text-slate-400 focus:border-zepto-500 focus:ring-4 focus:ring-zepto-100;
   }
   /*
+  ##################################################################
+  
+                                             TK_INC0010077_Dropdown_Arrow_UI_3235425
+  
+  #####################################################################
+  */
+  /*
    * Every dropdown in the app is a <select class="select"> (or a control that borrows the class). The native
    * arrow is removed by appearance: none, so the arrow is supplied here, once: a chevron on the right, the
    * value area keeps clear of it (pr-10) and long values are truncated instead of running under it.

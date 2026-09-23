@@ -218,3 +218,21 @@ After the fix:
 - Reset password and Officers now have the same toggle as Register.
 - The icon and the masked/visible state always match.
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+No backend code was changed for this ticket, so no backend test file was needed or created. The behaviour is checked on the screen (see the Testing section above).
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `frontend/src/app/features/auth/reset-password/reset-password.component.ts` |
+| Place | class `ResetPasswordComponent` |
+| Why this is the main place | One of the screens where the show / hide password toggles were added. |
+
+A banner comment `TK_INC0010078_Password_Visibility_Toggle_3239376` marks this place in the source code.

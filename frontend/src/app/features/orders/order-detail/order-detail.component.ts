@@ -2,7 +2,7 @@ import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EMPTY, Subscription, catchError, interval, startWith, switchMap } from 'rxjs';
+import { EMPTY, Subscription, catchError, forkJoin, interval, map, of, startWith, switchMap, tap } from 'rxjs';
 import { EmptyStateComponent } from '../../../shared/empty-state/empty-state.component';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { OrderStatusStepperComponent } from '../../../shared/order-status-stepper/order-status-stepper.component';
@@ -53,9 +53,14 @@ function statusBadgeClassFor(status: string): string {
 export class OrderDetailComponent implements OnInit, OnDestroy {
   /** Every shop-specific order of this checkout, as last returned by the single tracking poll. */
   readonly shops = signal<ShopTracking[]>([]);
+  /** The shop picked in the dropdown - changes the moment the customer picks it. */
   readonly selectedOrderId = signal<number>(0);
+  /** The shop the page body shows. It follows selectedOrderId only once that shop's order and items are in memory, so
+   *  switching shops never flashes an empty / "Order not found" page while the details load. */
+  private readonly viewOrderId = signal<number>(0);
+  readonly switching = computed(() => this.selectedOrderId() !== this.viewOrderId());
   readonly selectedShop = computed<ShopTracking | null>(
-    () => this.shops().find((shop) => shop.orderId === this.selectedOrderId()) ?? null,
+    () => this.shops().find((shop) => shop.orderId === this.viewOrderId()) ?? null,
   );
   readonly tracking = computed(() => this.selectedShop()?.tracking ?? null);
   /** Only shown when the checkout really spans more than one shop. */
@@ -73,8 +78,8 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
   });
   private readonly loadedOrders = signal<Record<number, Order>>({});
   private readonly loadedItems = signal<Record<number, OrderItem[]>>({});
-  readonly order = computed<Order | null>(() => this.loadedOrders()[this.selectedOrderId()] ?? null);
-  readonly items = computed<OrderItem[]>(() => this.loadedItems()[this.selectedOrderId()] ?? []);
+  readonly order = computed<Order | null>(() => this.loadedOrders()[this.viewOrderId()] ?? null);
+  readonly items = computed<OrderItem[]>(() => this.loadedItems()[this.viewOrderId()] ?? []);
   readonly productImageById = signal<Record<number, string>>({});
   readonly loading = signal(true);
   readonly cancelling = signal(false);
@@ -207,33 +212,36 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     return shop.shopName || 'Shop ' + (index + 1);
   }
 
+  /** Loads what is not in memory yet; the page body switches to this order only when both the order and its items have
+   *  settled (a failure still switches, so a genuinely missing order shows "Order not found"). */
   private loadOrderDetails(orderId: number, initial: boolean): void {
-    if (!this.loadedOrders()[orderId]) {
-      this.orderService.get(orderId).subscribe({
-        next: (order) => {
-          this.loadedOrders.update((orders) => ({ ...orders, [orderId]: order }));
-          if (initial) this.loading.set(false);
-        },
-        error: () => {
-          if (initial) this.loading.set(false);
-        },
-      });
-    }
-    if (!this.loadedItems()[orderId]) {
-      this.orderService.itemsForOrder(orderId).subscribe({
-        next: (items) => {
-          this.loadedItems.update((all) => ({ ...all, [orderId]: items }));
-          items.forEach((item) => this.productService.images(item.productId).subscribe({
-            next: (images) => {
-              const url = images.find((image) => image.primary)?.url ?? images[0]?.url;
-              if (url) this.productImageById.set({ ...this.productImageById(), [item.productId]: url });
-            },
-            error: () => {},
-          }));
-        },
-        error: () => {},
-      });
-    }
+    const order$ = this.loadedOrders()[orderId]
+      ? of(true)
+      : this.orderService.get(orderId).pipe(
+          tap((order) => this.loadedOrders.update((orders) => ({ ...orders, [orderId]: order }))),
+          map(() => true),
+          catchError(() => of(false)),
+        );
+    const items$ = this.loadedItems()[orderId]
+      ? of(true)
+      : this.orderService.itemsForOrder(orderId).pipe(
+          tap((items) => {
+            this.loadedItems.update((all) => ({ ...all, [orderId]: items }));
+            items.forEach((item) => this.productService.images(item.productId).subscribe({
+              next: (images) => {
+                const url = images.find((image) => image.primary)?.url ?? images[0]?.url;
+                if (url) this.productImageById.set({ ...this.productImageById(), [item.productId]: url });
+              },
+              error: () => {},
+            }));
+          }),
+          map(() => true),
+          catchError(() => of(false)),
+        );
+    forkJoin([order$, items$]).subscribe(() => {
+      if (this.selectedOrderId() === orderId) this.viewOrderId.set(orderId);
+      if (initial) this.loading.set(false);
+    });
   }
 
   ngOnDestroy(): void {

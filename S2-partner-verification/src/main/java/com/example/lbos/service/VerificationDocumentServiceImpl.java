@@ -135,6 +135,13 @@ public class VerificationDocumentServiceImpl implements VerificationDocumentServ
         return verificationDocumentRepository.findByIsCurrentVersion(isCurrent).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
+    /*
+    ##################################################################
+    
+                                               CR_CHG0030047_Document_Reupload_Workflow_3239127
+    
+    #####################################################################
+    */
     @Override
     @Transactional
     public VerificationDocumentDTO uploadVerificationDocument(UUID verificationQueueId, String documentTypeName,

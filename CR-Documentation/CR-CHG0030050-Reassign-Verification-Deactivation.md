@@ -607,3 +607,26 @@ Automated: `VerificationWorkTransferTest` (pending-work definition, popup list w
 ## 12. Final Result
 
 A Location Manager can no longer be deactivated, disabled or moved while any verification work is pending. The Operations Manager is shown that work in a two-panel popup and can hand it over individually or in bulk, in as many steps as needed; the new officers see it immediately in their queue, counts and notifications, and only when nothing remains does the original action go through.
+
+---
+
+## Test Files Created for This CR
+
+These are the backend test files that belong to this change request (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S2-partner-verification/src/test/java/com/example/lbos/service/VerificationWorkTransferTest.java` | Pending-work definition, partial transfer, failures, notification, permissions. |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/LocationManagerServiceImplTest.java` | Deactivation guard while work is pending. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S2-partner-verification/src/main/java/com/example/lbos/service/VerificationQueueServiceImpl.java` |
+| Place | method `transferWork(TransferWorkRequestDTO)` |
+| Why this is the main place | Moves an officer's pending verification requests to another Location Manager. |
+
+A banner comment `CR_CHG0030050_Reassign_Verification_Deactivation_3239399_3241245` marks this place in the source code.

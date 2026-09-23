@@ -277,3 +277,21 @@ After the fix:
 - Labels read "Name — City"; no UUIDs are shown.
 - The existing OM-by-city API is reused; the backend is unchanged.
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+No backend code was changed for this ticket, so no backend test file was needed or created. The behaviour is checked on the screen (see the Testing section above).
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `frontend/src/app/features/operations/officers/officers.component.ts` |
+| Place | constructor - the `zoneId.valueChanges` subscription |
+| Why this is the main place | Reloads the Operations Managers of the selected zone's city and clears a stale choice. |
+
+A banner comment `TK_INC0010083_Zone_Based_Ops_Manager_Filtering_3235425` marks this place in the source code.

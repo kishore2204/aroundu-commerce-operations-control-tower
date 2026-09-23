@@ -1,5 +1,12 @@
 package com.cbg.lbos.validation;
 
+/*
+##################################################################
+
+                                           TK_INC0010070_Mobile_Number_Validation_3230833
+
+#####################################################################
+*/
 /** The single mobile-number rule of the platform: exactly 10 digits, digits only. */
 public final class MobileNumberRule {
 

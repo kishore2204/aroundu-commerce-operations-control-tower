@@ -7,11 +7,9 @@ import { EmptyStateComponent } from '../../../shared/empty-state/empty-state.com
 import { TripService } from '../../../core/services/trip.service';
 import { DriverService } from '../../../core/services/driver.service';
 import { ExpenseService } from '../../../core/services/expense.service';
-import { LogisticsBookingService } from '../../../core/services/logistics-booking.service';
 import { extractErrorMessage } from '../../../core/api/http-error.util';
 import { Trip } from '../../../core/models/trip.model';
 import { Driver } from '../../../core/models/driver.model';
-import { BookingLocation } from '../../../core/models/logistics-booking.model';
 
 @Component({
   selector: 'app-driver-dashboard',
@@ -103,7 +101,6 @@ export class DriverDashboardComponent implements OnInit {
     private readonly tripService: TripService,
     private readonly driverService: DriverService,
     private readonly expenseService: ExpenseService,
-    private readonly logisticsBookingService: LogisticsBookingService,
     private readonly snackBar: ToastService,
   ) {}
 
@@ -119,21 +116,11 @@ export class DriverDashboardComponent implements OnInit {
     });
   }
 
-  private loadTripLocations(orderId: number): void {
-    this.pickupLocation.set(null);
-    this.dropLocation.set(null);
-    this.logisticsBookingService.get(orderId).subscribe({
-      next: (booking) => {
-        try {
-          const locations: BookingLocation[] = JSON.parse(booking.bookingLocationsJson || '[]');
-          this.pickupLocation.set(locations.find((l) => l.type === 'PICKUP')?.address ?? null);
-          this.dropLocation.set(locations.find((l) => l.type === 'DROP')?.address ?? null);
-        } catch {
-          // Malformed JSON - leave both null so the location card stays hidden.
-        }
-      },
-      error: () => {},
-    });
+  /** The trip itself carries the pickup / drop addresses (S4 resolves them from the booking), so no second request is made -
+   *  the old per-trip GET /api/logistics-bookings/{orderId} answered 404 for every retail order and was fired on each reload. */
+  private showTripLocations(trip: Trip | null): void {
+    this.pickupLocation.set(trip?.pickupAddress ?? null);
+    this.dropLocation.set(trip?.dropAddress ?? null);
   }
 
   onExpenseProofFileSelected(event: Event): void {
@@ -194,7 +181,7 @@ export class DriverDashboardComponent implements OnInit {
         const active = list.find((t) => ['PLANNED', 'ASSIGNED', 'IN_PROGRESS'].includes(t.tripStatus)) ?? null;
         this.activeTrip.set(active);
         this.loading.set(false);
-        if (active) this.loadTripLocations(active.orderId);
+        this.showTripLocations(active);
       },
       error: (err) => {
         this.loading.set(false);

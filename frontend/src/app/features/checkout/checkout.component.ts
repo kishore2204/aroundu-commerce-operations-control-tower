@@ -2,7 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { catchError, forkJoin, of, switchMap, throwError } from 'rxjs';
+import { catchError, forkJoin, map, of, switchMap, throwError } from 'rxjs';
 import { EmptyStateComponent } from '../../shared/empty-state/empty-state.component';
 import { LoadingStateComponent } from '../../shared/loading-state/loading-state.component';
 import {
@@ -237,9 +237,22 @@ export class CheckoutComponent implements OnInit {
         const breakdowns = summary.retailerBreakdowns?.length
           ? summary.retailerBreakdowns
           : this.fallbackBreakdown(cart, summary);
+        this.createdOrderIds.clear();
+        // every shop's order is attempted and SETTLED before deciding: if one shop fails (e.g. its stock ran out), the
+        // orders the other shops already created are cancelled (free, stock given back) so no half-placed checkout is
+        // left behind and a retry cannot duplicate them.
         return forkJoin(breakdowns.map((breakdown, index) =>
-          this.createRetailerOrder(customer.id, breakdown, deliveryAddressText, address, index),
-        ));
+          this.createRetailerOrder(customer.id, breakdown, deliveryAddressText, address, index).pipe(
+            map((order) => ({ order, error: null as unknown })),
+            catchError((error) => of({ order: null as Order | null, error })),
+          ),
+        )).pipe(
+          switchMap((results) => {
+            const failed = results.find((result) => result.error);
+            if (!failed) return of(results.map((result) => result.order as Order));
+            return this.cancelCreatedOrders(customer.id).pipe(switchMap(() => throwError(() => failed.error)));
+          }),
+        );
       }),
     ).subscribe({
       next: (orders) => {
@@ -261,6 +274,18 @@ export class CheckoutComponent implements OnInit {
         this.placeError.set(extractErrorMessage(err, 'Could not place this order.'));
       },
     });
+  }
+
+  /** Ids of the orders created by the current place-order attempt (kept only so a failed attempt can undo them). */
+  private readonly createdOrderIds = new Set<number>();
+
+  private cancelCreatedOrders(customerProfileId: string) {
+    const ids = [...this.createdOrderIds];
+    this.createdOrderIds.clear();
+    if (ids.length === 0) return of([]);
+    return forkJoin(ids.map((id) =>
+      this.orderService.cancel(id, customerProfileId, 'Checkout could not be completed for every shop').pipe(catchError(() => of(null))),
+    ));
   }
 
   /** Creates one order for one retailer using S3's authoritative per-retailer checkout values. */
@@ -296,8 +321,9 @@ export class CheckoutComponent implements OnInit {
     };
     return this.orderService.create(request).pipe(
       switchMap((order) => {
+        this.createdOrderIds.add(order.id);
         this.placingStage.set('Adding the correct shop items...');
-        return forkJoin(breakdown.items.map((item) => this.orderService.addItem({
+        return this.orderService.addItems(breakdown.items.map((item) => ({
           orderId: order.id,
           retailerId: breakdown.retailerId,
           productId: item.productId,

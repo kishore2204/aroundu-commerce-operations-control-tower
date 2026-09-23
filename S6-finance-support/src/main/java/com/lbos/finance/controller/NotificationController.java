@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import com.lbos.finance.dto.NotificationPopupResponse;
 import com.lbos.finance.dto.NotificationRequest;
 import com.lbos.finance.entity.Notification;
 import com.lbos.finance.service.NotificationService;
@@ -37,6 +38,18 @@ public class NotificationController {
     public List<Notification> getMyNotifications(Authentication authentication) {
         UUID userAccountId = resolveUserAccountId(authentication);
         return notificationService.getNotificationsByUserAccountId(userAccountId);
+    }
+
+    /** The bell popup: only the newest unread notifications (capped) and the unread count - never the whole history. */
+    @GetMapping("/mine/popup")
+    public NotificationPopupResponse getMyNotificationPopup(Authentication authentication) {
+        return notificationService.getPopup(resolveUserAccountId(authentication));
+    }
+
+    /** "Clear" in the bell popup: marks the caller's own unread notifications as read (scoped by the JWT, not a parameter). */
+    @PatchMapping("/mine/clear")
+    public java.util.Map<String, Integer> clearMyNotifications(Authentication authentication) {
+        return java.util.Map.of("cleared", notificationService.clearUnread(resolveUserAccountId(authentication)));
     }
 
     @GetMapping("/{id}")

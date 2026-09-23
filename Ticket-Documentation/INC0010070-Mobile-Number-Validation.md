@@ -342,3 +342,27 @@ After the fix:
 - S1 and S4 enforce the same rule, so the API cannot be used to bypass it.
 - The rule lives in one place per side (input-rules.ts / MobileNumberRule.java).
 ```
+
+---
+
+## Test Files Created for This Ticket
+
+These are the backend test files that belong to this ticket (paths from the project root):
+
+| Test file | What it checks |
+| --- | --- |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/validation/InputRulesTest.java` | `mobileNumberIsExactlyTenDigits` - the single S1 mobile rule. |
+| `S4-order-logistics/src/test/java/com/cbg/lbos/service/LogisticsBookingDetailServiceTest.java` | `createRejectsAnInvalidReceiverPhoneNumber` - the receiver phone rule of the logistics booking. |
+| `S1-platform-territory/src/test/java/com/cbg/lbos/service/UserAccountServiceTest.java` | Phone number handling in the account service. |
+
+---
+
+## Main Code Location
+
+| Item | Location |
+| --- | --- |
+| File | `S1-platform-territory/src/main/java/com/cbg/lbos/validation/MobileNumberRule.java` |
+| Place | class `MobileNumberRule` |
+| Why this is the main place | The one rule (exactly 10 digits) every mobile number field on the backend uses. |
+
+A banner comment `TK_INC0010070_Mobile_Number_Validation_3230833` marks this place in the source code.

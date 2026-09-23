@@ -55,7 +55,12 @@ public class InternalUserAccountController {
     public UserAccountResponseDto create(@RequestBody com.cbg.lbos.dto.UserAccountRequestDto request) {
         return userAccountService.createUserAccount(request);
     }
-    @PatchMapping("/{id}/status")
+    /**
+     * Also reachable as POST: the services call this over Feign, whose default HTTP client cannot send PATCH at all ("Invalid
+     * HTTP method: PATCH"), so a PATCH-based call from S2/S5 failed before it ever reached this method and the account status
+     * silently stayed as it was. PATCH is kept for any caller that can use it.
+     */
+    @RequestMapping(value = "/{id}/status", method = {RequestMethod.PATCH, RequestMethod.POST})
     public UserAccountResponseDto updateStatus(@PathVariable UUID id, @RequestBody java.util.Map<String, String> request) {
         String status = request.get("accountStatus");
         return userAccountService.updateAccountStatus(id, status);
