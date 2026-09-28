@@ -144,16 +144,19 @@
           const error = { status: res.status, error: res.body, url: fullUrl };
           if (res.status === 401 && !isAuthEndpoint && session) {
             localStorage.removeItem(SESSION_KEY);
-            window.location.href = Nav.href('/login', { sessionExpired: 'true' });
+            // like router.navigate() in the Angular interceptor, this supersedes any navigation already under way
+            Nav.sessionExpired = true;
+            window.location.replace(Nav.href('/login', { sessionExpired: 'true' }));
           }
           reject(error);
         }
         App.update();
       };
-      // reads answer at once; writes take a moment, like a real round trip (busy states stay visible)
+      // reads answer in the next task, as an HTTP response would (loading states render in between, exactly as in
+      // Angular); writes take a moment, like a real round trip (busy states stay visible)
       if (mutation && !isAuthEndpoint) setTimeout(run, 250);
       else if (mutation) setTimeout(run, 350);
-      else queueMicrotask(run);
+      else setTimeout(run, 0);
     });
   }
 

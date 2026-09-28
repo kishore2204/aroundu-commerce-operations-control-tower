@@ -57,6 +57,7 @@
       return target.file + (search ? '?' + search : '');
     },
     go(path, query) {
+      if (Nav.sessionExpired) return;
       window.location.href = Nav.href(path, query);
     },
     /* routerLinkActive (default, non-exact): active when the current URL is the link path or below it */
@@ -654,6 +655,7 @@ ${U.raw('</' + c.tag + '>')}`;
     (config.guards || []).forEach((g) => guards.push(g));
     const root = document.querySelector('app-root');
     runGuards(guards).then((result) => {
+      if (Nav.sessionExpired) return; // the session-expiry redirect to the login page is already under way
       if (result !== true) {
         window.location.replace(Nav.href(result));
         return;

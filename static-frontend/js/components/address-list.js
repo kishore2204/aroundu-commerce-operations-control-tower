@@ -153,7 +153,6 @@
     const r = inst.ref;
     const form = `${r}.form`;
     const f = inst.form.controls;
-    const value = inst.form.value;
     return html`
       <app-address-list>${!opts.embedded ? html`<h1 class="mb-4 text-2xl font-extrabold text-slate-900">Your addresses</h1>` : ''}
 
@@ -171,9 +170,9 @@ ${inst.loading ? html`<div class="flex justify-center py-10"><div class="spinner
               ${address.addressTag}
               ${address.defaultAddress ? html`<span class="badge badge-active">Default</span>` : ''}
             </p>
-            <p class="mt-1 text-sm text-slate-600">${address.line1}${address.line2 ? html`, ${address.line2}` : ''}</p>
+            <p class="mt-1 text-sm text-slate-600">${address.line1}${U.raw('<!---->')}${address.line2 ? html`, ${address.line2}` : ''}</p>
             <p class="text-sm text-slate-500">
-              ${address.zoneName}, ${address.cityName} ${address.postalCode ? html` ${address.postalCode} ` : ''}
+              ${address.zoneName}, ${address.cityName} ${U.raw('<!---->')}${address.postalCode ? html` ${address.postalCode} ` : ''}
             </p>
           </div>
           <div class="flex items-center gap-1">
@@ -209,14 +208,14 @@ ${inst.loading ? html`<div class="flex justify-center py-10"><div class="spinner
           </div>
           <div>
             <label class="form-label req-mark">City</label>
-            <select class="select" name="cityName" ${U.dis(!value.stateId)} oninput="${form}.controls['cityName'].input(this)" onchange="${form}.controls['cityName'].input(this); ${r}.onCityChange(this.value)" onblur="${form}.controls['cityName'].blur()">
+            <select class="select" name="cityName" oninput="${form}.controls['cityName'].input(this)" onchange="${form}.controls['cityName'].input(this); ${r}.onCityChange(this.value)" onblur="${form}.controls['cityName'].blur()">
               <option value="" disabled ${U.sel(f.cityName.value, '')}>Select city</option>
               ${U.each(inst.filteredCities, (c) => html`<option value="${c.cityName}" ${U.sel(f.cityName.value, c.cityName)}>${c.cityName}</option>`)}
             </select>
           </div>
           <div>
             <label class="form-label req-mark">Zone</label>
-            <select class="select" name="zoneName" ${U.dis(!value.cityName || inst.zonesLoading)} onchange="${form}.controls['zoneName'].input(this)" onblur="${form}.controls['zoneName'].blur()">
+            <select class="select" name="zoneName" onchange="${form}.controls['zoneName'].input(this)" onblur="${form}.controls['zoneName'].blur()">
               ${U.each(inst.zones, (z) => html`<option value="${z.zoneName}" ${U.sel(f.zoneName.value, z.zoneName)}>${z.zoneName}</option>`)}
             </select>
           </div>
