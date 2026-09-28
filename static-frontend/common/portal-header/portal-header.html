@@ -1,0 +1,37 @@
+<!--
+  portal-header.html - markup of portal-header (Angular: src/app/layout/<role>-shell/<role>-shell.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates (the layout parts written inline inside <app-root>, between <!--tpl:id--> markers).
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="portal-header">
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header></template>

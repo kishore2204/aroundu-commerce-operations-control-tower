@@ -1,0 +1,39 @@
+<!--
+  retailer-info-dialog.html - markup of retailer-info-dialog (Angular: src/app/shared/retailer-info-dialog/retailer-info-dialog.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN customer/commerce/components/retailer-info-dialog/retailer-info-dialog.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="retailer-info-dialog">
+      <app-retailer-info-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4" onclick="{{0}}.dismiss(); event.stopPropagation(); event.preventDefault()">
+        <div class="card w-full max-w-sm" onclick="event.stopPropagation()">
+          <div class="flex items-start justify-between gap-3 p-5 border-b border-slate-100">
+            <h2 class="text-base font-semibold text-slate-800 m-0 flex items-center gap-2">
+              <i class="fa-solid fa-store text-zepto-600"></i> Shop details
+            </h2>
+            <button type="button" class="btn-icon !w-8 !h-8 shrink-0" aria-label="Close" onclick="{{1}}.dismiss()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="p-5">
+            <!--{{2}}--><template id="retailer-info-dialog-1"><div class="flex justify-center py-6"><span class="spinner"></span></div></template><template id="retailer-info-dialog-2"><p class="text-sm text-rose-600">Couldn't load shop details right now.</p></template><template id="retailer-info-dialog-3">
+                <div class="flex flex-col gap-1.5">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-semibold text-base text-slate-900"><!--{{0}}--></span>
+                    <!--{{1}}--><template id="retailer-info-dialog-3-1"><i class="fa-solid fa-circle-check text-emerald-600 text-sm" title="Verified shop"></i></template>
+                  </div>
+                  <!--{{2}}-->
+                  <p class="text-sm text-slate-500 m-0">Status: <!--{{3}}--></p>
+                  <!--{{4}}--><template id="retailer-info-dialog-3-2">
+                    <p class="text-xs text-slate-500 m-0 flex items-center gap-1 mt-1">
+                      <i class="fa-solid fa-location-dot text-[11px]"></i>
+                      <!--{{0}}-->, <!--{{1}}-->
+                    </p></template>
+                  <button type="button" class="btn-outline !py-1.5 !px-3 text-xs self-start mt-2" onclick="{{5}}.browseShop()">
+                    Browse this shop
+                  </button>
+                </div></template>
+          </div>
+        </div>
+      </div></app-retailer-info-dialog></template>

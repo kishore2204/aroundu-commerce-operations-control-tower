@@ -1,8 +1,0 @@
-/*
- * product-card.css - <app-product-card> component styles.
- * Port of the component's own stylesheet / :host rules, scoped to its <app-product-card> host.
- */
-app-product-card {
-  display: block;
-  height: 100%;
-}

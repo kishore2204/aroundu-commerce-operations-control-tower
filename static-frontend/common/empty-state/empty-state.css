@@ -1,0 +1,7 @@
+/*
+ * empty-state.css - <app-empty-state> component styles.
+ * Port of src/app/shared/empty-state/empty-state.component.css and the component's :host rules, scoped to <app-empty-state>.
+ */
+app-empty-state {
+  display: block;
+}

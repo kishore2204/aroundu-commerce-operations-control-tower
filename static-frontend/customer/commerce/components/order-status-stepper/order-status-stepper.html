@@ -1,0 +1,26 @@
+<!--
+  order-status-stepper.html - markup of order-status-stepper (Angular: src/app/shared/order-status-stepper/order-status-stepper.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN customer/commerce/components/order-status-stepper/order-status-stepper.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="order-status-stepper">
+      <app-order-status-stepper data-stepper="{{0}}"><!--{{1}}--><template id="order-status-stepper-1">
+        <div class="halted-banner flex items-start gap-3 p-4 rounded-xl bg-rose-50">
+          <i class="fa-solid fa-triangle-exclamation text-rose-600 mt-0.5"></i>
+          <div>
+            <p class="halted-title font-semibold text-slate-800 m-0"><!--{{0}}--></p>
+            <!--{{1}}--><template id="order-status-stepper-1-1"><p class="halted-message text-sm text-slate-600 mt-1 mb-0"><!--{{0}}--></p></template>
+          </div>
+        </div></template><template id="order-status-stepper-2">
+        <div class="stepper-scroll">
+          <ol class="stepper list-none m-0 p-0" style="--steps: {{0}};">
+            <!--{{1}}--><template id="order-status-stepper-2-1">
+              <li class="step{{0}}">
+                <span class="step-marker">
+                  <i class="step-icon fa-solid{{1}}"></i>
+                </span>
+                <span class="step-label text-xs{{2}}"><!--{{3}}--></span>
+              </li></template>
+          </ol>
+        </div></template></app-order-status-stepper></template>

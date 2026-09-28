@@ -5,43 +5,441 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
   <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Location Manager - route /location/dashboard (Angular: src/app/features/location/dashboard/dashboard.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Location Manager - dashboard page, route /location/dashboard (Angular: src/app/features/location/dashboard/dashboard.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-location-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-location-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="mb-6 flex flex-wrap items-start justify-between gap-4">
+  <div>
+    <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+      <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+        <i class="fa-solid fa-gauge-high text-sm"></i>
+      </span>
+      Dashboard
+    </h1>
+    <!--{{0}}--><template id="dashboard-1"><p class="mt-1 text-sm text-slate-500"><i class="fa-solid fa-location-dot mr-1 text-violet-500"></i>Assigned zone: <strong class="text-slate-700"><!--{{0}}--></strong> · <!--{{1}}--></p></template>
+  </div>
+
+  <div class="flex flex-col items-end gap-2">
+    <div class="flex flex-wrap items-center gap-2">
+      <!--{{1}}--><template id="dashboard-2">
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs{{0}}" onclick="Page.setPreset('{{1}}')"><!--{{2}}--></button></template>
+      <button type="button" class="btn-icon !h-8 !w-8" aria-label="Refresh" title="Refresh" onclick="Page.refresh()"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+    <!--{{2}}--><template id="dashboard-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <input type="date" class="input !w-auto !py-1.5 !text-xs" value="{{0}}" max="{{1}}" onchange="Page.state.customFrom = this.value" />
+        <span class="text-xs text-slate-400">to</span>
+        <input type="date" class="input !w-auto !py-1.5 !text-xs" value="{{2}}" min="{{3}}" onchange="Page.state.customTo = this.value" />
+        <button type="button" class="btn-primary !px-3 !py-1.5 !text-xs" {{4}} onclick="Page.applyCustomRange()">Apply</button>
+      </div></template>
+    <p class="text-xs text-slate-400">The date range applies to decisions, completed orders and onboarding activity. Totals and pending work are current.</p>
+  </div>
+</div>
+
+<!--{{3}}--><template id="dashboard-4"><p class="mb-4 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700"><!--{{0}}--></p></template>
+
+<!--{{4}}--><template id="dashboard-5">
+  <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4{{0}}">
+    <!--{{1}}-->
+    <!--{{2}}-->
+    <!--{{3}}-->
+    <!--{{4}}-->
+    <!--{{5}}-->
+    <!--{{6}}-->
+    <!--{{7}}-->
+  </div>
+  <!--{{8}}--><template id="dashboard-5-1"><p class="-mt-5 mb-6 text-xs text-amber-600">Order figures are temporarily unavailable.</p></template>
+
+  <div class="mb-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
+    <section class="card">
+      <div class="mb-3 flex items-start justify-between gap-3">
+        <div>
+          <h2 class="flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-chart-column text-violet-500"></i> Onboarding trends</h2>
+          <p class="text-xs text-slate-400">New applications, <!--{{9}}--></p>
+        </div>
+        <div class="flex items-center gap-3 text-xs text-slate-500">
+          <!--{{10}}-->
+          <!--{{11}}-->
+        </div>
+      </div>
+      <!--{{12}}--><template id="dashboard-5-2"><p class="py-10 text-center text-sm text-slate-400">No onboarding activity in this range.</p></template><template id="dashboard-5-3">
+        <div class="flex h-40 items-end gap-px border-b border-slate-200">
+          <!--{{0}}--><template id="dashboard-5-3-1">
+            <div class="flex h-full min-w-0 flex-1 items-end justify-center gap-px" title="{{0}}">
+              <div class="w-1/2 rounded-t-sm bg-violet-500" style="height: {{1}}%;"></div>
+              <div class="w-1/2 rounded-t-sm bg-amber-400" style="height: {{2}}%;"></div>
+            </div></template>
+        </div>
+        <div class="mt-1 flex justify-between text-xs text-slate-400">
+          <span><!--{{1}}--></span>
+          <span><!--{{2}}--></span>
+        </div></template>
+    </section>
+
+    <section class="card">
+      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-clipboard-check text-violet-500"></i> Verification analytics</h2>
+      <p class="mb-3 text-xs text-slate-400">Pending now · approved and rejected <!--{{13}}--></p>
+      <!--{{14}}--><template id="dashboard-5-4"><p class="py-10 text-center text-sm text-slate-400">No verification activity to show.</p></template><template id="dashboard-5-5">
+        <div class="flex flex-col gap-4">
+          <!--{{0}}--><template id="dashboard-5-5-1">
+            <div>
+              <div class="mb-1 flex justify-between text-xs">
+                <span class="font-semibold text-slate-600"><!--{{0}}--></span>
+                <span class="text-slate-400"><!--{{1}}--> pending · <!--{{2}}--> approved · <!--{{3}}--> rejected</span>
+              </div>
+              <div class="flex h-4 overflow-hidden rounded-full bg-slate-100">
+                <div class="h-full bg-amber-400" style="width: {{4}}%;" title="Pending"></div>
+                <div class="h-full bg-emerald-500" style="width: {{5}}%;" title="Approved"></div>
+                <div class="h-full bg-rose-500" style="width: {{6}}%;" title="Rejected"></div>
+              </div>
+            </div></template>
+        </div>
+        <div class="mt-3 flex gap-4 text-xs text-slate-500">
+          <!--{{1}}-->
+          <!--{{2}}-->
+          <!--{{3}}-->
+        </div></template>
+    </section>
+
+    <section class="card">
+      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-bag-shopping text-violet-500"></i> Order analytics</h2>
+      <p class="mb-3 text-xs text-slate-400">Orders of the retailers in your zone</p>
+      <!--{{15}}--><template id="dashboard-5-6"><p class="py-10 text-center text-sm text-slate-400">Order figures are temporarily unavailable.</p></template><template id="dashboard-5-7">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="rounded-xl bg-violet-50 p-4"><p class="text-2xl font-extrabold text-violet-700"><!--{{0}}--></p><p class="text-xs text-violet-600">Active orders (now)</p></div>
+          <div class="rounded-xl bg-emerald-50 p-4"><p class="text-2xl font-extrabold text-emerald-700"><!--{{1}}--></p><p class="text-xs text-emerald-600">Completed (<!--{{2}}-->)</p></div>
+        </div>
+        <div class="mt-4 flex h-3 overflow-hidden rounded-full bg-slate-100">
+          <div class="h-full bg-violet-500" style="width: {{3}}%;"></div>
+          <div class="h-full bg-emerald-500" style="width: {{4}}%;"></div>
+        </div></template>
+    </section>
+
+    <section class="card">
+      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-people-arrows text-violet-500"></i> Workload distribution</h2>
+      <p class="mb-3 text-xs text-slate-400">Your pending verification work, by kind</p>
+      <!--{{16}}--><template id="dashboard-5-8"><p class="py-10 text-center text-sm text-slate-400">Nothing pending - you are all caught up.</p></template><template id="dashboard-5-9">
+        <div class="flex flex-col gap-3">
+          <!--{{0}}--><template id="dashboard-5-9-1">
+            <div class="flex items-center gap-3">
+              <span class="w-44 shrink-0 truncate text-xs font-semibold text-slate-500" title="{{0}}"><!--{{1}}--> · <!--{{2}}--></span>
+              <div class="h-4 flex-1 overflow-hidden rounded-full bg-slate-100">
+                <div class="h-full rounded-full{{3}}" style="width: {{4}}%;"></div>
+              </div>
+              <span class="w-8 shrink-0 text-right text-xs font-bold text-slate-700"><!--{{5}}--></span>
+            </div></template>
+        </div></template>
+    </section>
+  </div></template><template id="dashboard-6"><div class="flex justify-center py-12"><span class="spinner"></span></div></template>
+
+<section id="zone-partners">
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+    <h2 class="flex items-center gap-2 text-lg font-bold text-slate-900"><i class="fa-solid fa-users text-violet-500"></i> Users in your zone</h2>
+    <div class="flex rounded-xl border border-slate-200 p-0.5">
+      <button type="button" class="rounded-lg px-4 py-1.5 text-sm font-semibold{{5}}" onclick="Page.selectType('RETAILER')">Retailers</button>
+      <button type="button" class="rounded-lg px-4 py-1.5 text-sm font-semibold{{6}}" onclick="Page.selectType('FLEET_OWNER')">Fleet Owners</button>
+    </div>
+  </div>
+
+  <div class="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="relative lg:col-span-1">
+      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <input class="input pl-9" name="search" value="{{7}}" oninput="Page.searchChanged(this.value)" placeholder="Name, business, email or phone" />
+    </div>
+    <!--{{8}}-->
+    <!--{{9}}-->
+    <!--{{10}}-->
+    <!--{{11}}-->
+  </div>
+  <!--{{12}}--><template id="dashboard-7"><p class="-mt-2 mb-3 text-xs text-slate-500"><!--{{0}}--> match. <button type="button" class="font-semibold text-violet-600 hover:underline" onclick="Page.clearFilters()">Clear filters</button></p></template>
+
+  <!--{{13}}--><template id="dashboard-8"><p class="mb-3 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700"><!--{{0}}--></p></template>
+
+  <div class="table-card overflow-x-auto{{14}}">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th><!--{{15}}--></th>
+          <th>Contact</th>
+          <th><!--{{16}}--></th>
+          <th>Verification</th>
+          <th><!--{{17}}--></th>
+          <th>Pending action</th>
+          <!--{{18}}--><template id="dashboard-9"><th>Rating</th></template>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{19}}--><template id="dashboard-10">
+            <tr><td colspan="{{0}}" class="py-10 text-center text-sm text-slate-400">
+              <!--{{1}}-->
+            </td></tr></template>
+      </tbody>
+    </table>
+  </div>
+
+  <!--{{20}}--><template id="dashboard-11">
+    <div class="mt-3 flex items-center justify-between text-sm text-slate-500">
+      <span><!--{{0}}-->-<!--{{1}}--> of <!--{{2}}--></span>
+      <div class="flex items-center gap-2">
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" {{3}} onclick="Page.goToPage({{4}})">Previous</button>
+        <span>Page <!--{{5}}--> of <!--{{6}}--></span>
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" {{7}} onclick="Page.goToPage({{8}})">Next</button>
+      </div>
+    </div></template>
+</section><!--/tpl:dashboard--></app-location-dashboard><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-location-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- dashboard page: other templates (js/dashboard.js) -->
+<template id="dashboard-kpi-body">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br {{0}} text-xl text-white"><i class="fa-solid {{1}}"></i></div>
+      <div class="min-w-0">
+        <p class="text-2xl font-extrabold text-slate-900"><!--{{2}}--></p>
+        <p class="text-sm text-slate-500"><!--{{3}}--></p>
+        <p class="text-xs text-slate-400"><!--{{4}}--></p>
+      </div>
+    </template>
+<template id="dashboard-kpi-button"><button type="button" class="card card-hover flex items-center gap-4 text-left" onclick="Page.showList('{{0}}')"><!--{{1}}--></button></template>
+<template id="dashboard-kpi-link"><a href="{{0}}" class="card card-hover flex items-center gap-4"><!--{{1}}--></a></template>
+<template id="dashboard-kpi-box"><div class="card flex items-center gap-4"><!--{{0}}--></div></template>
+<template id="dashboard-legend"><span class="flex items-center gap-1"><span class="inline-block h-2.5 w-2.5 rounded-sm {{0}}"></span><!--{{1}}--></span></template>
+<template id="dashboard-sort-head"><button type="button" class="font-semibold" onclick="Page.sortBy('{{0}}')"><!--{{1}}--> <i class="fa-solid {{2}}"></i></button></template>
+<template id="dashboard-filter-select">
+    <select class="select" data-value="{{0}}" onchange="Page.setFilter('{{1}}', this.value)">
+      <!--{{2}}--><template id="dashboard-filter-select-1"><option value="{{0}}"><!--{{1}}--></option></template>
+    </select></template>
+<template id="dashboard-row">
+          <tr data-key="{{0}}">
+            <td><p class="font-semibold text-slate-900"><!--{{1}}--></p>
+              <!--{{2}}--><template id="dashboard-row-1"><p class="text-xs text-slate-400">Applied <!--{{0}}--></p></template></td>
+            <td><p class="text-sm text-slate-700"><!--{{3}}--></p><p class="text-xs text-slate-400"><!--{{4}}--><!--{{5}}--><!--{{6}}--></p></td>
+            <td><!--{{7}}--></td>
+            <td><span class="badge {{8}}"><!--{{9}}--></span></td>
+            <td><span class="badge{{10}}"><!--{{11}}--></span></td>
+            <td>
+              <!--{{12}}--><template id="dashboard-row-2"><a class="text-sm font-semibold text-violet-600 hover:underline" href="{{0}}"><!--{{1}}--></a></template><template id="dashboard-row-3"><span class="text-sm text-slate-400"><!--{{0}}--></span></template>
+            </td>
+            <!--{{13}}--><template id="dashboard-row-4">
+              <td class="whitespace-nowrap text-sm">
+                <!--{{0}}--><template id="dashboard-row-4-1"><span class="text-amber-500">★</span> <!--{{0}}--> <span class="text-xs text-slate-400">(<!--{{1}}-->)</span></template><template id="dashboard-row-4-2"><span class="text-slate-400">Not rated</span></template>
+              </td></template>
+            <td class="text-right">
+              <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" onclick="Page.toggle({{14}})"><!--{{15}}--></button>
+            </td>
+          </tr>
+
+          <!--{{16}}--><template id="dashboard-row-5">
+            <tr>
+              <td colspan="{{0}}" class="!bg-slate-50/60">
+                <div class="grid grid-cols-2 gap-4 py-2 text-sm lg:grid-cols-5">
+                  <p><span class="text-xs text-slate-400"><!--{{1}}--></span><br><strong><!--{{2}}--></strong></p>
+                  <p><span class="text-xs text-slate-400">Onboarding</span><br><!--{{3}}--></p>
+                  <p><span class="text-xs text-slate-400">Verification</span><br><!--{{4}}--></p>
+                  <p><span class="text-xs text-slate-400">Activation</span><br><!--{{5}}--></p>
+                  <p><span class="text-xs text-slate-400">Pending action</span><br><!--{{6}}--></p>
+                </div>
+
+                <!--{{7}}--><template id="dashboard-row-5-1"><p class="mb-2 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+                <!--{{8}}--><template id="dashboard-row-5-2"><div class="flex justify-center py-4"><span class="spinner"></span></div></template>
+
+                <!--{{9}}--><template id="dashboard-row-5-3">
+                    <h3 class="mb-2 mt-2 text-sm font-bold text-slate-900">Customer reviews
+                      <!--{{0}}--><template id="dashboard-row-5-3-1"><span class="font-normal text-slate-500">· <span class="text-amber-500">★</span> <!--{{0}}--> from <!--{{1}}--> review<!--{{2}}--></span></template>
+                    </h3>
+                    <!--{{1}}--><template id="dashboard-row-5-3-2"><p class="text-sm text-slate-400">No customer reviews yet.</p></template><template id="dashboard-row-5-3-3">
+                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                        <!--{{0}}--><template id="dashboard-row-5-3-3-1">
+                          <li class="py-2">
+                            <div class="flex items-center justify-between gap-3 text-sm">
+                              <span class="text-amber-500"><!--{{0}}--></span>
+                              <span class="text-xs text-slate-400"><!--{{1}}--></span>
+                            </div>
+                            <!--{{2}}--><template id="dashboard-row-5-3-3-1-1"><p class="mt-0.5 text-sm text-slate-700"><!--{{0}}--></p></template>
+                            <!--{{3}}--><template id="dashboard-row-5-3-3-1-2"><p class="text-xs text-slate-400">on <!--{{0}}--></p></template>
+                          </li></template>
+                      </ul>
+                      <!--{{1}}--><template id="dashboard-row-5-3-3-2">
+                        <div class="mt-2 flex items-center justify-end gap-2 text-xs">
+                          <button type="button" class="btn-outline !px-2 !py-1 !text-xs" {{0}} onclick="Page.loadReviews({{1}}, {{2}})">Newer</button>
+                          <span class="text-slate-500">Page <!--{{3}}--> of <!--{{4}}--></span>
+                          <button type="button" class="btn-outline !px-2 !py-1 !text-xs" {{5}} onclick="Page.loadReviews({{6}}, {{7}})">Older</button>
+                        </div></template></template></template><template id="dashboard-row-5-4">
+                  <div class="mt-2 grid grid-cols-1 gap-5 lg:grid-cols-2">
+                    <div>
+                      <h3 class="mb-2 text-sm font-bold text-slate-900">Drivers (<!--{{0}}-->)</h3>
+                      <!--{{1}}--><template id="dashboard-row-5-4-1"><p class="text-sm text-slate-400">No drivers registered.</p></template>
+                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                        <!--{{2}}--><template id="dashboard-row-5-4-2">
+                          <li class="flex items-center justify-between gap-3 py-1.5 text-sm">
+                            <span class="min-w-0 truncate font-semibold text-slate-800"><!--{{0}}--></span>
+                            <span class="shrink-0 text-xs text-slate-500">
+                              <!--{{1}}--><template id="dashboard-row-5-4-2-1"><span class="text-amber-500">★</span> <!--{{0}}--> </template><template id="dashboard-row-5-4-2-2"> Not rated </template>
+                            </span>
+                          </li></template>
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 class="mb-2 text-sm font-bold text-slate-900">Vehicles (<!--{{3}}-->)</h3>
+                      <!--{{4}}--><template id="dashboard-row-5-4-3"><p class="text-sm text-slate-400">No vehicles registered.</p></template>
+                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                        <!--{{5}}--><template id="dashboard-row-5-4-4">
+                          <li class="py-1.5 text-sm">
+                            <span class="font-semibold text-slate-800"><!--{{0}}--></span>
+                            <span class="text-slate-500"> · <!--{{1}}--></span>
+                            <span class="block text-xs text-slate-400"><!--{{2}}--> <!--{{3}}--><!--{{4}}--><!--{{5}}--><!--{{6}}--></span>
+                          </li></template>
+                      </ul>
+                    </div>
+                  </div>
+                  <!--{{6}}--><template id="dashboard-row-5-4-5"><p class="mt-3 text-xs text-slate-400">Customer ratings are not collected for fleet owners or drivers yet, so none can be shown.</p></template></template>
+              </td>
+            </tr></template></template>
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/location-dashboard-service.js"></script>
-  <script src="../js/common/location-manager-assignment-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/portal-shell.js"></script>
-  <script src="../js/common/sidebar.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/footer.js"></script>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/location-dashboard-service.js"></script>
+  <script src="../../common/services/location-manager-assignment-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/location-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
   <script src="../js/dashboard.js"></script>
   <script>boot({ route: '/location/dashboard', shell: 'location', guards: [], page: LocationDashboardPage });</script>
 </body>

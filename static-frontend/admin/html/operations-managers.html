@@ -5,46 +5,306 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../css/operations-managers.css">
-  <link rel="stylesheet" href="../css/common/empty-state.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Admin - route /admin/operations-managers (Angular: src/app/features/admin/operations-managers/operations-managers.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Admin - operations-managers page, route /admin/operations-managers (Angular: src/app/features/admin/operations-managers/operations-managers.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-admin-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-admin-operations-managers><!--{{0}}--><!--tpl:operations-managers (this page)--><div class="flex items-center justify-between mb-6">
+  <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+      <i class="fa-solid fa-user-tie text-sm"></i>
+    </span>
+    Operations managers
+  </h1>
+  <!--{{0}}--><template id="operations-managers-1">
+    <button type="button" class="btn-primary" onclick="Page.state.showForm = true">
+      <i class="fa-solid fa-plus"></i> Assign officer
+    </button></template>
+</div>
+
+<!--{{1}}--><template id="operations-managers-2">
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 max-w-2xl">
+    <div class="card"><p class="text-xl font-bold text-slate-900"><!--{{0}}--></p><p class="text-sm text-slate-500">Total</p></div>
+    <div class="card"><p class="text-xl font-bold text-slate-900"><!--{{1}}--></p><p class="text-sm text-slate-500">Active</p></div>
+    <div class="card"><p class="text-xl font-bold text-slate-900"><!--{{2}}--></p><p class="text-sm text-slate-500">Inactive</p></div>
+    <div class="card"><p class="text-xl font-bold text-slate-900"><!--{{3}}--></p><p class="text-sm text-slate-500">Suspended</p></div>
+  </div></template>
+
+<!--{{2}}--><template id="operations-managers-3">
+  <div class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,2fr)_1fr_1fr_auto] items-end">
+    <div class="form-group !mb-0">
+      <label class="form-label" for="om-search">Search</label>
+      <input id="om-search" class="input" type="search" autocomplete="off" placeholder="Search by name, email, phone, city..."
+        value="{{0}}" oninput="Page.onSearch(this.value)" />
+    </div>
+    <div class="form-group !mb-0">
+      <label class="form-label" for="om-status">Status</label>
+      <select id="om-status" class="select" data-value="{{1}}" onchange="Page.setStatusFilter(this.value)">
+        <!--{{2}}--><template id="operations-managers-3-1"><option value="{{0}}"><!--{{1}}--></option></template>
+      </select>
+    </div>
+    <div class="form-group !mb-0">
+      <label class="form-label" for="om-city">City</label>
+      <select id="om-city" class="select" data-value="{{3}}" onchange="Page.setCityFilter(this.value)">
+        <option value="">All</option>
+        <!--{{4}}-->
+      </select>
+    </div>
+    <!--{{5}}--><template id="operations-managers-3-2"><button type="button" class="btn-outline !py-2" onclick="Page.clearFilters()">Clear filters</button></template>
+  </div></template>
+
+<!--{{3}}--><template id="operations-managers-4">
+  <div class="card mb-6 max-w-xl">
+    <h2 class="text-lg font-bold text-slate-900 mb-4">New assignment</h2>
+    <!--{{0}}--><template id="operations-managers-4-1">
+      <p class="badge badge-pending !inline-block mb-4 normal-case font-medium">
+        No accounts with the OPERATIONS_MANAGER role exist yet - create one from the Accounts
+        tab first, then come back here to assign them to a city.
+      </p></template>
+    <form novalidate onsubmit="event.preventDefault(); Page.save()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Officer</label>
+          <select class="select" name="userAccountId" {{1}}>
+            <option value="" disabled>Select an officer</option>
+            <!--{{2}}--><template id="operations-managers-4-2"><option value="{{0}}"><!--{{1}}--> <!--{{2}}--> - <!--{{3}}--></option></template>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">City</label>
+          <select class="select" name="cityId" {{3}}>
+            <option value="" disabled>Select a city</option>
+            <!--{{4}}-->
+          </select>
+        </div>
+      </div>
+      <!--{{5}}--><template id="operations-managers-4-3"><p class="text-sm text-rose-600 mb-2"><!--{{0}}--></p></template>
+      <div class="flex justify-end gap-2">
+        <button type="button" class="btn-outline" onclick="Page.state.showForm = false">Cancel</button>
+        <button type="submit" class="btn-primary" {{6}}>Assign</button>
+      </div>
+    </form>
+  </div></template><template id="operations-managers-5"><div class="flex justify-center py-12"><span class="spinner"></span></div></template><template id="operations-managers-6">
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th><!--{{0}}--></th>
+          <th><!--{{1}}--></th>
+          <th><!--{{2}}--></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{3}}--><template id="operations-managers-6-1">
+          <tr data-key="{{0}}">
+            <td class="font-semibold text-slate-800"><!--{{1}}-->
+              <!--{{2}}--><template id="operations-managers-6-1-1"><span class="block text-xs font-normal text-slate-400"><!--{{0}}--></span></template></td>
+            <td>
+              <!--{{3}}--><template id="operations-managers-6-1-2">
+                <select class="select !py-1.5 max-w-[220px]" data-value="{{0}}" onchange="Page.state.reassignCityId = this.value">
+                  <!--{{1}}-->
+                </select></template><template id="operations-managers-6-1-3">
+                <span class="text-slate-500"><!--{{0}}--> - assigned <!--{{1}}--></span></template>
+            </td>
+            <td>
+              <span class="badge{{4}}">
+                <!--{{5}}-->
+              </span>
+            </td>
+            <td class="text-right whitespace-nowrap">
+              <!--{{6}}--><template id="operations-managers-6-1-4">
+                <!--{{0}}-->
+                <!--{{1}}--></template><template id="operations-managers-6-1-5">
+                <!--{{0}}-->
+                <!--{{1}}--><template id="operations-managers-6-1-5-1">
+                  <!--{{0}}-->
+                  <!--{{1}}--></template></template>
+            </td>
+          </tr></template>
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500">
+    <span><!--{{4}}--> operations manager<!--{{5}}--></span>
+    <!--{{6}}--><template id="operations-managers-6-2">
+      <div class="flex items-center gap-2">
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" {{0}} onclick="Page.goToPage({{1}})">Previous</button>
+        <span>Page <!--{{2}}--> of <!--{{3}}--></span>
+        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" {{4}} onclick="Page.goToPage({{5}})">Next</button>
+      </div></template>
+  </div></template>
+
+<!--{{4}}--><template id="operations-managers-7">
+  <div class="fixed bottom-6 right-6 z-50 card !py-3 !px-4 text-sm font-medium text-slate-800 shadow-card-hover">
+    <!--{{0}}-->
+  </div></template><!--/tpl:operations-managers--></app-admin-operations-managers><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-admin-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- operations-managers page: other templates (js/operations-managers.js) -->
+<template id="operations-managers-city-option"><option value="{{0}}"><!--{{1}}-->, <!--{{2}}--></option></template>
+<template id="operations-managers-sort-head"><button type="button" class="inline-flex items-center gap-1.5 font-semibold" onclick="Page.sortBy('{{0}}')"><!--{{1}}--> <i class="fa-solid text-xs text-slate-400 {{2}}"></i></button></template>
+<template id="operations-managers-btn"><button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" onclick="{{0}}"><!--{{1}}--></button></template>
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/operations-manager-service.js"></script>
-  <script src="../js/common/territory-service.js"></script>
-  <script src="../js/common/user-account-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/portal-shell.js"></script>
-  <script src="../js/common/sidebar.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/common/empty-state.js"></script>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/operations-manager-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/services/user-account-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/admin-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
   <script src="../js/operations-managers.js"></script>
   <script>boot({ route: '/admin/operations-managers', shell: 'admin', guards: [], page: AdminOperationsManagersPage });</script>
 </body>

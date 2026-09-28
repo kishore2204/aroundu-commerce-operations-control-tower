@@ -1,0 +1,131 @@
+<!--
+  header.html - markup of header (Angular: src/app/layout/shell/shell.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates (the layout parts written inline inside <app-root>, between <!--tpl:id--> markers).
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="header-nav-pill">
+        <a href="{{0}}" class="nav-pill{{1}}">
+          <i class="fa-solid {{2}} header-nav-icon"></i> <!--{{3}}-->
+        </a></template>
+<template id="header">
+<header class="header-glass header-bar">
+  <div class="header-inner">
+    <a href="{{0}}" class="header-brand group">
+      <span class="brandmark header-brandmark">A</span>
+      <span class="header-wordmark">Around<span class="header-wordmark-accent">U</span></span>
+    </a>
+
+    <nav class="header-nav">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </nav>
+
+    <span class="header-spacer"></span>
+
+    <div class="header-menu">
+      <button type="button" class="header-address-button"
+        onclick="Shell.toggleAddressMenu(); event.stopPropagation()">
+        <i class="fa-solid fa-location-dot header-address-pin"></i>
+        <span class="header-address-label"><!--{{5}}--></span>
+        <i class="fa-solid fa-chevron-down header-address-chevron"></i>
+      </button>
+
+      <!--{{6}}--><template id="header-1">
+        <div class="dropdown-panel header-address-panel" onclick="event.stopPropagation()">
+          <div class="header-address-title">
+            <span>Deliver to</span>
+            <i class="fa-solid fa-map-pin header-accent-icon"></i>
+          </div>
+          <!--{{0}}--><template id="header-1-1"><p class="header-panel-empty">No saved addresses yet.</p></template>
+          <!--{{1}}--><template id="header-1-2">
+            <button type="button"
+              class="header-address-option{{0}}"
+              {{1}} onclick="Shell.selectAddress({{2}})">
+              <span class="header-address-tag">
+                <!--{{3}}-->
+                <!--{{4}}--><template id="header-1-2-1"><i class="fa-solid fa-circle-check header-address-check"></i></template>
+              </span>
+              <span class="header-address-line"><!--{{5}}-->, <!--{{6}}--></span>
+            </button></template>
+          <a href="{{2}}" class="header-address-add" onclick="Shell.state.addressMenuOpen = false">
+            <i class="fa-solid fa-circle-plus header-accent-icon"></i> Add new address
+          </a>
+        </div></template>
+    </div>
+
+    <a href="{{7}}" aria-label="Support" class="btn-icon header-support-link">
+      <i class="fa-solid fa-headset header-icon"></i>
+    </a>
+
+    <a href="{{8}}" aria-label="Wishlist" class="btn-icon header-wishlist-link">
+      <i class="fa-solid fa-heart header-icon"></i>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="btn-icon header-notifications-button" aria-label="Notifications" onclick="Shell.toggleNotifications(); event.stopPropagation()">
+        <i class="fa-solid fa-bell header-icon"></i>
+        <!--{{9}}--><template id="header-2">
+          <span class="header-notifications-count">
+            <!--{{0}}-->
+          </span></template>
+      </button>
+
+      <!--{{10}}--><template id="header-3">
+        <div class="dropdown-panel header-notifications-panel" onclick="event.stopPropagation()">
+          <div class="header-notifications-head">
+            <span class="header-panel-title">Notifications</span>
+            <!--{{0}}--><template id="header-3-1">
+              <button type="button" class="clear-notifications header-notifications-clear" {{0}} onclick="Shell.clearNotifications()">Clear</button></template>
+          </div>
+          <!--{{1}}--><template id="header-3-2">
+            <p class="header-panel-empty">No new notifications.</p></template><template id="header-3-3">
+              <button type="button"
+                class="header-notification{{0}}"
+                onclick="Shell.markRead({{1}})">
+                <span class="header-notification-title"><!--{{2}}--></span>
+                <span class="header-notification-message"><!--{{3}}--></span>
+                <span class="header-notification-time"><!--{{4}}--></span>
+              </button></template>
+        </div></template>
+    </div>
+
+    <a href="{{11}}" aria-label="Cart" class="btn-icon header-cart-link">
+      <i class="fa-solid fa-cart-shopping header-icon"></i>
+      <!--{{12}}--><template id="header-4">
+        <span class="header-cart-count">
+          <!--{{0}}-->
+        </span></template>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="header-account-button" aria-label="Account" onclick="Shell.toggleAccountMenu(); event.stopPropagation()">
+        <span class="header-avatar">
+          <!--{{13}}-->
+        </span>
+      </button>
+
+      <!--{{14}}--><template id="header-5">
+        <div class="dropdown-panel header-account-panel" onclick="event.stopPropagation()">
+          <div class="header-account-info">
+            <span class="header-account-caption">Signed in as</span>
+            <span class="header-account-email"><!--{{0}}--></span>
+          </div>
+          <a href="{{1}}" class="header-menu-link" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-user-gear header-menu-icon"></i>
+            <span>Profile &amp; Settings</span>
+          </a>
+          <a href="{{2}}" class="header-menu-link-mobile" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-box header-menu-icon"></i>
+            <span>My Orders</span>
+          </a>
+          <button type="button" class="header-logout" onclick="Shell.logout()">
+            <i class="fa-solid fa-right-from-bracket header-logout-icon"></i>
+            <span>Log out</span>
+          </button>
+        </div></template>
+    </div>
+  </div>
+</header></template>

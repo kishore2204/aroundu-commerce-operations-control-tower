@@ -5,52 +5,468 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/header.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
-  <link rel="stylesheet" href="../css/ticket-detail.css">
-  <link rel="stylesheet" href="../css/common/shell.css">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/header/header-glass.css">
+  <link rel="stylesheet" href="../../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/customer-shell/customer-shell.css">
+  <link rel="stylesheet" href="../../../common/header/header.css">
+  <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
+  <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/ticket-detail/ticket-detail.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Customer - Commerce - route /support/:id (Angular: src/app/shared/support/ticket-detail.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Customer - Commerce - ticket-detail page, route /support/:id (Angular: src/app/shared/support/ticket-detail.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:customer-shell (common/customer-shell/customer-shell.html)-->
+<app-shell>
+<!--{{0}}--><!--tpl:header (common/header/header.html)-->
+<header class="header-glass header-bar">
+  <div class="header-inner">
+    <a href="{{0}}" class="header-brand group">
+      <span class="brandmark header-brandmark">A</span>
+      <span class="header-wordmark">Around<span class="header-wordmark-accent">U</span></span>
+    </a>
+
+    <nav class="header-nav">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </nav>
+
+    <span class="header-spacer"></span>
+
+    <div class="header-menu">
+      <button type="button" class="header-address-button"
+        onclick="Shell.toggleAddressMenu(); event.stopPropagation()">
+        <i class="fa-solid fa-location-dot header-address-pin"></i>
+        <span class="header-address-label"><!--{{5}}--></span>
+        <i class="fa-solid fa-chevron-down header-address-chevron"></i>
+      </button>
+
+      <!--{{6}}--><template id="header-1">
+        <div class="dropdown-panel header-address-panel" onclick="event.stopPropagation()">
+          <div class="header-address-title">
+            <span>Deliver to</span>
+            <i class="fa-solid fa-map-pin header-accent-icon"></i>
+          </div>
+          <!--{{0}}--><template id="header-1-1"><p class="header-panel-empty">No saved addresses yet.</p></template>
+          <!--{{1}}--><template id="header-1-2">
+            <button type="button"
+              class="header-address-option{{0}}"
+              {{1}} onclick="Shell.selectAddress({{2}})">
+              <span class="header-address-tag">
+                <!--{{3}}-->
+                <!--{{4}}--><template id="header-1-2-1"><i class="fa-solid fa-circle-check header-address-check"></i></template>
+              </span>
+              <span class="header-address-line"><!--{{5}}-->, <!--{{6}}--></span>
+            </button></template>
+          <a href="{{2}}" class="header-address-add" onclick="Shell.state.addressMenuOpen = false">
+            <i class="fa-solid fa-circle-plus header-accent-icon"></i> Add new address
+          </a>
+        </div></template>
+    </div>
+
+    <a href="{{7}}" aria-label="Support" class="btn-icon header-support-link">
+      <i class="fa-solid fa-headset header-icon"></i>
+    </a>
+
+    <a href="{{8}}" aria-label="Wishlist" class="btn-icon header-wishlist-link">
+      <i class="fa-solid fa-heart header-icon"></i>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="btn-icon header-notifications-button" aria-label="Notifications" onclick="Shell.toggleNotifications(); event.stopPropagation()">
+        <i class="fa-solid fa-bell header-icon"></i>
+        <!--{{9}}--><template id="header-2">
+          <span class="header-notifications-count">
+            <!--{{0}}-->
+          </span></template>
+      </button>
+
+      <!--{{10}}--><template id="header-3">
+        <div class="dropdown-panel header-notifications-panel" onclick="event.stopPropagation()">
+          <div class="header-notifications-head">
+            <span class="header-panel-title">Notifications</span>
+            <!--{{0}}--><template id="header-3-1">
+              <button type="button" class="clear-notifications header-notifications-clear" {{0}} onclick="Shell.clearNotifications()">Clear</button></template>
+          </div>
+          <!--{{1}}--><template id="header-3-2">
+            <p class="header-panel-empty">No new notifications.</p></template><template id="header-3-3">
+              <button type="button"
+                class="header-notification{{0}}"
+                onclick="Shell.markRead({{1}})">
+                <span class="header-notification-title"><!--{{2}}--></span>
+                <span class="header-notification-message"><!--{{3}}--></span>
+                <span class="header-notification-time"><!--{{4}}--></span>
+              </button></template>
+        </div></template>
+    </div>
+
+    <a href="{{11}}" aria-label="Cart" class="btn-icon header-cart-link">
+      <i class="fa-solid fa-cart-shopping header-icon"></i>
+      <!--{{12}}--><template id="header-4">
+        <span class="header-cart-count">
+          <!--{{0}}-->
+        </span></template>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="header-account-button" aria-label="Account" onclick="Shell.toggleAccountMenu(); event.stopPropagation()">
+        <span class="header-avatar">
+          <!--{{13}}-->
+        </span>
+      </button>
+
+      <!--{{14}}--><template id="header-5">
+        <div class="dropdown-panel header-account-panel" onclick="event.stopPropagation()">
+          <div class="header-account-info">
+            <span class="header-account-caption">Signed in as</span>
+            <span class="header-account-email"><!--{{0}}--></span>
+          </div>
+          <a href="{{1}}" class="header-menu-link" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-user-gear header-menu-icon"></i>
+            <span>Profile &amp; Settings</span>
+          </a>
+          <a href="{{2}}" class="header-menu-link-mobile" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-box header-menu-icon"></i>
+            <span>My Orders</span>
+          </a>
+          <button type="button" class="header-logout" onclick="Shell.logout()">
+            <i class="fa-solid fa-right-from-bracket header-logout-icon"></i>
+            <span>Log out</span>
+          </button>
+        </div></template>
+    </div>
+  </div>
+</header><!--/tpl:header-->
+
+<main class="customer-main" onclick="Shell.closeAccountMenu()">
+  <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-ticket-detail><!--{{0}}--><!--tpl:ticket-detail (common/ticket-detail/ticket-detail.html)--><button type="button" class="mb-3 inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-zepto-600" onclick="Page.goBack()">
+  <i class="fa-solid fa-arrow-left"></i> Back to tickets
+</button>
+
+<!--{{0}}--><template id="ticket-detail-1"><div class="flex justify-center py-8"><div class="spinner"></div></div></template><template id="ticket-detail-2"><p class="text-sm text-rose-600">Ticket not found, or you don't have access to it.</p></template><template id="ticket-detail-3">
+  <div class="flex items-start justify-between gap-3 mb-2">
+    <div>
+      <h1 class="text-xl font-extrabold text-slate-900 m-0"><!--{{0}}--> - <!--{{1}}--></h1>
+      <p class="text-xs text-slate-500 mt-1">
+        <!--{{2}}--> / <!--{{3}}-->
+        - Priority <!--{{4}}--> - Raised <!--{{5}}-->
+      </p>
+    </div>
+    <div class="flex flex-col items-end gap-1.5">
+      <span class="badge{{6}}"><!--{{7}}--></span>
+      <!--{{8}}--><template id="ticket-detail-3-1">
+        <span class="badge{{0}}"><!--{{1}}--></span></template>
+    </div>
+  </div>
+
+  <p class="whitespace-pre-wrap text-sm text-slate-700"><!--{{9}}--></p>
+
+  <!--{{10}}--><template id="ticket-detail-3-2">
+    <p class="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
+      Escalated to <!--{{0}}-->: <!--{{1}}-->
+    </p></template>
+  <!--{{11}}--><template id="ticket-detail-3-3">
+    <p class="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
+      Escalated to the <!--{{0}}--> for this order: <!--{{1}}-->
+    </p></template>
+
+  <!--{{12}}--><template id="ticket-detail-3-4">
+    <div class="flex flex-row flex-wrap gap-2 my-3">
+      <!--{{0}}--><template id="ticket-detail-3-4-1">
+        <button type="button" class="btn-outline" {{0}} onclick="Page.assignToMe()">Assign to me</button></template>
+      <!--{{1}}--><template id="ticket-detail-3-4-2">
+        <button type="button" class="btn-outline" {{0}} onclick="Page.resolve()">Resolve</button>
+        <button type="button" class="btn-outline" {{1}} onclick="Page.openEscalateForm()">Escalate</button></template>
+      <!--{{2}}--><template id="ticket-detail-3-4-3">
+        <button type="button" class="btn-outline" {{0}} onclick="Page.close()">Close</button></template>
+    </div>
+
+    <!--{{3}}--><template id="ticket-detail-3-4-4">
+      <div class="my-3">
+        <div class="flex gap-2 mb-3">
+          <button type="button" class="{{0}}" onclick="Page.state.escalateMode = 'role'">To an internal role</button>
+          <button type="button" class="{{1}}" onclick="Page.state.escalateMode = 'entity'">Directly to the retailer/fleet owner</button>
+        </div>
+
+        <!--{{2}}--><template id="ticket-detail-3-4-4-1">
+          <form novalidate onsubmit="event.preventDefault(); Page.escalate()" class="flex flex-col gap-3" data-key="escalate-role">
+            <div>
+              <label class="form-label req-mark">Escalate to</label>
+              <select class="select" name="toRole" {{0}}>
+                <option value="" disabled>Select a role</option>
+                <!--{{1}}--><template id="ticket-detail-3-4-4-1-1"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select>
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <!--{{2}}-->
+            </div>
+            <button type="submit" class="btn-primary self-start" {{3}}>
+              Confirm escalation
+            </button>
+          </form></template><template id="ticket-detail-3-4-4-2">
+          <form novalidate onsubmit="event.preventDefault(); Page.escalateToEntity()" class="flex flex-col gap-3" data-key="escalate-entity">
+            <div>
+              <label class="form-label req-mark">Escalate directly to</label>
+              <div class="flex gap-2 flex-wrap">
+                <!--{{0}}--><template id="ticket-detail-3-4-4-2-1">
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.escalateToSuggestedEntity('RETAILER', {{0}})">
+                    <i class="fa-solid fa-store"></i> <!--{{1}}-->
+                  </button></template>
+                <!--{{1}}--><template id="ticket-detail-3-4-4-2-2">
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.escalateToSuggestedEntity('FLEET_OWNER', {{0}})">
+                    <i class="fa-solid fa-truck"></i> <!--{{1}}-->
+                  </button></template>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Business type</label>
+              <input class="input bg-slate-50" value="{{2}}" readonly placeholder="Choose a business above" />
+            </div>
+            <div>
+              <label class="form-label">Business name</label>
+              <input class="input bg-slate-50" value="{{3}}" readonly placeholder="Choose a business above" />
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <!--{{4}}-->
+            </div>
+            <button type="submit" class="btn-primary self-start" {{5}}>
+              Confirm escalation
+            </button>
+          </form></template>
+      </div></template></template>
+
+  <!--{{13}}--><template id="ticket-detail-3-5"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+
+  <!--{{14}}--><template id="ticket-detail-3-6">
+    <section class="card mt-4">
+      <h2 class="text-base font-extrabold text-slate-900 mb-3">Order context</h2>
+      <!--{{0}}--><template id="ticket-detail-3-6-1"><div class="flex justify-center py-4"><span class="spinner"></span></div></template><template id="ticket-detail-3-6-2">
+        <!--{{0}}--><template id="ticket-detail-3-6-2-1">
+          <div class="rounded-lg bg-slate-50 p-3 mb-3 text-sm">
+            <p class="font-semibold text-slate-800 m-0">Order <!--{{0}}--> - <!--{{1}}--></p>
+            <p class="text-slate-500 mt-1 mb-0">
+              ₹<!--{{2}}--> - Payment <!--{{3}}--> (<!--{{4}}-->)
+              <!--{{5}}--><template id="ticket-detail-3-6-2-1-1"> - Delivered <!--{{0}}--> </template>
+            </p>
+          </div></template>
+        <!--{{1}}--><template id="ticket-detail-3-6-2-2">
+          <ul class="list-none p-0 m-0 mb-3 flex flex-col gap-1.5">
+            <!--{{0}}--><template id="ticket-detail-3-6-2-2-1">
+              <li class="text-sm text-slate-700 flex justify-between">
+                <span><!--{{0}}--> x <!--{{1}}--></span>
+                <span class="font-semibold">₹<!--{{2}}--></span>
+              </li></template>
+          </ul></template>
+        <!--{{2}}--><template id="ticket-detail-3-6-2-3"><p class="text-sm text-slate-500 mb-0">Trip status: <!--{{0}}--></p></template></template>
+    </section></template>
+
+  <!--{{15}}--><template id="ticket-detail-3-7">
+    <section class="card mt-4">
+      <h2 class="text-base font-extrabold text-slate-900 mb-3">Order &amp; refund review</h2>
+
+      <h3 class="text-sm font-bold text-slate-700 mb-2">Driver's delivery proof</h3>
+      <!--{{0}}--><template id="ticket-detail-3-7-1"><div class="flex justify-center py-4"><span class="spinner"></span></div></template><template id="ticket-detail-3-7-2"><img src="{{0}}" alt="Delivery proof" class="max-h-72 rounded-lg border border-slate-200 object-contain" /></template><template id="ticket-detail-3-7-3"><p class="text-sm text-slate-700"><!--{{0}}--></p></template><template id="ticket-detail-3-7-4"><p class="text-sm text-slate-500">No delivery proof was found for this order's trip.</p></template>
+
+      <h3 class="text-sm font-bold text-slate-700 mt-5 mb-2">Refund / return decision</h3>
+      <p class="text-xs text-slate-500 mb-3">Refund eligibility and item limits are validated by the backend from the linked ticket, delivered order and successful payment.</p>
+
+      <!--{{1}}--><template id="ticket-detail-3-7-5"><div class="flex justify-center py-4"><span class="spinner"></span></div></template><template id="ticket-detail-3-7-6">
+        <div class="flex flex-col gap-2 mb-4">
+          <!--{{0}}--><template id="ticket-detail-3-7-6-1">
+            <div class="rounded-lg border border-slate-200 p-3" data-key="{{0}}">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-sm font-semibold text-slate-800">Refund amount: ₹<!--{{1}}--></p>
+                  <p class="text-xs text-slate-500 mt-0.5">Item #<!--{{2}}--> · <!--{{3}}--></p>
+                </div>
+                <span class="badge{{4}}">
+                  <!--{{5}}-->
+                </span>
+              </div>
+
+              <!--{{6}}--><template id="ticket-detail-3-7-6-1-1">
+                <div class="flex items-center gap-2 mt-3 flex-wrap">
+                  <button type="button" class="btn-secondary !py-1 !px-3 !text-xs" {{0}} onclick="Page.refundAction({{1}}, 'approve')">
+                    <i class="fa-solid fa-circle-check"></i> Approve refund
+                  </button>
+                  <button type="button" class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50 !py-1 !px-3 !text-xs" {{2}} onclick="Page.refundAction({{3}}, 'reject')">
+                    <i class="fa-solid fa-ban"></i> Reject refund
+                  </button>
+                </div></template>
+
+              <!--{{7}}--><template id="ticket-detail-3-7-6-1-2">
+                <button type="button" class="btn-secondary !py-1 !px-3 !text-xs mt-3" {{0}} onclick="Page.refundAction({{1}}, 'complete')">
+                  <i class="fa-solid fa-money-check-dollar"></i> Mark refund completed
+                </button></template>
+            </div></template>
+        </div></template><template id="ticket-detail-3-7-7"><p class="text-sm text-slate-500 mb-3">No refund request has been recorded for this ticket.</p></template>
+
+      <!--{{2}}--><template id="ticket-detail-3-7-8">
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50/60 p-4 mt-3">
+          <h4 class="text-sm font-bold text-emerald-900 mb-3">Create eligible refund request</h4>
+          <form novalidate onsubmit="event.preventDefault(); Page.createRefund()" class="flex flex-col gap-3">
+            <div>
+              <label class="form-label req-mark">Item to refund</label>
+              <select class="select" name="orderItemId" {{0}}>
+                <option value="" disabled>Select an item</option>
+                <!--{{1}}--><template id="ticket-detail-3-7-8-1">
+                  <option value="{{0}}">
+                    <!--{{1}}--> · qty <!--{{2}}--> · up to ₹<!--{{3}}-->
+                  </option></template>
+              </select>
+            </div>
+            <div>
+              <label class="form-label req-mark">Refund amount (₹)</label>
+              <input class="input" type="number" min="0.01" step="0.01" name="refundAmount" {{2}} />
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <!--{{3}}-->
+            </div>
+            <button type="submit" class="btn-primary self-start" {{4}}>
+              <!--{{5}}--><template id="ticket-detail-3-7-8-2"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span></template><template id="ticket-detail-3-7-8-3"> Raise refund request </template>
+            </button>
+          </form>
+        </div></template>
+
+      <!--{{3}}--><template id="ticket-detail-3-7-9"><p class="text-sm font-semibold text-amber-700 bg-amber-50 rounded-lg px-3 py-2 mt-3"><!--{{0}}--></p></template>
+    </section></template>
+
+  <h2 class="text-base font-extrabold text-slate-900 mt-5 mb-2">Conversation</h2>
+  <!--{{16}}--><template id="ticket-detail-3-8"><div class="flex justify-center py-6"><div class="spinner"></div></div></template><template id="ticket-detail-3-9"><p class="text-sm text-slate-500">No messages yet.</p></template><template id="ticket-detail-3-10">
+    <ul class="list-none m-0 p-0 flex flex-col gap-3">
+      <!--{{0}}--><template id="ticket-detail-3-10-1">
+        <li class="border-l-[3px] pl-3 py-1.5{{0}}" data-key="{{1}}">
+          <p class="text-xs text-slate-500 m-0">
+            <!--{{2}}--> - <!--{{3}}-->
+            <!--{{4}}--><template id="ticket-detail-3-10-1-1"><span class="font-semibold text-amber-600">Internal note</span></template>
+          </p>
+          <p class="whitespace-pre-wrap text-sm text-slate-700 mt-1 mb-0"><!--{{5}}--></p>
+        </li></template>
+    </ul></template>
+
+  <!--{{17}}--><template id="ticket-detail-3-11">
+    <form novalidate onsubmit="event.preventDefault(); Page.sendReply()" class="flex flex-col gap-3 mt-4">
+      <div>
+        <label class="form-label req-mark">Add a message</label>
+        <!--{{0}}-->
+      </div>
+      <!--{{1}}--><template id="ticket-detail-3-11-1">
+        <label class="inline-flex items-center gap-2 text-sm text-slate-600">
+          <input type="checkbox" name="internalNote" {{0}} class="h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+          Internal note (not visible to the raiser)
+        </label></template>
+      <button type="submit" class="btn-primary self-start" {{2}}>Send</button>
+    </form></template></template>
+
+<!--{{1}}--><template id="ticket-detail-4">
+  <div class="fixed bottom-4 right-4 z-50 flex items-center gap-3 rounded-xl bg-slate-900 px-4 py-3 text-sm text-white shadow-card-hover">
+    <span><!--{{0}}--></span>
+    <button type="button" class="text-white/70 hover:text-white" onclick="Page.dismissToast()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div></template><!--/tpl:ticket-detail--></app-ticket-detail><!--/tpl:page-outlet-->
+</main>
+
+<!--{{2}}--><!--tpl:bottom-nav (common/bottom-nav/bottom-nav.html)-->
+<nav class="bottom-nav">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+  <!--{{4}}-->
+</nav><!--/tpl:bottom-nav-->
+
+<!--{{3}}--><!--tpl:footer (common/footer/footer.html)-->
+<footer class="customer-footer">
+  &copy; <!--{{0}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+</footer><!--/tpl:footer-->
+</app-shell><!--/tpl:customer-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/header/header.html -->
+<template id="header-nav-pill">
+        <a href="{{0}}" class="nav-pill{{1}}">
+          <i class="fa-solid {{2}} header-nav-icon"></i> <!--{{3}}-->
+        </a></template>
+<!-- END common/header/header.html -->
+
+<!-- BEGIN common/bottom-nav/bottom-nav.html -->
+<template id="bottom-nav-mobile">
+      <a href="{{0}}" class="bottom-nav-link{{1}}">
+        <i class="fa-solid {{2}} bottom-nav-icon"></i>
+        <span><!--{{3}}--></span>
+        <!--{{4}}--><template id="bottom-nav-mobile-1">
+          <span class="bottom-nav-count">
+            <!--{{0}}-->
+          </span></template>
+      </a></template>
+<!-- END common/bottom-nav/bottom-nav.html -->
+
+<!-- BEGIN common/ticket-detail/ticket-detail.html -->
+<template id="ticket-detail-textarea"><textarea class="input" name="{{0}}" rows="{{1}}" {{2}} oninput="{{3}}.controls['{{4}}'].input(this)" onblur="{{5}}.controls['{{6}}'].blur()"><!--{{7}}--></textarea></template>
+<!-- END common/ticket-detail/ticket-detail.html -->
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/support-categories.js"></script>
-  <script src="../js/common/support-sla.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/address-service.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/cart-service.js"></script>
-  <script src="../js/common/customer-refund-service.js"></script>
-  <script src="../js/common/customer-zone-service.js"></script>
-  <script src="../js/common/notification-service.js"></script>
-  <script src="../js/common/support-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/shell.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/bottom-nav.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/ticket-detail.js"></script>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/support-tickets/support-categories.js"></script>
+  <script src="../../../common/support-tickets/support-sla.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/cart-service.js"></script>
+  <script src="../../../common/services/customer-refund-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/notification-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/services/support-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../../../common/customer-shell/customer-shell.js"></script>
+  <script src="../../../common/header/header.js"></script>
+  <script src="../../../common/bottom-nav/bottom-nav.js"></script>
+  <script src="../../../common/footer/footer.js"></script>
+  <script src="../../../common/ticket-detail/ticket-detail.js"></script>
   <script>boot({ route: '/support/:id', shell: 'customer', guards: [], page: TicketDetailPage });</script>
 </body>
 </html>

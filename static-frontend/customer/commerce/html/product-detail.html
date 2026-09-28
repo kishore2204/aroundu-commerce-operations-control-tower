@@ -5,59 +5,474 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/header.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/header/header-glass.css">
+  <link rel="stylesheet" href="../../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/page/page.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/customer-shell/customer-shell.css">
+  <link rel="stylesheet" href="../../../common/header/header.css">
+  <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
+  <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../components/star-rating/star-rating.css">
+  <link rel="stylesheet" href="../components/product-card/product-card.css">
   <link rel="stylesheet" href="../css/product-detail.css">
-  <link rel="stylesheet" href="../css/common/empty-state.css">
-  <link rel="stylesheet" href="../css/common/product-card.css">
-  <link rel="stylesheet" href="../css/common/shell.css">
-  <link rel="stylesheet" href="../css/common/star-rating.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Customer - Commerce - route /products/:id (Angular: src/app/features/products/product-detail/product-detail.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Customer - Commerce - product-detail page, route /products/:id (Angular: src/app/features/products/product-detail/product-detail.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:customer-shell (common/customer-shell/customer-shell.html)-->
+<app-shell>
+<!--{{0}}--><!--tpl:header (common/header/header.html)-->
+<header class="header-glass header-bar">
+  <div class="header-inner">
+    <a href="{{0}}" class="header-brand group">
+      <span class="brandmark header-brandmark">A</span>
+      <span class="header-wordmark">Around<span class="header-wordmark-accent">U</span></span>
+    </a>
+
+    <nav class="header-nav">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </nav>
+
+    <span class="header-spacer"></span>
+
+    <div class="header-menu">
+      <button type="button" class="header-address-button"
+        onclick="Shell.toggleAddressMenu(); event.stopPropagation()">
+        <i class="fa-solid fa-location-dot header-address-pin"></i>
+        <span class="header-address-label"><!--{{5}}--></span>
+        <i class="fa-solid fa-chevron-down header-address-chevron"></i>
+      </button>
+
+      <!--{{6}}--><template id="header-1">
+        <div class="dropdown-panel header-address-panel" onclick="event.stopPropagation()">
+          <div class="header-address-title">
+            <span>Deliver to</span>
+            <i class="fa-solid fa-map-pin header-accent-icon"></i>
+          </div>
+          <!--{{0}}--><template id="header-1-1"><p class="header-panel-empty">No saved addresses yet.</p></template>
+          <!--{{1}}--><template id="header-1-2">
+            <button type="button"
+              class="header-address-option{{0}}"
+              {{1}} onclick="Shell.selectAddress({{2}})">
+              <span class="header-address-tag">
+                <!--{{3}}-->
+                <!--{{4}}--><template id="header-1-2-1"><i class="fa-solid fa-circle-check header-address-check"></i></template>
+              </span>
+              <span class="header-address-line"><!--{{5}}-->, <!--{{6}}--></span>
+            </button></template>
+          <a href="{{2}}" class="header-address-add" onclick="Shell.state.addressMenuOpen = false">
+            <i class="fa-solid fa-circle-plus header-accent-icon"></i> Add new address
+          </a>
+        </div></template>
+    </div>
+
+    <a href="{{7}}" aria-label="Support" class="btn-icon header-support-link">
+      <i class="fa-solid fa-headset header-icon"></i>
+    </a>
+
+    <a href="{{8}}" aria-label="Wishlist" class="btn-icon header-wishlist-link">
+      <i class="fa-solid fa-heart header-icon"></i>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="btn-icon header-notifications-button" aria-label="Notifications" onclick="Shell.toggleNotifications(); event.stopPropagation()">
+        <i class="fa-solid fa-bell header-icon"></i>
+        <!--{{9}}--><template id="header-2">
+          <span class="header-notifications-count">
+            <!--{{0}}-->
+          </span></template>
+      </button>
+
+      <!--{{10}}--><template id="header-3">
+        <div class="dropdown-panel header-notifications-panel" onclick="event.stopPropagation()">
+          <div class="header-notifications-head">
+            <span class="header-panel-title">Notifications</span>
+            <!--{{0}}--><template id="header-3-1">
+              <button type="button" class="clear-notifications header-notifications-clear" {{0}} onclick="Shell.clearNotifications()">Clear</button></template>
+          </div>
+          <!--{{1}}--><template id="header-3-2">
+            <p class="header-panel-empty">No new notifications.</p></template><template id="header-3-3">
+              <button type="button"
+                class="header-notification{{0}}"
+                onclick="Shell.markRead({{1}})">
+                <span class="header-notification-title"><!--{{2}}--></span>
+                <span class="header-notification-message"><!--{{3}}--></span>
+                <span class="header-notification-time"><!--{{4}}--></span>
+              </button></template>
+        </div></template>
+    </div>
+
+    <a href="{{11}}" aria-label="Cart" class="btn-icon header-cart-link">
+      <i class="fa-solid fa-cart-shopping header-icon"></i>
+      <!--{{12}}--><template id="header-4">
+        <span class="header-cart-count">
+          <!--{{0}}-->
+        </span></template>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="header-account-button" aria-label="Account" onclick="Shell.toggleAccountMenu(); event.stopPropagation()">
+        <span class="header-avatar">
+          <!--{{13}}-->
+        </span>
+      </button>
+
+      <!--{{14}}--><template id="header-5">
+        <div class="dropdown-panel header-account-panel" onclick="event.stopPropagation()">
+          <div class="header-account-info">
+            <span class="header-account-caption">Signed in as</span>
+            <span class="header-account-email"><!--{{0}}--></span>
+          </div>
+          <a href="{{1}}" class="header-menu-link" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-user-gear header-menu-icon"></i>
+            <span>Profile &amp; Settings</span>
+          </a>
+          <a href="{{2}}" class="header-menu-link-mobile" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-box header-menu-icon"></i>
+            <span>My Orders</span>
+          </a>
+          <button type="button" class="header-logout" onclick="Shell.logout()">
+            <i class="fa-solid fa-right-from-bracket header-logout-icon"></i>
+            <span>Log out</span>
+          </button>
+        </div></template>
+    </div>
+  </div>
+</header><!--/tpl:header-->
+
+<main class="customer-main" onclick="Shell.closeAccountMenu()">
+  <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-product-detail><!--{{0}}--><!--tpl:product-detail (this page)-->
+<!--{{0}}--><template id="product-detail-1"><div class="flex justify-center py-10"><div class="spinner"></div></div></template><template id="product-detail-2">
+  <a href="{{0}}" class="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-zepto-600 hover:text-zepto-700">
+    <i class="fa-solid fa-arrow-left"></i> Back to browse
+  </a>
+
+  <div class="grid grid-cols-1 gap-6 pb-24 sm:pb-0 md:grid-cols-2">
+    <div>
+      <div class="flex aspect-square w-full items-center justify-center overflow-hidden rounded-2xl bg-zepto-50 text-zepto-300">
+        <!--{{1}}--><template id="product-detail-2-1"><img src="{{0}}" alt="{{1}}" class="h-full w-full object-contain bg-white" /></template><template id="product-detail-2-2"><i class="fa-solid fa-image text-6xl"></i></template>
+      </div>
+      <!--{{2}}--><template id="product-detail-2-3">
+        <div class="mt-3 grid grid-cols-5 gap-2">
+          <!--{{0}}--><template id="product-detail-2-3-1">
+            <button type="button" class="aspect-square overflow-hidden rounded-xl border-2 bg-white{{0}}"
+              onclick="Page.state.selectedImageUrl = {{1}}">
+              <img src="{{2}}" alt="{{3}}" class="h-full w-full object-cover" />
+            </button></template>
+        </div></template>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-zepto-600"><!--{{3}}--></p>
+      <h1 class="mt-1 text-2xl font-extrabold text-slate-900"><!--{{4}}--></h1>
+      <div class="mt-2">
+        <!--{{5}}-->
+      </div>
+      <p class="mt-3 text-3xl font-extrabold text-slate-900"><!--{{6}}--></p>
+      <p class="mt-3 text-sm leading-relaxed text-slate-600"><!--{{7}}--></p>
+      <p class="mt-3 text-sm font-bold{{8}}">
+        <!--{{9}}-->
+      </p>
+
+      <button type="button" class="mt-3 flex items-center gap-1.5 text-sm text-zepto-600 font-medium hover:underline" onclick="Page.openRetailerDialog()">
+        <i class="fa-solid fa-store text-slate-400"></i>
+        Sold by <!--{{10}}-->
+      </button>
+
+      <div class="mt-5 flex items-center gap-3">
+        <div class="flex items-center gap-3 rounded-xl border border-slate-200 px-2 py-1">
+          <button type="button" class="btn-icon h-8 w-8" {{11}} onclick="Page.decrementQuantity()">
+            <i class="fa-solid fa-minus text-xs"></i>
+          </button>
+          <span class="w-6 text-center text-sm font-bold text-slate-900"><!--{{12}}--></span>
+          <button type="button" class="btn-icon h-8 w-8" {{13}} onclick="Page.incrementQuantity()">
+            <i class="fa-solid fa-plus text-xs"></i>
+          </button>
+        </div>
+        <button type="button" class="btn-icon" aria-label="{{14}}" onclick="Page.toggleWishlist()">
+          <i class="fa-solid fa-heart{{15}}"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 hidden sm:block">
+        <button type="button" class="btn-secondary w-full sm:w-auto" {{16}} onclick="Page.addToCart()">
+          <i class="fa-solid fa-cart-shopping"></i> Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-100 bg-white p-3 shadow-card-hover sm:hidden">
+    <button type="button" class="btn-secondary w-full" {{17}} onclick="Page.addToCart()">
+      <i class="fa-solid fa-cart-shopping"></i> Add to cart
+    </button>
+  </div>
+
+  <section class="mt-8">
+    <div class="mb-3 flex items-center justify-between">
+      <h2 class="text-lg font-extrabold text-slate-900">Suggested Products</h2>
+      <span class="text-xs text-slate-500">More from <!--{{18}}--></span>
+    </div>
+    <!--{{19}}--><template id="product-detail-2-4"><div class="py-4"><span class="spinner"></span></div></template><template id="product-detail-2-5">
+      <div class="flex snap-x gap-3 overflow-x-auto pb-3">
+        <!--{{0}}--><template id="product-detail-2-5-1">
+          <div class="w-48 min-w-48 snap-start sm:w-52 sm:min-w-52">
+            <!--{{0}}-->
+          </div></template>
+      </div></template>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="mb-3 text-lg font-extrabold text-slate-900">Reviews</h2>
+
+    <!--{{20}}--><template id="product-detail-2-6">
+        <div class="card mb-5">
+          <button type="button" class="flex w-full items-center justify-between text-left font-bold text-slate-900" onclick="Page.state.reviewFormOpen = !Page.state.reviewFormOpen">
+            Write a review
+            <i class="fa-solid fa-chevron-down transition-transform{{0}}"></i>
+          </button>
+
+          <!--{{1}}--><template id="product-detail-2-6-1">
+            <form novalidate class="mt-4 space-y-3" onsubmit="event.preventDefault(); Page.submitReview()">
+              <div>
+                <label class="form-label req-mark">Rating</label>
+                <select class="select" name="rating" onchange="Page.reviewForm.controls.rating.setValue(Number(this.value))">
+                  <!--{{0}}--><template id="product-detail-2-6-1-1"><option value="{{0}}" {{1}}><!--{{2}}--> star<!--{{3}}--></option></template>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Your review</label>
+                <textarea class="input" name="reviewText" rows="3" oninput="Page.reviewForm.controls.reviewText.input(this)" onblur="Page.reviewForm.controls.reviewText.blur()"><!--{{1}}--></textarea>
+              </div>
+              <!--{{2}}--><template id="product-detail-2-6-1-2"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+              <button class="btn-primary" type="submit" {{3}}>
+                Submit review
+              </button>
+            </form></template>
+        </div></template><template id="product-detail-2-7">
+        <p class="mb-5 text-sm text-slate-500">
+          <i class="fa-solid fa-circle-info"></i> You can write a review once you've received a delivered order containing this product.
+        </p></template>
+
+    <!--{{21}}--><template id="product-detail-2-8"><div class="flex justify-center py-6"><div class="spinner"></div></div></template><template id="product-detail-2-9">
+      <ul class="space-y-3">
+        <!--{{0}}--><template id="product-detail-2-9-1">
+          <li class="card">
+            <!--{{0}}-->
+            <p class="mt-2 text-sm text-slate-700"><!--{{1}}--></p>
+            <p class="mt-1 text-xs text-slate-400"><!--{{2}}--></p>
+          </li></template>
+      </ul></template>
+  </section></template>
+
+<!--{{1}}--><!--/tpl:product-detail--></app-product-detail><!--/tpl:page-outlet-->
+</main>
+
+<!--{{2}}--><!--tpl:bottom-nav (common/bottom-nav/bottom-nav.html)-->
+<nav class="bottom-nav">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+  <!--{{4}}-->
+</nav><!--/tpl:bottom-nav-->
+
+<!--{{3}}--><!--tpl:footer (common/footer/footer.html)-->
+<footer class="customer-footer">
+  &copy; <!--{{0}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+</footer><!--/tpl:footer-->
+</app-shell><!--/tpl:customer-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/header/header.html -->
+<template id="header-nav-pill">
+        <a href="{{0}}" class="nav-pill{{1}}">
+          <i class="fa-solid {{2}} header-nav-icon"></i> <!--{{3}}-->
+        </a></template>
+<!-- END common/header/header.html -->
+
+<!-- BEGIN common/bottom-nav/bottom-nav.html -->
+<template id="bottom-nav-mobile">
+      <a href="{{0}}" class="bottom-nav-link{{1}}">
+        <i class="fa-solid {{2}} bottom-nav-icon"></i>
+        <span><!--{{3}}--></span>
+        <!--{{4}}--><template id="bottom-nav-mobile-1">
+          <span class="bottom-nav-count">
+            <!--{{0}}-->
+          </span></template>
+      </a></template>
+<!-- END common/bottom-nav/bottom-nav.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN customer/commerce/components/star-rating/star-rating.html -->
+<template id="star-rating">
+      <app-star-rating class="{{0}}"><span class="inline-flex items-center gap-0.5" aria-label="{{1}}">
+        <!--{{2}}--><template id="star-rating-1"><i class="star text-[13px]{{0}}"></i></template>
+      </span>
+      <!--{{3}}--><template id="star-rating-2"><span class="text-xs text-slate-500 ml-1">(<!--{{0}}-->)</span></template></app-star-rating></template>
+<!-- END customer/commerce/components/star-rating/star-rating.html -->
+
+<!-- BEGIN customer/commerce/components/retailer-info-dialog/retailer-info-dialog.html -->
+<template id="retailer-info-dialog">
+      <app-retailer-info-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4" onclick="{{0}}.dismiss(); event.stopPropagation(); event.preventDefault()">
+        <div class="card w-full max-w-sm" onclick="event.stopPropagation()">
+          <div class="flex items-start justify-between gap-3 p-5 border-b border-slate-100">
+            <h2 class="text-base font-semibold text-slate-800 m-0 flex items-center gap-2">
+              <i class="fa-solid fa-store text-zepto-600"></i> Shop details
+            </h2>
+            <button type="button" class="btn-icon !w-8 !h-8 shrink-0" aria-label="Close" onclick="{{1}}.dismiss()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="p-5">
+            <!--{{2}}--><template id="retailer-info-dialog-1"><div class="flex justify-center py-6"><span class="spinner"></span></div></template><template id="retailer-info-dialog-2"><p class="text-sm text-rose-600">Couldn't load shop details right now.</p></template><template id="retailer-info-dialog-3">
+                <div class="flex flex-col gap-1.5">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-semibold text-base text-slate-900"><!--{{0}}--></span>
+                    <!--{{1}}--><template id="retailer-info-dialog-3-1"><i class="fa-solid fa-circle-check text-emerald-600 text-sm" title="Verified shop"></i></template>
+                  </div>
+                  <!--{{2}}-->
+                  <p class="text-sm text-slate-500 m-0">Status: <!--{{3}}--></p>
+                  <!--{{4}}--><template id="retailer-info-dialog-3-2">
+                    <p class="text-xs text-slate-500 m-0 flex items-center gap-1 mt-1">
+                      <i class="fa-solid fa-location-dot text-[11px]"></i>
+                      <!--{{0}}-->, <!--{{1}}-->
+                    </p></template>
+                  <button type="button" class="btn-outline !py-1.5 !px-3 text-xs self-start mt-2" onclick="{{5}}.browseShop()">
+                    Browse this shop
+                  </button>
+                </div></template>
+          </div>
+        </div>
+      </div></app-retailer-info-dialog></template>
+<!-- END customer/commerce/components/retailer-info-dialog/retailer-info-dialog.html -->
+
+<!-- BEGIN customer/commerce/components/product-card/product-card.html -->
+<template id="product-card">
+      <app-product-card class="{{0}}" data-key="{{1}}"><div class="card card-hover group overflow-hidden cursor-pointer h-full flex flex-col !p-0 border border-slate-200/60 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300" onclick="{{2}}.open()">
+        <div class="relative aspect-square overflow-hidden bg-gradient-to-br from-zepto-50 via-indigo-50/40 to-violet-100/50 flex items-center justify-center border-b border-slate-100">
+          <!--{{3}}--><template id="product-card-1"><img src="{{0}}" alt="{{1}}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" /></template><template id="product-card-2">
+            <span class="select-none font-display text-6xl font-black tracking-tighter bg-gradient-to-br from-zepto-600 to-indigo-600 bg-clip-text text-transparent opacity-30 transition-transform duration-500 group-hover:scale-125">
+              <!--{{0}}-->
+            </span></template>
+
+          <!--{{4}}--><template id="product-card-3">
+            <span class="out-of-stock badge badge-inactive absolute top-3 left-3 !bg-white/90 backdrop-blur-md shadow-sm border border-slate-200 text-[10px]">Out of stock</span></template><template id="product-card-4">
+            <span class="badge badge-pending absolute top-3 left-3 !bg-white/90 backdrop-blur-md shadow-sm border border-amber-200 text-[10px] text-amber-700">Only <!--{{0}}--> left</span></template>
+
+          <button type="button" class="absolute top-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-white/90 backdrop-blur-md shadow-sm transition-transform duration-200 hover:scale-110 active:scale-90 border border-slate-100"
+            aria-label="{{5}}" onclick="{{6}}.toggleWishlist(event)">
+            <i class="fa-solid fa-heart text-xs transition-colors{{7}}"></i>
+          </button>
+        </div>
+
+        <div class="p-3.5 flex flex-col gap-1 flex-1">
+          <p class="text-[10px] font-display font-extrabold uppercase tracking-wider text-slate-400"><!--{{8}}--></p>
+          <h3 class="name font-extrabold text-slate-900 text-xs sm:text-sm leading-snug line-clamp-2 min-h-[2.4em] group-hover:text-zepto-700 transition-colors"><!--{{9}}--></h3>
+
+          <button type="button" class="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500 font-semibold hover:text-zepto-600 self-start max-w-full transition-colors" onclick="{{10}}.openRetailerDialog(event)">
+            <i class="fa-solid fa-shop text-zepto-500 shrink-0 text-[10px]"></i>
+            <span class="truncate"><!--{{11}}--></span>
+          </button>
+
+          <div class="mt-2 flex items-baseline justify-between">
+            <p class="font-display font-black text-zepto-700 text-base sm:text-lg"><!--{{12}}--></p>
+          </div>
+
+          <!--{{13}}--><template id="product-card-5">
+            <div class="mt-3 flex w-full items-center justify-between rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 !py-1.5 px-1.5" onclick="event.stopPropagation()">
+              <button type="button" class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white/15 text-white transition-colors hover:bg-white/25 active:scale-90 disabled:opacity-60"
+                {{0}} aria-label="Decrease quantity" onclick="{{1}}.decrement(event)">
+                <i class="fa-solid fa-minus text-[10px]"></i>
+              </button>
+              <!--{{2}}--><template id="product-card-5-1"><span class="spinner !h-3.5 !w-3.5 !border-white/40 !border-t-white"></span></template><template id="product-card-5-2"><span class="text-xs font-extrabold text-white"><!--{{0}}--></span></template>
+              <button type="button" class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white/15 text-white transition-colors hover:bg-white/25 active:scale-90 disabled:opacity-60"
+                {{3}} aria-label="Increase quantity" onclick="{{4}}.increment(event)">
+                <i class="fa-solid fa-plus text-[10px]"></i>
+              </button>
+            </div></template><template id="product-card-6">
+            <button type="button" class="btn-primary !py-2 text-xs mt-3 w-full rounded-xl" {{0}} onclick="{{1}}.addToCart(event)">
+              <!--{{2}}--><template id="product-card-6-1"><span class="spinner !h-3.5 !w-3.5 !border-white/40 !border-t-white"></span></template><template id="product-card-6-2"><i class="fa-solid fa-cart-plus text-[11px]"></i> Add to Cart</template>
+            </button></template>
+        </div>
+      </div>
+
+      <!--{{14}}--></app-product-card></template>
+<!-- END customer/commerce/components/product-card/product-card.html -->
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/address-service.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/cart-service.js"></script>
-  <script src="../js/common/customer-zone-service.js"></script>
-  <script src="../js/common/notification-service.js"></script>
-  <script src="../js/common/product-service.js"></script>
-  <script src="../js/common/retailer-service.js"></script>
-  <script src="../js/common/review-service.js"></script>
-  <script src="../js/common/wishlist-service.js"></script>
-  <script src="../js/common/wishlist-state-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/shell.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/bottom-nav.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/common/empty-state.js"></script>
-  <script src="../js/common/product-card.js"></script>
-  <script src="../js/common/retailer-info-dialog.js"></script>
-  <script src="../js/common/star-rating.js"></script>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/cart-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/notification-service.js"></script>
+  <script src="../../../common/services/product-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/services/review-service.js"></script>
+  <script src="../../../common/services/wishlist-service.js"></script>
+  <script src="../../../common/services/wishlist-state-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../../../common/customer-shell/customer-shell.js"></script>
+  <script src="../../../common/header/header.js"></script>
+  <script src="../../../common/bottom-nav/bottom-nav.js"></script>
+  <script src="../../../common/footer/footer.js"></script>
+  <script src="../../../common/empty-state/empty-state.js"></script>
+  <script src="../components/star-rating/star-rating.js"></script>
+  <script src="../components/retailer-info-dialog/retailer-info-dialog.js"></script>
+  <script src="../components/product-card/product-card.js"></script>
   <script src="../js/product-detail.js"></script>
   <script>boot({ route: '/products/:id', shell: 'customer', guards: [Guards.addressRequired], page: ProductDetailPage });</script>
 </body>

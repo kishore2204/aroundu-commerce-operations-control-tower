@@ -1,0 +1,22 @@
+/*
+ * spinner.css - the loading spinner
+ * Port of the src/styles.scss @layer components rule(s) of this component (loaded before the utilities).
+ */
+.spinner {
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  animation: spin 1s linear infinite;
+  border-radius: 9999px;
+  border-width: 3px;
+  border-color: rgb(219 234 254 / var(--tw-border-opacity, 1));
+  --tw-border-opacity: 1;
+  border-top-color: rgb(37 99 235 / var(--tw-border-opacity, 1));
+}

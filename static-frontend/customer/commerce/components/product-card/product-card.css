@@ -1,0 +1,8 @@
+/*
+ * product-card.css - <app-product-card> component styles.
+ * Port of src/app/shared/product-card/product-card.component.css and the component's :host rules, scoped to <app-product-card>.
+ */
+app-product-card {
+  display: block;
+  height: 100%;
+}

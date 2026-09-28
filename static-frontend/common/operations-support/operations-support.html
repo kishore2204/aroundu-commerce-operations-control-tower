@@ -1,0 +1,224 @@
+<!--
+  operations-support.html - markup of operations-support (Angular: src/app/features/operations/support/support.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/operations-support/operations-support.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="operations-support-tab">
+  <button type="button" class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors{{0}}" onclick="Page.setTab('{{1}}')">
+    <!--{{2}}-->
+  </button></template>
+<template id="operations-support-sla-cell">
+                    <span class="badge{{0}}"><!--{{1}}--></span></template>
+<template id="operations-support-sla-cell-2">
+                    <span class="text-slate-400 text-sm">-</span></template>
+<template id="operations-support-open-cell">
+                <td>
+                  <div class="flex justify-end">
+                    <a href="{{0}}" class="btn-outline !py-1.5 !px-3 !text-xs whitespace-nowrap">
+                      <i class="fa-solid fa-arrow-right"></i> Open ticket
+                    </a>
+                  </div>
+                </td></template>
+<template id="operations-support-table-head">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>SLA</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead></template>
+<template id="operations-support-ta"><textarea class="input" name="{{0}}" {{1}} oninput="{{2}}.controls['{{3}}'].input(this)" onblur="{{4}}.controls['{{5}}'].blur()"><!--{{6}}--></textarea></template>
+<template id="operations-support"><h1 class="mb-4 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-headset text-sm"></i>
+  </span>
+  Support
+</h1>
+
+<div class="flex gap-2 border-b border-slate-200 mb-5 overflow-x-auto">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}--><template id="operations-support-1"><button type="button" class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors{{0}}" onclick="Page.setTab('developers')">Contact Developers</button></template>
+  <!--{{3}}-->
+</div>
+
+<!--{{4}}--><template id="operations-support-2">
+  <div>
+    <!--{{0}}--><template id="operations-support-2-1">
+      <div class="mb-3">
+        <select class="select max-w-xs" data-value="{{0}}" onchange="Page.state.categoryFilter = this.value">
+          <option value="ALL">All categories</option>
+          <!--{{1}}--><template id="operations-support-2-1-1"><option value="{{0}}"><!--{{1}}--></option></template>
+        </select>
+      </div></template>
+    <!--{{1}}--><template id="operations-support-2-2"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-support-2-3">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <!--{{0}}-->
+          <tbody>
+            <!--{{1}}--><template id="operations-support-2-3-1">
+              <tr data-key="{{0}}">
+                <td>
+                  <a href="{{1}}" class="text-slate-900 hover:text-zepto-600">
+                    <p class="font-semibold"><!--{{2}}--> - <!--{{3}}--></p>
+                    <p class="text-sm text-slate-500 mt-0.5">
+                      <!--{{4}}--> / <!--{{5}}-->
+                      - <!--{{6}}--> - priority <!--{{7}}--> - <!--{{8}}-->
+                    </p>
+                  </a>
+                </td>
+                <td>
+                  <!--{{9}}-->
+                </td>
+                <td>
+                  <span class="badge{{10}}">
+                    <!--{{11}}-->
+                  </span>
+                </td>
+                <!--{{12}}-->
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{5}}--><template id="operations-support-3">
+  <div>
+    <!--{{0}}--><template id="operations-support-3-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-support-3-2">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <!--{{0}}-->
+          <tbody>
+            <!--{{1}}--><template id="operations-support-3-2-1">
+              <tr data-key="{{0}}">
+                <td>
+                  <a href="{{1}}" class="text-slate-900 hover:text-zepto-600">
+                    <p class="font-semibold"><!--{{2}}--> - <!--{{3}}--></p>
+                    <p class="text-sm text-slate-500 mt-0.5">Escalated by <!--{{4}}-->: <!--{{5}}--></p>
+                  </a>
+                </td>
+                <td>
+                  <!--{{6}}-->
+                </td>
+                <td><span class="badge badge-pending"><!--{{7}}--></span></td>
+                <!--{{8}}-->
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{6}}--><template id="operations-support-4">
+  <div>
+    <!--{{0}}-->
+  </div></template>
+
+<!--{{7}}--><template id="operations-support-5">
+  <div class="card max-w-2xl">
+    <h2 class="text-lg font-extrabold text-slate-900">Contact Developers</h2>
+    <p class="mt-1 text-sm text-slate-500">Send a technical message to the developer team.</p>
+    <form novalidate onsubmit="event.preventDefault(); Page.sendDeveloperMessage()" class="mt-5 flex flex-col gap-4">
+      <div>
+        <label class="form-label req-mark">Title</label>
+        <input class="input" name="title" {{0}} maxlength="160" placeholder="Enter message title" />
+      </div>
+      <div>
+        <label class="form-label req-mark">Message</label>
+        <!--{{1}}-->
+      </div>
+      <button type="submit" class="btn-primary self-start" {{2}}>
+        <i class="fa-solid fa-paper-plane"></i> Send
+      </button>
+    </form>
+  </div></template>
+
+<!--{{8}}--><template id="operations-support-6">
+  <div class="fixed inset-0 z-[80] grid place-items-center bg-slate-900/55 p-4" onclick="Page.closeDeveloperMailPopup()">
+    <section class="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-2xl" role="dialog" aria-modal="true" aria-label="Developer message sent" onclick="event.stopPropagation()">
+      <div class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-100 text-xl text-emerald-600">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 class="mt-4 text-lg font-extrabold text-slate-900">Message sent</h3>
+      <p class="mt-2 text-sm text-slate-600">A mail has been sent to the developer team.</p>
+      <button type="button" class="btn-primary mt-5" onclick="Page.closeDeveloperMailPopup()">OK</button>
+    </section>
+  </div></template>
+
+<!--{{9}}--><template id="operations-support-7">
+  <div>
+    <div class="card max-w-2xl mb-6">
+      <form novalidate onsubmit="event.preventDefault(); Page.sendNotification()">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Recipient</label>
+            <!--{{0}}--><template id="operations-support-7-1">
+              <select class="select" name="userAccountId" {{0}}>
+                <option value="">Select recipient</option>
+                <!--{{1}}--><template id="operations-support-7-1-1"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select>
+              <!--{{2}}--><template id="operations-support-7-1-2"><p class="text-xs text-slate-500 mt-1">No recipients found for your zone yet.</p></template>
+              <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" onclick="Page.state.useCustomRecipient = true">
+                Enter a user account ID manually instead
+              </button></template><template id="operations-support-7-2">
+              <input class="input" name="userAccountId" {{0}} placeholder="UUID" />
+              <!--{{1}}--><template id="operations-support-7-2-1">
+                <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" onclick="Page.state.useCustomRecipient = false">
+                  Pick from list instead
+                </button></template></template>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Type</label>
+            <!--{{1}}--><template id="operations-support-7-3">
+              <select class="select" name="notificationType" {{0}}>
+                <option value="" disabled>Select a type</option>
+                <!--{{1}}--><template id="operations-support-7-3-1"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select></template><template id="operations-support-7-4">
+              <input class="input" name="notificationType" {{0}} placeholder="e.g. VERIFICATION_UPDATE" />
+              <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" onclick="Page.state.useCustomNotificationType = false">
+                Pick from list instead
+              </button></template>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Title</label>
+            <input class="input" name="title" {{2}} />
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label req-mark">Message</label>
+            <!--{{3}}-->
+          </div>
+        </div>
+        <!--{{4}}--><template id="operations-support-7-5"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+        <!--{{5}}--><template id="operations-support-7-6"><p class="text-emerald-600 text-sm mb-3">Notification sent.</p></template>
+        <button type="submit" class="btn-primary" {{6}}>
+          Send
+        </button>
+      </form>
+    </div>
+
+    <h2 class="text-lg font-bold text-slate-900 mb-3">Recent notifications</h2>
+    <!--{{7}}--><template id="operations-support-7-7"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-support-7-8">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Notification</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-support-7-8-1">
+              <tr data-key="{{0}}">
+                <td>
+                  <p class="font-semibold"><!--{{1}}--></p>
+                  <p class="text-sm text-slate-500 mt-0.5"><!--{{2}}--> - <!--{{3}}--></p>
+                </td>
+                <td>
+                  <span class="badge{{4}}"><!--{{5}}--></span>
+                </td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template></template>

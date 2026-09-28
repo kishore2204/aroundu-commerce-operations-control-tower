@@ -1,0 +1,41 @@
+<!--
+  entity-ticket-queue.html - markup of entity-ticket-queue (Angular: src/app/shared/support/entity-ticket-queue.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/entity-ticket-queue/entity-ticket-queue.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="entity-ticket-queue"><app-entity-ticket-queue><h1 class="text-2xl font-bold text-slate-900 mb-1">Escalations</h1>
+<p class="text-sm text-slate-500 mb-4">Support tickets escalated directly to <!--{{0}}--> for a response.</p>
+
+<!--{{1}}--><template id="entity-ticket-queue-1"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="entity-ticket-queue-2">
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Ticket</th>
+          <th>SLA</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{0}}--><template id="entity-ticket-queue-2-1">
+          <tr data-key="{{0}}">
+            <td>
+              <a href="{{1}}" class="text-slate-900 hover:text-zepto-600">
+                <p class="font-semibold"><!--{{2}}--> - <!--{{3}}--></p>
+                <p class="text-sm text-slate-500 mt-0.5">
+                  <!--{{4}}--> / <!--{{5}}-->
+                  - <!--{{6}}-->
+                </p>
+              </a>
+            </td>
+            <td>
+              <!--{{7}}--><template id="entity-ticket-queue-2-1-1">
+                <span class="badge{{0}}"><!--{{1}}--></span></template><template id="entity-ticket-queue-2-1-2">
+                <span class="text-slate-400 text-sm">-</span></template>
+            </td>
+            <td><span class="badge badge-pending"><!--{{8}}--></span></td>
+          </tr></template>
+      </tbody>
+    </table>
+  </div></template></app-entity-ticket-queue></template>

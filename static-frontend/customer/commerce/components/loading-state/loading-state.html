@@ -1,0 +1,11 @@
+<!--
+  loading-state.html - markup of loading-state (Angular: src/app/shared/loading-state/loading-state.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN customer/commerce/components/loading-state/loading-state.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="loading-state">
+      <app-loading-state class="{{0}}"><div class="flex flex-col items-center justify-center gap-3 py-12 px-4">
+        <div class="spinner" style="width: {{1}}px; height: {{2}}px;"></div>
+        <!--{{3}}--><template id="loading-state-1"><p class="message text-sm text-slate-500 m-0"><!--{{0}}--></p></template>
+      </div></app-loading-state></template>

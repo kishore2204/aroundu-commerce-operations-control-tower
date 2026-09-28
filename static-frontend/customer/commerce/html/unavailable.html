@@ -5,34 +5,62 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
   <link rel="stylesheet" href="../css/unavailable.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Customer - Commerce - route /unavailable (Angular: src/app/features/unavailable/unavailable.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Customer - Commerce - unavailable page, route /unavailable (Angular: src/app/features/unavailable/unavailable.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-unavailable><!--{{0}}--><!--tpl:unavailable (this page)-->
+<div class="flex min-h-[70vh] flex-col items-center justify-center gap-3 px-4 text-center">
+  <i class="fa-solid fa-map-location-dot text-6xl text-zepto-300"></i>
+  <h1 class="text-xl font-extrabold text-slate-900">Not available for your account yet</h1>
+  <p class="max-w-sm text-sm text-slate-500">
+    This workspace is currently only built for CUSTOMER accounts. Support for your role is coming in a future update.
+  </p>
+  <a class="btn-primary mt-2" href="{{0}}">Back to sign in</a>
+</div><!--/tpl:unavailable--></app-unavailable><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/address-service.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/customer-zone-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
   <script src="../js/unavailable.js"></script>
   <script>boot({ route: '/unavailable', shell: 'none', guards: [], page: UnavailablePage });</script>
 </body>

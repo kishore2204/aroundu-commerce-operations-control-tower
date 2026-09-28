@@ -5,52 +5,245 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
-  <link rel="stylesheet" href="../css/user-support.css">
-  <link rel="stylesheet" href="../css/common/empty-state.css">
-  <link rel="stylesheet" href="../css/common/my-tickets.css">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/my-tickets/my-tickets.css">
+  <link rel="stylesheet" href="../../common/user-support/user-support.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Fleet Owner - route /fleet/support (Angular: src/app/features/support/user-support/user-support.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Fleet Owner - user-support page, route /fleet/support (Angular: src/app/features/support/user-support/user-support.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-fleet-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-user-support><!--{{0}}--><!--tpl:user-support (common/user-support/user-support.html)--><div class="mb-5"><h1 class="text-2xl font-extrabold text-slate-900">Support</h1><p class="text-sm text-slate-500">Raise and track support requests for your account.</p></div>
+<div class="card"><!--{{0}}--></div><!--/tpl:user-support--></app-user-support><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-fleet-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN common/my-tickets/my-tickets.html -->
+<template id="my-tickets"><app-my-tickets><h1 class="text-xl font-extrabold text-slate-900 mb-4">Support</h1>
+
+<!--{{0}}--><template id="my-tickets-1"><div class="flex justify-center py-8"><div class="spinner"></div></div></template><template id="my-tickets-2">
+  <!--{{0}}--><template id="my-tickets-2-1">
+    <ul class="list-none p-0 flex flex-col gap-1 mb-4">
+      <!--{{0}}--><template id="my-tickets-2-1-1">
+        <li data-key="{{0}}">
+          <a href="{{1}}" class="flex justify-between items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-200 no-underline text-inherit hover:border-zepto-300 hover:bg-zepto-50">
+            <div>
+              <p class="font-medium text-slate-800 m-0"><!--{{2}}--> - <!--{{3}}--></p>
+              <p class="text-xs text-slate-500 mt-0.5 mb-0">
+                <!--{{4}}--> / <!--{{5}}-->
+                - <!--{{6}}-->
+              </p>
+            </div>
+            <span class="badge{{7}}"><!--{{8}}--></span>
+          </a>
+        </li></template>
+    </ul></template>
+
+  <!--{{1}}--><template id="my-tickets-2-2">
+    <div class="card">
+      <form novalidate onsubmit="event.preventDefault(); {{0}}.submit()" class="flex flex-col gap-3">
+        <div>
+          <label class="form-label req-mark">Category</label>
+          <select class="select" name="ticketCategory" {{1}}>
+            <option value="" disabled>Select a category</option>
+            <!--{{2}}--><template id="my-tickets-2-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
+          </select>
+        </div>
+        <div>
+          <label class="form-label req-mark">Subcategory</label>
+          <select class="select" name="ticketSubCategory" {{3}}>
+            <option value="" disabled>Select a subcategory</option>
+            <!--{{4}}--><template id="my-tickets-2-2-2"><option value="{{0}}"><!--{{1}}--></option></template>
+          </select>
+        </div>
+        <!--{{5}}--><template id="my-tickets-2-2-3">
+          <div>
+            <label class="form-label">Which order is this about? (optional)</label>
+            <select class="select" name="orderId" {{0}}>
+              <option value="">Not linked to a specific order</option>
+              <!--{{1}}--><template id="my-tickets-2-2-3-1"><option value="{{0}}"><!--{{1}}--> - <!--{{2}}--></option></template>
+            </select>
+          </div></template>
+        <div>
+          <label class="form-label req-mark">Priority</label>
+          <select class="select" name="priority" {{6}}>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label req-mark">Subject</label>
+          <input class="input" type="text" name="subject" {{7}} />
+        </div>
+        <div>
+          <label class="form-label req-mark">Description</label>
+          <textarea class="input" name="description" rows="3" oninput="{{8}}.controls['description'].input(this)" onblur="{{9}}.controls['description'].blur()"><!--{{10}}--></textarea>
+        </div>
+        <!--{{11}}--><template id="my-tickets-2-2-4"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+        <button type="submit" class="btn-primary self-start" {{12}}>Submit ticket</button>
+      </form>
+    </div></template><template id="my-tickets-2-3">
+    <button type="button" class="btn-outline" onclick="{{0}}.openForm()">Raise a support ticket</button></template></template></app-my-tickets></template>
+<!-- END common/my-tickets/my-tickets.html -->
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/support-categories.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/customer-service.js"></script>
-  <script src="../js/common/fleet-owner-service.js"></script>
-  <script src="../js/common/order-service.js"></script>
-  <script src="../js/common/support-service.js"></script>
-  <script src="../js/common/territory-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/portal-shell.js"></script>
-  <script src="../js/common/sidebar.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/common/empty-state.js"></script>
-  <script src="../js/common/my-tickets.js"></script>
-  <script src="../js/user-support.js"></script>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/support-tickets/support-categories.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/order-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/support-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/fleet-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
+  <script src="../../common/my-tickets/my-tickets.js"></script>
+  <script src="../../common/user-support/user-support.js"></script>
   <script>boot({ route: '/fleet/support', shell: 'fleet', guards: [Guards.fleetOwnerProfile], page: UserSupportPage });</script>
 </body>
 </html>

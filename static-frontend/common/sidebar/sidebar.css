@@ -1,0 +1,261 @@
+/*
+ * sidebar.css - the portal sidebar (collapsible; fixed for the support staff portal)
+ * Angular: src/app/layout/*-shell/<role>-shell.component.html (+ .css). The Angular templates use Tailwind utility classes; here each
+ * combination has one class name, with exactly the declarations of the utilities it replaces (same values, same order).
+ * --name classes are the states the JS toggles (active, collapsed, open ...).
+ */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0px;
+  z-index: 30;
+  background-color: rgb(0 0 0 / 0.4);
+}
+.sidebar {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 40;
+  display: flex;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  flex-direction: column;
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 64 175 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(219 234 254 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+.sidebar-fixed {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 40;
+  display: flex;
+  width: 16rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  flex-direction: column;
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 64 175 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(219 234 254 / var(--tw-text-opacity, 1));
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-bottom-width: 1px;
+  border-color: rgb(255 255 255 / 0.1);
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+.sidebar-brandmark {
+  height: 2.25rem !important;
+  width: 2.25rem !important;
+  --tw-rotate: 0deg !important;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+}
+.sidebar-brand-name {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.sidebar-badge {
+  margin-left: auto;
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 0.1);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(219 234 254 / var(--tw-text-opacity, 1));
+}
+.sidebar-nav {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(219 234 254 / var(--tw-text-opacity, 1));
+  transition-property: color,
+    background-color,
+    border-color,
+    text-decoration-color,
+    fill,
+    stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.sidebar-icon {
+  width: 1.25rem;
+  text-align: center;
+}
+.sidebar-collapse-section {
+  border-top-width: 1px;
+  border-color: rgb(255 255 255 / 0.1);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.sidebar-collapse-button {
+  display: none;
+  width: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(219 234 254 / var(--tw-text-opacity, 1));
+  transition-property: color,
+    background-color,
+    border-color,
+    text-decoration-color,
+    fill,
+    stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.sidebar-logout-section {
+  border-top-width: 1px;
+  border-color: rgb(255 255 255 / 0.1);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.sidebar-logout {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(219 234 254 / var(--tw-text-opacity, 1));
+  transition-property: color,
+    background-color,
+    border-color,
+    text-decoration-color,
+    fill,
+    stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.sidebar--closed {
+  --tw-translate-x: -100%;
+}
+.sidebar--open {
+  --tw-translate-x: 0px;
+}
+.sidebar--expanded {
+  width: 16rem;
+}
+.sidebar--collapsed {
+  width: 72px;
+}
+.sidebar-fixed--closed {
+  --tw-translate-x: -100%;
+}
+.sidebar-fixed--open {
+  --tw-translate-x: 0px;
+}
+.sidebar-link--collapsed {
+  justify-content: center;
+}
+.sidebar-link--active {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: #2563eb var(--tw-gradient-from-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: #7c3aed var(--tw-gradient-to-position);
+  --tw-shadow: 0 10px 24px rgba(37, 99, 235, 0.22);
+  --tw-shadow-colored: 0 10px 24px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
+}
+.sidebar-collapse-button--collapsed {
+  justify-content: center;
+}
+.sidebar-logout--collapsed {
+  justify-content: center;
+}
+.sidebar-nav > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+.sidebar-link:hover {
+  background-color: rgb(255 255 255 / 0.1);
+}
+.sidebar-collapse-button:hover {
+  background-color: rgb(255 255 255 / 0.1);
+}
+.sidebar-logout:hover {
+  background-color: rgb(255 255 255 / 0.1);
+}
+@media (min-width: 1024px) {
+  .sidebar-collapse-button {
+    display: flex;
+  }
+  .sidebar-overlay {
+    display: none;
+  }
+  .sidebar {
+    position: sticky;
+    top: 0px;
+    height: 100vh;
+    --tw-translate-x: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+  .sidebar-fixed {
+    position: sticky;
+    top: 0px;
+    height: 100vh;
+    --tw-translate-x: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+}

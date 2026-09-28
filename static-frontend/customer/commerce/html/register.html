@@ -5,38 +5,214 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
   <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Customer - Commerce - route /register (Angular: src/app/features/auth/register/register.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Customer - Commerce - register page, route /register (Angular: src/app/features/auth/register/register.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-register><!--{{0}}--><!--tpl:register (this page)-->
+<div class="relative flex min-h-screen flex-col overflow-hidden bg-gradient-to-br from-zepto-700 via-indigo-700 to-violet-900">
+ <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-gradient-to-br from-white/10 to-violet-400/20 blur-3xl"></div>
+ <div class="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-gradient-to-br from-amber-300/15 to-rose-400/15 blur-3xl"></div>
+ <div class="relative z-10 flex flex-1 items-center justify-center p-4">
+  <div class="card w-full max-w-md p-8">
+    <h1 class="text-center text-2xl font-extrabold text-slate-900">Create your account</h1>
+    <p class="mt-1 text-center text-sm text-slate-500">Join AroundU for hyperlocal commerce &amp; logistics</p>
+
+    <form novalidate class="mt-5 space-y-4" onsubmit="event.preventDefault(); Page.submit()">
+      <!--{{0}}--><template id="register-1"><div class="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-600">
+        <i class="fa-solid fa-triangle-exclamation"></i> <!--{{0}}-->
+      </div></template>
+      <!--{{1}}--><template id="register-2"><div class="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm font-semibold text-emerald-700">
+        <i class="fa-solid fa-circle-check"></i> Account created successfully! Redirecting to sign in...
+      </div></template>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <label class="form-label req-mark">First Name</label>
+          <input type="text" class="input" name="firstName" {{2}} placeholder="Enter first name" />
+          <!--{{3}}-->
+        </div>
+        <div>
+          <label class="form-label req-mark">Last Name</label>
+          <input type="text" class="input" name="lastName" {{4}} placeholder="Enter last name" />
+          <!--{{5}}-->
+        </div>
+        <div>
+          <label class="form-label req-mark">Email Address<!--{{6}}--></label>
+          <input type="email" class="input" name="email" {{7}} placeholder="name@domain.com" autocomplete="email" />
+          <!--{{8}}-->
+        </div>
+        <div>
+          <label class="form-label req-mark">Mobile Number<!--{{9}}--></label>
+          <input type="tel" class="input" name="phoneNumber" {{10}} data-digits-only="10" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="10-digit mobile" />
+          <!--{{11}}-->
+        </div>
+      </div>
+
+      <div>
+        <label class="form-label req-mark">Account Role</label>
+        <div class="grid grid-cols-3 gap-2">
+          <!--{{12}}-->
+          <!--{{13}}-->
+          <!--{{14}}-->
+        </div>
+      </div>
+
+      <div>
+        <label class="form-label req-mark">Password<!--{{15}}--></label>
+        <div class="relative">
+          <input type="{{16}}" class="input !pr-11" name="password" {{17}} placeholder="Create password" autocomplete="new-password" />
+          <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-zepto-600" onclick="Page.state.showPassword = !Page.state.showPassword" aria-label="{{18}}">
+            <i class="fa-solid{{19}}"></i>
+          </button>
+        </div>
+        <!--{{20}}-->
+        <!--{{21}}-->
+      </div>
+
+      <div>
+        <label class="form-label req-mark">Re-enter Password<!--{{22}}--></label>
+        <div class="relative">
+          <input type="{{23}}" class="input !pr-11" name="confirmPassword" {{24}} placeholder="Confirm your password" autocomplete="new-password" />
+          <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-zepto-600" onclick="Page.state.showConfirmPassword = !Page.state.showConfirmPassword" aria-label="{{25}}">
+            <i class="fa-solid{{26}}"></i>
+          </button>
+        </div>
+        <!--{{27}}--><template id="register-3">
+          <p class="mt-1 text-xs font-semibold text-rose-600"><!--{{0}}--></p></template><template id="register-4">
+          <p class="mt-1 text-xs font-semibold text-rose-600">Passwords do not match.</p></template>
+      </div>
+
+      <label class="flex items-start gap-2.5 text-sm text-slate-600 cursor-pointer select-none">
+        <input type="checkbox" name="agreeTerms" {{28}} class="mt-0.5 h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+        <span class="req-mark">I agree to the <button type="button" class="font-semibold text-zepto-600 hover:text-zepto-700 underline" onclick="Page.state.termsOpen = true">Terms and Conditions</button></span>
+      </label>
+      <!--{{29}}--><template id="register-5"><p class="-mt-2 text-xs font-semibold text-rose-600"><!--{{0}}--></p></template>
+
+      <button type="submit" class="btn-primary w-full" {{30}}>
+        <!--{{31}}--><template id="register-6"><span>Create Account <i class="fa-solid fa-arrow-right"></i></span></template>
+        <!--{{32}}--><template id="register-7"><span class="inline-flex items-center gap-2">
+          <span class="spinner h-5 w-5 border-2 border-white/40 border-t-white"></span> Creating Account...
+        </span></template>
+      </button>
+
+      <p class="text-center text-sm text-slate-600">
+        Already have an account? <a href="{{33}}" class="font-bold text-zepto-600 hover:text-zepto-700">Sign In</a>
+      </p>
+    </form>
+  </div>
+ </div>
+ <footer class="border-t border-white/10 px-4 py-5 text-center text-xs font-medium text-white/60">
+   &copy; <!--{{34}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+ </footer>
+</div>
+
+<!--{{35}}--><template id="register-8">
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm" onclick="Page.state.termsOpen = false">
+    <section class="max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Terms and Conditions">
+      <div class="mb-4 flex items-center justify-between gap-4">
+        <h2 class="text-xl font-extrabold text-slate-900">AroundU Terms and Conditions</h2>
+        <button type="button" class="btn-icon" onclick="Page.state.termsOpen = false" aria-label="Close terms"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-3 text-sm leading-6 text-slate-600">
+        <p>By creating an AroundU account, you agree to provide accurate account and contact information and to keep your credentials secure.</p>
+        <p>Customers must use valid delivery details and payment information. Retailers and fleet owners must provide genuine business, identity, vehicle and verification documents where requested.</p>
+        <p>Orders, deliveries, cancellations, refunds and partner verification are processed according to the status shown in the portal. Misuse, fraudulent submissions or prohibited activity may result in account suspension.</p>
+        <p>AroundU may retain transaction, support and audit records needed to operate the platform, resolve disputes and maintain security. Users must not attempt to access another account's data or functions.</p>
+        <p>By ticking the checkbox, you confirm that you have read and accepted these terms.</p>
+      </div>
+      <div class="mt-5 flex justify-end gap-2">
+        <button type="button" class="btn-outline" onclick="Page.state.termsOpen = false">Close</button>
+        <button type="button" class="btn-primary" onclick="Page.form.controls.agreeTerms.setValue(true); Page.state.termsOpen = false">Accept terms</button>
+      </div>
+    </section>
+  </div></template><!--/tpl:register--></app-register><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/field-hint/field-hint.html -->
+<template id="field-hint">
+      <app-field-hint><span class="relative inline-block align-middle" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full align-middle text-slate-400 transition-colors hover:text-violet-600 focus-visible:text-violet-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
+          onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
+          <i class="fa-solid fa-circle-info text-[0.8rem]" aria-hidden="true"></i>
+        </button>
+        <span role="tooltip" id="{{10}}"
+          class="absolute z-50 w-64 max-w-[calc(100vw-1rem)] px-0 text-left{{11}}"
+          style="left: {{12}}px;">
+          <span class="block whitespace-pre-line rounded-lg bg-slate-900 px-3 py-2 text-xs font-normal normal-case leading-relaxed tracking-normal text-white shadow-lg"><!--{{13}}--></span>
+        </span>
+      </span></app-field-hint></template>
+<!-- END common/field-hint/field-hint.html -->
+
+<!-- BEGIN common/password-requirements/password-requirements.html -->
+<template id="password-requirements">
+      <app-password-requirements><div class="mt-2" aria-live="polite">
+        <p class="mb-1 text-xs font-bold text-slate-700">Password requirements</p>
+        <ul class="m-0 list-none space-y-1 p-0 text-xs">
+          <!--{{0}}--><template id="password-requirements-1">
+            <li class="flex items-center gap-1.5 font-semibold{{0}}">
+              <i class="fa-solid{{1}}"></i>
+              <!--{{2}}-->
+            </li></template>
+        </ul>
+      </div></app-password-requirements></template>
+<!-- END common/password-requirements/password-requirements.html -->
+
+<!-- register page: other templates (js/register.js) -->
+<template id="register-err"><p class="mt-1 text-xs font-semibold text-rose-600"><!--{{0}}--></p></template>
+<template id="register-role-button">
+          <button type="button" class="rounded-xl border-2 p-3 text-center transition-colors{{0}}" onclick="Page.selectRole('{{1}}')">
+            <i class="fa-solid {{2}} block text-xl text-zepto-600"></i>
+            <span class="mt-1 block text-xs font-bold text-slate-800"><!--{{3}}--></span>
+          </button></template>
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/address-service.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/customer-zone-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/field-hint.js"></script>
-  <script src="../js/common/password-requirements.js"></script>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../../../common/field-hint/field-hint.js"></script>
+  <script src="../../../common/password-requirements/password-requirements.js"></script>
   <script src="../js/register.js"></script>
   <script>boot({ route: '/register', shell: 'none', guards: [], page: RegisterPage });</script>
 </body>

@@ -1,0 +1,13 @@
+<!--
+  empty-state.html - markup of empty-state (Angular: src/app/shared/empty-state/empty-state.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/empty-state/empty-state.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>

@@ -1,0 +1,71 @@
+<!--
+  queue-list.html - markup of queue-list (Angular: src/app/features/location/queue-list/queue-list.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/queue-list/queue-list.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="queue-list"><div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+  <h1 class="m-0 flex items-center gap-2.5 text-2xl font-bold text-slate-900">
+    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+      <i class="fa-solid fa-clipboard-check text-sm"></i>
+    </span>
+    Verification queue
+  </h1>
+  <!--{{0}}-->
+</div>
+
+<div class="form-group max-w-xs mb-5">
+  <label class="form-label">Status</label>
+  <select class="select" data-value="{{1}}" onchange="Page.setStatus(this.value)">
+    <option value="SENT_TO_LOCATION_MANAGER">Awaiting my review</option>
+    <option value="DOCUMENTS_SUBMITTED">Documents submitted (not yet sent)</option>
+    <option value="RESUBMISSION_REQUIRED">Waiting for document re-upload</option>
+    <option value="APPROVED">Approved</option>
+    <option value="REJECTED">Rejected</option>
+    <option value="ALL">All entries</option>
+  </select>
+</div>
+
+<div class="mb-4 flex items-start gap-2 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+  <i class="fa-solid fa-circle-info mt-0.5"></i>
+  <span>Use the <strong>Review</strong> action to open the application, inspect the submitted details and documents, and make a verification decision.</span>
+</div>
+
+<!--{{2}}--><template id="queue-list-1"><div class="flex justify-center py-12"><span class="spinner"></span></div></template><template id="queue-list-2">
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Submitted</th>
+          <th>Status</th>
+          <th class="text-right">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{0}}--><template id="queue-list-2-1">
+          <tr class="cursor-pointer hover:bg-zepto-50/60" onclick="location.href = {{0}}" data-key="{{1}}">
+            <td>
+              <p class="font-semibold text-slate-800">
+                <!--{{2}}-->
+              </p>
+              <p class="text-xs text-slate-400">
+                <!--{{3}}-->
+                <!--{{4}}--><template id="queue-list-2-1-1"> &middot; Fleet: <!--{{0}}--> </template>
+              </p>
+            </td>
+            <td class="text-slate-500"><!--{{5}}--></td>
+            <td>
+              <span class="badge{{6}}">
+                <!--{{7}}-->
+              </span>
+            </td>
+            <td class="text-right">
+              <a class="btn-outline !px-3 !py-1.5 text-xs" href="{{8}}" onclick="event.stopPropagation()">
+                Review <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </td>
+          </tr></template>
+      </tbody>
+    </table>
+  </div></template></template>

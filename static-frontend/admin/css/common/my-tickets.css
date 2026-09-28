@@ -1,7 +1,0 @@
-/*
- * my-tickets.css - <app-my-tickets> component styles.
- * Port of the component's own stylesheet / :host rules, scoped to its <app-my-tickets> host.
- */
-app-my-tickets {
-  display: block;
-}

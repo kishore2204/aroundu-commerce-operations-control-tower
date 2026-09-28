@@ -5,51 +5,468 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
-  <link rel="stylesheet" href="../css/finance.css">
-  <link rel="stylesheet" href="../css/common/empty-state.css">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/operations-finance/operations-finance.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Admin - route /admin/finance (Angular: src/app/features/operations/finance/finance.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Admin - finance page, route /admin/finance (Angular: src/app/features/operations/finance/finance.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-admin-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-finance><!--{{0}}--><!--tpl:operations-finance (common/operations-finance/operations-finance.html)--><h1 class="mb-4 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-sack-dollar text-sm"></i>
+  </span>
+  Finance
+</h1>
+
+<div class="flex gap-2 border-b border-slate-200 mb-5">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+</div>
+
+<!--{{4}}--><template id="operations-finance-1">
+  <div>
+    <div class="card mb-5 flex items-center gap-4">
+      <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+        <i class="fa-solid fa-sack-dollar text-xl"></i>
+      </div>
+      <div>
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Total successful payments</p>
+        <p class="text-2xl font-extrabold text-slate-900"><!--{{0}}--></p>
+        <p class="text-sm text-slate-500"><!--{{1}}--> transaction(s)</p>
+      </div>
+    </div>
+
+    <h2 class="text-lg font-bold text-slate-900 mb-3">Disputed payments</h2>
+    <p class="text-sm text-slate-500 mb-4">Payments that failed and need attention. Retry opens a fresh payment attempt for the same order.</p>
+
+    <!--{{2}}--><template id="operations-finance-1-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-1-2">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Method / Amount</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-1-2-1">
+              <tr data-key="{{0}}">
+                <td class="font-semibold">Order #<!--{{1}}--></td>
+                <td><!--{{2}}--> - <!--{{3}}--></td>
+                <td><span class="badge badge-danger"><!--{{4}}--></span></td>
+                <td>
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" {{5}} onclick="Page.retryPayment({{6}})">
+                    <i class="fa-solid fa-rotate-right"></i> Retry
+                  </button>
+                </td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{5}}--><template id="operations-finance-2">
+  <div>
+    <div class="flex justify-end mb-4">
+      <button type="button" class="btn-primary" onclick="Page.state.showSettlementForm = !Page.state.showSettlementForm">
+        <i class="fa-solid fa-plus"></i> New settlement
+      </button>
+    </div>
+
+    <!--{{0}}--><template id="operations-finance-2-1">
+      <div class="card max-w-2xl mb-5">
+        <form novalidate onsubmit="event.preventDefault(); Page.createSettlement()">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label req-mark">Payment transaction</label>
+              <select class="select" name="paymentTransactionId" {{0}}>
+                <option value="" disabled>Select a payment transaction</option>
+                <!--{{1}}--><template id="operations-finance-2-1-1">
+                  <option value="{{0}}">
+                    Order #<!--{{1}}--> - <!--{{2}}--> - <!--{{3}}-->
+                  </option></template>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Gross amount</label>
+              <input class="input" type="number" step="0.01" name="grossAmount" {{2}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Fee amount</label>
+              <input class="input" type="number" step="0.01" name="feeAmount" {{3}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Settlement date</label>
+              <input class="input" type="date" name="settlementDate" {{4}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reference (optional)</label>
+              <input class="input" name="settlementReference" {{5}} />
+            </div>
+          </div>
+          <!--{{6}}--><template id="operations-finance-2-1-2"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+          <button type="submit" class="btn-primary" {{7}}>
+            Create
+          </button>
+        </form>
+      </div></template>
+
+    <!--{{1}}--><template id="operations-finance-2-2"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-2-3">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Settlement</th>
+              <th>Payee</th>
+              <th>Date / Net amount</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-2-3-1">
+              <tr data-key="{{0}}">
+                <td class="font-semibold"><!--{{1}}--></td>
+                <td>
+                  <!--{{2}}--><template id="operations-finance-2-3-1-1">
+                    <span class="badge badge-pending"><!--{{0}}--></span>
+                    <span class="text-xs text-slate-500 block mt-0.5"><!--{{1}}--></span></template><template id="operations-finance-2-3-1-2">
+                    <span class="text-xs text-slate-400">Operations manager</span></template>
+                </td>
+                <td><!--{{3}}--> - net <!--{{4}}--></td>
+                <td>
+                  <span class="badge{{5}}">
+                    <!--{{6}}-->
+                  </span>
+                </td>
+                <td>
+                  <!--{{7}}--><template id="operations-finance-2-3-1-3"><button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.complete({{0}})">Complete</button></template>
+                </td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{6}}--><template id="operations-finance-3">
+  <div>
+    <div class="flex justify-end mb-4">
+      <button type="button" class="btn-primary" onclick="Page.toggleTaxForm()">
+        <i class="fa-solid fa-plus"></i> New tax rule
+      </button>
+    </div>
+
+    <!--{{0}}--><template id="operations-finance-3-1">
+      <div class="card max-w-2xl mb-5">
+        <form novalidate onsubmit="event.preventDefault(); Page.createTax()">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label req-mark" for="tax-category-name">Product category</label>
+              <input id="tax-category-name" class="input" type="text" maxlength="100" autocomplete="off" list="tax-category-suggestions"
+                placeholder="Type a category name, e.g. Organic Foods" name="categoryName" {{0}} />
+              <datalist id="tax-category-suggestions">
+                <!--{{1}}--><template id="operations-finance-3-1-1"><option value="{{0}}"></option></template>
+              </datalist>
+              <p class="text-xs text-slate-500 mt-1">An existing category is reused (capital letters and extra spaces do not matter); a new name creates a new active category that retailers can then use.</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">CGST %</label>
+              <input class="input" type="number" step="0.01" name="cgst" {{2}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">SGST %</label>
+              <input class="input" type="number" step="0.01" name="sgst" {{3}} />
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">State (optional - leave blank for a nationwide rule)</label>
+              <select class="select" name="stateId" {{4}}>
+                <option value="">All states</option>
+                <!--{{5}}--><template id="operations-finance-3-1-2"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tax-effective-from">Effective from</label>
+              <input id="tax-effective-from" class="input" type="date" name="effectiveFrom" {{6}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tax-effective-to">Effective to</label>
+              <input id="tax-effective-to" class="input" type="date" name="effectiveTo" {{7}} />
+              <!--{{8}}--><template id="operations-finance-3-1-3"><p class="text-xs text-rose-600 mt-1">Effective to cannot be before effective from.</p></template>
+            </div>
+            <div class="form-group full-width">
+              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                <input type="checkbox" name="active" {{9}} class="h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+                Active
+              </label>
+            </div>
+          </div>
+          <!--{{10}}--><template id="operations-finance-3-1-4"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+          <button type="submit" class="btn-primary" {{11}}>
+            Create
+          </button>
+        </form>
+      </div></template>
+
+    <!--{{1}}--><template id="operations-finance-3-2"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-3-3">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Rates</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-3-3-1">
+              <tr data-key="{{0}}">
+                <td class="font-semibold">
+                  <!--{{1}}-->
+                  <!--{{2}}--><template id="operations-finance-3-3-1-1"><span class="badge badge-pending ml-1">No category linked</span></template>
+                </td>
+                <td>CGST <!--{{3}}-->% - SGST <!--{{4}}-->%</td>
+                <td>
+                  <span class="badge{{5}}">
+                    <!--{{6}}-->
+                  </span>
+                </td>
+                <td>
+                  <button type="button" class="btn-icon" onclick="Page.removeTax({{7}})" aria-label="Delete">
+                    <i class="fa-solid fa-trash-can text-rose-500"></i>
+                  </button>
+                </td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{7}}--><template id="operations-finance-4">
+  <section>
+    <div class="mb-4">
+      <h2 class="text-lg font-bold text-slate-900">Vehicle category delivery rates</h2>
+      <p class="mt-1 text-sm text-slate-500">Set the per-kilometre rate, minimum billable distance and minimum delivery rate used by logistics pricing.</p>
+    </div>
+    <!--{{0}}--><template id="operations-finance-4-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-4-2">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead><tr><th>Vehicle category</th><th>Rate / km</th><th>Minimum distance (km)</th><th>Minimum rate</th><th></th></tr></thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-4-2-1">
+              <tr data-key="{{0}}">
+                <td class="font-semibold"><!--{{1}}--></td>
+                <!--{{2}}-->
+                <!--{{3}}-->
+                <!--{{4}}-->
+                <td><button type="button" class="btn-primary !py-1.5 !px-3 !text-xs" {{5}} onclick="Page.saveLogisticsRate('{{6}}')"><!--{{7}}--></button></td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-xs text-slate-500">Because the existing project has no database table for these rates and the database schema is intentionally unchanged, rate changes are held by the logistics service for the current runtime and reset to defaults if that service restarts.</p></template>
+  </section></template>
+
+<!--{{8}}-->
+
+<!--{{9}}--><!--/tpl:operations-finance--></app-operations-finance><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-admin-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN common/confirm-dialog/confirm-dialog.html -->
+<template id="confirm-dialog">
+      <app-confirm-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+        <div class="card w-full max-w-md" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+          <div class="flex items-start gap-3">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full{{0}}">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </span>
+            <div class="min-w-0">
+              <h2 id="confirm-dialog-title" class="m-0 text-lg font-bold text-slate-900"><!--{{1}}--></h2>
+              <p id="confirm-dialog-message" class="m-0 mt-1 text-sm text-slate-600"><!--{{2}}--></p>
+            </div>
+          </div>
+          <div class="mt-5 flex justify-end gap-2">
+            <button type="button" class="btn-outline" data-confirm-cancel="{{3}}" {{4}} onclick="U.$('{{5}}').opts.onCancel()"><!--{{6}}--></button>
+            <button type="button" class="btn-primary{{7}}"
+              {{8}} onclick="U.$('{{9}}').opts.onConfirm()">
+              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
+            </button>
+          </div>
+        </div>
+      </div></app-confirm-dialog></template>
+<!-- END common/confirm-dialog/confirm-dialog.html -->
+
+<!-- BEGIN common/operations-finance/operations-finance.html -->
+<template id="operations-finance-tab"><button type="button" class="px-4 py-2.5 text-sm font-bold rounded-t-xl transition-colors{{0}}" onclick="Page.state.activeTab = '{{1}}'"><!--{{2}}--></button></template>
+<template id="operations-finance-rate-input"><td><input class="input !min-w-28" type="number" min="0.01" step="0.01" value="{{0}}" oninput="Page.updateRateField('{{1}}', '{{2}}', this.value)" /></td></template>
+<!-- END common/operations-finance/operations-finance.html -->
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/category-service.js"></script>
-  <script src="../js/common/logistics-rate-service.js"></script>
-  <script src="../js/common/payment-transaction-service.js"></script>
-  <script src="../js/common/settlement-service.js"></script>
-  <script src="../js/common/state-service.js"></script>
-  <script src="../js/common/tax-configuration-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/portal-shell.js"></script>
-  <script src="../js/common/sidebar.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/common/confirm-dialog.js"></script>
-  <script src="../js/common/empty-state.js"></script>
-  <script src="../js/finance.js"></script>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/category-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/logistics-rate-service.js"></script>
+  <script src="../../common/services/payment-transaction-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/settlement-service.js"></script>
+  <script src="../../common/services/state-service.js"></script>
+  <script src="../../common/services/tax-configuration-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/admin-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
+  <script src="../../common/confirm-dialog/confirm-dialog.js"></script>
+  <script src="../../common/operations-finance/operations-finance.js"></script>
   <script>boot({ route: '/admin/finance', shell: 'admin', guards: [], page: OperationsFinancePage });</script>
 </body>
 </html>

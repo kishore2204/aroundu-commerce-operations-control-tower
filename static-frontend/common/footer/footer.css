@@ -1,0 +1,26 @@
+/*
+ * footer.css - the customer footer
+ * Angular: src/app/layout/shell/shell.component.html (+ .css). The Angular templates use Tailwind utility classes; here each
+ * combination has one class name, with exactly the declarations of the utilities it replaces (same values, same order).
+ * --name classes are the states the JS toggles (active, collapsed, open ...).
+ */
+.customer-footer {
+  border-top-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(241 245 249 / var(--tw-border-opacity, 1));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+@media (min-width: 768px) {
+  .customer-footer {
+    padding-bottom: 1.5rem;
+  }
+}

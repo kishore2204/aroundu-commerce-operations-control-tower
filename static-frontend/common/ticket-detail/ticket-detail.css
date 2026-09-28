@@ -1,0 +1,7 @@
+/*
+ * ticket-detail.css - <app-ticket-detail> (shared by 8 roles).
+ * Port of src/app/shared/support/ticket-detail.component.css and the component's :host rules, scoped to <app-ticket-detail>.
+ */
+app-ticket-detail {
+  display: block;
+}

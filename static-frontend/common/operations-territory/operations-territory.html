@@ -1,0 +1,140 @@
+<!--
+  operations-territory.html - markup of operations-territory (Angular: src/app/features/operations/territory/territory.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/operations-territory/operations-territory.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="operations-territory"><h1 class="mb-5 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+    <i class="fa-solid fa-earth-asia text-sm"></i>
+  </span>
+  Territory
+</h1>
+
+<section class="mb-8">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold text-slate-900">Cities</h2>
+    <!--{{0}}--><template id="operations-territory-1">
+      <button type="button" class="btn-outline" onclick="Page.state.showCityForm = !Page.state.showCityForm">
+        <i class="fa-solid fa-plus"></i> New city
+      </button></template>
+  </div>
+
+  <!--{{1}}--><template id="operations-territory-2">
+    <div class="card max-w-xl mb-4">
+      <form novalidate onsubmit="event.preventDefault(); Page.createCity()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label req-mark">City name</label>
+            <input class="input" name="cityName" {{0}} />
+          </div>
+          <div class="form-group">
+            <label class="form-label req-mark">State</label>
+            <select class="select" name="stateId" {{1}}>
+              <option value="" disabled>Select a state</option>
+              <!--{{2}}--><template id="operations-territory-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
+            </select>
+          </div>
+        </div>
+        <!--{{3}}--><template id="operations-territory-2-2"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+        <button type="submit" class="btn-primary" {{4}}>
+          Create
+        </button>
+      </form>
+    </div></template>
+
+  <!--{{2}}--><template id="operations-territory-3"><div class="flex justify-center py-8"><span class="spinner"></span></div></template><template id="operations-territory-4">
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>State</th>
+            <th>Status</th>
+            <!--{{0}}--><template id="operations-territory-4-1"><th></th></template>
+          </tr>
+        </thead>
+        <tbody>
+          <!--{{1}}--><template id="operations-territory-4-2">
+            <tr class="{{0}}" data-key="{{1}}">
+              <td>
+                <button type="button" class="font-semibold text-slate-900 hover:text-zepto-600" onclick="Page.selectCity({{2}})">
+                  <!--{{3}}-->
+                </button>
+              </td>
+              <td class="text-slate-500"><!--{{4}}--></td>
+              <td>
+                <span class="badge{{5}}">
+                  <!--{{6}}-->
+                </span>
+              </td>
+              <!--{{7}}--><template id="operations-territory-4-2-1">
+                <td>
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.toggleCity({{0}})">
+                    <!--{{1}}-->
+                  </button>
+                </td></template>
+            </tr></template>
+        </tbody>
+      </table>
+    </div></template>
+</section>
+
+<section>
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-lg font-bold text-slate-900">
+      Zones <!--{{3}}--><!--{{4}}--><template id="operations-territory-5"> in <!--{{0}}--> </template>
+    </h2>
+    <button type="button" class="btn-outline" {{5}} title="{{6}}" onclick="Page.state.showZoneForm = !Page.state.showZoneForm">
+      <i class="fa-solid fa-plus"></i> New zone
+    </button>
+  </div>
+  <!--{{7}}--><template id="operations-territory-6"><p class="text-xs text-slate-500 -mt-2 mb-3">Select a city above to add a zone to it.</p></template>
+
+  <!--{{8}}--><template id="operations-territory-7">
+    <div class="card max-w-xl mb-4">
+      <form novalidate onsubmit="event.preventDefault(); Page.createZone()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label req-mark">Zone name</label>
+            <input class="input" name="zoneName" {{0}} />
+          </div>
+        </div>
+        <!--{{1}}--><template id="operations-territory-7-1"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+        <button type="submit" class="btn-primary" {{2}}>
+          Create in <!--{{3}}-->
+        </button>
+      </form>
+    </div></template>
+
+  <!--{{9}}--><template id="operations-territory-8"><div class="flex justify-center py-8"><span class="spinner"></span></div></template><template id="operations-territory-9">
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Zone</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--{{0}}--><template id="operations-territory-9-1">
+            <tr data-key="{{0}}">
+              <td class="font-semibold text-slate-900"><!--{{1}}--></td>
+              <td class="text-slate-500"><!--{{2}}-->, <!--{{3}}--></td>
+              <td>
+                <span class="badge{{4}}">
+                  <!--{{5}}-->
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.toggleZone({{6}})">
+                  <!--{{7}}-->
+                </button>
+              </td>
+            </tr></template>
+        </tbody>
+      </table>
+    </div></template>
+</section></template>

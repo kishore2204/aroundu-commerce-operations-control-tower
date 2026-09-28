@@ -5,43 +5,205 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
   <link rel="stylesheet" href="../css/profile.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Driver - route /driver/profile (Angular: src/app/features/driver/profile/profile.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Driver - profile page, route /driver/profile (Angular: src/app/features/driver/profile/profile.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-driver-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-driver-profile><!--{{0}}--><!--tpl:profile (this page)--><h1 class="text-2xl font-bold text-slate-900 mb-4">Your profile</h1>
+
+<!--{{0}}--><template id="profile-1"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="profile-2"><p class="text-sm text-slate-500">Could not load your driver profile.</p></template><template id="profile-3">
+  <div class="card max-w-2xl">
+    <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm sm:grid-cols-4 mb-5">
+      <dt class="font-semibold text-slate-500">Email</dt>
+      <dd class="col-span-1 text-slate-900 sm:col-span-3"><!--{{0}}--></dd>
+      <dt class="font-semibold text-slate-500">City</dt>
+      <dd class="col-span-1 text-slate-900 sm:col-span-3"><!--{{1}}--></dd>
+      <dt class="font-semibold text-slate-500">Status</dt>
+      <dd class="col-span-1 text-slate-900 sm:col-span-3"><!--{{2}}--></dd>
+    </dl>
+    <p class="text-xs text-slate-400 mb-4">Name and email can be updated by contacting your fleet owner.</p>
+
+    <form novalidate onsubmit="event.preventDefault(); Page.save()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label req-mark">License number<!--{{3}}--></label>
+          <input class="input" name="licenseNumber" {{4}} maxlength="16" data-format-input="licence" autocapitalize="characters" spellcheck="false" autocomplete="off" />
+          <!--{{5}}--><template id="profile-3-1"><p class="mt-1 text-xs font-semibold text-rose-600"><!--{{0}}--></p></template>
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">License expiry date</label>
+          <input class="input" type="date" name="licenseExpiryDate" {{6}} />
+        </div>
+      </div>
+      <!--{{7}}--><template id="profile-3-2"><p class="text-sm text-rose-600 mb-3"><!--{{0}}--></p></template>
+      <!--{{8}}--><template id="profile-3-3"><p class="text-sm text-emerald-600 mb-3">Saved.</p></template>
+      <button type="submit" class="btn-primary" {{9}}>
+        Save changes
+      </button>
+    </form>
+  </div></template><!--/tpl:profile--></app-driver-profile><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-driver-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/field-hint/field-hint.html -->
+<template id="field-hint">
+      <app-field-hint><span class="relative inline-block align-middle" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full align-middle text-slate-400 transition-colors hover:text-violet-600 focus-visible:text-violet-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
+          onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
+          <i class="fa-solid fa-circle-info text-[0.8rem]" aria-hidden="true"></i>
+        </button>
+        <span role="tooltip" id="{{10}}"
+          class="absolute z-50 w-64 max-w-[calc(100vw-1rem)] px-0 text-left{{11}}"
+          style="left: {{12}}px;">
+          <span class="block whitespace-pre-line rounded-lg bg-slate-900 px-3 py-2 text-xs font-normal normal-case leading-relaxed tracking-normal text-white shadow-lg"><!--{{13}}--></span>
+        </span>
+      </span></app-field-hint></template>
+<!-- END common/field-hint/field-hint.html -->
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/driver-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/portal-shell.js"></script>
-  <script src="../js/common/sidebar.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/common/field-hint.js"></script>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/driver-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/driver-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/field-hint/field-hint.js"></script>
   <script src="../js/profile.js"></script>
   <script>boot({ route: '/driver/profile', shell: 'driver', guards: [], page: DriverProfilePage });</script>
 </body>

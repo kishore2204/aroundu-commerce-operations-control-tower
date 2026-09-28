@@ -5,47 +5,407 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../css/dashboard.css">
-  <link rel="stylesheet" href="../css/common/empty-state.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Driver - route /driver/dashboard (Angular: src/app/features/driver/dashboard/driver-dashboard.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Driver - dashboard page, route /driver/dashboard (Angular: src/app/features/driver/dashboard/driver-dashboard.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-driver-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-driver-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="pb-12">
+  <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <span class="badge badge-active !inline-flex mb-2">
+        <i class="fa-solid fa-circle text-[6px]"></i> Ready for deliveries
+      </span>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+        Good <!--{{0}}--><!--{{1}}-->
+      </h1>
+      <p class="text-sm text-slate-500 mt-1">Manage active deliveries, record pickup proof, and submit delivery completion photos</p>
+    </div>
+    <button type="button" class="btn-outline" onclick="Page.loadDriverTrips()">
+      <i class="fa-solid fa-rotate-right"></i> Refresh
+    </button>
+  </div>
+
+  <!--{{2}}--><template id="dashboard-1"><div class="flex justify-center py-12"><span class="spinner"></span></div></template><template id="dashboard-2">
+    <!--{{0}}--><template id="dashboard-2-1">
+      <div class="card mb-6 !p-0 overflow-hidden bg-gradient-to-br from-zepto-50 via-white to-violet-50">
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-dashed border-slate-200 pb-4 mb-5">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="badge badge-pending !inline-flex">
+                <i class="fa-solid fa-bolt"></i> Active assignment
+              </span>
+              <span class="text-lg font-extrabold text-slate-900"><!--{{0}}--></span>
+              <span class="bg-white text-slate-600 text-xs font-bold px-2 py-1 rounded-md border border-slate-200">Order #<!--{{1}}--></span>
+            </div>
+            <span class="badge{{2}}">
+              <!--{{3}}-->
+            </span>
+          </div>
+
+          <!--{{4}}--><template id="dashboard-2-1-1">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-5 leading-snug">
+              <!--{{0}}-->
+              <i class="fa-solid fa-arrow-right-long text-violet-400 mx-2 text-base"></i>
+              <!--{{1}}-->
+            </h2></template>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6 bg-white/70 rounded-xl px-5 py-4 border border-slate-100">
+            <div class="flex items-center gap-3">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-zepto-100 to-violet-100 text-zepto-600">
+                <i class="fa-solid fa-clock"></i>
+              </span>
+              <div>
+                <span class="block text-xs font-semibold text-slate-500">Planned Start</span>
+                <span class="font-bold text-slate-800"><!--{{5}}--></span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-zepto-100 to-violet-100 text-zepto-600">
+                <i class="fa-solid fa-route"></i>
+              </span>
+              <div>
+                <span class="block text-xs font-semibold text-slate-500">Distance</span>
+                <span class="font-bold text-slate-800"><!--{{6}}--> km</span>
+              </div>
+            </div>
+          </div>
+
+          <!--{{7}}--><template id="dashboard-2-1-2">
+            <div class="bg-white border border-slate-200 rounded-2xl px-6 py-5">
+              <h3 class="flex items-center gap-2 text-base font-bold text-slate-900 mb-1">
+                <i class="fa-solid fa-camera text-zepto-600"></i> Step 1: Confirm Store Pickup
+              </h3>
+              <p class="text-sm text-slate-500 mb-5">Upload pickup proof photo or package image before starting transit.</p>
+
+              <form novalidate onsubmit="event.preventDefault(); Page.confirmPickup()" class="form-grid !mb-0">
+                <div class="form-group full-width">
+                  <label class="form-label req-mark flex items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up text-zepto-600"></i> Select Pickup Photo File
+                  </label>
+                  <input type="file" accept="image/*" onchange="Page.readImage(this, 'pickupImageBase64')" class="input" />
+                  <!--{{0}}--><template id="dashboard-2-1-2-1">
+                    <div class="flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-3 py-2 mt-1">
+                      <img src="{{0}}" alt="Pickup Preview" class="w-14 h-14 object-cover rounded-lg border border-slate-200" />
+                      <span class="text-sm font-bold text-emerald-600">Photo selected</span>
+                    </div></template>
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label">Additional Notes / Proof Text (Optional)</label>
+                  <input class="input" name="proofOfPickupText" {{1}} placeholder="e.g. Package verified at Kirana Store" />
+                </div>
+
+                <button type="submit" class="btn-primary w-full" {{2}}>
+                  <!--{{3}}--><template id="dashboard-2-1-2-2"><i class="fa-solid fa-arrow-right"></i> Confirm Pickup &amp; Start Delivery </template>
+                </button>
+              </form>
+            </div></template>
+
+          <!--{{8}}--><template id="dashboard-2-1-3">
+            <!--{{0}}--><template id="dashboard-2-1-3-1">
+              <div class="flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl px-4 py-3 text-sm mb-5">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="flex items-center gap-3">
+                  <span>Pickup Proof Recorded:</span>
+                  <!--{{0}}--><template id="dashboard-2-1-3-1-1"><img src="{{0}}" alt="Recorded Pickup Proof" class="w-12 h-12 object-cover rounded-lg border border-slate-200" /></template><template id="dashboard-2-1-3-1-2"><strong><!--{{0}}--></strong></template>
+                </div>
+              </div></template>
+
+            <div class="bg-white border border-zepto-200 rounded-2xl px-6 py-5">
+              <h3 class="flex items-center gap-2 text-base font-bold text-slate-900 mb-1">
+                <i class="fa-solid fa-circle-check text-zepto-600"></i> Step 2: Submit Customer Delivery Proof
+              </h3>
+              <p class="text-sm text-slate-500 mb-5">Upload delivery proof photo or customer doorstep confirmation image to complete this trip.</p>
+
+              <form novalidate onsubmit="event.preventDefault(); Page.completeDelivery()" class="form-grid !mb-0">
+                <div class="form-group full-width">
+                  <label class="form-label req-mark flex items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up text-zepto-600"></i> Select Delivery Photo File
+                  </label>
+                  <input type="file" accept="image/*" onchange="Page.readImage(this, 'deliveryImageBase64')" class="input" />
+                  <!--{{1}}--><template id="dashboard-2-1-3-2">
+                    <div class="flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-3 py-2 mt-1">
+                      <img src="{{0}}" alt="Delivery Preview" class="w-14 h-14 object-cover rounded-lg border border-slate-200" />
+                      <span class="text-sm font-bold text-emerald-600">Delivery photo selected</span>
+                    </div></template>
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label">Additional Notes / Proof Text (Optional)</label>
+                  <input class="input" name="proofOfDeliveryText" {{2}} placeholder="e.g. Delivered to customer at doorstep" />
+                </div>
+
+                <button type="submit" class="btn-secondary w-full" {{3}}>
+                  <!--{{4}}--><template id="dashboard-2-1-3-3"><i class="fa-solid fa-shield-check"></i> Upload Proof &amp; Complete Trip </template>
+                </button>
+              </form>
+            </div></template>
+        </div>
+      </div></template><template id="dashboard-2-2">
+      <div class="card mb-6 bg-gradient-to-br from-zepto-50 via-white to-violet-50">
+        <!--{{0}}-->
+      </div></template>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fa-solid fa-receipt text-violet-500"></i>
+          <h2 class="text-lg font-bold text-slate-900">Log an Expense</h2>
+        </div>
+        <div class="card">
+          <p class="text-sm text-slate-500 mb-4">Record fuel, toll, or other trip expenses - these show up in your fleet owner's expenses list for approval.</p>
+          <form novalidate onsubmit="event.preventDefault(); Page.addExpense()" class="form-grid !mb-0">
+            <div class="form-group">
+              <label class="form-label req-mark">Expense Type</label>
+              <select class="select" name="expenseType" {{5}}>
+                <option value="FUEL">Fuel</option>
+                <option value="TOLL">Toll</option>
+                <option value="MAINTENANCE">Maintenance</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Amount (₹)</label>
+              <input class="input" type="number" min="0.01" max="10000" step="0.01" name="amount" {{6}} />
+              <p class="text-xs text-slate-400 mt-1">Maximum ₹10,000 per expense.</p>
+              <!--{{7}}--><template id="dashboard-2-3"><p class="text-xs font-semibold text-rose-600 mt-1">Maximum allowed amount for one expense is ₹10,000.</p></template>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Date</label>
+              <input class="input" type="date" name="expenseDate" {{8}} />
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label flex items-center gap-2">
+                <i class="fa-solid fa-receipt text-zepto-600"></i> Proof of Expense (receipt photo/PDF, optional)
+              </label>
+              <input type="file" accept="image/*,application/pdf" data-expense-proof onchange="Page.onExpenseProofFileSelected(this)" class="input" />
+              <!--{{9}}--><template id="dashboard-2-4"><span class="text-sm font-bold text-emerald-600 mt-1 block"><!--{{0}}--> selected</span></template>
+            </div>
+            <div class="form-group full-width">
+              <button type="submit" class="btn-primary" {{10}}>
+                <!--{{11}}--><template id="dashboard-2-5"><i class="fa-solid fa-plus"></i> Add Expense </template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="grid gap-6 content-start">
+        <div class="card">
+          <h2 class="text-base font-bold text-slate-900 mb-3">Driver readiness</h2>
+          <div class="grid gap-2.5">
+            <div class="flex items-center justify-between rounded-xl bg-emerald-50 px-3.5 py-2.5">
+              <span class="text-sm font-semibold text-emerald-700"><i class="fa-solid fa-circle-check mr-1.5"></i>Profile</span>
+              <span class="text-xs font-bold text-emerald-700"><!--{{12}}--></span>
+            </div>
+            <div class="flex items-center justify-between rounded-xl bg-emerald-50 px-3.5 py-2.5">
+              <span class="text-sm font-semibold text-emerald-700"><i class="fa-solid fa-id-card mr-1.5"></i>License</span>
+              <span class="text-xs font-bold text-emerald-700 truncate max-w-[120px]"><!--{{13}}--></span>
+            </div>
+            <div class="flex items-center justify-between rounded-xl px-3.5 py-2.5{{14}}">
+              <span class="text-sm font-semibold{{15}}">
+                <i class="fa-solid fa-motorcycle mr-1.5"></i>Status
+              </span>
+              <span class="text-xs font-bold{{16}}">
+                <!--{{17}}-->
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--{{18}}--><template id="dashboard-2-6">
+          <div class="card">
+            <h2 class="text-base font-bold text-slate-900 mb-2">Recent trip</h2>
+            <p class="font-bold text-slate-800 text-sm"><!--{{0}}--> &middot; Order #<!--{{1}}--></p>
+            <p class="text-sm text-slate-500 mt-0.5">
+              Completed
+              <!--{{2}}--><!--{{3}}--><template id="dashboard-2-6-1"> &middot; <span class="font-bold text-emerald-600"><!--{{0}}--> earned</span></template>
+            </p>
+          </div></template>
+
+        <p class="text-sm text-slate-500">
+          Looking for full trip history or complaints? See
+          <a href="{{19}}" class="font-bold text-zepto-600 hover:text-zepto-700">Earnings &amp; Trips</a>.
+        </p>
+      </div>
+    </div></template>
+</div><!--/tpl:dashboard--></app-driver-dashboard><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-driver-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- dashboard page: other templates (js/dashboard.js) -->
+<template id="dashboard-spinner"><span class="spinner !h-5 !w-5 !border-white/40 !border-t-white"></span></template>
+<template id="dashboard-stat">
+      <div class="card">
+        <span class="label text-xs font-semibold text-slate-500"><!--{{0}}--></span>
+        <div class="mt-1 text-2xl font-extrabold {{1}}"><!--{{2}}--></div>
+      </div></template>
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/driver-service.js"></script>
-  <script src="../js/common/expense-service.js"></script>
-  <script src="../js/common/file-blobs.js"></script>
-  <script src="../js/common/trip-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/portal-shell.js"></script>
-  <script src="../js/common/sidebar.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/common/empty-state.js"></script>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/driver-service.js"></script>
+  <script src="../../common/services/expense-service.js"></script>
+  <script src="../../common/services/file-blobs.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/trip-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/driver-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
   <script src="../js/dashboard.js"></script>
   <script>boot({ route: '/driver/dashboard', shell: 'driver', guards: [], page: DriverDashboardPage });</script>
 </body>

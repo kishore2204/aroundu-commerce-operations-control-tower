@@ -5,52 +5,534 @@
   <title>Frontend</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-  <link rel="stylesheet" href="../css/common/fonts.css">
-  <link rel="stylesheet" href="../css/common/fontawesome.css">
-  <link rel="stylesheet" href="../css/common/base.css">
-  <link rel="stylesheet" href="../css/common/buttons.css">
-  <link rel="stylesheet" href="../css/common/card.css">
-  <link rel="stylesheet" href="../css/common/badge.css">
-  <link rel="stylesheet" href="../css/common/form-controls.css">
-  <link rel="stylesheet" href="../css/common/spinner.css">
-  <link rel="stylesheet" href="../css/common/brandmark.css">
-  <link rel="stylesheet" href="../css/common/dropdown-panel.css">
-  <link rel="stylesheet" href="../css/officers.css">
-  <link rel="stylesheet" href="../css/common/empty-state.css">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/officers/officers.css">
 </head>
 <body>
-  <!-- AroundU static frontend - Operational Manager - route /operations/officers (Angular: src/app/features/operations/officers/officers.component.ts) -->
-  <app-root></app-root>
+  <!-- AroundU static frontend - Operational Manager - officers page, route /operations/officers (Angular: src/app/features/operations/officers/officers.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-operations-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-officers><!--{{0}}--><!--tpl:officers (common/officers/officers.html)--><div class="flex items-center justify-between mb-5">
+  <h1 class="flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
+    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
+      <i class="fa-solid fa-user-tie text-sm"></i>
+    </span>
+    Location managers
+  </h1>
+  <!--{{0}}--><template id="officers-1">
+    <button type="button" class="btn-primary" onclick="Page.startCreate()">
+      <i class="fa-solid fa-plus"></i> <!--{{0}}-->
+    </button></template>
+</div>
+
+<!--{{1}}--><template id="officers-2">
+  <p class="bg-rose-50 text-rose-600 border border-rose-200 rounded-lg px-3 py-2 text-sm mb-4">
+    <!--{{0}}-->
+  </p></template>
+
+<!--{{2}}--><template id="officers-3">
+  <div class="card mb-4 flex flex-wrap items-end gap-3">
+    <div class="form-group !gap-1 min-w-[220px] flex-1">
+      <label class="form-label !mb-0 !text-xs">Search by name</label>
+      <input class="input" type="search" value="{{0}}" oninput="Page.nameFilterChanged(this.value)" placeholder="Name or e-mail" autocomplete="off" />
+    </div>
+    <div class="form-group !gap-1 min-w-[180px]">
+      <label class="form-label !mb-0 !text-xs">Zone</label>
+      <select class="select" data-value="{{1}}" onchange="Page.setZoneFilter(this.value)">
+        <option value="">All zones</option>
+        <!--{{2}}--><template id="officers-3-1"><option value="{{0}}"><!--{{1}}--><!--{{2}}--></option></template>
+      </select>
+    </div>
+    <div class="form-group !gap-1 min-w-[160px]">
+      <label class="form-label !mb-0 !text-xs">Status</label>
+      <select class="select" data-value="{{3}}" onchange="Page.setStatusFilter(this.value)">
+        <option value="">All statuses</option>
+        <!--{{4}}--><template id="officers-3-2"><option value="{{0}}"><!--{{1}}--></option></template>
+      </select>
+    </div>
+    <!--{{5}}--><template id="officers-3-3"><button type="button" class="btn-outline" onclick="Page.clearFilters()">Clear filters</button></template>
+  </div></template>
+
+<!--{{3}}-->
+
+<!--{{4}}--><!--/tpl:officers--></app-officers><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-operations-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN common/field-hint/field-hint.html -->
+<template id="field-hint">
+      <app-field-hint><span class="relative inline-block align-middle" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full align-middle text-slate-400 transition-colors hover:text-violet-600 focus-visible:text-violet-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
+          onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
+          <i class="fa-solid fa-circle-info text-[0.8rem]" aria-hidden="true"></i>
+        </button>
+        <span role="tooltip" id="{{10}}"
+          class="absolute z-50 w-64 max-w-[calc(100vw-1rem)] px-0 text-left{{11}}"
+          style="left: {{12}}px;">
+          <span class="block whitespace-pre-line rounded-lg bg-slate-900 px-3 py-2 text-xs font-normal normal-case leading-relaxed tracking-normal text-white shadow-lg"><!--{{13}}--></span>
+        </span>
+      </span></app-field-hint></template>
+<!-- END common/field-hint/field-hint.html -->
+
+<!-- BEGIN common/password-requirements/password-requirements.html -->
+<template id="password-requirements">
+      <app-password-requirements><div class="mt-2" aria-live="polite">
+        <p class="mb-1 text-xs font-bold text-slate-700">Password requirements</p>
+        <ul class="m-0 list-none space-y-1 p-0 text-xs">
+          <!--{{0}}--><template id="password-requirements-1">
+            <li class="flex items-center gap-1.5 font-semibold{{0}}">
+              <i class="fa-solid{{1}}"></i>
+              <!--{{2}}-->
+            </li></template>
+        </ul>
+      </div></app-password-requirements></template>
+<!-- END common/password-requirements/password-requirements.html -->
+
+<!-- BEGIN common/work-transfer/work-transfer.html -->
+<template id="work-transfer-dialog"><app-work-transfer-dialog>
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+      <div class="card w-full max-w-4xl" role="dialog" aria-modal="true" aria-labelledby="work-transfer-title">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-amber-50 text-amber-600"><i class="fa-solid fa-people-arrows"></i></span>
+            <div>
+              <h2 id="work-transfer-title" class="m-0 text-lg font-bold text-slate-900"><!--{{0}}--></h2>
+              <p class="m-0 text-sm text-slate-500">
+                <!--{{1}}--><template id="work-transfer-dialog-1"> Choose the pending verification requests to hand to another Location Manager. </template><template id="work-transfer-dialog-2"> There are pending verification requests assigned to this Location Manager. Transfer all pending work before continuing. </template>
+              </p>
+            </div>
+          </div>
+          <button type="button" class="btn-icon !h-8 !w-8 shrink-0" aria-label="Close" {{2}} onclick="{{3}}.opts.onCancelled()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <p class="mb-0 mt-3 rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-600">
+          <!--{{4}}--><template id="work-transfer-dialog-3"> Reassigning work of <strong><!--{{0}}--></strong>. Their account and assignment stay exactly as they are. </template><template id="work-transfer-dialog-4"><strong><!--{{0}}--></strong> cannot be <!--{{1}}--> until all of their pending work has been reassigned. </template>
+        </p>
+
+        <!--{{5}}--><template id="work-transfer-dialog-5"><div class="flex justify-center py-16"><span class="spinner"></span></div></template><template id="work-transfer-dialog-6"><p class="mt-4 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template><template id="work-transfer-dialog-7">
+          <div class="mt-4 grid grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-6">
+            <section class="flex min-w-0 flex-col rounded-xl border border-slate-200">
+              <div class="border-b border-slate-200 px-4 py-3">
+                <h3 class="m-0 text-sm font-bold text-slate-900">Pending Verification Work</h3>
+                <p class="m-0 text-xs text-slate-500"><!--{{0}}--> pending work item<!--{{1}}--></p>
+              </div>
+              <div class="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-4 py-2">
+                <label class="flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-700">
+                  <input type="checkbox" class="h-4 w-4 accent-violet-600" {{2}} data-indeterminate="{{3}}"
+                    {{4}} onchange="{{5}}.toggleAll(this.checked)" />
+                  Select All
+                </label>
+                <span class="text-sm font-semibold text-violet-700"><!--{{6}}--> selected</span>
+              </div>
+              <ul class="m-0 h-72 list-none divide-y divide-slate-100 overflow-y-auto p-0">
+                <!--{{7}}--><template id="work-transfer-dialog-7-1"><li class="px-4 py-10 text-center text-sm text-slate-400">No pending work left.</li></template><template id="work-transfer-dialog-7-2">
+                  <li data-key="{{0}}">
+                    <label class="flex cursor-pointer items-start gap-3 px-4 py-2.5 hover:bg-slate-50">
+                      <input type="checkbox" class="mt-1 h-4 w-4 shrink-0 accent-violet-600" {{1}}
+                        {{2}} onchange="{{3}}.toggle({{4}}, this.checked)" />
+                      <span class="min-w-0 flex-1">
+                        <span class="block truncate text-sm font-semibold text-slate-800" title="{{5}}"><!--{{6}}--></span>
+                        <span class="block truncate text-xs text-slate-500"><!--{{7}}--> · submitted <!--{{8}}--></span>
+                        <!--{{9}}--><template id="work-transfer-dialog-7-2-1"><span class="block text-xs font-semibold text-rose-600"><!--{{0}}--></span></template>
+                      </span>
+                    </label>
+                  </li></template>
+              </ul>
+            </section>
+
+            <section class="flex min-w-0 flex-col">
+              <h3 class="m-0 text-sm font-bold text-slate-900">Choose Location Manager to transfer work</h3>
+              <div class="relative mt-3">
+                <button type="button" class="select flex w-full items-center justify-between gap-2 text-left" {{8}}
+                  aria-haspopup="listbox" aria-expanded="{{9}}" onclick="{{10}}.toggleDropdown()">
+                  <!--{{11}}--><template id="work-transfer-dialog-7-3">
+                    <span class="min-w-0">
+                      <span class="block truncate text-sm font-semibold text-slate-800"><!--{{0}}--></span>
+                      <span class="block truncate text-xs text-slate-500"><!--{{1}}--> · <!--{{2}}--></span>
+                    </span></template><template id="work-transfer-dialog-7-4"><span class="text-sm text-slate-400">Select a Location Manager</span></template>
+                </button>
+                <!--{{12}}--><template id="work-transfer-dialog-7-5">
+                  <ul class="absolute left-0 right-0 top-full z-10 m-0 mt-1 max-h-60 list-none overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-card-hover" role="listbox">
+                    <!--{{0}}--><template id="work-transfer-dialog-7-5-1"><li class="px-3 py-3 text-sm text-slate-500">No other active Location Manager is available in this state.</li></template><template id="work-transfer-dialog-7-5-2">
+                      <li role="option" aria-selected="{{0}}">
+                        <button type="button" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-violet-50{{1}}" onclick="{{2}}.choose({{3}})">
+                          <span class="block truncate text-sm font-semibold text-slate-800"><!--{{4}}--></span>
+                          <span class="block truncate text-xs text-slate-500"><!--{{5}}--></span>
+                          <span class="block truncate text-xs text-slate-500"><!--{{6}}--></span>
+                        </button>
+                      </li></template>
+                  </ul></template>
+              </div>
+
+              <button type="button" class="btn-primary mt-4 w-full" {{13}} onclick="{{14}}.transfer()">
+                <!--{{15}}--><template id="work-transfer-dialog-7-6"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> Transferring... </template><template id="work-transfer-dialog-7-7"><i class="fa-solid fa-right-left"></i> Transfer </template>
+              </button>
+              <!--{{16}}--><template id="work-transfer-dialog-7-8"><p class="mb-0 mt-3 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+              <!--{{17}}--><template id="work-transfer-dialog-7-9"><p class="mb-0 mt-3 text-sm font-semibold text-emerald-600"><!--{{0}}--></p></template>
+            </section>
+          </div></template>
+      </div>
+    </div>
+  </app-work-transfer-dialog></template>
+<template id="work-transfer-reassign-work"><app-reassign-work>
+    <button type="button" class="btn-outline" onclick="{{0}}.open()">
+      <i class="fa-solid fa-people-arrows"></i> Reassign Work
+    </button>
+
+    <!--{{1}}--><template id="work-transfer-reassign-work-1">
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+        <div class="card w-full max-w-lg" role="dialog" aria-modal="true" aria-labelledby="reassign-work-title">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h2 id="reassign-work-title" class="m-0 text-lg font-bold text-slate-900">Reassign work</h2>
+              <p class="m-0 text-sm text-slate-500">Choose the Location Manager whose work you want to reassign.</p>
+            </div>
+            <button type="button" class="btn-icon !h-8 !w-8 shrink-0" aria-label="Close" onclick="{{0}}.close()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+
+          <!--{{1}}--><template id="work-transfer-reassign-work-1-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="work-transfer-reassign-work-1-2">
+            <div class="form-group mt-4">
+              <label class="form-label req-mark" for="reassign-source">Location Manager</label>
+              <select id="reassign-source" class="select" data-value="{{0}}" onchange="{{1}}.setSource(this.value)">
+                <option value="" disabled>Select Location Manager</option>
+                <!--{{2}}--><template id="work-transfer-reassign-work-1-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select>
+              <!--{{3}}--><template id="work-transfer-reassign-work-1-2-2"><p class="mt-1 text-xs text-slate-500">There is no active Location Manager under you to reassign work from.</p></template>
+            </div>
+            <!--{{4}}--><template id="work-transfer-reassign-work-1-2-3"><p class="mb-2 mt-0 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+            <div class="mt-4 flex justify-end gap-2">
+              <button type="button" class="btn-outline" onclick="{{5}}.close()">Cancel</button>
+              <button type="button" class="btn-primary" {{6}} onclick="{{7}}.continue()">Continue</button>
+            </div></template>
+        </div>
+      </div></template>
+
+    <!--{{2}}-->
+  </app-reassign-work></template>
+<!-- END common/work-transfer/work-transfer.html -->
+
+<!-- BEGIN common/officers/officers.html -->
+<template id="officers-zone-option"><option value="{{0}}"><!--{{1}}--> - <!--{{2}}-->, <!--{{3}}--></option></template>
+<template id="officers-pw-field">
+          <div class="relative">
+            <input class="input !pr-11" type="{{0}}" name="{{1}}" {{2}} autocomplete="new-password" />
+            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-zepto-600" onclick="Page.state.{{3}} = !Page.state.{{4}}" aria-label="{{5}}">
+            <i class="fa-solid{{6}}"></i>
+          </button>
+          </div></template>
+<template id="officers-body">
+  <div class="card max-w-2xl mb-5">
+    <h2 class="text-lg font-bold text-slate-900 mb-3">New officer</h2>
+    <p class="text-sm text-slate-500 mb-4">
+      You'll automatically be assigned as this officer's supervising Operations Manager.
+    </p>
+    <form novalidate onsubmit="event.preventDefault(); Page.saveNewOfficer()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label req-mark">First name</label>
+          <input class="input" name="firstName" {{0}} />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Last name</label>
+          <input class="input" name="lastName" {{1}} />
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Email<!--{{2}}--></label>
+          <input class="input" type="email" name="email" {{3}} />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Password<!--{{4}}--></label>
+          <!--{{5}}-->
+          <!--{{6}}-->
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Confirm password<!--{{7}}--></label>
+          <!--{{8}}-->
+        </div>
+        <!--{{9}}--><template id="officers-body-1"><p class="text-rose-600 text-sm full-width">Passwords do not match.</p></template>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Zone</label>
+          <select class="select" name="zoneId" {{10}}>
+            <option value="" disabled>Select a zone</option>
+            <!--{{11}}-->
+          </select>
+          <!--{{12}}--><template id="officers-body-2"><p class="text-xs text-slate-500 mt-1">No zones found in your city yet.</p></template>
+        </div>
+      </div>
+      <!--{{13}}--><template id="officers-body-3"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+      <div class="flex justify-end gap-2">
+        <button type="button" class="btn-outline" onclick="Page.state.showForm = false">Cancel</button>
+        <button type="submit" class="btn-primary" {{14}}>
+          Create officer
+        </button>
+      </div>
+    </form>
+  </div></template>
+<template id="officers-body-2x">
+  <div class="card max-w-2xl mb-5">
+    <h2 class="text-lg font-bold text-slate-900 mb-3">New assignment</h2>
+    <!--{{0}}--><template id="officers-body-2x-1">
+      <p class="bg-amber-50 text-amber-700 border border-amber-200 rounded-lg px-3 py-2 text-sm mb-4">
+        No accounts with the LOCATION_MANAGER role exist yet - create one from the Accounts
+        tab first, then come back here to assign them to a zone.
+      </p></template>
+    <form novalidate onsubmit="event.preventDefault(); Page.save()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Officer</label>
+          <select class="select" name="userAccountId" {{1}}>
+            <option value="" disabled>Select an officer</option>
+            <!--{{2}}--><template id="officers-body-2x-2"><option value="{{0}}"><!--{{1}}--> <!--{{2}}--> - <!--{{3}}--></option></template>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Zone</label>
+          <select class="select" name="zoneId" {{3}}>
+            <option value="" disabled>Select a zone</option>
+            <!--{{4}}-->
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Supervising operations manager</label>
+          <select class="select" name="operationsManagerId" {{5}}>
+            <option value="" disabled><!--{{6}}--></option>
+            <!--{{7}}--><template id="officers-body-2x-3"><option value="{{0}}"><!--{{1}}--> — <!--{{2}}--></option></template>
+          </select>
+          <!--{{8}}--><template id="officers-body-2x-4"><p class="mt-1 text-xs font-semibold text-amber-600">No operations manager is assigned to this zone's city.</p></template>
+        </div>
+      </div>
+      <!--{{9}}--><template id="officers-body-2x-5"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+      <div class="flex justify-end gap-2">
+        <button type="button" class="btn-outline" onclick="Page.state.showForm = false">Cancel</button>
+        <button type="submit" class="btn-primary" {{10}}>
+          Assign
+        </button>
+      </div>
+    </form>
+  </div></template>
+<template id="officers-body-3x"><div class="flex justify-center py-10"><span class="spinner"></span></div></template>
+<template id="officers-body-4">
+  <div class="card max-w-2xl mb-5">
+    <h2 class="text-lg font-bold text-slate-900 mb-1">Transfer <!--{{0}}--></h2>
+    <p class="text-sm text-slate-500 mb-4">Currently <!--{{1}}-->, <!--{{2}}-->. Any pending verification work has to be handed to another Location Manager first.</p>
+    <div class="form-group">
+      <label class="form-label req-mark">New zone</label>
+      <select class="select" data-value="{{3}}" onchange="Page.state.moveZoneId = this.value">
+        <option value="" disabled>Select a zone</option>
+        <!--{{4}}-->
+      </select>
+      <!--{{5}}--><template id="officers-body-4-1"><p class="text-xs text-slate-500 mt-1">There is no other zone in this city to move this Location Manager to.</p></template>
+    </div>
+    <!--{{6}}--><template id="officers-body-4-2"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+    <div class="flex justify-end gap-2">
+      <button type="button" class="btn-outline" onclick="Page.state.moveFor = null">Cancel</button>
+      <button type="button" class="btn-primary" {{7}} onclick="Page.confirmMove()">Transfer</button>
+    </div>
+  </div></template>
+<template id="officers-body-5">
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Officer</th>
+          <th>Zone / Assigned</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{0}}--><template id="officers-body-5-1">
+          <tr data-key="{{0}}">
+            <td>
+              <p class="font-semibold text-slate-900"><!--{{1}}--> <!--{{2}}--></p>
+              <p class="text-sm text-slate-500"><!--{{3}}--></p>
+            </td>
+            <td>
+              <p><!--{{4}}-->, <!--{{5}}--></p>
+              <p class="text-sm text-slate-500">Assigned <!--{{6}}--></p>
+              <!--{{7}}--><template id="officers-body-5-1-1">
+                <p class="text-xs text-slate-400">Previously <!--{{0}}-->, <!--{{1}}--><!--{{2}}--><!--{{3}}--><template id="officers-body-5-1-1-1"> · moved <!--{{0}}--> </template></p></template>
+            </td>
+            <td>
+              <span class="badge{{8}}">
+                <!--{{9}}-->
+              </span>
+            </td>
+            <td>
+              <!--{{10}}--><template id="officers-body-5-1-2">
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" {{0}} onclick="Page.startMove({{1}})">Transfer</button>
+                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" {{2}} onclick="Page.setActive({{3}}, false)">Deactivate</button>
+                </div></template><template id="officers-body-5-1-3">
+                <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.setActive({{0}}, true)">Activate</button></template>
+            </td>
+          </tr></template>
+      </tbody>
+    </table>
+  </div></template>
+<!-- END common/officers/officers.html -->
+
   <noscript>This page needs JavaScript enabled.</noscript>
-  <script src="../js/common/template.js"></script>
-  <script src="../js/common/dom-morph.js"></script>
-  <script src="../js/common/app.js"></script>
-  <script src="../js/common/pipes.js"></script>
-  <script src="../js/common/forms.js"></script>
-  <script src="../js/common/input-directives.js"></script>
-  <script src="../js/common/toast.js"></script>
-  <script src="../js/common/helpers.js"></script>
-  <script src="../js/common/storage.js"></script>
-  <script src="../js/common/input-rules.js"></script>
-  <script src="../js/common/data.js"></script>
-  <script src="../js/common/data-store.js"></script>
-  <script src="../js/common/data-client.js"></script>
-  <script src="../js/common/auth-service.js"></script>
-  <script src="../js/common/location-manager-assignment-service.js"></script>
-  <script src="../js/common/operations-manager-service.js"></script>
-  <script src="../js/common/territory-service.js"></script>
-  <script src="../js/common/user-account-service.js"></script>
-  <script src="../js/common/verification-queue-service.js"></script>
-  <script src="../js/common/navigation.js"></script>
-  <script src="../js/common/portal-shell.js"></script>
-  <script src="../js/common/sidebar.js"></script>
-  <script src="../js/common/header.js"></script>
-  <script src="../js/common/footer.js"></script>
-  <script src="../js/common/empty-state.js"></script>
-  <script src="../js/common/field-hint.js"></script>
-  <script src="../js/common/password-requirements.js"></script>
-  <script src="../js/common/work-transfer.js"></script>
-  <script src="../js/officers.js"></script>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/location-manager-assignment-service.js"></script>
+  <script src="../../common/services/operations-manager-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/services/user-account-service.js"></script>
+  <script src="../../common/services/verification-queue-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/operations-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
+  <script src="../../common/field-hint/field-hint.js"></script>
+  <script src="../../common/password-requirements/password-requirements.js"></script>
+  <script src="../../common/work-transfer/work-transfer.js"></script>
+  <script src="../../common/officers/officers.js"></script>
   <script>boot({ route: '/operations/officers', shell: 'operations', guards: [], page: OfficersPage });</script>
 </body>
 </html>

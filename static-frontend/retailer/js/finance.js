@@ -3,43 +3,41 @@ window.RetailerFinancePage = {
   tag: 'app-retailer-finance',
   init() {
     const s = (this.state = U.state({ loading: true, settlements: [] }));
-    SettlementService.list().then((list) => { s.settlements = list; s.loading = false; }, () => { s.loading = false; });
+    SettlementService.list().then(
+      (list) => {
+        s.settlements = list;
+        s.loading = false;
+      },
+      () => {
+        s.loading = false;
+      },
+    );
   },
   render() {
-    const html = U.html;
     const st = this.state;
-    return html`<h1 class="text-2xl font-bold text-slate-900 mb-4">Finance</h1>
-
-${st.loading ? html`<div class="flex justify-center py-12"><div class="spinner"></div></div>`
-  : st.settlements.length === 0 ? EmptyState({ icon: 'account_balance', title: 'No settlements yet' }) : html`
-  <div class="table-card">
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>Reference</th>
-          <th>Date</th>
-          <th>Gross</th>
-          <th>Fee</th>
-          <th>Net</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${U.each(st.settlements, (s) => html`
-          <tr data-key="${s.settlementId}">
-            <td>${s.settlementReference || s.payeeName || 'N/A'}</td>
-            <td>${U.date(s.settlementDate, 'mediumDate')}</td>
-            <td>${U.currency(s.grossAmount, 'INR')}</td>
-            <td>${U.currency(s.feeAmount, 'INR')}</td>
-            <td class="font-semibold text-slate-900">${U.currency(s.netAmount, 'INR')}</td>
-            <td>
-              <span class="${U.cls('badge', { 'badge-active': s.settlementStatus === 'COMPLETED', 'badge-pending': s.settlementStatus === 'PENDING', 'badge-inactive': s.settlementStatus !== 'COMPLETED' && s.settlementStatus !== 'PENDING' })}">
-                ${s.settlementStatus}
-              </span>
-            </td>
-          </tr>`)}
-      </tbody>
-    </table>
-  </div>`}`;
+    return U.tpl('finance', [
+      st.loading
+        ? U.tpl('finance-1')
+        : st.settlements.length === 0
+          ? EmptyState({ icon: 'account_balance', title: 'No settlements yet' })
+          : U.tpl('finance-2', [
+              U.each(st.settlements, (s) =>
+                U.tpl('finance-2-1', [
+                  s.settlementId,
+                  s.settlementReference || s.payeeName || 'N/A',
+                  U.date(s.settlementDate, 'mediumDate'),
+                  U.currency(s.grossAmount, 'INR'),
+                  U.currency(s.feeAmount, 'INR'),
+                  U.currency(s.netAmount, 'INR'),
+                  U.clsMore({
+                    'badge-active': s.settlementStatus === 'COMPLETED',
+                    'badge-pending': s.settlementStatus === 'PENDING',
+                    'badge-inactive': s.settlementStatus !== 'COMPLETED' && s.settlementStatus !== 'PENDING',
+                  }),
+                  s.settlementStatus,
+                ]),
+              ),
+            ]),
+    ]);
   },
 };

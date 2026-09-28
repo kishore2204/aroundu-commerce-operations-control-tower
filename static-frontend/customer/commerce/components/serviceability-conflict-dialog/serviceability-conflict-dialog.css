@@ -1,0 +1,7 @@
+/*
+ * serviceability-conflict-dialog.css - <app-serviceability-conflict-dialog> component styles.
+ * Port of src/app/shared/serviceability-conflict-dialog/serviceability-conflict-dialog.component.css and the component's :host rules, scoped to <app-serviceability-conflict-dialog>.
+ */
+app-serviceability-conflict-dialog {
+  display: block;
+}

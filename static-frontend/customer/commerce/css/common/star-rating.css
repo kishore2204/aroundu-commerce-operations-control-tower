@@ -1,8 +1,0 @@
-/*
- * star-rating.css - <app-star-rating> component styles.
- * Port of the component's own stylesheet / :host rules, scoped to its <app-star-rating> host.
- */
-app-star-rating {
-  display: inline-flex;
-  align-items: center;
-}
