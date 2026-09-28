@@ -297,6 +297,8 @@
     render() {
       if (!this.renderFn) return;
       U.morph(this.root, this.renderFn());
+      // [indeterminate] is a DOM property with no attribute: data-indeterminate="true|false" carries it
+      this.root.querySelectorAll('input[data-indeterminate]').forEach((el) => { el.indeterminate = el.getAttribute('data-indeterminate') === 'true'; });
       const hooks = this.afterRender.splice(0);
       hooks.forEach((fn) => fn());
     },
