@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../css/components.css">
 </head>
 <body>
-  <!-- AroundU static frontend - route /products/:id (page rendered by ../js/product-details.js) -->
+  <!-- AroundU static frontend - route /retailer/inventory (page rendered by ../js/retailer-inventory.js) -->
   <app-root></app-root>
   <noscript>This page needs JavaScript enabled.</noscript>
   <script src="../js/global.js"></script>
@@ -26,7 +26,7 @@
   <script src="../js/components/customer-support.js"></script>
   <script src="../js/components/document-history.js"></script>
   <script src="../js/components/my-tickets.js"></script>
-  <script src="../js/product-details.js"></script>
-  <script>boot({ route: '/products/:id', shell: 'customer', guards: [Guards.addressRequired], page: ProductDetailPage });</script>
+  <script src="../js/retailer-inventory.js"></script>
+  <script>boot({ route: '/retailer/inventory', shell: 'retailer', guards: [Guards.retailerProfile], page: RetailerInventoryPage });</script>
 </body>
 </html>
