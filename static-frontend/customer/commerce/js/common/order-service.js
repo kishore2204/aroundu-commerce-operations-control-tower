@@ -27,7 +27,7 @@
     createPaymentTransaction: (request) => Api.post('/api/payment-transactions', request),
     capturePayment: (id) => Api.post(`/api/payment-transactions/${id}/capture`, {}),
     paymentTransactionsForOrder: (orderId) => Api.get(`/api/payment-transactions/by-order/${orderId}`),
-    rememberOrderId(id) { const ids = this.myOrderIds(); if (!ids.includes(id)) { ids.unshift(id); localStorage.setItem(MY_ORDER_IDS_KEY, JSON.stringify(ids)); } },
-    myOrderIds() { try { return JSON.parse(localStorage.getItem(MY_ORDER_IDS_KEY) || '[]'); } catch (e) { return []; } },
+    rememberOrderId(id) { const ids = this.myOrderIds(); if (!ids.includes(id)) { ids.unshift(id); AppStorage.setItem(MY_ORDER_IDS_KEY, JSON.stringify(ids)); } },
+    myOrderIds() { try { return JSON.parse(AppStorage.getItem(MY_ORDER_IDS_KEY) || '[]'); } catch (e) { return []; } },
   };
 })();

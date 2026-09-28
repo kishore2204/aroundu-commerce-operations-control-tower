@@ -19,7 +19,7 @@
 
   function readSession() {
     try {
-      const raw = localStorage.getItem(SESSION_KEY);
+      const raw = AppStorage.getItem(SESSION_KEY);
       return raw ? JSON.parse(raw) : null;
     } catch (e) {
       return null;
@@ -143,10 +143,10 @@
         } else {
           const error = { status: res.status, error: res.body, url: fullUrl };
           if (res.status === 401 && !isAuthEndpoint && session) {
-            localStorage.removeItem(SESSION_KEY);
+            AppStorage.removeItem(SESSION_KEY);
             // like router.navigate() in the Angular interceptor, this supersedes any navigation already under way
             Nav.sessionExpired = true;
-            window.location.replace(Nav.href('/login', { sessionExpired: 'true' }));
+            window.location.replace(AppStorage.handoff(Nav.href('/login', { sessionExpired: 'true' })));
           }
           reject(error);
         }

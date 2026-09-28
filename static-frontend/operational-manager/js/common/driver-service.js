@@ -13,7 +13,7 @@
     mine: (fleetOwnerId) => Api.get('/api/drivers/mine', { fleetOwnerId }),
     me: () => Api.get('/api/drivers/me'),
     updateMe: (licenseNumber, licenseExpiryDate) => Api.put('/api/drivers/me', { licenseNumber, licenseExpiryDate }),
-    rememberDriverId(id) { const ids = this.myDriverIds(); if (!ids.includes(id)) { ids.unshift(id); localStorage.setItem(MY_DRIVER_IDS_KEY, JSON.stringify(ids)); } },
-    myDriverIds() { try { return JSON.parse(localStorage.getItem(MY_DRIVER_IDS_KEY) || '[]'); } catch (e) { return []; } },
+    rememberDriverId(id) { const ids = this.myDriverIds(); if (!ids.includes(id)) { ids.unshift(id); AppStorage.setItem(MY_DRIVER_IDS_KEY, JSON.stringify(ids)); } },
+    myDriverIds() { try { return JSON.parse(AppStorage.getItem(MY_DRIVER_IDS_KEY) || '[]'); } catch (e) { return []; } },
   };
 })();

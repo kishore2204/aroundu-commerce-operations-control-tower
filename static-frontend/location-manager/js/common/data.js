@@ -5,9 +5,9 @@
  * the same people, shops, products, orders, trips, payments, tickets ...), in the shapes the Angular
  * app received from the backend DTOs. Nothing is fetched from anywhere.
  *
- * Every seeded account uses the password below. data-store.js copies this data into localStorage on
+ * Every seeded account uses the password below. data-store.js copies this data into browser storage on
  * first use, so changes made while clicking through the demo (cart, orders, profile ...) persist in
- * this browser; "Reset demo data" is simply clearing the 'aroundu.static.db' localStorage key.
+ * this browser; MockBackend.reset() in the developer-tools console starts again from this data.
  */
 window.SEED_DATA = {
   "password": "Lbos@2026!",

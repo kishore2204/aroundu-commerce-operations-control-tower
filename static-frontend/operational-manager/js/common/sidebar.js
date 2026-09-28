@@ -10,7 +10,7 @@
     toggleCollapsed() {
       const next = !this.state.collapsed;
       this.state.collapsed = next;
-      localStorage.setItem('aroundu.sidebarCollapsed', String(next));
+      AppStorage.setItem('aroundu.sidebarCollapsed', String(next));
     },
     renderSidebar() {
       const c = this.config;

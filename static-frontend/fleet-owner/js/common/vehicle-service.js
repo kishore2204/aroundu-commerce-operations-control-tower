@@ -11,7 +11,7 @@
     submitForVerification: (vehicleId, submittedByAccountId) => Api.post(`/api/vehicles/${vehicleId}/submit-for-verification`, { submittedByAccountId }),
     get: (id) => Api.get(`/api/vehicles/${id}`),
     mine: (fleetOwnerId) => Api.get('/api/vehicles/mine', { fleetOwnerId }),
-    rememberVehicleId(id) { const ids = this.myVehicleIds(); if (!ids.includes(id)) { ids.unshift(id); localStorage.setItem(MY_VEHICLE_IDS_KEY, JSON.stringify(ids)); } },
-    myVehicleIds() { try { return JSON.parse(localStorage.getItem(MY_VEHICLE_IDS_KEY) || '[]'); } catch (e) { return []; } },
+    rememberVehicleId(id) { const ids = this.myVehicleIds(); if (!ids.includes(id)) { ids.unshift(id); AppStorage.setItem(MY_VEHICLE_IDS_KEY, JSON.stringify(ids)); } },
+    myVehicleIds() { try { return JSON.parse(AppStorage.getItem(MY_VEHICLE_IDS_KEY) || '[]'); } catch (e) { return []; } },
   };
 })();

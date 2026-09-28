@@ -9,7 +9,9 @@ The desktop view was compared screenshot by screenshot with the Angular build.
   Every request the Angular services would send is answered in the browser from hardcoded data (`js/common/data-store.js`).
 * **All data is hardcoded.** The data is the platform's seed data (`../seed-data`), compiled into `js/common/data.js`.
 * **`localStorage` is used for simulation.** Logins, carts, orders, tickets, approvals and profile edits are stored in
-  `localStorage`, so they survive page reloads and are shared by all the role folders.
+  `localStorage`, so they survive page reloads and are shared by all the role folders. `js/common/storage.js` also carries
+  the state from page to page within the browser tab. Signing in therefore works even in browsers that give each folder its
+  own `localStorage` when pages are opened from disk, or that block it.
 * **Desktop first.** The desktop layout is the reference. The Angular app's responsive classes are kept as they are, but the
   mobile and tablet layouts were not re-verified.
 
@@ -133,6 +135,7 @@ It is styled entirely by the utility classes in the page stylesheets.
 | `template.js`, `dom-morph.js`, `app.js` | Rendering: `U.html` templates, in-place DOM updates, re-rendering after every change (change detection) |
 | `pipes.js`, `forms.js`, `input-directives.js`, `input-rules.js`, `helpers.js` | Angular pipes (dates, currency), a small reactive-forms equivalent with validators, input filters, the validation rules and messages |
 | `toast.js` | The app-wide toast |
+| `storage.js` | Where the state is kept: `localStorage`, plus a copy carried from page to page in the tab (see below) |
 | `navigation.js` | Route → page mapping across all role folders, route guards, role landing pages and `boot()` |
 | `shell.js`, `header.js`, `footer.js`, `bottom-nav.js` | Customer layout: header (address picker, notifications, account menu), footer, mobile tab bar |
 | `portal-shell.js`, `sidebar.js`, `header.js`, `footer.js` | Portal layout of the other roles: sidebar, top header with the account menu, footer |
@@ -308,8 +311,20 @@ validation messages and stock checks. Nothing is sent over the network: there is
 | `aroundu.session` | The signed-in user (same key as the Angular app) |
 | `aroundu.myOrderIds`, `aroundu.myDriverIds`, `aroundu.myVehicleIds` | The same "remembered ids" the Angular services keep |
 | `aroundu.sidebarCollapsed` | Collapsed / expanded portal sidebar |
+| `aroundu.rev` | When the state last changed, used to tell which copy is newest |
 
 Every role folder reads and writes the same keys, so an order placed as a customer shows up for the retailer.
+
+**Pages opened straight from disk.** Chrome and Edge give every `file://` page the same `localStorage`. Some browsers give
+each folder (or each file) its own `localStorage`, or block it. Then the dashboard would not see the session the login page
+saved, and would send you back to the login page. To prevent this, `storage.js` also:
+
+* keeps a copy of the whole state in the tab (`window.name`), which follows you from page to page in the same tab;
+* passes the session in the address of the page being opened (`#aroundu-session=...`), as a last resort. The page removes
+  it from the address bar as soon as it has read it.
+
+Whichever copy is newest wins when a page opens. Running the folder from a local web server (see *Start page*) avoids the
+question altogether, because every page then has the same origin.
 
 Saving takes about 250 ms, like a network round-trip, so the loading spinners and disabled buttons behave as in the Angular app.
 
@@ -317,8 +332,9 @@ Uploaded files (documents, product images, proofs) are read in the browser and s
 
 **To reset the demo data**, do either of the following:
 
-* clear the site's `localStorage` in the browser's developer tools;
-* run `MockBackend.reset()` in the developer-tools console.
+* run `MockBackend.reset()` in the developer-tools console;
+* clear the site's `localStorage` in the browser's developer tools, then close the tab. The tab keeps its own copy until it
+  is closed.
 
 ---
 
@@ -360,6 +376,12 @@ Uploaded files (documents, product images, proofs) are read in the browser and s
   been verified against Angular. The rendered DOM is identical apart from the requested changes and generated ids.
   Every class an element carries is styled by the new stylesheets.
 * **Script dependencies:** for every page, every global a loaded script uses is defined by a script that page loads.
+* **Sign-in with different browser storage behaviours:** customer, retailer and admin sign-in, the next page, log out, and
+  the "signed out" check afterwards were all tested in four cases:
+  * one `localStorage` for all pages;
+  * a separate `localStorage` per folder;
+  * a separate `localStorage` per folder with the tab copy cleared on every page;
+  * `localStorage` blocked.
 * **Crawl:** all 80 pages were opened as a suitable user, over HTTP and straight from disk (`file://`). None had script errors,
   console errors, failed or 404 requests, or broken internal links.
 * **Retailer profile:**

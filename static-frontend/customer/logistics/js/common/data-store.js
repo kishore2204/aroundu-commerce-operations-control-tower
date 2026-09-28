@@ -4,7 +4,7 @@
  * The Angular app talks to six Spring Boot services through /api/... . This static copy has no server:
  * this file answers the very same requests locally, in plain JavaScript, from the hardcoded data in
  * data.js. Nothing leaves the browser (no fetch / XMLHttpRequest). The data is copied into
- * localStorage once, so what the user does during the demo (cart, orders, tickets, profile ...) is
+ * browser storage (storage.js) once, so what the user does during the demo (cart, orders, tickets, profile ...) is
  * remembered in this browser. Business rules follow the real services (totals, tax, stock,
  * serviceability, order and trip state machines, verification decisions ...).
  *
@@ -21,6 +21,7 @@
     return { getItem: (k) => (map.has(k) ? map.get(k) : null), setItem: (k, v) => map.set(k, String(v)), removeItem: (k) => map.delete(k) };
   })();
   function storage() {
+    if (root.AppStorage) return root.AppStorage; // storage.js: localStorage + the tab's own copy
     try {
       if (root.localStorage) return root.localStorage;
     } catch (e) { /* private mode */ }

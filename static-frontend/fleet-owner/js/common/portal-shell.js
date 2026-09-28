@@ -47,7 +47,7 @@
       this.state = U.state({
         sidebarOpen: false,
         accountMenuOpen: false,
-        collapsed: this.config.collapsible ? localStorage.getItem('aroundu.sidebarCollapsed') === 'true' : false,
+        collapsed: this.config.collapsible ? AppStorage.getItem('aroundu.sidebarCollapsed') === 'true' : false,
         myTerritory: null,
       });
       this.currentYear = new Date().getFullYear();

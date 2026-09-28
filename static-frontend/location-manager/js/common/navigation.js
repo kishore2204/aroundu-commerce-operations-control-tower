@@ -139,13 +139,23 @@
     },
     go(path, query) {
       if (Nav.sessionExpired) return;
-      window.location.href = Nav.href(path, query);
+      window.location.href = AppStorage.handoff(Nav.href(path, query));
     },
     /* routerLinkActive (default, non-exact): active when the current URL is the link path or below it */
     isActive(path) {
       const cur = Nav.current;
       return cur === path || cur.startsWith(path.replace(/\/$/, '') + '/');
     },
+  });
+
+  /* a link to another page carries the session along (see storage.js) */
+  document.addEventListener('click', (event) => {
+    const a = event.target.closest && event.target.closest('a[href]');
+    if (!a || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const href = a.getAttribute('href');
+    if (a.target || a.hasAttribute('download') || /^[a-z][a-z0-9+.-]*:/i.test(href) || !/\.html(?:[?#]|$)/.test(href)) return;
+    event.preventDefault();
+    window.location.href = AppStorage.handoff(a.href);
   });
 
   /* --------------------------------------------------------------------------------------------- */
@@ -213,7 +223,7 @@
     runGuards(guards).then((result) => {
       if (Nav.sessionExpired) return; // the session-expiry redirect to the login page is already under way
       if (result !== true) {
-        window.location.replace(Nav.href(result));
+        window.location.replace(AppStorage.handoff(Nav.href(result)));
         return;
       }
       const page = config.page;

@@ -17,7 +17,7 @@
       this.logout();
       return Api.post('/api/v1/auth/login', request).then((response) => {
         this.session = { accessToken: response.accessToken, role: response.role, userAccountId: response.userAccountId, email: response.email };
-        localStorage.setItem(Api.SESSION_KEY, JSON.stringify(this.session));
+        AppStorage.setItem(Api.SESSION_KEY, JSON.stringify(this.session));
         App.update();
         return response;
       });
@@ -30,7 +30,7 @@
     updateCurrentUser: (request) => Api.put('/api/v1/users/me', request),
     logout() {
       this.session = null;
-      localStorage.removeItem(Api.SESSION_KEY);
+      AppStorage.removeItem(Api.SESSION_KEY);
       App.update();
     },
   };
