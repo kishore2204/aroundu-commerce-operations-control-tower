@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../css/fontawesome.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <!-- AroundU static frontend - route /wishlist (page rendered by ../js/wishlist.js) -->
+  <app-root></app-root>
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../js/global.js"></script>
+  <script src="../js/validation.js"></script>
+  <script src="../js/support-categories.js"></script>
+  <script src="../js/data.js"></script>
+  <script src="../js/mock-backend.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/services.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/components/common.js"></script>
+  <script src="../js/components/address-list.js"></script>
+  <script src="../js/wishlist.js"></script>
+  <script>boot({ route: '/wishlist', shell: 'customer', guards: [Guards.addressRequired], page: WishlistPage });</script>
+</body>
+</html>
