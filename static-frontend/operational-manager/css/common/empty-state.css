@@ -1,0 +1,7 @@
+/*
+ * empty-state.css - <app-empty-state> component styles.
+ * Port of the component's own stylesheet / :host rules, scoped to its <app-empty-state> host.
+ */
+app-empty-state {
+  display: block;
+}

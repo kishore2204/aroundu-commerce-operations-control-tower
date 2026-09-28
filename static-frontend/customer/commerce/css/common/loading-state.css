@@ -1,0 +1,7 @@
+/*
+ * loading-state.css - <app-loading-state> component styles.
+ * Port of the component's own stylesheet / :host rules, scoped to its <app-loading-state> host.
+ */
+app-loading-state {
+  display: block;
+}
