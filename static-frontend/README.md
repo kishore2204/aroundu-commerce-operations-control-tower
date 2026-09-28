@@ -286,7 +286,7 @@ The Angular production build and this static copy were loaded side by side in Ch
 
 **What was compared**
 
-* 190 page states were screenshotted and compared pixel by pixel, at desktop (1440 × 900) and at mobile (390 × 844). They covered every page, plus:
+* 190 page states were screenshotted and compared pixel by pixel at desktop size (1440 × 900). They covered every page, plus:
   * validation errors and tabs;
   * dropdowns, dialogs and popups;
   * bulk-upload conflict, result and rejection-log dialogs;
