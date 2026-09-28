@@ -1,7 +1,28 @@
 /*
  * star-rating.css - <app-star-rating> component styles.
- * Port of src/app/shared/star-rating/star-rating.component.css and the component's :host rules, scoped to <app-star-rating>.
+ * Angular: src/app/shared/star-rating/star-rating.component.html (+ .css); the component's :host rules are scoped to <app-star-rating>.
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
  */
+.star-rating-icon {
+  font-size: 13px;
+}
+.star-rating-label {
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.star-rating-label-2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+/* the Angular component's own stylesheet */
 app-star-rating {
   display: inline-flex;
   align-items: center;

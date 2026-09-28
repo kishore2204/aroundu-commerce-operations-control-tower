@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../../../common/header/header.css">
   <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
   <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
   <link rel="stylesheet" href="../../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../css/order-list.css">
 </head>
@@ -156,38 +157,38 @@
 
 <main class="customer-main" onclick="Shell.closeAccountMenu()">
   <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-order-list><!--{{0}}--><!--tpl:order-list (this page)-->
-<h1 class="mb-4 text-2xl font-extrabold text-slate-900">Your orders</h1>
+<h1 class="order-list-title">Your orders</h1>
 
-<!--{{0}}--><template id="order-list-1"><div class="flex justify-center py-10"><div class="spinner"></div></div></template><template id="order-list-2"><button type="button" class="btn-outline mt-3" onclick="Page.load()">Retry</button></template><template id="order-list-3">
+<!--{{0}}--><template id="order-list-1"><div class="order-list-bar"><div class="spinner"></div></div></template><template id="order-list-2"><button type="button" class="btn-outline order-list-button" onclick="Page.load()">Retry</button></template><template id="order-list-3">
   <!--{{0}}-->
-  <div class="mt-4 flex justify-center"><a class="btn-primary" href="{{1}}">Start shopping</a></div></template><template id="order-list-4">
-  <ul class="space-y-3">
+  <div class="order-list-bar-2"><a class="btn-primary" href="{{1}}">Start shopping</a></div></template><template id="order-list-4">
+  <ul class="order-list-list">
     <!--{{0}}--><template id="order-list-4-1">
       <li class="card" data-key="order-{{0}}">
-        <div onclick="Nav.go('/orders/{{1}}')" class="card-hover -m-4 flex cursor-pointer flex-wrap items-center justify-between gap-3 rounded-2xl p-4">
-          <div class="min-w-0 flex-1">
-            <p class="font-bold text-slate-900"><!--{{2}}--></p>
-            <p class="truncate text-sm text-slate-500"><!--{{3}}--></p>
-            <p class="text-xs text-slate-400"><!--{{4}}--> · <!--{{5}}--></p>
+        <div onclick="Nav.go('/orders/{{1}}')" class="card-hover order-list-bar-3">
+          <div class="order-list-box-2">
+            <p class="order-list-text-2"><!--{{2}}--></p>
+            <p class="order-list-text-3"><!--{{3}}--></p>
+            <p class="order-list-text-4"><!--{{4}}--> · <!--{{5}}--></p>
           </div>
           <span class="badge{{6}}"><!--{{7}}--></span>
-          <p class="font-extrabold text-slate-900"><!--{{8}}--></p>
+          <p class="order-list-text-5"><!--{{8}}--></p>
           <!--{{9}}--><template id="order-list-4-1-1">
-            <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.toggleReview(event, {{0}})">Write Review</button></template>
+            <button type="button" class="btn-outline order-list-button-2" onclick="Page.toggleReview(event, {{0}})">Write Review</button></template>
         </div>
         <!--{{10}}--><template id="order-list-4-1-2">
-          <form novalidate onsubmit="event.preventDefault(); Page.submitReview(event, {{0}})" onclick="event.stopPropagation()" class="mt-5 grid gap-3 border-t border-slate-100 pt-4 sm:grid-cols-2">
+          <form novalidate onsubmit="event.preventDefault(); Page.submitReview(event, {{0}})" onclick="event.stopPropagation()" class="order-list-form">
             <div><label class="form-label req-mark">Product</label><select class="select" name="productId" onchange="Page.reviewForm.controls.productId.setValue(Number(this.value))"><!--{{1}}--><template id="order-list-4-1-2-1"><option value="{{0}}" {{1}}><!--{{2}}--> x<!--{{3}}--></option></template></select></div>
             <div><label class="form-label req-mark">Rating</label><select class="select" name="rating" onchange="Page.reviewForm.controls.rating.setValue(Number(this.value))"><!--{{2}}--><template id="order-list-4-1-2-2"><option value="{{0}}" {{1}}><!--{{2}}--> star<!--{{3}}--></option></template></select></div>
-            <div class="sm:col-span-2"><label class="form-label">Review / comment</label><textarea class="input" rows="3" name="reviewText" oninput="Page.reviewForm.controls.reviewText.input(this)"><!--{{3}}--></textarea></div>
-            <!--{{4}}--><template id="order-list-4-1-2-3"><p class="text-sm font-semibold text-rose-600 sm:col-span-2"><!--{{0}}--></p></template>
-            <div class="sm:col-span-2"><button type="submit" class="btn-primary" {{5}}>Submit Review</button></div>
+            <div class="order-list-box"><label class="form-label">Review / comment</label><textarea class="input" rows="3" name="reviewText" oninput="Page.reviewForm.controls.reviewText.input(this)"><!--{{3}}--></textarea></div>
+            <!--{{4}}--><template id="order-list-4-1-2-3"><p class="order-list-text"><!--{{0}}--></p></template>
+            <div class="order-list-box"><button type="submit" class="btn-primary" {{5}}>Submit Review</button></div>
           </form></template>
       </li></template>
   </ul>
 
-  <!--{{1}}--><template id="order-list-4-2"><div class="h-4" data-scroll-sentinel></div></template>
-  <!--{{2}}--><template id="order-list-4-3"><div class="flex justify-center py-4"><div class="spinner"></div></div></template></template><!--/tpl:order-list--></app-order-list><!--/tpl:page-outlet-->
+  <!--{{1}}--><template id="order-list-4-2"><div class="order-list-box-3" data-scroll-sentinel></div></template>
+  <!--{{2}}--><template id="order-list-4-3"><div class="order-list-bar-4"><div class="spinner"></div></div></template></template><!--/tpl:order-list--></app-order-list><!--/tpl:page-outlet-->
 </main>
 
 <!--{{2}}--><!--tpl:bottom-nav (common/bottom-nav/bottom-nav.html)-->
@@ -208,10 +209,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -239,10 +240,10 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->

@@ -5,45 +5,45 @@
   Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
 -->
 <template id="address-list">
-      <app-address-list><!--{{0}}--><template id="address-list-1"><h1 class="mb-4 text-2xl font-extrabold text-slate-900">Your addresses</h1></template>
+      <app-address-list><!--{{0}}--><template id="address-list-1"><h1 class="address-list-title">Your addresses</h1></template>
 
-<!--{{1}}--><template id="address-list-2"><div class="flex justify-center py-10"><div class="spinner"></div></div></template><template id="address-list-3"><button type="button" class="btn-outline mt-3" onclick="{{0}}.load()">Retry</button></template><template id="address-list-4">
+<!--{{1}}--><template id="address-list-2"><div class="address-list-bar"><div class="spinner"></div></div></template><template id="address-list-3"><button type="button" class="btn-outline address-list-button" onclick="{{0}}.load()">Retry</button></template><template id="address-list-4">
   <!--{{0}}-->
 
   <!--{{1}}--><template id="address-list-4-1">
-    <ul class="space-y-3">
+    <ul class="address-list-list">
       <!--{{0}}--><template id="address-list-4-1-1">
-        <li onclick="{{0}}.selectAddress({{1}})" class="card card-hover flex cursor-pointer flex-wrap items-start justify-between gap-3" data-key="{{2}}">
+        <li onclick="{{0}}.selectAddress({{1}})" class="card card-hover address-list-item" data-key="{{2}}">
           <div>
-            <p class="flex items-center gap-2 font-bold text-slate-900">
+            <p class="address-list-text">
               <!--{{3}}-->
               <!--{{4}}--><template id="address-list-4-1-1-1"><span class="badge badge-active">Default</span></template>
             </p>
-            <p class="mt-1 text-sm text-slate-600"><!--{{5}}--><!--{{6}}--><!--{{7}}--><template id="address-list-4-1-1-2">, <!--{{0}}--></template></p>
-            <p class="text-sm text-slate-500">
+            <p class="address-list-text-2"><!--{{5}}--><!--{{6}}--><!--{{7}}--><template id="address-list-4-1-1-2">, <!--{{0}}--></template></p>
+            <p class="address-list-text-3">
               <!--{{8}}-->, <!--{{9}}--> <!--{{10}}--><!--{{11}}--><template id="address-list-4-1-1-3"> <!--{{0}}--> </template>
             </p>
           </div>
-          <div class="flex items-center gap-1">
+          <div class="address-list-bar-2">
             <!--{{12}}--><template id="address-list-4-1-1-4">
-              <button type="button" class="text-sm font-semibold text-zepto-600 hover:text-zepto-700" onclick="{{0}}.setDefault(event, {{1}})">
+              <button type="button" class="address-list-button-2" onclick="{{0}}.setDefault(event, {{1}})">
                 Set default
               </button></template>
             <button type="button" class="btn-icon" onclick="{{13}}.edit(event, {{14}})" aria-label="Edit">
               <i class="fa-solid fa-pen"></i>
             </button>
-            <button type="button" class="btn-icon text-rose-500 hover:bg-rose-50 hover:text-rose-600" onclick="{{15}}.remove(event, {{16}})" aria-label="Delete">
+            <button type="button" class="btn-icon address-list-button-3" onclick="{{15}}.remove(event, {{16}})" aria-label="Delete">
               <i class="fa-solid fa-trash-can"></i>
             </button>
           </div>
         </li></template>
     </ul>
-    <button type="button" class="btn-outline mt-4" onclick="{{1}}.startAdd()">
+    <button type="button" class="btn-outline address-list-button-4" onclick="{{1}}.startAdd()">
       <i class="fa-solid fa-plus"></i> Add address
     </button></template><template id="address-list-4-2">
     <div class="card">
-      <form novalidate class="space-y-3" onsubmit="event.preventDefault(); {{0}}.save()">
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-4">
+      <form novalidate class="address-list-list" onsubmit="event.preventDefault(); {{0}}.save()">
+        <div class="address-list-grid">
           <div>
             <label class="form-label req-mark">Address tag</label>
             <input class="input" name="addressTag" {{1}} placeholder="HOME" />
@@ -77,18 +77,18 @@
           <label class="form-label">Address line 2 (optional)</label>
           <input class="input" name="line2" {{18}} />
         </div>
-        <div class="sm:w-1/3">
+        <div class="address-list-box">
           <label class="form-label">Postal code<!--{{19}}--></label>
           <input class="input" type="tel" data-digits-only="6" inputmode="numeric" maxlength="6" autocomplete="off" name="postalCode" {{20}} placeholder="6-digit postal code" />
-          <!--{{21}}--><template id="address-list-4-2-4"><p class="mt-1 text-xs font-semibold text-rose-600">Postal code must be exactly 6 digits</p></template>
+          <!--{{21}}--><template id="address-list-4-2-4"><p class="address-list-text-4">Postal code must be exactly 6 digits</p></template>
         </div>
-        <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
-          <input type="checkbox" name="defaultAddress" {{22}} class="h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+        <label class="address-list-label">
+          <input type="checkbox" name="defaultAddress" {{22}} class="address-list-input" />
           Set as default address
         </label>
-        <!--{{23}}--><template id="address-list-4-2-5"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
-        <div class="flex items-center justify-end gap-3 pt-2">
-          <button type="button" class="text-sm font-semibold text-slate-500 hover:text-slate-700" onclick="{{24}}.cancelForm()">
+        <!--{{23}}--><template id="address-list-4-2-5"><p class="address-list-text-5"><!--{{0}}--></p></template>
+        <div class="address-list-bar-3">
+          <button type="button" class="address-list-button-5" onclick="{{24}}.cancelForm()">
             Cancel
           </button>
           <button class="btn-primary" type="submit" {{25}}>

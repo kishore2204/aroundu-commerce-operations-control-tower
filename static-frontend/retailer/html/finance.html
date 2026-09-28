@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../css/finance.css">
 </head>
@@ -104,9 +105,9 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-retailer-finance><!--{{0}}--><!--tpl:finance (this page)--><h1 class="text-2xl font-bold text-slate-900 mb-4">Finance</h1>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-retailer-finance><!--{{0}}--><!--tpl:finance (this page)--><h1 class="finance-title">Finance</h1>
 
-<!--{{0}}--><template id="finance-1"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="finance-2">
+<!--{{0}}--><template id="finance-1"><div class="finance-bar"><div class="spinner"></div></div></template><template id="finance-2">
   <div class="table-card">
     <table class="custom-table">
       <thead>
@@ -126,7 +127,7 @@
             <td><!--{{2}}--></td>
             <td><!--{{3}}--></td>
             <td><!--{{4}}--></td>
-            <td class="font-semibold text-slate-900"><!--{{5}}--></td>
+            <td class="finance-cell"><!--{{5}}--></td>
             <td>
               <span class="badge{{6}}">
                 <!--{{7}}-->
@@ -149,10 +150,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -161,10 +162,10 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->

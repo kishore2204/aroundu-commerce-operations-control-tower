@@ -16,56 +16,57 @@
   <link rel="stylesheet" href="../../../common/cards/card-surface.css">
   <link rel="stylesheet" href="../../../common/animations/animations.css">
   <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
   <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
   <!-- AroundU static frontend - Customer - Commerce - login page, route /login (Angular: src/app/features/auth/login/login.component.html) -->
   <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-login><!--{{0}}--><!--tpl:login (this page)-->
-<div class="relative flex min-h-screen flex-col overflow-hidden bg-gradient-to-br from-zepto-700 via-indigo-700 to-violet-900">
- <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-gradient-to-br from-white/10 to-violet-400/20 blur-3xl"></div>
- <div class="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-gradient-to-br from-amber-300/15 to-rose-400/15 blur-3xl"></div>
- <div class="relative z-10 flex flex-1 items-center justify-center p-4">
-  <div class="card w-full max-w-md p-8">
-    <h1 class="text-center text-2xl font-extrabold text-slate-900">Sign in</h1>
-    <p class="mt-1 text-center text-sm text-slate-500">Welcome back to AroundU</p>
+<div class="login-stack">
+ <div class="login-panel"></div>
+ <div class="login-panel-2"></div>
+ <div class="login-bar">
+  <div class="card login-box p-8">
+    <h1 class="login-title">Sign in</h1>
+    <p class="login-text-3">Welcome back to AroundU</p>
 
     <!--{{0}}--><template id="login-1">
-      <p class="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm font-semibold text-amber-700">
+      <p class="login-text">
         Your session expired. Please sign in again.
       </p></template>
     <!--{{1}}--><template id="login-2">
-      <p class="mt-4 rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-600">
+      <p class="login-text-2">
         <!--{{0}}-->
       </p></template>
 
-    <form novalidate class="mt-5 space-y-4" onsubmit="event.preventDefault(); Page.submit()">
+    <form novalidate class="login-form" onsubmit="event.preventDefault(); Page.submit()">
       <div>
         <label class="form-label req-mark">Email</label>
         <input class="input" type="email" name="email" {{2}} autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
       </div>
       <div>
-        <div class="flex items-center justify-between">
+        <div class="login-bar-2">
           <label class="form-label req-mark">Password</label>
-          <a href="{{3}}" class="text-xs font-semibold text-zepto-600 hover:text-zepto-700">Forgot password?</a>
+          <a href="{{3}}" class="login-link">Forgot password?</a>
         </div>
-        <div class="relative">
-          <input type="{{4}}" class="input !pr-11" name="password" {{5}} autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
-          <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-zepto-600" onclick="Page.state.showPassword = !Page.state.showPassword" aria-label="{{6}}">
+        <div class="login-box-2">
+          <input type="{{4}}" class="input login-input" name="password" {{5}} autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
+          <button type="button" class="login-button" onclick="Page.state.showPassword = !Page.state.showPassword" aria-label="{{6}}">
             <i class="fa-solid{{7}}"></i>
           </button>
         </div>
       </div>
-      <button class="btn-primary w-full" type="submit" {{8}}>
-        <!--{{9}}--><template id="login-3"><span class="spinner h-5 w-5 border-2 border-white/40 border-t-white"></span></template><template id="login-4">Sign in</template>
+      <button class="btn-primary login-button-2" type="submit" {{8}}>
+        <!--{{9}}--><template id="login-3"><span class="spinner login-label"></span></template><template id="login-4">Sign in</template>
       </button>
     </form>
 
-    <p class="mt-5 text-center text-sm text-slate-600">
-      New to AroundU? <a href="{{10}}" class="font-bold text-zepto-600 hover:text-zepto-700">Create an account</a>
+    <p class="login-text-4">
+      New to AroundU? <a href="{{10}}" class="login-link-2">Create an account</a>
     </p>
   </div>
  </div>
- <footer class="border-t border-white/10 px-4 py-5 text-center text-xs font-medium text-white/60">
+ <footer class="login-footer">
    &copy; <!--{{11}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
  </footer>
 </div><!--/tpl:login--></app-login><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
@@ -73,10 +74,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>

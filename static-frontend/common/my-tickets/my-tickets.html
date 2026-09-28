@@ -4,17 +4,17 @@
   contains a copy of these templates between "BEGIN common/my-tickets/my-tickets.html" and "END" comments.
   Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
 -->
-<template id="my-tickets"><app-my-tickets><h1 class="text-xl font-extrabold text-slate-900 mb-4">Support</h1>
+<template id="my-tickets"><app-my-tickets><h1 class="my-tickets-title">Support</h1>
 
-<!--{{0}}--><template id="my-tickets-1"><div class="flex justify-center py-8"><div class="spinner"></div></div></template><template id="my-tickets-2">
+<!--{{0}}--><template id="my-tickets-1"><div class="my-tickets-bar"><div class="spinner"></div></div></template><template id="my-tickets-2">
   <!--{{0}}--><template id="my-tickets-2-1">
-    <ul class="list-none p-0 flex flex-col gap-1 mb-4">
+    <ul class="my-tickets-list">
       <!--{{0}}--><template id="my-tickets-2-1-1">
         <li data-key="{{0}}">
-          <a href="{{1}}" class="flex justify-between items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-200 no-underline text-inherit hover:border-zepto-300 hover:bg-zepto-50">
+          <a href="{{1}}" class="my-tickets-link">
             <div>
-              <p class="font-medium text-slate-800 m-0"><!--{{2}}--> - <!--{{3}}--></p>
-              <p class="text-xs text-slate-500 mt-0.5 mb-0">
+              <p class="my-tickets-text"><!--{{2}}--> - <!--{{3}}--></p>
+              <p class="my-tickets-text-2">
                 <!--{{4}}--> / <!--{{5}}-->
                 - <!--{{6}}-->
               </p>
@@ -26,7 +26,7 @@
 
   <!--{{1}}--><template id="my-tickets-2-2">
     <div class="card">
-      <form novalidate onsubmit="event.preventDefault(); {{0}}.submit()" class="flex flex-col gap-3">
+      <form novalidate onsubmit="event.preventDefault(); {{0}}.submit()" class="my-tickets-form">
         <div>
           <label class="form-label req-mark">Category</label>
           <select class="select" name="ticketCategory" {{1}}>
@@ -65,8 +65,8 @@
           <label class="form-label req-mark">Description</label>
           <textarea class="input" name="description" rows="3" oninput="{{8}}.controls['description'].input(this)" onblur="{{9}}.controls['description'].blur()"><!--{{10}}--></textarea>
         </div>
-        <!--{{11}}--><template id="my-tickets-2-2-4"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
-        <button type="submit" class="btn-primary self-start" {{12}}>Submit ticket</button>
+        <!--{{11}}--><template id="my-tickets-2-2-4"><p class="my-tickets-text-3"><!--{{0}}--></p></template>
+        <button type="submit" class="btn-primary my-tickets-button" {{12}}>Submit ticket</button>
       </form>
     </div></template><template id="my-tickets-2-3">
     <button type="button" class="btn-outline" onclick="{{0}}.openForm()">Raise a support ticket</button></template></template></app-my-tickets></template>

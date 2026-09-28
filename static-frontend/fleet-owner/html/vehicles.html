@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/field-hint/field-hint.css">
   <link rel="stylesheet" href="../css/vehicles.css">
 </head>
 <body>
@@ -105,24 +107,24 @@
 
     <main class="portal-main">
       <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-vehicles><!--{{0}}--><!--tpl:vehicles (this page)--><div class="animate-fade-in">
-  <!--{{0}}--><template id="vehicles-1"><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4">
-    <div class="card w-full max-w-lg bg-white">
-      <div class="flex items-start justify-between gap-4">
+  <!--{{0}}--><template id="vehicles-1"><div class="vehicles-overlay">
+    <div class="card vehicles-box bg-white">
+      <div class="vehicles-bar">
         <div>
-          <h3 class="text-lg font-bold text-slate-900"><i class="fa-solid fa-file-circle-exclamation text-amber-500"></i> <!--{{0}}--></h3>
-          <p class="text-sm text-slate-600 mt-2"><!--{{1}}--></p>
-          <p class="text-xs text-slate-500 mt-2">Use the Re-upload Insurance action in the vehicle table. Only the rejected document needs to be replaced.</p>
+          <h3 class="vehicles-subheading"><i class="fa-solid fa-file-circle-exclamation vehicles-icon"></i> <!--{{0}}--></h3>
+          <p class="vehicles-text"><!--{{1}}--></p>
+          <p class="vehicles-text-2">Use the Re-upload Insurance action in the vehicle table. Only the rejected document needs to be replaced.</p>
         </div>
         <button type="button" class="btn-icon" onclick="Page.state.resubmissionNotice = null" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="flex justify-end mt-4"><button type="button" class="btn-primary" onclick="Page.state.resubmissionNotice = null">OK</button></div>
+      <div class="vehicles-bar-2"><button type="button" class="btn-primary" onclick="Page.state.resubmissionNotice = null">OK</button></div>
     </div>
   </div></template>
 
-  <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+  <div class="vehicles-bar-7">
     <div>
-      <h1 class="text-2xl font-bold text-slate-900">Fleet Vehicles</h1>
-      <p class="text-sm text-slate-500 mt-1">Manage delivery vehicles, capacity, and insurance documents</p>
+      <h1 class="vehicles-title">Fleet Vehicles</h1>
+      <p class="vehicles-text-6">Manage delivery vehicles, capacity, and insurance documents</p>
     </div>
     <button type="button" class="btn-primary" onclick="Page.state.showForm = !Page.state.showForm">
       <i class="fa-solid {{1}}"></i>
@@ -130,10 +132,10 @@
     </button>
   </div>
 
-  <!--{{3}}--><template id="vehicles-2"><div class="card mb-6">
-    <h3 class="text-lg font-bold text-slate-900 mb-5"><i class="fa-solid fa-truck text-zepto-600"></i> Register Vehicle</h3>
+  <!--{{3}}--><template id="vehicles-2"><div class="card vehicles-box-2">
+    <h3 class="vehicles-subheading-2"><i class="fa-solid fa-truck vehicles-icon-2"></i> Register Vehicle</h3>
 
-    <!--{{0}}--><template id="vehicles-2-1"><div class="bg-rose-50 text-rose-700 rounded-lg px-3.5 py-2.5 mb-4 text-sm">
+    <!--{{0}}--><template id="vehicles-2-1"><div class="vehicles-panel">
       <i class="fa-solid fa-triangle-exclamation"></i> <!--{{0}}-->
     </div></template>
 
@@ -142,7 +144,7 @@
         <div class="form-group">
           <label class="form-label req-mark">Registration Number<!--{{1}}--></label>
           <input type="text" class="input" name="registrationNumber" {{2}} placeholder="KA-01-AB-1234" maxlength="13" data-format-input="vehicle" autocapitalize="characters" spellcheck="false" autocomplete="off" />
-          <!--{{3}}--><template id="vehicles-2-2"><p class="mt-1 text-xs font-semibold text-rose-600"><!--{{0}}--></p></template>
+          <!--{{3}}--><template id="vehicles-2-2"><p class="vehicles-text-3"><!--{{0}}--></p></template>
         </div>
         <div class="form-group">
           <label class="form-label req-mark">Vehicle Type</label>
@@ -172,15 +174,15 @@
         <div class="form-group full-width">
           <label class="form-label req-mark">Insurance Document Photo / File</label>
           <input type="file" accept="image/*" class="input" onchange="Page.onInsuranceFileSelected(this)" />
-          <!--{{10}}--><template id="vehicles-2-3"><div class="flex items-center gap-3 mt-2">
+          <!--{{10}}--><template id="vehicles-2-3"><div class="vehicles-bar-3">
             <img src="{{0}}" alt="Insurance Document" class="thumb-img" />
-            <span class="text-emerald-600 text-sm">Photo selected</span>
+            <span class="vehicles-label">Photo selected</span>
           </div></template>
-          <!--{{11}}--><template id="vehicles-2-4"><input type="text" class="input mt-1.5" name="insuranceDocumentUrl" {{0}} placeholder="Or enter image URL" /></template>
+          <!--{{11}}--><template id="vehicles-2-4"><input type="text" class="input vehicles-input" name="insuranceDocumentUrl" {{0}} placeholder="Or enter image URL" /></template>
         </div>
       </div>
 
-      <div class="flex justify-end gap-3">
+      <div class="vehicles-bar-4">
         <button type="button" class="btn-outline" onclick="Page.state.showForm = false">Cancel</button>
         <button type="submit" class="btn-primary" {{12}}>
           <!--{{13}}--><template id="vehicles-2-5"><span><i class="fa-solid fa-check"></i> Register Vehicle</span></template>
@@ -191,15 +193,15 @@
   </div></template>
 
   <div class="table-card">
-    <!--{{4}}--><template id="vehicles-3"><div class="text-center text-slate-400 py-12">
+    <!--{{4}}--><template id="vehicles-3"><div class="vehicles-box-3">
       <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-      <p class="mt-2">Loading vehicles...</p>
+      <p class="vehicles-text-4">Loading vehicles...</p>
     </div></template>
 
-    <!--{{5}}--><template id="vehicles-4"><div class="text-center text-slate-400 py-12">
+    <!--{{5}}--><template id="vehicles-4"><div class="vehicles-box-3">
       <i class="fa-solid fa-truck-ramp-box fa-3x"></i>
-      <h3 class="text-slate-700 font-semibold mt-3">No Vehicles Registered</h3>
-      <p class="text-sm">Add your fleet vehicles to begin creating assignments.</p>
+      <h3 class="vehicles-subheading-3">No Vehicles Registered</h3>
+      <p class="vehicles-text-5">Add your fleet vehicles to begin creating assignments.</p>
     </div></template>
 
     <!--{{6}}--><template id="vehicles-5"><table class="custom-table">
@@ -216,27 +218,27 @@
       <tbody>
         <!--{{0}}--><template id="vehicles-5-1"><tr data-key="{{0}}">
           <td>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center">
+            <div class="vehicles-bar-5">
+              <div class="vehicles-bar-6">
                 <i class="fa-solid fa-truck"></i>
               </div>
               <div>
                 <strong><!--{{1}}--></strong>
-                <div class="text-xs text-slate-400"><!--{{2}}--></div>
+                <div class="vehicles-label-2"><!--{{2}}--></div>
               </div>
             </div>
           </td>
           <td>
             <div><strong><!--{{3}}--></strong></div>
-            <div class="text-xs text-slate-400"><!--{{4}}--> <!--{{5}}--></div>
+            <div class="vehicles-label-2"><!--{{4}}--> <!--{{5}}--></div>
           </td>
           <td><!--{{6}}--> kg</td>
           <td>
             <!--{{7}}--><template id="vehicles-5-1-1"><div>
               <!--{{0}}--><template id="vehicles-5-1-1-1"><img src="{{0}}" alt="Insurance" class="thumb-img" /></template>
-              <!--{{1}}--><template id="vehicles-5-1-1-2"><span class="text-xs text-slate-400"><!--{{0}}--></span></template>
+              <!--{{1}}--><template id="vehicles-5-1-1-2"><span class="vehicles-label-2"><!--{{0}}--></span></template>
             </div></template>
-            <!--{{8}}--><template id="vehicles-5-1-2"><span class="text-slate-400">-</span></template>
+            <!--{{8}}--><template id="vehicles-5-1-2"><span class="vehicles-label-3">-</span></template>
           </td>
           <td>
             <span class="badge{{9}}">
@@ -245,12 +247,12 @@
           </td>
           <td>
             <!--{{11}}--><template id="vehicles-5-1-3">
-              <div class="text-xs text-rose-600 mb-2 max-w-xs"><!--{{0}}--></div>
-              <label class="btn-outline cursor-pointer{{1}}">
+              <div class="vehicles-box-4"><!--{{0}}--></div>
+              <label class="btn-outline vehicles-label-4{{1}}">
                 <i class="fa-solid {{2}}"></i>
                 <!--{{3}}-->
-                <input type="file" class="hidden" accept="image/*,.pdf" {{4}} onchange="Page.onResubmitInsurance({{5}}, this)" />
-              </label></template><template id="vehicles-5-1-4"><span class="text-xs text-slate-400">No re-upload requested</span></template>
+                <input type="file" class="vehicles-input-2" accept="image/*,.pdf" {{4}} onchange="Page.onResubmitInsurance({{5}}, this)" />
+              </label></template><template id="vehicles-5-1-4"><span class="vehicles-label-2">No re-upload requested</span></template>
           </td>
         </tr></template>
       </tbody>
@@ -270,10 +272,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -282,16 +284,16 @@
 
 <!-- BEGIN common/field-hint/field-hint.html -->
 <template id="field-hint">
-      <app-field-hint><span class="relative inline-block align-middle" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
-        <button type="button" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full align-middle text-slate-400 transition-colors hover:text-violet-600 focus-visible:text-violet-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
           aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
           onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
-          <i class="fa-solid fa-circle-info text-[0.8rem]" aria-hidden="true"></i>
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
         </button>
         <span role="tooltip" id="{{10}}"
-          class="absolute z-50 w-64 max-w-[calc(100vw-1rem)] px-0 text-left{{11}}"
+          class="field-hint-label-2{{11}}"
           style="left: {{12}}px;">
-          <span class="block whitespace-pre-line rounded-lg bg-slate-900 px-3 py-2 text-xs font-normal normal-case leading-relaxed tracking-normal text-white shadow-lg"><!--{{13}}--></span>
+          <span class="field-hint-label-3"><!--{{13}}--></span>
         </span>
       </span></app-field-hint></template>
 <!-- END common/field-hint/field-hint.html -->

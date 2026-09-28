@@ -25,7 +25,9 @@
   <link rel="stylesheet" href="../../../common/header/header.css">
   <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
   <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
   <link rel="stylesheet" href="../../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../../common/confirm-dialog/confirm-dialog.css">
   <link rel="stylesheet" href="../components/order-status-stepper/order-status-stepper.css">
   <link rel="stylesheet" href="../css/order-detail.css">
 </head>
@@ -157,79 +159,79 @@
 
 <main class="customer-main" onclick="Shell.closeAccountMenu()">
   <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-order-detail><!--{{0}}--><!--tpl:order-detail (this page)-->
-<a href="{{0}}" class="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-zepto-600 hover:text-zepto-700">
+<a href="{{0}}" class="order-detail-link-2">
   <i class="fa-solid fa-arrow-left"></i> Back to orders
 </a>
 
-<!--{{1}}--><template id="order-detail-1"><div class="flex justify-center py-10"><div class="spinner"></div></div></template><template id="order-detail-2">
-  <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+<!--{{1}}--><template id="order-detail-1"><div class="order-detail-bar"><div class="spinner"></div></div></template><template id="order-detail-2">
+  <div class="order-detail-bar-5">
     <div>
-      <h1 class="text-2xl font-extrabold text-slate-900">Order <!--{{0}}--></h1>
-      <p class="text-sm text-slate-500">Placed <!--{{1}}--></p>
+      <h1 class="order-detail-title">Order <!--{{0}}--></h1>
+      <p class="order-detail-text-10">Placed <!--{{1}}--></p>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="order-detail-bar-6">
       <span class="badge{{2}}">
         <!--{{3}}-->
       </span>
       <!--{{4}}--><template id="order-detail-2-1">
-        <select class="select !w-auto min-w-[10rem]" aria-label="Shop" data-value="{{0}}" onchange="Page.selectShop(this.value)">
+        <select class="select order-detail-select" aria-label="Shop" data-value="{{0}}" onchange="Page.selectShop(this.value)">
           <!--{{1}}--><template id="order-detail-2-1-1"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
         </select></template>
     </div>
   </div>
-  <!--{{5}}--><template id="order-detail-2-2"><div class="mb-3 h-1 w-full animate-pulse rounded bg-zepto-200" aria-label="Loading the selected shop"></div></template>
+  <!--{{5}}--><template id="order-detail-2-2"><div class="order-detail-panel" aria-label="Loading the selected shop"></div></template>
   <!--{{6}}--><template id="order-detail-2-3">
-    <p class="-mt-3 mb-4 text-sm text-slate-500">
+    <p class="order-detail-text">
       Your items shipped from <!--{{0}}--> shops - pick a shop to see its tracking.
-      Overall: <strong class="text-slate-800"><!--{{1}}--></strong>
+      Overall: <strong class="order-detail-strong"><!--{{1}}--></strong>
     </p></template>
 
   <!--{{7}}--><template id="order-detail-2-4">
-    <section class="card mb-4">
-      <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
-        <i class="fa-solid fa-route text-violet-500"></i> Tracking
+    <section class="card order-detail-section">
+      <h2 class="order-detail-heading">
+        <i class="fa-solid fa-route order-detail-icon"></i> Tracking
       </h2>
       <!--{{0}}-->
       <!--{{1}}--><template id="order-detail-2-4-1">
-        <p class="mt-3 flex items-center gap-2 text-sm font-semibold text-slate-700">
-          <i class="fa-regular fa-clock text-violet-500"></i> Estimated delivery: <span class="text-zepto-700"><!--{{0}}--></span>
+        <p class="order-detail-text-2">
+          <i class="fa-regular fa-clock order-detail-icon"></i> Estimated delivery: <span class="order-detail-label"><!--{{0}}--></span>
         </p></template>
       <!--{{2}}--><template id="order-detail-2-4-2">
-        <div class="mt-3 rounded-xl border border-slate-100 bg-slate-50 p-3 text-sm">
-          <p class="mb-2 flex items-center gap-2 font-bold text-slate-800"><i class="fa-solid fa-truck-fast text-violet-500"></i> Delivery details</p>
-          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            <!--{{0}}--><template id="order-detail-2-4-2-1"><p><span class="text-slate-400">Fleet owner</span><br><strong><!--{{0}}--></strong></p></template>
-            <!--{{1}}--><template id="order-detail-2-4-2-2"><p><span class="text-slate-400">Driver</span><br><strong><!--{{0}}--></strong></p></template>
-            <!--{{2}}--><template id="order-detail-2-4-2-3"><p><span class="text-slate-400">Vehicle number</span><br><strong><!--{{0}}--></strong></p></template>
-            <!--{{3}}--><template id="order-detail-2-4-2-4"><p><span class="text-slate-400">Phone number</span><br><strong><!--{{0}}--></strong></p></template>
+        <div class="order-detail-panel-2">
+          <p class="order-detail-text-3"><i class="fa-solid fa-truck-fast order-detail-icon"></i> Delivery details</p>
+          <div class="order-detail-grid">
+            <!--{{0}}--><template id="order-detail-2-4-2-1"><p><span class="order-detail-label-2">Fleet owner</span><br><strong><!--{{0}}--></strong></p></template>
+            <!--{{1}}--><template id="order-detail-2-4-2-2"><p><span class="order-detail-label-2">Driver</span><br><strong><!--{{0}}--></strong></p></template>
+            <!--{{2}}--><template id="order-detail-2-4-2-3"><p><span class="order-detail-label-2">Vehicle number</span><br><strong><!--{{0}}--></strong></p></template>
+            <!--{{3}}--><template id="order-detail-2-4-2-4"><p><span class="order-detail-label-2">Phone number</span><br><strong><!--{{0}}--></strong></p></template>
           </div>
         </div></template>
-      <!--{{3}}--><template id="order-detail-2-4-3"><a class="btn-primary mt-3" href="{{0}}">Find Another Shop</a></template>
-      <p class="mt-3 text-xs text-slate-400">Last updated <!--{{4}}--></p>
+      <!--{{3}}--><template id="order-detail-2-4-3"><a class="btn-primary order-detail-link" href="{{0}}">Find Another Shop</a></template>
+      <p class="order-detail-text-4">Last updated <!--{{4}}--></p>
     </section></template>
 
   <!--{{8}}--><template id="order-detail-2-5">
-    <section class="card mb-4">
-      <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
-        <i class="fa-solid fa-box-open text-violet-500"></i> Items
+    <section class="card order-detail-section">
+      <h2 class="order-detail-heading">
+        <i class="fa-solid fa-box-open order-detail-icon"></i> Items
       </h2>
-      <ul class="divide-y divide-slate-100">
+      <ul class="order-detail-list">
         <!--{{0}}--><template id="order-detail-2-5-1">
-          <li class="flex items-start gap-3 py-3 text-sm">
-            <span class="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-zepto-50 to-violet-50 text-zepto-600">
-              <!--{{0}}--><template id="order-detail-2-5-1-1"><img src="{{0}}" alt="{{1}}" class="h-full w-full object-cover" /></template><template id="order-detail-2-5-1-2"><i class="fa-solid fa-cube text-sm"></i></template>
+          <li class="order-detail-item">
+            <span class="order-detail-label-4">
+              <!--{{0}}--><template id="order-detail-2-5-1-1"><img src="{{0}}" alt="{{1}}" class="order-detail-image" /></template><template id="order-detail-2-5-1-2"><i class="fa-solid fa-cube order-detail-icon-2"></i></template>
             </span>
-            <div class="min-w-0 flex-1">
-              <div class="flex items-center justify-between gap-2">
-                <span class="truncate font-semibold text-slate-800"><!--{{1}}--></span>
-                <span class="shrink-0 font-bold text-slate-900"><!--{{2}}--></span>
+            <div class="order-detail-box">
+              <div class="order-detail-bar-2">
+                <span class="order-detail-label-5"><!--{{1}}--></span>
+                <span class="order-detail-label-6"><!--{{2}}--></span>
               </div>
-              <div class="mt-0.5 flex items-center justify-between text-xs text-slate-500">
+              <div class="order-detail-bar-3">
                 <span>
                   <!--{{3}}--> &middot; Qty <!--{{4}}-->
                   <!--{{5}}--><template id="order-detail-2-5-1-3"> &middot; <!--{{0}}--> each </template>
                 </span>
-                <!--{{6}}--><template id="order-detail-2-5-1-4"><span class="text-emerald-600 font-semibold">-<!--{{0}}--></span></template>
+                <!--{{6}}--><template id="order-detail-2-5-1-4"><span class="order-detail-label-3">-<!--{{0}}--></span></template>
               </div>
             </div>
           </li></template>
@@ -237,16 +239,16 @@
     </section></template>
 
   <!--{{9}}--><template id="order-detail-2-6">
-    <section class="card mb-4">
-      <!--{{0}}--><template id="order-detail-2-6-1"><p class="text-sm text-rose-600 mb-2"><!--{{0}}--></p></template>
-      <button type="button" class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50" {{1}} onclick="Page.cancelOrder()">
-        <!--{{2}}--><template id="order-detail-2-6-2"><span class="spinner !h-4 !w-4 !border-rose-500/40 !border-t-rose-600"></span> Cancelling...</template><template id="order-detail-2-6-3"><i class="fa-solid fa-ban"></i> Cancel Order</template>
+    <section class="card order-detail-section">
+      <!--{{0}}--><template id="order-detail-2-6-1"><p class="order-detail-text-5"><!--{{0}}--></p></template>
+      <button type="button" class="btn-outline order-detail-button" {{1}} onclick="Page.cancelOrder()">
+        <!--{{2}}--><template id="order-detail-2-6-2"><span class="spinner order-detail-label-7"></span> Cancelling...</template><template id="order-detail-2-6-3"><i class="fa-solid fa-ban"></i> Cancel Order</template>
       </button>
     </section></template>
 
-  <section class="card mb-4 space-y-1">
-    <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
-      <i class="fa-solid fa-receipt text-violet-500"></i> Payment
+  <section class="card order-detail-section-2">
+    <h2 class="order-detail-heading-2">
+      <i class="fa-solid fa-receipt order-detail-icon"></i> Payment
     </h2>
     <!--{{10}}-->
     <!--{{11}}-->
@@ -259,33 +261,33 @@
       <!--{{2}}-->
       <!--{{3}}--></template>
     <!--{{14}}-->
-    <p class="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 px-3 py-2.5 text-lg font-extrabold text-slate-900">
-      <span><!--{{15}}--></span><span class="text-zepto-700"><!--{{16}}--></span>
+    <p class="order-detail-text-11">
+      <span><!--{{15}}--></span><span class="order-detail-label"><!--{{16}}--></span>
     </p>
     <!--{{17}}--><template id="order-detail-2-9">
-      <p class="text-xs text-slate-500">Payment status: <!--{{0}}--> - this amount has not been paid yet.</p></template>
+      <p class="order-detail-text-6">Payment status: <!--{{0}}--> - this amount has not been paid yet.</p></template>
   </section>
 
   <!--{{18}}--><template id="order-detail-2-10">
-    <section class="card mb-4">
-      <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
-        <i class="fa-solid fa-location-dot text-violet-500"></i> Delivery address
+    <section class="card order-detail-section">
+      <h2 class="order-detail-heading-2">
+        <i class="fa-solid fa-location-dot order-detail-icon"></i> Delivery address
       </h2>
-      <p class="text-sm text-slate-600"><!--{{0}}--></p>
+      <p class="order-detail-text-7"><!--{{0}}--></p>
     </section></template>
 
   <section class="card">
-    <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
-      <i class="fa-solid fa-headset text-violet-500"></i> Customer Support
+    <h2 class="order-detail-heading">
+      <i class="fa-solid fa-headset order-detail-icon"></i> Customer Support
     </h2>
     <!--{{19}}--><template id="order-detail-2-11">
-      <div class="flex items-start gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-3">
-        <i class="fa-solid fa-circle-check mt-0.5 text-emerald-500"></i>
-        <p class="text-sm text-emerald-700">
+      <div class="order-detail-bar-4">
+        <i class="fa-solid fa-circle-check order-detail-icon-3"></i>
+        <p class="order-detail-text-8">
           Support Ticket <strong>#<!--{{0}}--></strong> raised! Routed to Support Admin for review and resolution.
         </p>
       </div></template><template id="order-detail-2-12">
-      <form novalidate class="space-y-3" onsubmit="event.preventDefault(); Page.raiseTicket()">
+      <form novalidate class="order-detail-form" onsubmit="event.preventDefault(); Page.raiseTicket()">
         <div>
           <label class="form-label req-mark">What went wrong?</label>
           <select class="select" name="ticketSubCategory" {{0}}>
@@ -300,12 +302,12 @@
           <label class="form-label req-mark">Description</label>
           <textarea class="input" name="description" rows="3" placeholder="Describe the issue" oninput="Page.ticketForm.controls.description.input(this)" onblur="Page.ticketForm.controls.description.blur()"><!--{{3}}--></textarea>
         </div>
-        <!--{{4}}--><template id="order-detail-2-12-2"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
-        <button class="btn-primary !bg-gradient-to-br !from-rose-600 !to-rose-500" type="submit" {{5}}>
-          <!--{{6}}--><template id="order-detail-2-12-3"><span class="spinner h-4 w-4 border-2 border-white/40 border-t-white"></span></template><template id="order-detail-2-12-4">Submit Ticket</template>
+        <!--{{4}}--><template id="order-detail-2-12-2"><p class="order-detail-text-9"><!--{{0}}--></p></template>
+        <button class="btn-primary order-detail-button-2" type="submit" {{5}}>
+          <!--{{6}}--><template id="order-detail-2-12-3"><span class="spinner order-detail-label-8"></span></template><template id="order-detail-2-12-4">Submit Ticket</template>
         </button>
       </form></template><template id="order-detail-2-13">
-      <button type="button" class="btn-outline border-rose-500 text-rose-600 hover:bg-rose-50" onclick="Page.state.ticketFormOpen = true">
+      <button type="button" class="btn-outline order-detail-button-3" onclick="Page.state.ticketFormOpen = true">
         <i class="fa-regular fa-circle-question"></i> Raise Support Ticket
       </button></template>
   </section></template>
@@ -331,10 +333,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -362,32 +364,32 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
 
 <!-- BEGIN common/confirm-dialog/confirm-dialog.html -->
 <template id="confirm-dialog">
-      <app-confirm-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-        <div class="card w-full max-w-md" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
-          <div class="flex items-start gap-3">
-            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full{{0}}">
+      <app-confirm-dialog><div class="confirm-dialog-overlay">
+        <div class="card confirm-dialog-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+          <div class="confirm-dialog-bar">
+            <span class="confirm-dialog-label-2{{0}}">
               <i class="fa-solid fa-triangle-exclamation"></i>
             </span>
-            <div class="min-w-0">
-              <h2 id="confirm-dialog-title" class="m-0 text-lg font-bold text-slate-900"><!--{{1}}--></h2>
-              <p id="confirm-dialog-message" class="m-0 mt-1 text-sm text-slate-600"><!--{{2}}--></p>
+            <div class="confirm-dialog-box-2">
+              <h2 id="confirm-dialog-title" class="confirm-dialog-heading"><!--{{1}}--></h2>
+              <p id="confirm-dialog-message" class="confirm-dialog-text"><!--{{2}}--></p>
             </div>
           </div>
-          <div class="mt-5 flex justify-end gap-2">
+          <div class="confirm-dialog-bar-2">
             <button type="button" class="btn-outline" data-confirm-cancel="{{3}}" {{4}} onclick="U.$('{{5}}').opts.onCancel()"><!--{{6}}--></button>
             <button type="button" class="btn-primary{{7}}"
               {{8}} onclick="U.$('{{9}}').opts.onConfirm()">
-              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
+              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner confirm-dialog-label"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
             </button>
           </div>
         </div>
@@ -397,15 +399,15 @@
 <!-- BEGIN customer/commerce/components/order-status-stepper/order-status-stepper.html -->
 <template id="order-status-stepper">
       <app-order-status-stepper data-stepper="{{0}}"><!--{{1}}--><template id="order-status-stepper-1">
-        <div class="halted-banner flex items-start gap-3 p-4 rounded-xl bg-rose-50">
-          <i class="fa-solid fa-triangle-exclamation text-rose-600 mt-0.5"></i>
+        <div class="halted-banner order-status-stepper-bar">
+          <i class="fa-solid fa-triangle-exclamation order-status-stepper-icon"></i>
           <div>
-            <p class="halted-title font-semibold text-slate-800 m-0"><!--{{0}}--></p>
-            <!--{{1}}--><template id="order-status-stepper-1-1"><p class="halted-message text-sm text-slate-600 mt-1 mb-0"><!--{{0}}--></p></template>
+            <p class="halted-title order-status-stepper-text-2"><!--{{0}}--></p>
+            <!--{{1}}--><template id="order-status-stepper-1-1"><p class="halted-message order-status-stepper-text"><!--{{0}}--></p></template>
           </div>
         </div></template><template id="order-status-stepper-2">
         <div class="stepper-scroll">
-          <ol class="stepper list-none m-0 p-0" style="--steps: {{0}};">
+          <ol class="stepper order-status-stepper-list" style="--steps: {{0}};">
             <!--{{1}}--><template id="order-status-stepper-2-1">
               <li class="step{{0}}">
                 <span class="step-marker">

@@ -158,15 +158,45 @@
     },
   });
 
-  /* a link to another page carries the session along (see storage.js) */
-  document.addEventListener('click', (event) => {
+  /* A link to another page carries the state along (see storage.js). The listener goes on the link itself, as
+     Angular's routerLink does, because menus and dialogs stop clicks from bubbling (click)="$event.stopPropagation()". */
+  const pageLink = (event) => {
     const a = event.target.closest && event.target.closest('a[href]');
-    if (!a || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!a) return null;
     const href = a.getAttribute('href');
-    if (a.target || a.hasAttribute('download') || /^[a-z][a-z0-9+.-]*:/i.test(href) || !/\.html(?:[?#]|$)/.test(href)) return;
+    if (a.target || a.hasAttribute('download') || /^[a-z][a-z0-9+.-]*:/i.test(href) || !/\.html(?:[?#]|$)/.test(href)) return null;
+    return a;
+  };
+  const follow = (event) => {
+    event.currentTarget.removeEventListener('click', follow);
+    if (event.defaultPrevented) return;
     event.preventDefault();
-    window.location.href = AppStorage.handoff(a.href);
-  });
+    window.location.href = AppStorage.handoff(event.currentTarget.href);
+  };
+  document.addEventListener(
+    'click',
+    (event) => {
+      const a = pageLink(event);
+      if (!a) return;
+      if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) a.addEventListener('click', follow);
+      else withState(a);
+    },
+    true,
+  );
+  /* opened in a new tab or window (middle click, Ctrl / Cmd / Shift click): the new page gets the state too */
+  const withState = (a) => {
+    const href = a.getAttribute('href');
+    a.setAttribute('href', AppStorage.handoff(a.href));
+    setTimeout(() => a.setAttribute('href', href), 0);
+  };
+  document.addEventListener(
+    'auxclick',
+    (event) => {
+      const a = event.button === 1 && pageLink(event);
+      if (a) withState(a);
+    },
+    true,
+  );
 
   /* --------------------------------------------------------------------------------------------- */
   /* role landing (core/auth/role-landing.ts)                                                      */

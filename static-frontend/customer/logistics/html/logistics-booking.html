@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="../../../common/header/header.css">
   <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
   <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
   <link rel="stylesheet" href="../css/logistics-booking.css">
 </head>
 <body>
@@ -153,56 +154,56 @@
 </header><!--/tpl:header-->
 
 <main class="customer-main" onclick="Shell.closeAccountMenu()">
-  <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-logistics-booking><!--{{0}}--><!--tpl:logistics-booking (this page)--><div class="mx-auto max-w-6xl">
-  <div class="mb-6">
-    <span class="eyebrow inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-extrabold text-violet-700">
+  <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-logistics-booking><!--{{0}}--><!--tpl:logistics-booking (this page)--><div class="logistics-booking-box-6">
+  <div class="logistics-booking-box-7">
+    <span class="eyebrow logistics-booking-label-12">
       <i class="fa-solid fa-truck-fast"></i> Logistics &amp; Parcel
     </span>
-    <h1 class="mt-3 text-3xl font-display font-black tracking-tight text-slate-900">Book a delivery</h1>
-    <p class="mt-1 text-sm text-slate-500">Fast, reliable pickup &amp; delivery across city and outstation</p>
+    <h1 class="logistics-booking-title">Book a delivery</h1>
+    <p class="logistics-booking-text-15">Fast, reliable pickup &amp; delivery across city and outstation</p>
   </div>
 
-  <div class="card mb-6 !py-5 overflow-x-auto">
-    <div class="flex min-w-[640px] items-start">
+  <div class="card logistics-booking-box-8 !py-5">
+    <div class="logistics-booking-bar-12">
       <!--{{0}}--><template id="logistics-booking-1">
-        <div class="relative flex-1 text-center">
+        <div class="logistics-booking-box-2">
           <!--{{0}}--><template id="logistics-booking-1-1">
-            <div class="absolute left-[58%] top-5 h-0.5 w-[84%]{{0}}"></div></template>
-          <div class="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full text-sm font-extrabold transition-colors{{1}}">
+            <div class="logistics-booking-box{{0}}"></div></template>
+          <div class="logistics-booking-grid rounded-full{{1}}">
             <!--{{2}}--><template id="logistics-booking-1-2"><i class="fa-solid fa-check"></i></template><template id="logistics-booking-1-3"> <!--{{0}}--> </template>
           </div>
-          <span class="mt-1.5 block text-[11px] font-bold{{3}}"><!--{{4}}--></span>
+          <span class="logistics-booking-label-5{{3}}"><!--{{4}}--></span>
         </div></template>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
+  <div class="logistics-booking-grid-6">
     <div>
       <!--{{1}}--><template id="logistics-booking-2">
         <div class="card">
-          <div class="mb-4 flex items-center gap-2.5"><span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white"><i class="fa-solid fa-route"></i></span><h3 class="text-base font-extrabold text-slate-900">Choose service type</h3></div>
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <button type="button" class="rounded-2xl border-2 p-5 text-left{{0}}" onclick="Page.selectServiceType('WITHIN_CITY')"><i class="fa-solid fa-city text-2xl text-zepto-600"></i><h3 class="mt-2 font-extrabold">Within City</h3><p class="text-xs text-slate-500">Local intra-city delivery</p></button>
-            <button type="button" class="rounded-2xl border-2 p-5 text-left{{1}}" onclick="Page.selectServiceType('OUTSTATION')"><i class="fa-solid fa-map-location-dot text-2xl text-zepto-600"></i><h3 class="mt-2 font-extrabold">Outstation</h3><p class="text-xs text-slate-500">Inter-city delivery; bike/scooty are not available</p></button>
+          <div class="logistics-booking-bar"><span class="logistics-booking-label-3"><i class="fa-solid fa-route"></i></span><h3 class="logistics-booking-subheading">Choose service type</h3></div>
+          <div class="logistics-booking-grid-2">
+            <button type="button" class="rounded-2xl border-2 logistics-booking-button{{0}}" onclick="Page.selectServiceType('WITHIN_CITY')"><i class="fa-solid fa-city logistics-booking-icon"></i><h3 class="logistics-booking-subheading-2">Within City</h3><p class="logistics-booking-text">Local intra-city delivery</p></button>
+            <button type="button" class="rounded-2xl border-2 logistics-booking-button{{1}}" onclick="Page.selectServiceType('OUTSTATION')"><i class="fa-solid fa-map-location-dot logistics-booking-icon"></i><h3 class="logistics-booking-subheading-2">Outstation</h3><p class="logistics-booking-text">Inter-city delivery; bike/scooty are not available</p></button>
           </div>
-          <div class="mt-5 flex justify-end"><button type="button" class="btn-primary" onclick="Page.goToStep(2)">Next: Vehicle <i class="fa-solid fa-arrow-right"></i></button></div>
+          <div class="logistics-booking-bar-2"><button type="button" class="btn-primary" onclick="Page.goToStep(2)">Next: Vehicle <i class="fa-solid fa-arrow-right"></i></button></div>
         </div></template>
 
       <!--{{2}}--><template id="logistics-booking-3">
         <div class="card">
-          <div class="mb-4 flex items-center gap-2.5"><span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white"><i class="fa-solid fa-truck"></i></span><h3 class="text-base font-extrabold text-slate-900">Choose vehicle category</h3></div>
-          <!--{{0}}--><template id="logistics-booking-3-1"><p class="mb-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-800">Two-wheelers are unavailable for outstation trips.</p></template>
-          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div class="logistics-booking-bar"><span class="logistics-booking-label-3"><i class="fa-solid fa-truck"></i></span><h3 class="logistics-booking-subheading">Choose vehicle category</h3></div>
+          <!--{{0}}--><template id="logistics-booking-3-1"><p class="logistics-booking-text-2">Two-wheelers are unavailable for outstation trips.</p></template>
+          <div class="logistics-booking-grid-3">
             <!--{{1}}--><template id="logistics-booking-3-2">
-              <button type="button" class="rounded-xl border-2 p-4 text-center{{0}}" onclick="Page.selectVehicle('{{1}}')"><i class="fa-solid {{2}} text-xl text-zepto-600"></i><span class="mt-2 block text-sm font-bold"><!--{{3}}--></span></button></template>
+              <button type="button" class="rounded-xl border-2 logistics-booking-button-2{{0}}" onclick="Page.selectVehicle('{{1}}')"><i class="fa-solid {{2}} text-xl text-zepto-600"></i><span class="logistics-booking-label-6"><!--{{3}}--></span></button></template>
           </div>
-          <div class="mt-5 flex justify-end gap-3"><button type="button" class="btn-outline" onclick="Page.goToStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="button" class="btn-primary" onclick="Page.goToStep(3)">Next: Locations <i class="fa-solid fa-arrow-right"></i></button></div>
+          <div class="logistics-booking-bar-3"><button type="button" class="btn-outline" onclick="Page.goToStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="button" class="btn-primary" onclick="Page.goToStep(3)">Next: Locations <i class="fa-solid fa-arrow-right"></i></button></div>
         </div></template>
 
       <!--{{3}}--><template id="logistics-booking-4">
         <div class="card">
           <!--{{0}}--><template id="logistics-booking-4-1">Pickup &amp; drop locations</template>
-          <div class="space-y-3">
+          <div class="logistics-booking-box-3">
             <div>
               <label class="form-label req-mark">Pickup Location</label>
               <input class="input" {{1}} placeholder="Enter pickup address" />
@@ -213,16 +214,16 @@
             </div>
             <div>
               <label class="form-label">Estimated distance (km)</label>
-              <div class="flex items-center gap-2">
+              <div class="logistics-booking-bar-4">
                 <input class="input" type="number" readonly value="{{3}}" />
-                <button type="button" class="btn-outline whitespace-nowrap" {{4}} onclick="Page.calculateDistance()">
+                <button type="button" class="btn-outline logistics-booking-button-3" {{4}} onclick="Page.calculateDistance()">
                   <i class="fa-solid fa-route"></i> Calculate
                 </button>
               </div>
-              <p class="mt-1 text-xs text-slate-500">Auto-calculated from your pickup and drop locations.</p>
+              <p class="logistics-booking-text-3">Auto-calculated from your pickup and drop locations.</p>
             </div>
           </div>
-          <div class="mt-5 flex justify-end gap-3">
+          <div class="logistics-booking-bar-3">
             <button type="button" class="btn-outline" onclick="Page.goToStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
             <button type="button" class="btn-primary" {{5}} onclick="Page.goToStep(4)">Next: Receiver Info <i class="fa-solid fa-arrow-right"></i></button>
           </div>
@@ -231,7 +232,7 @@
       <!--{{4}}--><template id="logistics-booking-5">
         <div class="card">
           <!--{{0}}-->
-          <div class="space-y-3">
+          <div class="logistics-booking-box-3">
             <div>
               <label class="form-label req-mark">Receiver Name</label>
               <input class="input" {{1}} placeholder="Full Name" />
@@ -239,19 +240,19 @@
             <div>
               <label class="form-label req-mark">Receiver Phone Number</label>
               <input class="input" type="tel" {{2}} data-digits-only="10" placeholder="10-digit mobile number" autocomplete="off" inputmode="numeric" maxlength="10" />
-              <!--{{3}}--><template id="logistics-booking-5-1"><p class="mt-1 text-xs text-rose-600">Mobile number must be 10 digits</p></template>
+              <!--{{3}}--><template id="logistics-booking-5-1"><p class="logistics-booking-text-4">Mobile number must be 10 digits</p></template>
             </div>
             <div>
               <label class="form-label">Receiver Email (Optional)</label>
               <input class="input" type="email" {{4}} placeholder="receiver@example.com" />
-              <!--{{5}}--><template id="logistics-booking-5-2"><p class="mt-1 text-xs text-rose-600">Enter a valid email address.</p></template>
+              <!--{{5}}--><template id="logistics-booking-5-2"><p class="logistics-booking-text-4">Enter a valid email address.</p></template>
             </div>
             <div>
               <label class="form-label">Special Instructions (Optional)</label>
               <input class="input" {{6}} placeholder="e.g. Handle with care, call before arrival" />
             </div>
           </div>
-          <div class="mt-5 flex justify-end gap-3">
+          <div class="logistics-booking-bar-3">
             <button type="button" class="btn-outline" onclick="Page.goToStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
             <button type="button" class="btn-primary" {{7}} onclick="Page.goToStep(5)">
               Next: Extras <i class="fa-solid fa-arrow-right"></i>
@@ -262,12 +263,12 @@
       <!--{{5}}--><template id="logistics-booking-6">
         <div class="card">
           <!--{{0}}-->
-          <div class="space-y-2.5">
+          <div class="logistics-booking-box-4">
             <!--{{1}}-->
             <!--{{2}}-->
             <!--{{3}}-->
           </div>
-          <div class="mt-5 flex justify-end gap-3">
+          <div class="logistics-booking-bar-3">
             <button type="button" class="btn-outline" onclick="Page.goToStep(4)"><i class="fa-solid fa-arrow-left"></i> Back</button>
             <button type="button" class="btn-primary" onclick="Page.goToStep(6)">Next: Payment <i class="fa-solid fa-arrow-right"></i></button>
           </div>
@@ -278,8 +279,8 @@
           <!--{{0}}--><template id="logistics-booking-7-1">Payment &amp; summary</template>
 
           <div>
-            <h4 class="req-mark mb-2 font-bold text-slate-900">Select Payment Mode</h4>
-            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <h4 class="req-mark logistics-booking-caption">Select Payment Mode</h4>
+            <div class="logistics-booking-grid-4">
               <!--{{1}}-->
               <!--{{2}}-->
               <!--{{3}}-->
@@ -287,9 +288,9 @@
             </div>
           </div>
 
-          <!--{{5}}--><template id="logistics-booking-7-2"><p class="mt-4 text-sm text-rose-600"><!--{{0}}--></p></template>
+          <!--{{5}}--><template id="logistics-booking-7-2"><p class="logistics-booking-text-5"><!--{{0}}--></p></template>
 
-          <div class="mt-5 flex justify-end gap-3">
+          <div class="logistics-booking-bar-3">
             <button type="button" class="btn-outline" onclick="Page.goToStep(5)"><i class="fa-solid fa-arrow-left"></i> Back</button>
             <button type="button" class="btn-secondary" {{6}} onclick="Page.proceedToPayment()">
               <!--{{7}}--><template id="logistics-booking-7-3"><!--{{0}}--> Booking... </template><template id="logistics-booking-7-4"> Confirm &amp; Book Logistics </template><template id="logistics-booking-7-5"> Proceed to Pay </template>
@@ -301,37 +302,37 @@
         <div class="card">
           <!--{{0}}--><template id="logistics-booking-8-1">
             <!--{{0}}--><template id="logistics-booking-8-1-1">
-              <div class="mb-1 flex items-center gap-2.5">
-                <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white shadow-glow"><i class="fa-solid fa-circle-check text-sm"></i></span>
-                <h3 class="text-base font-extrabold text-slate-900">Booking Confirmed</h3>
+              <div class="logistics-booking-bar-5">
+                <span class="logistics-booking-label-7"><i class="fa-solid fa-circle-check logistics-booking-icon-2"></i></span>
+                <h3 class="logistics-booking-subheading">Booking Confirmed</h3>
               </div>
-              <p class="mb-3 text-sm text-slate-600">Your logistics booking has been created successfully.</p></template><template id="logistics-booking-8-1-2">
-              <div class="mb-1 flex items-center gap-2.5">
-                <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-glow"><i class="fa-solid fa-triangle-exclamation text-sm"></i></span>
-                <h3 class="text-base font-extrabold text-slate-900">Payment not completed</h3>
+              <p class="logistics-booking-text-6">Your logistics booking has been created successfully.</p></template><template id="logistics-booking-8-1-2">
+              <div class="logistics-booking-bar-5">
+                <span class="logistics-booking-label-8"><i class="fa-solid fa-triangle-exclamation logistics-booking-icon-2"></i></span>
+                <h3 class="logistics-booking-subheading">Payment not completed</h3>
               </div>
-              <p class="mb-3 text-sm text-slate-600">Your booking was created, but the payment did not go through. Complete the payment to finish your booking.</p></template>
-            <p class="mb-3 text-sm text-slate-500">Booking Reference: <strong class="text-slate-900"><!--{{1}}--></strong></p>
+              <p class="logistics-booking-text-6">Your booking was created, but the payment did not go through. Complete the payment to finish your booking.</p></template>
+            <p class="logistics-booking-text-8">Booking Reference: <strong class="logistics-booking-strong"><!--{{1}}--></strong></p>
 
-            <div class="mb-4 space-y-1 rounded-xl bg-slate-50 p-3 text-sm">
-              <p class="flex justify-between text-slate-600"><span>Logistics Charge</span><span>₹<!--{{2}}--></span></p>
-              <p class="flex justify-between font-bold text-slate-900"><span>Total Amount</span><span>₹<!--{{3}}--></span></p>
-              <p class="flex justify-between text-slate-600"><span>Paid Amount</span><span>₹<!--{{4}}--></span></p>
-              <p class="flex justify-between text-slate-600"><span>Payment Status</span><span><!--{{5}}--></span></p>
+            <div class="logistics-booking-panel">
+              <p class="logistics-booking-text-9"><span>Logistics Charge</span><span>₹<!--{{2}}--></span></p>
+              <p class="logistics-booking-text-10"><span>Total Amount</span><span>₹<!--{{3}}--></span></p>
+              <p class="logistics-booking-text-9"><span>Paid Amount</span><span>₹<!--{{4}}--></span></p>
+              <p class="logistics-booking-text-9"><span>Payment Status</span><span><!--{{5}}--></span></p>
             </div>
-            <!--{{6}}--><template id="logistics-booking-8-1-3"><p class="mb-3 text-sm text-rose-600"><!--{{0}}--></p></template></template>
+            <!--{{6}}--><template id="logistics-booking-8-1-3"><p class="logistics-booking-text-7"><!--{{0}}--></p></template></template>
 
-          <div class="flex items-center gap-4 rounded-2xl bg-gradient-to-br from-zepto-50 to-violet-50 p-5">
-            <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-zepto-500 to-violet-500 text-white shadow-glow">
-              <i class="fa-solid fa-truck-fast text-xl"></i>
+          <div class="logistics-booking-bar-6">
+            <div class="logistics-booking-grid-5">
+              <i class="fa-solid fa-truck-fast logistics-booking-icon-3"></i>
             </div>
             <div>
-              <h3 class="font-bold text-slate-900">Status: <!--{{1}}--></h3>
-              <p class="text-sm text-slate-600">Live status updates automatically as your fleet owner assigns a driver and vehicle.</p>
+              <h3 class="logistics-booking-subheading-3">Status: <!--{{1}}--></h3>
+              <p class="logistics-booking-text-11">Live status updates automatically as your fleet owner assigns a driver and vehicle.</p>
             </div>
           </div>
 
-          <div class="mt-5 flex flex-wrap justify-end gap-3">
+          <div class="logistics-booking-bar-7">
             <button type="button" class="btn-outline" onclick="Nav.go('/orders')">View All Orders</button>
             <!--{{2}}--><template id="logistics-booking-8-2">
                 <button type="button" class="btn-primary" onclick="Nav.go('/orders/{{0}}')"><i class="fa-solid fa-location-crosshairs"></i> Track This Order</button></template><template id="logistics-booking-8-3">
@@ -342,83 +343,83 @@
         </div></template>
     </div>
 
-    <aside class="card h-fit lg:sticky lg:top-24">
-      <h3 class="mb-4 flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide text-slate-500">
-        <i class="fa-solid fa-receipt text-zepto-500"></i> Booking Summary
+    <aside class="card logistics-booking-aside">
+      <h3 class="logistics-booking-subheading-4">
+        <i class="fa-solid fa-receipt logistics-booking-icon-5"></i> Booking Summary
       </h3>
-      <div class="space-y-3 text-sm">
-        <div class="flex justify-between gap-3">
-          <span class="text-slate-500">Vehicle</span>
-          <strong class="text-right text-slate-900"><!--{{8}}--></strong>
+      <div class="logistics-booking-box-9">
+        <div class="logistics-booking-bar-8">
+          <span class="logistics-booking-label-10">Vehicle</span>
+          <strong class="logistics-booking-strong-3"><!--{{8}}--></strong>
         </div>
-        <div class="flex justify-between gap-3">
-          <span class="text-slate-500">Service Type</span>
-          <strong class="text-right text-slate-900"><!--{{9}}--></strong>
+        <div class="logistics-booking-bar-8">
+          <span class="logistics-booking-label-10">Service Type</span>
+          <strong class="logistics-booking-strong-3"><!--{{9}}--></strong>
         </div>
         <!--{{10}}--><template id="logistics-booking-9">
-          <div class="flex justify-between gap-3">
-            <span class="shrink-0 text-slate-500">Route</span>
-            <strong class="truncate text-right text-slate-900"><!--{{0}}--> → <!--{{1}}--></strong>
+          <div class="logistics-booking-bar-8">
+            <span class="logistics-booking-label-9">Route</span>
+            <strong class="logistics-booking-strong-2"><!--{{0}}--> → <!--{{1}}--></strong>
           </div></template>
         <!--{{11}}--><template id="logistics-booking-10">
-          <div class="flex justify-between gap-3">
-            <span class="text-slate-500">Distance</span>
-            <strong class="text-slate-900"><!--{{0}}--> km</strong>
+          <div class="logistics-booking-bar-8">
+            <span class="logistics-booking-label-10">Distance</span>
+            <strong class="logistics-booking-strong"><!--{{0}}--> km</strong>
           </div></template>
         <!--{{12}}--><template id="logistics-booking-11">
-          <div class="flex justify-between gap-3">
-            <span class="text-slate-500">Receiver</span>
-            <strong class="text-right text-slate-900"><!--{{0}}--></strong>
+          <div class="logistics-booking-bar-8">
+            <span class="logistics-booking-label-10">Receiver</span>
+            <strong class="logistics-booking-strong-3"><!--{{0}}--></strong>
           </div></template>
-        <hr class="border-slate-100" />
-        <div class="flex items-center justify-between">
-          <span class="text-slate-500">Estimated Fare</span>
-          <strong class="bg-gradient-to-r from-zepto-600 to-violet-600 bg-clip-text text-2xl font-extrabold text-transparent">
+        <hr class="logistics-booking-divider" />
+        <div class="logistics-booking-bar-13">
+          <span class="logistics-booking-label-10">Estimated Fare</span>
+          <strong class="logistics-booking-strong-4">
             ₹<!--{{13}}-->
           </strong>
         </div>
-        <!--{{14}}--><template id="logistics-booking-12"><p class="text-[11px] leading-relaxed text-slate-400">This is the amount you will pay and the amount shown on your booking.</p></template><template id="logistics-booking-13"><p class="text-[11px] leading-relaxed text-slate-400">The final fare is confirmed on the payment step, from the same calculation that charges the booking.</p></template>
+        <!--{{14}}--><template id="logistics-booking-12"><p class="logistics-booking-text-12">This is the amount you will pay and the amount shown on your booking.</p></template><template id="logistics-booking-13"><p class="logistics-booking-text-12">The final fare is confirmed on the payment step, from the same calculation that charges the booking.</p></template>
       </div>
     </aside>
   </div>
 
   <!--{{15}}--><template id="logistics-booking-14">
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div class="w-full max-w-sm animate-pop-in rounded-2xl bg-white p-5 shadow-2xl">
-        <div class="mb-4 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-shield-halved text-zepto-600"></i>
-            <span class="font-extrabold text-slate-900">AroundU Secure Pay</span>
+    <div class="logistics-booking-overlay">
+      <div class="logistics-booking-panel-2">
+        <div class="logistics-booking-bar-10">
+          <div class="logistics-booking-bar-4">
+            <i class="fa-solid fa-shield-halved logistics-booking-icon-4"></i>
+            <span class="logistics-booking-label-11">AroundU Secure Pay</span>
           </div>
           <button type="button" class="btn-icon" onclick="Page.cancelPayment()" {{0}} aria-label="Close">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div class="mb-4 rounded-xl bg-zepto-50 p-3 text-center">
-          <p class="text-xs text-slate-500">Amount payable</p>
-          <p class="text-2xl font-extrabold text-slate-900">₹<!--{{1}}--></p>
+        <div class="logistics-booking-panel-3">
+          <p class="logistics-booking-text">Amount payable</p>
+          <p class="logistics-booking-text-13">₹<!--{{1}}--></p>
         </div>
 
         <!--{{2}}--><template id="logistics-booking-14-1">
-          <div class="space-y-2">
+          <div class="logistics-booking-box-5">
             <label class="form-label">Enter UPI ID</label>
             <input class="input" {{0}} placeholder="name@upi" {{1}} />
           </div></template><template id="logistics-booking-14-2">
-          <div class="space-y-2">
+          <div class="logistics-booking-box-5">
             <label class="form-label">Card Number</label>
             <input class="input" {{0}} placeholder="1234 5678 9012 3456" maxlength="19" {{1}} />
-            <div class="flex gap-2">
+            <div class="logistics-booking-bar-9">
               <input class="input" {{2}} placeholder="MM/YY" maxlength="5" {{3}} />
               <input class="input" {{4}} placeholder="CVV" maxlength="3" {{5}} />
             </div>
           </div></template>
 
-        <p class="mt-3 text-center text-[11px] text-slate-400">This is a simulated payment gateway for demo purposes. No real payment is processed.</p>
+        <p class="logistics-booking-text-14">This is a simulated payment gateway for demo purposes. No real payment is processed.</p>
 
-        <div class="mt-4 flex gap-3">
-          <button type="button" class="btn-outline flex-1" {{3}} onclick="Page.cancelPayment()">Cancel</button>
-          <button type="button" class="btn-primary flex-1" {{4}} onclick="Page.submitGatewayPayment()">
+        <div class="logistics-booking-bar-11">
+          <button type="button" class="btn-outline logistics-booking-button-4" {{3}} onclick="Page.cancelPayment()">Cancel</button>
+          <button type="button" class="btn-primary logistics-booking-button-4" {{4}} onclick="Page.submitGatewayPayment()">
             <!--{{5}}--><template id="logistics-booking-14-3"> <!--{{0}}--> Processing... </template><template id="logistics-booking-14-4"> Pay Now </template>
           </button>
         </div>
@@ -445,10 +446,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -476,22 +477,22 @@
 
 <!-- logistics-booking page: other templates (js/logistics-booking.js) -->
 <template id="logistics-booking-extra">
-            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-zepto-50/60">
-              <input type="checkbox" {{0}} class="h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+            <label class="logistics-booking-label">
+              <input type="checkbox" {{0}} class="logistics-booking-input" />
               <i class="fa-solid {{1}} text-zepto-500"></i>
               <!--{{2}}-->
             </label></template>
 <template id="logistics-booking-pay-option">
-              <label class="flex cursor-pointer items-center gap-2.5 rounded-xl border-2 p-3 text-sm font-semibold text-slate-700 transition-colors{{0}}">
-                <input type="radio" name="paymentMode" value="{{1}}" {{2}} onchange="Page.state.paymentMode = this.value" class="h-4 w-4 text-zepto-600 focus:ring-zepto-500" />
+              <label class="logistics-booking-label-2 rounded-xl border-2{{0}}">
+                <input type="radio" name="paymentMode" value="{{1}}" {{2}} onchange="Page.state.paymentMode = this.value" class="logistics-booking-input-2" />
                 <i class="fa-solid {{3}} text-zepto-500"></i> <!--{{4}}-->
               </label></template>
 <template id="logistics-booking-header">
-          <div class="mb-4 flex items-center gap-2.5">
-            <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white{{0}}"><i class="fa-solid {{1}} text-sm"></i></span>
-            <h3 class="text-base font-extrabold text-slate-900"><!--{{2}}--></h3>
+          <div class="logistics-booking-bar">
+            <span class="logistics-booking-label-3{{0}}"><i class="fa-solid {{1}} text-sm"></i></span>
+            <h3 class="logistics-booking-subheading"><!--{{2}}--></h3>
           </div></template>
-<template id="logistics-booking-spinner"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span></template>
+<template id="logistics-booking-spinner"><span class="spinner logistics-booking-label-4"></span></template>
 
   <noscript>This page needs JavaScript enabled.</noscript>
   <script src="../../../common/core/template.js"></script>

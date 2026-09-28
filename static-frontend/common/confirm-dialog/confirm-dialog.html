@@ -5,22 +5,22 @@
   Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
 -->
 <template id="confirm-dialog">
-      <app-confirm-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-        <div class="card w-full max-w-md" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
-          <div class="flex items-start gap-3">
-            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full{{0}}">
+      <app-confirm-dialog><div class="confirm-dialog-overlay">
+        <div class="card confirm-dialog-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+          <div class="confirm-dialog-bar">
+            <span class="confirm-dialog-label-2{{0}}">
               <i class="fa-solid fa-triangle-exclamation"></i>
             </span>
-            <div class="min-w-0">
-              <h2 id="confirm-dialog-title" class="m-0 text-lg font-bold text-slate-900"><!--{{1}}--></h2>
-              <p id="confirm-dialog-message" class="m-0 mt-1 text-sm text-slate-600"><!--{{2}}--></p>
+            <div class="confirm-dialog-box-2">
+              <h2 id="confirm-dialog-title" class="confirm-dialog-heading"><!--{{1}}--></h2>
+              <p id="confirm-dialog-message" class="confirm-dialog-text"><!--{{2}}--></p>
             </div>
           </div>
-          <div class="mt-5 flex justify-end gap-2">
+          <div class="confirm-dialog-bar-2">
             <button type="button" class="btn-outline" data-confirm-cancel="{{3}}" {{4}} onclick="U.$('{{5}}').opts.onCancel()"><!--{{6}}--></button>
             <button type="button" class="btn-primary{{7}}"
               {{8}} onclick="U.$('{{9}}').opts.onConfirm()">
-              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
+              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner confirm-dialog-label"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
             </button>
           </div>
         </div>

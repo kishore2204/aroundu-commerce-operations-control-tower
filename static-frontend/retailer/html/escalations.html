@@ -23,8 +23,9 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
-  <link rel="stylesheet" href="../css/escalations.css">
+  <link rel="stylesheet" href="../../common/entity-ticket-queue/entity-ticket-queue.css">
 </head>
 <body>
   <!-- AroundU static frontend - Retailer - escalations page, route /retailer/escalations (Angular: src/app/features/retailer/escalations/retailer-escalations.component.html) -->
@@ -118,10 +119,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -130,19 +131,19 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
 
 <!-- BEGIN common/entity-ticket-queue/entity-ticket-queue.html -->
-<template id="entity-ticket-queue"><app-entity-ticket-queue><h1 class="text-2xl font-bold text-slate-900 mb-1">Escalations</h1>
-<p class="text-sm text-slate-500 mb-4">Support tickets escalated directly to <!--{{0}}--> for a response.</p>
+<template id="entity-ticket-queue"><app-entity-ticket-queue><h1 class="entity-ticket-queue-title">Escalations</h1>
+<p class="entity-ticket-queue-text-3">Support tickets escalated directly to <!--{{0}}--> for a response.</p>
 
-<!--{{1}}--><template id="entity-ticket-queue-1"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="entity-ticket-queue-2">
+<!--{{1}}--><template id="entity-ticket-queue-1"><div class="entity-ticket-queue-bar"><div class="spinner"></div></div></template><template id="entity-ticket-queue-2">
   <div class="table-card overflow-x-auto">
     <table class="custom-table">
       <thead>
@@ -156,9 +157,9 @@
         <!--{{0}}--><template id="entity-ticket-queue-2-1">
           <tr data-key="{{0}}">
             <td>
-              <a href="{{1}}" class="text-slate-900 hover:text-zepto-600">
-                <p class="font-semibold"><!--{{2}}--> - <!--{{3}}--></p>
-                <p class="text-sm text-slate-500 mt-0.5">
+              <a href="{{1}}" class="entity-ticket-queue-link">
+                <p class="entity-ticket-queue-text"><!--{{2}}--> - <!--{{3}}--></p>
+                <p class="entity-ticket-queue-text-2">
                   <!--{{4}}--> / <!--{{5}}-->
                   - <!--{{6}}-->
                 </p>
@@ -167,7 +168,7 @@
             <td>
               <!--{{7}}--><template id="entity-ticket-queue-2-1-1">
                 <span class="badge{{0}}"><!--{{1}}--></span></template><template id="entity-ticket-queue-2-1-2">
-                <span class="text-slate-400 text-sm">-</span></template>
+                <span class="entity-ticket-queue-label">-</span></template>
             </td>
             <td><span class="badge badge-pending"><!--{{8}}--></span></td>
           </tr></template>

@@ -1,7 +1,31 @@
 /*
  * loading-state.css - <app-loading-state> component styles.
- * Port of src/app/shared/loading-state/loading-state.component.css and the component's :host rules, scoped to <app-loading-state>.
+ * Angular: src/app/shared/loading-state/loading-state.component.html (+ .css); the component's :host rules are scoped to <app-loading-state>.
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
  */
+.loading-state-text {
+  margin: 0px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.loading-state-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* the Angular component's own stylesheet */
 app-loading-state {
   display: block;
 }

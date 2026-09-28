@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../../../common/header/header.css">
   <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
   <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
   <link rel="stylesheet" href="../../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../components/loading-state/loading-state.css">
   <link rel="stylesheet" href="../components/serviceability-conflict-dialog/serviceability-conflict-dialog.css">
@@ -158,49 +159,49 @@
 
 <main class="customer-main" onclick="Shell.closeAccountMenu()">
   <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-checkout><!--{{0}}--><!--tpl:checkout (this page)-->
-<h1 class="mb-4 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
-  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-    <i class="fa-solid fa-bag-shopping text-sm"></i>
+<h1 class="checkout-title">
+  <span class="checkout-label-9">
+    <i class="fa-solid fa-bag-shopping checkout-icon-4"></i>
   </span>
   Checkout
 </h1>
 
-<!--{{0}}--><template id="checkout-1"><div class="flex justify-center py-10"><div class="spinner"></div></div></template><template id="checkout-2">
+<!--{{0}}--><template id="checkout-1"><div class="checkout-bar"><div class="spinner"></div></div></template><template id="checkout-2">
   <!--{{0}}-->
-  <div class="mt-4 flex justify-center"><a class="btn-primary" href="{{1}}">Browse products</a></div></template><template id="checkout-3">
-  <div class="card flex flex-col items-center gap-3 py-10 text-center">
-    <i class="fa-solid fa-circle-check text-5xl text-emerald-500"></i>
-    <h2 class="text-xl font-extrabold text-slate-900"><!--{{0}}--></h2>
-    <p class="text-sm text-slate-600">Your cart has been separated correctly by shop. Each shop receives only its own items and order total.</p>
-    <div class="mt-1 flex max-w-xl flex-wrap justify-center gap-2">
-      <!--{{1}}--><template id="checkout-3-1"><a class="btn-outline !py-1.5 !px-3 !text-xs" href="{{0}}">Order #<!--{{1}}--></a></template>
+  <div class="checkout-bar-2"><a class="btn-primary" href="{{1}}">Browse products</a></div></template><template id="checkout-3">
+  <div class="card checkout-stack py-10">
+    <i class="fa-solid fa-circle-check checkout-icon"></i>
+    <h2 class="checkout-heading"><!--{{0}}--></h2>
+    <p class="checkout-text">Your cart has been separated correctly by shop. Each shop receives only its own items and order total.</p>
+    <div class="checkout-bar-3">
+      <!--{{1}}--><template id="checkout-3-1"><a class="btn-outline checkout-link" href="{{0}}">Order #<!--{{1}}--></a></template>
     </div>
-    <a class="btn-primary mt-2" href="{{2}}">View all orders</a>
+    <a class="btn-primary checkout-link-2" href="{{2}}">View all orders</a>
   </div></template><template id="checkout-4">
-  <section class="card mb-4">
-    <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
-      <i class="fa-solid fa-location-dot text-violet-500"></i> Delivery address
+  <section class="card checkout-section-2">
+    <h2 class="checkout-heading-3">
+      <i class="fa-solid fa-location-dot checkout-icon-2"></i> Delivery address
     </h2>
     <!--{{0}}--><template id="checkout-4-1">
-      <div class="flex items-start justify-between gap-3 rounded-xl border border-zepto-100 bg-zepto-50/40 p-3.5">
+      <div class="checkout-bar-4">
         <div>
-          <span class="badge badge-active !inline-block mb-1.5"><!--{{0}}--></span>
-          <p class="text-sm font-semibold text-slate-800 m-0"><!--{{1}}--><!--{{2}}--></p>
-          <p class="text-sm text-slate-500 m-0"><!--{{3}}--><!--{{4}}--></p>
+          <span class="badge badge-active checkout-label-3"><!--{{0}}--></span>
+          <p class="checkout-text-2"><!--{{1}}--><!--{{2}}--></p>
+          <p class="checkout-text-3"><!--{{3}}--><!--{{4}}--></p>
         </div>
       </div>
-      <p class="mt-2 text-xs text-slate-500">
-        To deliver somewhere else, <a href="{{5}}" class="font-semibold text-zepto-600 hover:text-zepto-700">change your address in Profile</a> first.
+      <p class="checkout-text-4">
+        To deliver somewhere else, <a href="{{5}}" class="checkout-link-3">change your address in Profile</a> first.
       </p></template><template id="checkout-4-2">
       <!--{{0}}-->
-      <a href="{{1}}" class="btn-primary mt-3 inline-flex">Go to Profile</a></template>
+      <a href="{{1}}" class="btn-primary checkout-link-4">Go to Profile</a></template>
   </section>
 
-  <section class="card mb-4">
-    <h2 class="mb-3 flex items-center gap-2 text-base font-extrabold text-slate-900">
-      <i class="fa-solid fa-credit-card text-violet-500"></i> <span class="req-mark">Payment method</span>
+  <section class="card checkout-section-2">
+    <h2 class="checkout-heading-3">
+      <i class="fa-solid fa-credit-card checkout-icon-2"></i> <span class="req-mark">Payment method</span>
     </h2>
-    <div class="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+    <div class="checkout-grid">
       <!--{{1}}-->
       <!--{{2}}-->
       <!--{{3}}-->
@@ -208,49 +209,49 @@
     </div>
   </section>
 
-  <!--{{5}}--><template id="checkout-4-3"><p class="mb-3 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+  <!--{{5}}--><template id="checkout-4-3"><p class="checkout-text-5"><!--{{0}}--></p></template>
 
   <!--{{6}}--><template id="checkout-4-4">
-    <div class="mb-4 flex items-center gap-2 rounded-xl border border-zepto-100 bg-zepto-50/40 px-4 py-3 text-sm font-semibold text-zepto-700">
-      <span class="spinner h-4 w-4 border-2"></span> Calculating order total...
+    <div class="checkout-bar-5">
+      <span class="spinner checkout-label-4"></span> Calculating order total...
     </div></template>
 
   <!--{{7}}--><template id="checkout-4-5">
-    <section class="card mb-4 space-y-1">
-      <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
-        <i class="fa-solid fa-receipt text-violet-500"></i> Order summary
+    <section class="card checkout-section">
+      <h2 class="checkout-heading-2">
+        <i class="fa-solid fa-receipt checkout-icon-2"></i> Order summary
       </h2>
-      <p class="flex justify-between text-sm text-slate-600"><span>Subtotal</span><span><!--{{0}}--></span></p>
-      <p class="flex justify-between text-sm text-slate-600"><span>Tax</span><span><!--{{1}}--></span></p>
-      <p class="flex justify-between text-sm text-slate-600"><span>Delivery</span><span><!--{{2}}--></span></p>
-      <p class="flex justify-between text-sm text-slate-600"><span>Platform fee</span><span><!--{{3}}--></span></p>
-      <!--{{4}}--><template id="checkout-4-5-1"><p class="flex justify-between text-sm text-emerald-600"><span>Reward points redeemed</span><span>-<!--{{0}}--></span></p></template>
-      <p class="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 px-3 py-2.5 text-lg font-extrabold text-slate-900">
-        <span>Total</span><span class="text-zepto-700"><!--{{5}}--></span>
+      <p class="checkout-text-8"><span>Subtotal</span><span><!--{{0}}--></span></p>
+      <p class="checkout-text-8"><span>Tax</span><span><!--{{1}}--></span></p>
+      <p class="checkout-text-8"><span>Delivery</span><span><!--{{2}}--></span></p>
+      <p class="checkout-text-8"><span>Platform fee</span><span><!--{{3}}--></span></p>
+      <!--{{4}}--><template id="checkout-4-5-1"><p class="checkout-text-6"><span>Reward points redeemed</span><span>-<!--{{0}}--></span></p></template>
+      <p class="checkout-text-9">
+        <span>Total</span><span class="checkout-label-5"><!--{{5}}--></span>
       </p>
-      <!--{{6}}--><template id="checkout-4-5-2"><p class="text-sm font-semibold text-rose-600">This product is not serviceable at this location.</p></template>
+      <!--{{6}}--><template id="checkout-4-5-2"><p class="checkout-text-7">This product is not serviceable at this location.</p></template>
     </section></template><template id="checkout-4-6">
-    <section class="card mb-4 space-y-1">
-      <h2 class="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
-        <i class="fa-solid fa-receipt text-violet-500"></i> Order summary
+    <section class="card checkout-section">
+      <h2 class="checkout-heading-2">
+        <i class="fa-solid fa-receipt checkout-icon-2"></i> Order summary
       </h2>
-      <p class="flex justify-between text-sm text-slate-600"><span>Subtotal</span><span><!--{{0}}--></span></p>
-      <p class="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 px-3 py-2.5 text-lg font-extrabold text-slate-900">
-        <span>Total (estimated)</span><span class="text-zepto-700"><!--{{1}}--></span>
+      <p class="checkout-text-8"><span>Subtotal</span><span><!--{{0}}--></span></p>
+      <p class="checkout-text-9">
+        <span>Total (estimated)</span><span class="checkout-label-5"><!--{{1}}--></span>
       </p>
     </section></template>
 
-  <!--{{8}}--><template id="checkout-4-7"><p class="mb-3 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+  <!--{{8}}--><template id="checkout-4-7"><p class="checkout-text-5"><!--{{0}}--></p></template>
 
   <!--{{9}}--><template id="checkout-4-8">
-    <div class="flex flex-col gap-3 pb-24 sm:flex-row sm:justify-end sm:pb-0">
-      <button type="button" class="btn-primary hidden sm:inline-flex" onclick="Page.placeOrder()" {{0}}>
+    <div class="checkout-stack-2">
+      <button type="button" class="btn-primary checkout-button" onclick="Page.placeOrder()" {{0}}>
         <!--{{1}}-->
       </button>
     </div>
 
-    <div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-100 bg-white p-3 shadow-card-hover sm:hidden">
-      <button type="button" class="btn-primary w-full" onclick="Page.placeOrder()" {{2}}>
+    <div class="checkout-box">
+      <button type="button" class="btn-primary checkout-button-2" onclick="Page.placeOrder()" {{2}}>
         <!--{{3}}-->
       </button>
     </div></template></template>
@@ -258,46 +259,46 @@
 <!--{{1}}-->
 
 <!--{{2}}--><template id="checkout-5">
-  <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
-    <div class="animate-pop-in w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl">
-      <div class="mb-4 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-zepto-600 to-violet-500 text-white">
-            <i class="fa-solid fa-shield-halved text-xs"></i>
+  <div class="checkout-overlay">
+    <div class="checkout-panel">
+      <div class="checkout-bar-7">
+        <div class="checkout-bar-8">
+          <span class="checkout-label-7">
+            <i class="fa-solid fa-shield-halved checkout-icon-3"></i>
           </span>
-          <span class="font-extrabold text-slate-900">AroundU Secure Pay</span>
+          <span class="checkout-label-8">AroundU Secure Pay</span>
         </div>
         <button type="button" class="btn-icon" onclick="Page.cancelPayment()" {{0}} aria-label="Close">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="mb-4 rounded-xl bg-gradient-to-r from-zepto-50 to-violet-50 p-3 text-center">
-        <p class="text-xs text-slate-500">Amount payable</p>
-        <p class="text-2xl font-extrabold text-zepto-700"><!--{{1}}--></p>
+      <div class="checkout-panel-2">
+        <p class="checkout-text-10">Amount payable</p>
+        <p class="checkout-text-11"><!--{{1}}--></p>
       </div>
 
       <!--{{2}}--><template id="checkout-5-1">
-        <div class="space-y-2">
+        <div class="checkout-box-2">
           <label class="form-label">Enter UPI ID</label>
           <input class="input" name="upiId" value="{{0}}" oninput="Page.state.upiId = this.value" placeholder="name@upi" {{1}} />
         </div></template><template id="checkout-5-2">
-        <div class="space-y-2">
+        <div class="checkout-box-2">
           <label class="form-label">Card Number</label>
           <input class="input" name="cardNumber" value="{{0}}" oninput="Page.state.cardNumber = this.value" placeholder="1234 5678 9012 3456" maxlength="19" {{1}} />
-          <div class="flex gap-2">
+          <div class="checkout-bar-6">
             <input class="input" name="cardExpiry" value="{{2}}" oninput="Page.state.cardExpiry = this.value" placeholder="MM/YY" maxlength="5" {{3}} />
             <input class="input" name="cardCvv" value="{{4}}" oninput="Page.state.cardCvv = this.value" placeholder="CVV" maxlength="3" {{5}} />
           </div>
         </div></template><template id="checkout-5-3">
-        <p class="text-sm text-slate-600">You'll be redirected to your wallet app to complete payment.</p></template>
+        <p class="checkout-text">You'll be redirected to your wallet app to complete payment.</p></template>
 
-      <p class="mt-3 text-center text-[11px] text-slate-400">This is a simulated payment gateway for demo purposes. No real payment is processed.</p>
+      <p class="checkout-text-12">This is a simulated payment gateway for demo purposes. No real payment is processed.</p>
 
-      <div class="mt-4 flex gap-3">
-        <button type="button" class="btn-outline flex-1" {{3}} onclick="Page.cancelPayment()">Cancel</button>
-        <button type="button" class="btn-primary flex-1" {{4}} onclick="Page.submitGatewayPayment()">
-          <!--{{5}}--><template id="checkout-5-4"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> Processing...</template><template id="checkout-5-5">Pay Now</template>
+      <div class="checkout-bar-9">
+        <button type="button" class="btn-outline checkout-button-3" {{3}} onclick="Page.cancelPayment()">Cancel</button>
+        <button type="button" class="btn-primary checkout-button-3" {{4}} onclick="Page.submitGatewayPayment()">
+          <!--{{5}}--><template id="checkout-5-4"><span class="spinner checkout-label-6"></span> Processing...</template><template id="checkout-5-5">Pay Now</template>
         </button>
       </div>
     </div>
@@ -322,10 +323,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -353,46 +354,46 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
 
 <!-- BEGIN customer/commerce/components/loading-state/loading-state.html -->
 <template id="loading-state">
-      <app-loading-state class="{{0}}"><div class="flex flex-col items-center justify-center gap-3 py-12 px-4">
+      <app-loading-state class="{{0}}"><div class="loading-state-stack">
         <div class="spinner" style="width: {{1}}px; height: {{2}}px;"></div>
-        <!--{{3}}--><template id="loading-state-1"><p class="message text-sm text-slate-500 m-0"><!--{{0}}--></p></template>
+        <!--{{3}}--><template id="loading-state-1"><p class="message loading-state-text"><!--{{0}}--></p></template>
       </div></app-loading-state></template>
 <!-- END customer/commerce/components/loading-state/loading-state.html -->
 
 <!-- BEGIN customer/commerce/components/serviceability-conflict-dialog/serviceability-conflict-dialog.html -->
 <template id="serviceability-conflict-dialog">
-      <app-serviceability-conflict-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4" onclick="{{0}}.onClosed(undefined)">
-        <div class="card w-full max-w-lg max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
-          <div class="flex items-start justify-between gap-3 p-5 border-b border-slate-100">
-            <h2 class="text-base font-semibold text-slate-800 m-0">This product is not serviceable at this location.</h2>
-            <button type="button" class="btn-icon !w-8 !h-8 shrink-0" aria-label="Close" onclick="{{1}}.onClosed(undefined)">
+      <app-serviceability-conflict-dialog><div class="serviceability-conflict-dialog-overlay" onclick="{{0}}.onClosed(undefined)">
+        <div class="card serviceability-conflict-dialog-box" onclick="event.stopPropagation()">
+          <div class="serviceability-conflict-dialog-bar-4">
+            <h2 class="serviceability-conflict-dialog-heading">This product is not serviceable at this location.</h2>
+            <button type="button" class="btn-icon serviceability-conflict-dialog-button-3" aria-label="Close" onclick="{{1}}.onClosed(undefined)">
               <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
 
-          <div class="p-5">
-            <ul class="list-none m-0 p-0 flex flex-col gap-3">
+          <div class="serviceability-conflict-dialog-box-2">
+            <ul class="serviceability-conflict-dialog-list">
               <!--{{2}}--><template id="serviceability-conflict-dialog-1">
-                <li class="flex items-center justify-between gap-4 py-2 border-b border-slate-100 last:border-b-0">
-                  <div class="flex items-center gap-2 min-w-0">
-                    <i class="fa-solid fa-circle-exclamation text-rose-600"></i>
-                    <span class="font-medium text-slate-800 truncate"><!--{{0}}--></span>
+                <li class="serviceability-conflict-dialog-item">
+                  <div class="serviceability-conflict-dialog-bar">
+                    <i class="fa-solid fa-circle-exclamation serviceability-conflict-dialog-icon"></i>
+                    <span class="serviceability-conflict-dialog-label"><!--{{0}}--></span>
                   </div>
-                  <div class="flex gap-2 shrink-0">
-                    <button type="button" class="btn-outline !py-1.5 !px-3 text-xs" onclick="{{1}}.onClosed({ type: 'try-another-shop', productId: {{2}} })">
+                  <div class="serviceability-conflict-dialog-bar-2">
+                    <button type="button" class="btn-outline serviceability-conflict-dialog-button" onclick="{{1}}.onClosed({ type: 'try-another-shop', productId: {{2}} })">
                       Try Another Shop
                     </button>
-                    <button type="button" class="text-xs font-medium text-rose-600 hover:underline px-1" onclick="{{3}}.onClosed({ type: 'remove', productId: {{4}} })">
+                    <button type="button" class="serviceability-conflict-dialog-button-2" onclick="{{3}}.onClosed({ type: 'remove', productId: {{4}} })">
                       Remove
                     </button>
                   </div>
@@ -401,7 +402,7 @@
           </div>
 
           <!--{{3}}--><template id="serviceability-conflict-dialog-2">
-            <div class="flex justify-end p-5 pt-0">
+            <div class="serviceability-conflict-dialog-bar-3">
               <button type="button" class="btn-primary" onclick="{{0}}.onClosed({ type: 'change-address' })">Choose a Different Address</button>
             </div></template>
         </div>
@@ -410,10 +411,10 @@
 
 <!-- checkout page: other templates (js/checkout.js) -->
 <template id="checkout-method">
-      <label class="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-slate-200 p-3 text-center transition-all duration-150 has-[:checked]:border-zepto-500 has-[:checked]:bg-zepto-50 has-[:checked]:shadow-card hover:border-zepto-200">
-        <input type="radio" name="paymentMethod" value="{{0}}" {{1}} onchange="Page.state.paymentMethod = this.value" class="sr-only" />
+      <label class="checkout-label">
+        <input type="radio" name="paymentMethod" value="{{0}}" {{1}} onchange="Page.state.paymentMethod = this.value" class="checkout-input" />
         <i class="{{2}} text-lg text-zepto-600"></i>
-        <span class="text-xs font-bold text-slate-700"><!--{{3}}--></span>
+        <span class="checkout-label-2"><!--{{3}}--></span>
       </label></template>
 
   <noscript>This page needs JavaScript enabled.</noscript>

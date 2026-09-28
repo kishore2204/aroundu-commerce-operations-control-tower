@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
@@ -103,15 +104,15 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><h1 class="mb-6 flex items-center gap-2.5 text-2xl font-bold text-slate-900">
-  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-    <i class="fa-solid fa-gauge-high text-sm"></i>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><h1 class="dashboard-title-2">
+  <span class="dashboard-label-17">
+    <i class="fa-solid fa-gauge-high dashboard-icon-6"></i>
   </span>
   Operations overview
 </h1>
 
-<!--{{0}}--><template id="dashboard-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="dashboard-2">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<!--{{0}}--><template id="dashboard-1"><div class="dashboard-bar-23"><span class="spinner"></span></div></template><template id="dashboard-2">
+  <div class="dashboard-grid-9">
     <!--{{0}}-->
     <!--{{1}}-->
     <!--{{2}}-->
@@ -120,10 +121,10 @@
 
   <!--{{4}}--><template id="dashboard-2-1">
     <section>
-      <h2 class="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
-        <i class="fa-solid fa-coins text-violet-500"></i> Platform finance snapshot
+      <h2 class="dashboard-heading-5">
+        <i class="fa-solid fa-coins dashboard-icon-5"></i> Platform finance snapshot
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="dashboard-grid-8">
         <!--{{0}}-->
         <!--{{1}}-->
         <!--{{2}}-->
@@ -145,10 +146,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -162,14 +163,14 @@
         <i class="fa-solid {{3}}"></i>
       </div>
       <div>
-        <p class="text-2xl font-extrabold text-slate-900"><!--{{4}}--></p>
-        <p class="text-sm text-slate-500"><!--{{5}}--></p>
+        <p class="dashboard-text-23"><!--{{4}}--></p>
+        <p class="dashboard-text-24"><!--{{5}}--></p>
       </div>
     </a></template>
 <template id="dashboard-stat">
         <div class="card">
-          <p class="text-xl font-extrabold text-slate-900"><!--{{0}}--></p>
-          <p class="text-sm text-slate-500 mt-1"><!--{{1}}--></p>
+          <p class="dashboard-text-25"><!--{{0}}--></p>
+          <p class="dashboard-text-26"><!--{{1}}--></p>
         </div></template>
 
   <noscript>This page needs JavaScript enabled.</noscript>

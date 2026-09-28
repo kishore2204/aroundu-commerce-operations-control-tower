@@ -1,0 +1,67 @@
+/*
+ * confirm-dialog.css - <app-confirm-dialog> component styles.
+ * Angular: src/app/shared/confirm-dialog/confirm-dialog.component.html (+ .css).
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
+ */
+.confirm-dialog-label {
+  height: 1rem !important;
+  width: 1rem !important;
+  border-color: rgb(255 255 255 / 0.4) !important;
+  --tw-border-opacity: 1 !important;
+  border-top-color: rgb(255 255 255 / var(--tw-border-opacity, 1)) !important;
+}
+.confirm-dialog-overlay {
+  position: fixed;
+  inset: 0px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15 23 42 / 0.5);
+  padding: 1rem;
+}
+.confirm-dialog-box {
+  width: 100%;
+  max-width: 28rem;
+}
+.confirm-dialog-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.confirm-dialog-label-2 {
+  display: grid;
+  height: 2.5rem;
+  width: 2.5rem;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 9999px;
+}
+.confirm-dialog-box-2 {
+  min-width: 0px;
+}
+.confirm-dialog-heading {
+  margin: 0px;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.confirm-dialog-text {
+  margin: 0px;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+.confirm-dialog-bar-2 {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

@@ -13,27 +13,28 @@
   <link rel="stylesheet" href="../../../common/utilities/utilities.css">
   <link rel="stylesheet" href="../../../common/animations/animations.css">
   <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
   <link rel="stylesheet" href="../css/unavailable.css">
 </head>
 <body>
   <!-- AroundU static frontend - Customer - Commerce - unavailable page, route /unavailable (Angular: src/app/features/unavailable/unavailable.component.html) -->
   <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-unavailable><!--{{0}}--><!--tpl:unavailable (this page)-->
-<div class="flex min-h-[70vh] flex-col items-center justify-center gap-3 px-4 text-center">
-  <i class="fa-solid fa-map-location-dot text-6xl text-zepto-300"></i>
-  <h1 class="text-xl font-extrabold text-slate-900">Not available for your account yet</h1>
-  <p class="max-w-sm text-sm text-slate-500">
+<div class="unavailable-stack">
+  <i class="fa-solid fa-map-location-dot unavailable-icon"></i>
+  <h1 class="unavailable-title">Not available for your account yet</h1>
+  <p class="unavailable-text">
     This workspace is currently only built for CUSTOMER accounts. Support for your role is coming in a future update.
   </p>
-  <a class="btn-primary mt-2" href="{{0}}">Back to sign in</a>
+  <a class="btn-primary unavailable-link" href="{{0}}">Back to sign in</a>
 </div><!--/tpl:unavailable--></app-unavailable><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
 
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>

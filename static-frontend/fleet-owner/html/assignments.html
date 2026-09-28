@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../css/assignments.css">
 </head>
@@ -106,44 +107,44 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-assignments><!--{{0}}--><!--tpl:assignments (this page)--><div class="mb-6">
-  <h1 class="text-2xl font-bold text-slate-900">Delivery Requests</h1>
-  <p class="text-sm text-slate-500 mt-1">Review pickup, drop, distance and load details before assigning a vehicle and driver.</p>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-assignments><!--{{0}}--><!--tpl:assignments (this page)--><div class="assignments-box-4">
+  <h1 class="assignments-title">Delivery Requests</h1>
+  <p class="assignments-text-3">Review pickup, drop, distance and load details before assigning a vehicle and driver.</p>
 </div>
 
 <!--{{0}}--><template id="assignments-1">
-  <div class="fixed top-4 right-4 z-50 card px-4 py-3 text-sm font-medium text-slate-800 shadow-card-hover animate-fade-in">
+  <div class="assignments-box card px-4 py-3 shadow-card-hover animate-fade-in">
     <!--{{0}}-->
   </div></template>
 
-<!--{{1}}--><template id="assignments-2"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="assignments-3">
+<!--{{1}}--><template id="assignments-2"><div class="assignments-bar"><div class="spinner"></div></div></template><template id="assignments-3">
   <!--{{0}}--><template id="assignments-3-1">
-    <div class="mb-5 flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+    <div class="assignments-bar-2">
       <i class="fa-solid fa-triangle-exclamation"></i>
       <span>You need at least one verified active vehicle and one verified active driver before you can dispatch an order.</span>
     </div></template>
 
-  <div class="grid grid-cols-1 gap-5 xl:grid-cols-2">
+  <div class="assignments-grid-3">
     <!--{{1}}--><template id="assignments-3-2">
-      <div class="card card-hover flex flex-col" data-key="{{0}}">
-        <div class="flex items-center justify-between border-b border-dashed border-slate-200 pb-3 mb-4">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-receipt text-zepto-600"></i>
-            <span class="font-bold text-slate-900"><!--{{1}}--></span>
+      <div class="card card-hover assignments-stack" data-key="{{0}}">
+        <div class="assignments-bar-3">
+          <div class="assignments-bar-4">
+            <i class="fa-solid fa-receipt assignments-icon"></i>
+            <span class="assignments-label-3"><!--{{1}}--></span>
           </div>
           <span class="badge{{2}}">
             <!--{{3}}-->
           </span>
         </div>
 
-        <div class="mb-4 grid gap-3 rounded-xl bg-slate-50 p-4 text-sm sm:grid-cols-2">
-          <div class="sm:col-span-2">
-            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Pickup</p>
-            <p class="mt-1 font-semibold text-slate-800"><i class="fa-solid fa-store mr-1 text-zepto-500"></i><!--{{4}}--></p>
+        <div class="assignments-grid">
+          <div class="assignments-box-3">
+            <p class="assignments-text">Pickup</p>
+            <p class="assignments-text-2"><i class="fa-solid fa-store assignments-icon-2"></i><!--{{4}}--></p>
           </div>
-          <div class="sm:col-span-2">
-            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Drop</p>
-            <p class="mt-1 font-semibold text-slate-800"><i class="fa-solid fa-location-dot mr-1 text-violet-500"></i><!--{{5}}--></p>
+          <div class="assignments-box-3">
+            <p class="assignments-text">Drop</p>
+            <p class="assignments-text-2"><i class="fa-solid fa-location-dot assignments-icon-3"></i><!--{{5}}--></p>
           </div>
           <!--{{6}}-->
           <!--{{7}}-->
@@ -151,7 +152,7 @@
           <!--{{9}}-->
         </div>
 
-        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div class="assignments-grid-2">
           <div class="form-group">
             <label class="form-label req-mark">Assign Vehicle</label>
             <select class="select" data-value="{{10}}" onchange="Page.select('vehicle', {{11}}, this.value)">
@@ -160,8 +161,8 @@
                 <!--{{1}}--> · <!--{{2}}--> kg<!--{{3}}-->
               </option></template>
             </select>
-            <!--{{13}}--><template id="assignments-3-2-2"><span class="text-xs text-slate-500">Vehicle capacity: <!--{{0}}--></span></template>
-            <!--{{14}}--><template id="assignments-3-2-3"><span class="text-xs text-rose-600"><!--{{0}}--></span></template>
+            <!--{{13}}--><template id="assignments-3-2-2"><span class="assignments-label">Vehicle capacity: <!--{{0}}--></span></template>
+            <!--{{14}}--><template id="assignments-3-2-3"><span class="assignments-label-2"><!--{{0}}--></span></template>
           </div>
 
           <div class="form-group">
@@ -175,8 +176,8 @@
           </div>
         </div>
 
-        <button type="button" class="btn-primary mt-auto w-full" onclick="Page.accept({{18}})" {{19}}>
-          <!--{{20}}--><template id="assignments-3-2-5"><div class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></div></template><template id="assignments-3-2-6"><i class="fa-solid fa-circle-check"></i> Accept &amp; Dispatch </template>
+        <button type="button" class="btn-primary assignments-button" onclick="Page.accept({{18}})" {{19}}>
+          <!--{{20}}--><template id="assignments-3-2-5"><div class="spinner assignments-box-2"></div></template><template id="assignments-3-2-6"><i class="fa-solid fa-circle-check"></i> Accept &amp; Dispatch </template>
         </button>
       </div></template>
   </div></template><!--/tpl:assignments--></app-fleet-assignments><!--/tpl:page-outlet-->
@@ -193,10 +194,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -205,10 +206,10 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
@@ -216,7 +217,7 @@
 <!-- assignments page: other templates (js/assignments.js) -->
 <template id="assignments-field">
           <div>
-            <p class="text-xs font-bold uppercase tracking-wide text-slate-400"><!--{{0}}--></p>
+            <p class="assignments-text"><!--{{0}}--></p>
             <p class="{{1}}"><!--{{2}}--></p>
           </div></template>
 

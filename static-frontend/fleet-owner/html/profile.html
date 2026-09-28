@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../css/profile.css">
 </head>
 <body>
@@ -104,10 +105,10 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-profile><!--{{0}}--><!--tpl:profile (this page)--><h1 class="text-2xl font-bold text-slate-900 mb-4">Fleet business profile</h1>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-profile><!--{{0}}--><!--tpl:profile (this page)--><h1 class="profile-title-3">Fleet business profile</h1>
 
-<!--{{0}}--><template id="profile-1"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="profile-2"><p class="text-sm text-slate-500">Complete onboarding first to set up your business profile.</p></template><template id="profile-3">
-  <div class="card max-w-2xl">
+<!--{{0}}--><template id="profile-1"><div class="profile-bar-6"><div class="spinner"></div></div></template><template id="profile-2"><p class="profile-text-11">Complete onboarding first to set up your business profile.</p></template><template id="profile-3">
+  <div class="card profile-box-3">
     <form novalidate onsubmit="event.preventDefault(); Page.save()">
       <div class="form-grid">
         <div class="form-group full-width">
@@ -116,14 +117,14 @@
         </div>
         <div class="form-group full-width">
           <label class="form-label">Zone</label>
-          <p class="text-sm font-semibold text-slate-800 m-0">
-            <i class="fa-solid fa-map-location-dot text-zepto-600"></i>
+          <p class="profile-text-14">
+            <i class="fa-solid fa-map-location-dot profile-icon-2"></i>
             <!--{{1}}-->
           </p>
         </div>
       </div>
-      <!--{{2}}--><template id="profile-3-1"><p class="text-sm text-rose-600 mb-3"><!--{{0}}--></p></template>
-      <!--{{3}}--><template id="profile-3-2"><p class="text-sm text-emerald-600 mb-3">Saved.</p></template>
+      <!--{{2}}--><template id="profile-3-1"><p class="profile-text-12"><!--{{0}}--></p></template>
+      <!--{{3}}--><template id="profile-3-2"><p class="profile-text-13">Saved.</p></template>
       <button type="submit" class="btn-primary" {{4}}>
         Save changes
       </button>
@@ -142,10 +143,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>

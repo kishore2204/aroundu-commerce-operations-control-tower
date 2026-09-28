@@ -5,50 +5,50 @@
   Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
 -->
 <template id="product-card">
-      <app-product-card class="{{0}}" data-key="{{1}}"><div class="card card-hover group overflow-hidden cursor-pointer h-full flex flex-col !p-0 border border-slate-200/60 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300" onclick="{{2}}.open()">
-        <div class="relative aspect-square overflow-hidden bg-gradient-to-br from-zepto-50 via-indigo-50/40 to-violet-100/50 flex items-center justify-center border-b border-slate-100">
-          <!--{{3}}--><template id="product-card-1"><img src="{{0}}" alt="{{1}}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" /></template><template id="product-card-2">
-            <span class="select-none font-display text-6xl font-black tracking-tighter bg-gradient-to-br from-zepto-600 to-indigo-600 bg-clip-text text-transparent opacity-30 transition-transform duration-500 group-hover:scale-125">
+      <app-product-card class="{{0}}" data-key="{{1}}"><div class="card card-hover group product-card-stack !p-0 border border-slate-200/60 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300" onclick="{{2}}.open()">
+        <div class="product-card-bar-2">
+          <!--{{3}}--><template id="product-card-1"><img src="{{0}}" alt="{{1}}" class="product-card-image" /></template><template id="product-card-2">
+            <span class="product-card-label">
               <!--{{0}}-->
             </span></template>
 
           <!--{{4}}--><template id="product-card-3">
-            <span class="out-of-stock badge badge-inactive absolute top-3 left-3 !bg-white/90 backdrop-blur-md shadow-sm border border-slate-200 text-[10px]">Out of stock</span></template><template id="product-card-4">
-            <span class="badge badge-pending absolute top-3 left-3 !bg-white/90 backdrop-blur-md shadow-sm border border-amber-200 text-[10px] text-amber-700">Only <!--{{0}}--> left</span></template>
+            <span class="out-of-stock badge badge-inactive product-card-label-2">Out of stock</span></template><template id="product-card-4">
+            <span class="badge badge-pending product-card-label-3">Only <!--{{0}}--> left</span></template>
 
-          <button type="button" class="absolute top-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-white/90 backdrop-blur-md shadow-sm transition-transform duration-200 hover:scale-110 active:scale-90 border border-slate-100"
+          <button type="button" class="product-card-button-3"
             aria-label="{{5}}" onclick="{{6}}.toggleWishlist(event)">
-            <i class="fa-solid fa-heart text-xs transition-colors{{7}}"></i>
+            <i class="fa-solid fa-heart product-card-icon-3{{7}}"></i>
           </button>
         </div>
 
-        <div class="p-3.5 flex flex-col gap-1 flex-1">
-          <p class="text-[10px] font-display font-extrabold uppercase tracking-wider text-slate-400"><!--{{8}}--></p>
-          <h3 class="name font-extrabold text-slate-900 text-xs sm:text-sm leading-snug line-clamp-2 min-h-[2.4em] group-hover:text-zepto-700 transition-colors"><!--{{9}}--></h3>
+        <div class="product-card-stack-2">
+          <p class="product-card-text"><!--{{8}}--></p>
+          <h3 class="name product-card-subheading"><!--{{9}}--></h3>
 
-          <button type="button" class="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500 font-semibold hover:text-zepto-600 self-start max-w-full transition-colors" onclick="{{10}}.openRetailerDialog(event)">
-            <i class="fa-solid fa-shop text-zepto-500 shrink-0 text-[10px]"></i>
-            <span class="truncate"><!--{{11}}--></span>
+          <button type="button" class="product-card-button-4" onclick="{{10}}.openRetailerDialog(event)">
+            <i class="fa-solid fa-shop product-card-icon-4"></i>
+            <span class="product-card-label-6"><!--{{11}}--></span>
           </button>
 
-          <div class="mt-2 flex items-baseline justify-between">
-            <p class="font-display font-black text-zepto-700 text-base sm:text-lg"><!--{{12}}--></p>
+          <div class="product-card-bar-3">
+            <p class="product-card-text-2"><!--{{12}}--></p>
           </div>
 
           <!--{{13}}--><template id="product-card-5">
-            <div class="mt-3 flex w-full items-center justify-between rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 !py-1.5 px-1.5" onclick="event.stopPropagation()">
-              <button type="button" class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white/15 text-white transition-colors hover:bg-white/25 active:scale-90 disabled:opacity-60"
+            <div class="product-card-bar" onclick="event.stopPropagation()">
+              <button type="button" class="product-card-button"
                 {{0}} aria-label="Decrease quantity" onclick="{{1}}.decrement(event)">
-                <i class="fa-solid fa-minus text-[10px]"></i>
+                <i class="fa-solid fa-minus product-card-icon"></i>
               </button>
-              <!--{{2}}--><template id="product-card-5-1"><span class="spinner !h-3.5 !w-3.5 !border-white/40 !border-t-white"></span></template><template id="product-card-5-2"><span class="text-xs font-extrabold text-white"><!--{{0}}--></span></template>
-              <button type="button" class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white/15 text-white transition-colors hover:bg-white/25 active:scale-90 disabled:opacity-60"
+              <!--{{2}}--><template id="product-card-5-1"><span class="spinner product-card-label-4"></span></template><template id="product-card-5-2"><span class="product-card-label-5"><!--{{0}}--></span></template>
+              <button type="button" class="product-card-button"
                 {{3}} aria-label="Increase quantity" onclick="{{4}}.increment(event)">
-                <i class="fa-solid fa-plus text-[10px]"></i>
+                <i class="fa-solid fa-plus product-card-icon"></i>
               </button>
             </div></template><template id="product-card-6">
-            <button type="button" class="btn-primary !py-2 text-xs mt-3 w-full rounded-xl" {{0}} onclick="{{1}}.addToCart(event)">
-              <!--{{2}}--><template id="product-card-6-1"><span class="spinner !h-3.5 !w-3.5 !border-white/40 !border-t-white"></span></template><template id="product-card-6-2"><i class="fa-solid fa-cart-plus text-[11px]"></i> Add to Cart</template>
+            <button type="button" class="btn-primary product-card-button-2" {{0}} onclick="{{1}}.addToCart(event)">
+              <!--{{2}}--><template id="product-card-6-1"><span class="spinner product-card-label-4"></span></template><template id="product-card-6-2"><i class="fa-solid fa-cart-plus product-card-icon-2"></i> Add to Cart</template>
             </button></template>
         </div>
       </div>

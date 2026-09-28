@@ -106,7 +106,7 @@ Its code lives once in `common/<component>/`, and each role has its own `.html` 
 | `services/` | The Angular services, one file each (same names and methods), answered locally |
 | `validation/`, `support-tickets/` | Input rules and messages; support ticket categories and SLA badge |
 | `fonts/`, `icons/`, `base/` | Web fonts, Font Awesome icons (both embedded), reset and page-wide base styles |
-| `utilities/` | `utilities.css`: the Tailwind utility classes the templates use, once for the whole site.<br>`variants.css`: their hover / focus / responsive versions. |
+| `utilities/` | The Tailwind utility classes still used as such (switched by the JS, or next to a shared class), once for the whole site: `utilities.css`, and `variants.css` for their hover / focus / responsive versions. |
 | `buttons/`, `cards/`, `badges/`, `forms/`, `spinner/`, `brandmark/`, `dropdown/`, `table/`, `page/`, `animations/` | The design system of `src/styles.scss`, one file per component |
 | `customer-shell/`, `header/`, `bottom-nav/`, `footer/` | Customer layout (used by `customer/commerce` and `customer/logistics`) |
 | `portal-shell/`, `sidebar/`, `portal-header/`, `portal-footer/` | Portal layout of the other roles |
@@ -147,13 +147,25 @@ exactly where it won in Angular:
 4. the plain `styles.scss` classes (`page`, `cards/card-surface`, `forms/form-layout`, `table`, `animations`);
 5. `utilities/variants.css`;
 6. the layout and component stylesheets;
-7. the page's own stylesheet.
+7. the page's own stylesheet: its named classes, then the Angular component's own CSS, if it has any.
 
-The pages keep the Angular templates' utility classes, one shared copy for the whole site, as the Angular build does.
-The shared layout (header, sidebar, footers, bottom navigation) uses semantic class names instead, for example
-`.sidebar-link`, `.sidebar-link--active` and `.header-address-button`. Their CSS has exactly the declarations of the
-utility classes they replace, in the same order. A page's own stylesheet is the Angular component's stylesheet;
-most Angular components style their template entirely with utility classes, so most of these files only say so.
+**Every page has its own stylesheet with real rules.** The Angular templates style their elements with Tailwind utility
+classes. Here each combination of them is one named class in the page's CSS file, for example `.cart-title`,
+`.catalogue-cell`, `.dashboard-heading`. The name is the page (or component) and the kind of element, numbered when a
+page has several. A class has exactly the declarations of the utilities it replaces: same values, same order, same
+hover / focus / responsive variants. The shared layout (header, sidebar, footers, bottom navigation) does the same, for
+example `.sidebar-link`, `.sidebar-link--active` and `.header-address-button`.
+
+Components have their own stylesheets too (`common/<component>/<component>.css`,
+`customer/commerce/components/<component>/<component>.css`). Four pages only host one component and have no
+stylesheet of their own: the address book and support pages of the customer, and the escalation pages of the retailer
+and the fleet owner.
+
+A few utility classes stay as they are, in `common/utilities/` (`utilities.css`, `variants.css`):
+
+* those the JavaScript switches on and off (active tab, selected row, status colours);
+* those next to a shared class that must keep winning, as in the Angular build (for example `.card` sets the padding,
+  so `card p-4` keeps its `p-4`).
 
 ---
 
@@ -374,6 +386,14 @@ a local web server (see *Start page*); every page then shares one origin and one
   drawer: 2,868 element-state checks, all identical. So the semantic layout classes style exactly like the utility
   classes they replace.
 
+* **Page stylesheets:** after the utility classes became named classes in the page and component stylesheets, every
+  page was compared with the build before that change. Every element had the same computed style, with its ::before,
+  ::after and ::placeholder: 11,080 elements on the 80 pages. The same was true with :hover, :focus,
+  :focus-visible and :active forced on every interactive or state-styled element: 11,830 forced-state checks.
+  The 190 saved page states of the screenshot comparison (dialogs, tabs, validation errors, flows) were compared the
+  same way: 188 are identical, 27,937 elements and 30,567 forced-state checks. The other 2 are multi-step flows (a fleet
+  dispatch and a driver pickup) that end in a slightly different state from one run to the next, even on the same build.
+
 **Against the Angular app**
 
 * The Angular production build and this folder were loaded side by side in Chromium, with the same session and the same
@@ -404,6 +424,11 @@ a local web server (see *Start page*); every page then shares one origin and one
   * location manager: open a verification request from the queue, open support.
 
   All pass in every mode.
+* **Every button and link:** on each of the 80 pages, signed in as that page's user, the check clicks every button and
+  link. It also clicks every item of what a click opens: menus, dialogs, forms, the address picker and the account
+  menu. It does this in a browser that gives every file its own storage and clears the tab copy (the Firefox case),
+  4,272 clicks in all. No click lost the session or the data. No click ended on the login page, except logging out. No
+  click caused a script error.
 * **Retailer profile:**
   * Initially: Edit enabled, Save disabled, fields disabled.
   * After Edit: fields enabled, Save still disabled.

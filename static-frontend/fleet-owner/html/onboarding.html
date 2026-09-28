@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/document-history/document-history.css">
   <link rel="stylesheet" href="../css/onboarding.css">
 </head>
 <body>
@@ -105,11 +107,11 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-onboarding><!--{{0}}--><!--tpl:onboarding (this page)--><h1 class="text-2xl font-bold text-slate-900 mb-4">Fleet owner onboarding</h1>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-onboarding><!--{{0}}--><!--tpl:onboarding (this page)--><h1 class="onboarding-title-2">Fleet owner onboarding</h1>
 
-<!--{{0}}--><template id="onboarding-1"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="onboarding-2">
-  <div class="card max-w-2xl">
-    <h2 class="text-lg font-semibold text-slate-900 mb-2">Register your fleet business</h2>
+<!--{{0}}--><template id="onboarding-1"><div class="onboarding-bar-7"><div class="spinner"></div></div></template><template id="onboarding-2">
+  <div class="card onboarding-box-3">
+    <h2 class="onboarding-heading-4">Register your fleet business</h2>
     <form novalidate onsubmit="event.preventDefault(); Page.register()">
       <div class="form-grid">
         <div class="form-group full-width">
@@ -131,70 +133,70 @@
           </select>
         </div>
       </div>
-      <!--{{6}}--><template id="onboarding-2-3"><p class="text-sm text-rose-600 mb-3"><!--{{0}}--></p></template>
+      <!--{{6}}--><template id="onboarding-2-3"><p class="onboarding-text-11"><!--{{0}}--></p></template>
       <button type="submit" class="btn-primary" {{7}}>
         Register
       </button>
     </form>
   </div></template><template id="onboarding-3">
-  <div class="card max-w-2xl">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-slate-900"><!--{{0}}--></h2>
+  <div class="card onboarding-box-3">
+    <div class="onboarding-bar-11">
+      <h2 class="onboarding-heading-5"><!--{{0}}--></h2>
       <span class="badge{{1}}">
         <!--{{2}}-->
       </span>
     </div>
 
     <!--{{3}}--><template id="onboarding-3-1">
-      <p class="text-sm text-emerald-600">You're verified! Head to your <a href="{{0}}" class="font-semibold underline">dashboard</a>.</p></template><template id="onboarding-3-2">
+      <p class="onboarding-text-12">You're verified! Head to your <a href="{{0}}" class="onboarding-link-2">dashboard</a>.</p></template><template id="onboarding-3-2">
       <section>
-        <h3 class="text-base font-semibold text-slate-900 mb-1">Required documents</h3>
-        <p class="text-sm text-slate-500 mb-3">Both documents below are compulsory for verification.</p>
+        <h3 class="onboarding-subheading-3">Required documents</h3>
+        <p class="onboarding-text-15">Both documents below are compulsory for verification.</p>
         <!--{{0}}--><template id="onboarding-3-2-1">
-          <div class="flex items-center gap-3 mb-2 p-3 rounded-lg border border-slate-200" data-key="{{0}}">
-            <span class="text-sm font-semibold text-slate-800 flex-1">
+          <div class="onboarding-bar-8" data-key="{{0}}">
+            <span class="onboarding-label-6">
               <!--{{1}}-->
-              <!--{{2}}--><template id="onboarding-3-2-1-1"><span class="badge badge-active ml-2">Already accepted</span></template><template id="onboarding-3-2-1-2"><span class="badge badge-danger ml-2">Re-upload required</span></template>
+              <!--{{2}}--><template id="onboarding-3-2-1-1"><span class="badge badge-active onboarding-label-5">Already accepted</span></template><template id="onboarding-3-2-1-2"><span class="badge badge-danger onboarding-label-5">Re-upload required</span></template>
               <!--{{3}}--><template id="onboarding-3-2-1-3"><span class="req-mark"></span></template>
               <!--{{4}}--><template id="onboarding-3-2-1-4">
-                <button type="button" class="ml-3 text-xs font-semibold text-zepto-600 hover:underline" onclick="Page.state.historyFor = {{0}}">View Document History</button></template>
+                <button type="button" class="onboarding-button-5" onclick="Page.state.historyFor = {{0}}">View Document History</button></template>
             </span>
-            <div class="flex items-center gap-2">
-              <input type="file" onchange="Page.onFileSelected(this, {{5}})" class="hidden" accept="image/*,.pdf" />
-              <button type="button" class="btn-outline whitespace-nowrap" onclick="this.previousElementSibling.click()">
+            <div class="onboarding-bar-9">
+              <input type="file" onchange="Page.onFileSelected(this, {{5}})" class="onboarding-input-2" accept="image/*,.pdf" />
+              <button type="button" class="btn-outline onboarding-button-6" onclick="this.previousElementSibling.click()">
                 <i class="fa-solid fa-upload"></i> <!--{{6}}-->
               </button>
-              <span class="text-xs text-slate-500 truncate"><!--{{7}}--></span>
+              <span class="onboarding-label-7"><!--{{7}}--></span>
             </div>
           </div></template>
 
-        <!--{{1}}--><template id="onboarding-3-2-2"><p class="text-sm text-rose-600"><!--{{0}}--></p></template>
-        <div class="flex gap-3 mt-3">
+        <!--{{1}}--><template id="onboarding-3-2-2"><p class="onboarding-text-13"><!--{{0}}--></p></template>
+        <div class="onboarding-bar-10">
           <button type="button" class="btn-primary" {{2}} onclick="Page.submitForVerification()">
             Submit for verification
           </button>
         </div>
       </section>
 
-      <section class="mt-6">
-        <h3 class="text-base font-semibold text-slate-900 mb-1">Current status</h3>
+      <section class="onboarding-section-3">
+        <h3 class="onboarding-subheading-3">Current status</h3>
         <!--{{3}}--><template id="onboarding-3-2-3">
-          <p class="text-sm text-slate-700">Status: <strong><!--{{0}}--></strong></p>
-          <!--{{1}}--><template id="onboarding-3-2-3-1"><p class="text-sm text-rose-600">Rejection reason: <!--{{0}}--></p></template></template>
-        <button type="button" class="btn-outline mt-2" onclick="Page.refreshStatus()" {{4}}>
+          <p class="onboarding-text-14">Status: <strong><!--{{0}}--></strong></p>
+          <!--{{1}}--><template id="onboarding-3-2-3-1"><p class="onboarding-text-13">Rejection reason: <!--{{0}}--></p></template></template>
+        <button type="button" class="btn-outline onboarding-button-7" onclick="Page.refreshStatus()" {{4}}>
           <i class="fa-solid fa-rotate"></i> Refresh status
         </button>
       </section></template>
   </div></template>
 
 <!--{{1}}--><template id="onboarding-4">
-  <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
-    <section class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl" role="dialog" aria-modal="true">
-      <h2 class="text-lg font-extrabold text-slate-900">Verification document resubmission required</h2>
-      <p class="mt-2 text-sm text-slate-600">Please re-upload only: <strong><!--{{0}}--></strong>.</p>
-      <!--{{1}}--><template id="onboarding-4-1"><p class="mt-2 rounded-xl bg-rose-50 p-3 text-sm text-rose-700"><!--{{0}}--></p></template>
-      <p class="mt-3 text-sm text-slate-500">Fleet operations remain locked until all mandatory documents are approved.</p>
-      <div class="mt-5 flex justify-end"><button type="button" class="btn-primary" onclick="Page.state.resubmissionPopupOpen = false">Continue</button></div>
+  <div class="onboarding-overlay-2">
+    <section class="onboarding-section-4" role="dialog" aria-modal="true">
+      <h2 class="onboarding-heading-6">Verification document resubmission required</h2>
+      <p class="onboarding-text-17">Please re-upload only: <strong><!--{{0}}--></strong>.</p>
+      <!--{{1}}--><template id="onboarding-4-1"><p class="onboarding-text-16"><!--{{0}}--></p></template>
+      <p class="onboarding-text-18">Fleet operations remain locked until all mandatory documents are approved.</p>
+      <div class="onboarding-bar-12"><button type="button" class="btn-primary" onclick="Page.state.resubmissionPopupOpen = false">Continue</button></div>
     </section>
   </div></template>
 
@@ -212,10 +214,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -224,15 +226,15 @@
 
 <!-- BEGIN common/document-history/document-history.html -->
 <template id="document-history-dialog"><app-document-history-dialog>
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-      <div class="card flex max-h-[90vh] w-full max-w-5xl flex-col" role="dialog" aria-modal="true" aria-labelledby="doc-history-title">
-        <div class="flex items-start justify-between gap-3">
-          <h2 id="doc-history-title" class="m-0 text-lg font-bold text-slate-900"><!--{{0}}--> - Document History</h2>
-          <button type="button" class="btn-icon !h-8 !w-8 shrink-0" aria-label="Close" onclick="{{1}}.close()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="document-history-overlay">
+      <div class="card document-history-stack" role="dialog" aria-modal="true" aria-labelledby="doc-history-title">
+        <div class="document-history-bar-2">
+          <h2 id="doc-history-title" class="document-history-heading"><!--{{0}}--> - Document History</h2>
+          <button type="button" class="btn-icon document-history-button-2" aria-label="Close" onclick="{{1}}.close()"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <!--{{2}}--><template id="document-history-dialog-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="document-history-dialog-2"><p class="mt-4 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template><template id="document-history-dialog-3"><p class="mt-4 text-sm text-slate-500">No file has been uploaded for this document yet.</p></template><template id="document-history-dialog-4">
-          <div class="table-card mt-4 overflow-auto">
+        <!--{{2}}--><template id="document-history-dialog-1"><div class="document-history-bar"><span class="spinner"></span></div></template><template id="document-history-dialog-2"><p class="document-history-text"><!--{{0}}--></p></template><template id="document-history-dialog-3"><p class="document-history-text-2">No file has been uploaded for this document yet.</p></template><template id="document-history-dialog-4">
+          <div class="table-card document-history-box overflow-auto">
             <table class="custom-table">
               <thead>
                 <tr><th>Version</th><th>Uploaded</th><th>Uploaded by</th><th>Status</th><th>Reviewed by</th><th>Reviewer comment / re-upload reason</th><th></th></tr>
@@ -240,21 +242,21 @@
               <tbody>
                 <!--{{0}}--><template id="document-history-dialog-4-1">
                   <tr data-key="{{0}}">
-                    <td class="font-semibold text-slate-800">v<!--{{1}}--><!--{{2}}--><template id="document-history-dialog-4-1-1"><span class="ml-1 text-xs font-medium text-slate-400">(current)</span></template></td>
-                    <td class="whitespace-nowrap text-slate-600"><!--{{3}}--></td>
+                    <td class="document-history-cell">v<!--{{1}}--><!--{{2}}--><template id="document-history-dialog-4-1-1"><span class="document-history-label">(current)</span></template></td>
+                    <td class="document-history-cell-2"><!--{{3}}--></td>
                     <td><!--{{4}}--></td>
                     <td><span class="badge {{5}}"><!--{{6}}--></span></td>
-                    <td><!--{{7}}--><!--{{8}}--><template id="document-history-dialog-4-1-2"><span class="block text-xs text-slate-400"><!--{{0}}--></span></template></td>
-                    <td class="max-w-xs text-sm text-slate-600"><!--{{9}}--></td>
-                    <td class="whitespace-nowrap">
-                      <button type="button" class="btn-outline !px-2 !py-1 text-xs" {{10}} onclick="{{11}}.open({{12}}, false)"><i class="fa-solid fa-eye"></i> View</button>
-                      <button type="button" class="btn-outline !px-2 !py-1 text-xs" {{13}} onclick="{{14}}.open({{15}}, true)"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
+                    <td><!--{{7}}--><!--{{8}}--><template id="document-history-dialog-4-1-2"><span class="document-history-label-2"><!--{{0}}--></span></template></td>
+                    <td class="document-history-cell-3"><!--{{9}}--></td>
+                    <td class="document-history-cell-4">
+                      <button type="button" class="btn-outline document-history-button" {{10}} onclick="{{11}}.open({{12}}, false)"><i class="fa-solid fa-eye"></i> View</button>
+                      <button type="button" class="btn-outline document-history-button" {{13}} onclick="{{14}}.open({{15}}, true)"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
                     </td>
                   </tr></template>
               </tbody>
             </table>
           </div>
-          <!--{{1}}--><template id="document-history-dialog-4-2"><p class="mt-3 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template></template>
+          <!--{{1}}--><template id="document-history-dialog-4-2"><p class="document-history-text-3"><!--{{0}}--></p></template></template>
       </div>
     </div>
   </app-document-history-dialog></template>

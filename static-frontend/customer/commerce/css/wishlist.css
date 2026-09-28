@@ -1,5 +1,69 @@
 /*
  * wishlist.css - Customer - Commerce: wishlist page (route /wishlist).
- * Port of src/app/features/wishlist/wishlist.component.css.
+ * Angular: src/app/features/wishlist/wishlist.component.html (+ .css).
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
  */
-/* Styling migrated to Tailwind utility classes in wishlist.component.html */
+.wishlist-bar {
+  display: flex;
+  justify-content: center;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.wishlist-button {
+  margin-top: 0.75rem;
+}
+.wishlist-bar-2 {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+.wishlist-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.wishlist-bar-3 {
+  display: flex;
+  justify-content: flex-end;
+}
+.wishlist-button-2 {
+  --tw-text-opacity: 1;
+  color: rgb(244 63 94 / var(--tw-text-opacity, 1));
+}
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.wishlist-title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 800;
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.wishlist-button-2:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 241 242 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+@media (min-width: 640px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 768px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

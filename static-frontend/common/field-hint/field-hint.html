@@ -5,15 +5,15 @@
   Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
 -->
 <template id="field-hint">
-      <app-field-hint><span class="relative inline-block align-middle" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
-        <button type="button" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full align-middle text-slate-400 transition-colors hover:text-violet-600 focus-visible:text-violet-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
           aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
           onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
-          <i class="fa-solid fa-circle-info text-[0.8rem]" aria-hidden="true"></i>
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
         </button>
         <span role="tooltip" id="{{10}}"
-          class="absolute z-50 w-64 max-w-[calc(100vw-1rem)] px-0 text-left{{11}}"
+          class="field-hint-label-2{{11}}"
           style="left: {{12}}px;">
-          <span class="block whitespace-pre-line rounded-lg bg-slate-900 px-3 py-2 text-xs font-normal normal-case leading-relaxed tracking-normal text-white shadow-lg"><!--{{13}}--></span>
+          <span class="field-hint-label-3"><!--{{13}}--></span>
         </span>
       </span></app-field-hint></template>

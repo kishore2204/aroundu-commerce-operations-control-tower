@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../../../common/header/header.css">
   <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
   <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
   <link rel="stylesheet" href="../../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../css/cart.css">
 </head>
@@ -156,67 +157,67 @@
 
 <main class="customer-main" onclick="Shell.closeAccountMenu()">
   <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-cart><!--{{0}}--><!--tpl:cart (this page)-->
-<h1 class="mb-4 text-2xl font-extrabold text-slate-900">Your cart</h1>
+<h1 class="cart-title">Your cart</h1>
 
-<!--{{0}}--><template id="cart-1"><div class="flex justify-center py-10"><div class="spinner"></div></div></template><template id="cart-2"><button type="button" class="btn-outline mt-3" onclick="Page.load()">Retry</button></template><template id="cart-3">
+<!--{{0}}--><template id="cart-1"><div class="cart-bar"><div class="spinner"></div></div></template><template id="cart-2"><button type="button" class="btn-outline cart-button" onclick="Page.load()">Retry</button></template><template id="cart-3">
   <!--{{0}}-->
-  <div class="mt-4 flex justify-center">
+  <div class="cart-bar-2">
     <a class="btn-primary" href="{{1}}">Browse products</a>
   </div></template><template id="cart-4">
-  <section class="card mb-4">
-    <h2 class="mb-2 text-base font-extrabold text-slate-900"><i class="fa-solid fa-location-dot text-zepto-600"></i> Delivering To</h2>
+  <section class="card cart-section">
+    <h2 class="cart-heading"><i class="fa-solid fa-location-dot cart-icon-4"></i> Delivering To</h2>
     <!--{{0}}--><template id="cart-4-1">
-      <p class="font-bold text-slate-900"><!--{{0}}--></p>
-      <p class="text-sm text-slate-700"><!--{{1}}--><!--{{2}}--></p>
-      <p class="text-sm text-slate-500"><!--{{3}}--><!--{{4}}--><!--{{5}}--></p>
-      <p class="mt-2 text-xs text-slate-500">Address changes are available from the header or Profile after the cart is cleared.</p></template>
+      <p class="cart-text"><!--{{0}}--></p>
+      <p class="cart-text-2"><!--{{1}}--><!--{{2}}--></p>
+      <p class="cart-text-3"><!--{{3}}--><!--{{4}}--><!--{{5}}--></p>
+      <p class="cart-text-4">Address changes are available from the header or Profile after the cart is cleared.</p></template>
   </section>
 
   <!--{{1}}--><template id="cart-4-2">
-    <div class="my-4 space-y-1 rounded-xl border border-rose-200 bg-rose-50 p-3">
-      <!--{{0}}--><template id="cart-4-2-1"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
+    <div class="cart-panel">
+      <!--{{0}}--><template id="cart-4-2-1"><p class="cart-text-5"><!--{{0}}--></p></template>
     </div></template>
 
-  <ul class="mt-4 space-y-3 pb-40 sm:pb-0">
+  <ul class="cart-list">
     <!--{{2}}--><template id="cart-4-3">
-      <li class="card flex flex-wrap items-center gap-4" data-key="{{0}}">
-        <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-zepto-50 text-zepto-300">
-          <i class="fa-solid fa-image text-xl"></i>
+      <li class="card cart-item" data-key="{{0}}">
+        <div class="cart-bar-3">
+          <i class="fa-solid fa-image cart-icon-2"></i>
         </div>
-        <div class="min-w-[10rem] flex-1">
-          <p class="font-bold text-slate-900"><!--{{1}}--></p>
+        <div class="cart-box">
+          <p class="cart-text"><!--{{1}}--></p>
           <!--{{2}}--><template id="cart-4-3-1">
-            <p class="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
-              <i class="fa-solid fa-store text-zepto-500"></i>
+            <p class="cart-text-6">
+              <i class="fa-solid fa-store cart-icon"></i>
               <!--{{0}}-->
             </p></template>
-          <!--{{3}}--><template id="cart-4-3-2"><p class="mt-0.5 text-xs font-semibold text-rose-600">This product is no longer available</p></template><template id="cart-4-3-3"><p class="stock-problem mt-0.5 text-xs font-semibold text-rose-600">Out of stock - remove it to continue</p></template><template id="cart-4-3-4"><p class="stock-problem mt-0.5 text-xs font-semibold text-rose-600">Only <!--{{0}}--> left - reduce the quantity to continue</p></template>
-          <p class="mt-1 text-sm text-slate-500"><!--{{4}}--> each</p>
+          <!--{{3}}--><template id="cart-4-3-2"><p class="cart-text-7">This product is no longer available</p></template><template id="cart-4-3-3"><p class="stock-problem cart-text-7">Out of stock - remove it to continue</p></template><template id="cart-4-3-4"><p class="stock-problem cart-text-7">Only <!--{{0}}--> left - reduce the quantity to continue</p></template>
+          <p class="cart-text-8"><!--{{4}}--> each</p>
         </div>
-        <div class="flex items-center gap-2 rounded-xl border border-slate-200 px-1.5 py-1">
-          <button type="button" class="btn-icon h-8 w-8" onclick="Page.changeQty({{5}}, {{6}})" {{7}}>
-            <i class="fa-solid fa-minus text-xs"></i>
+        <div class="cart-bar-4">
+          <button type="button" class="btn-icon cart-button-2" onclick="Page.changeQty({{5}}, {{6}})" {{7}}>
+            <i class="fa-solid fa-minus cart-icon-3"></i>
           </button>
-          <span class="w-5 text-center text-sm font-bold text-slate-900"><!--{{8}}--></span>
-          <button type="button" class="btn-icon h-8 w-8" onclick="Page.changeQty({{9}}, {{10}})" {{11}}>
-            <i class="fa-solid fa-plus text-xs"></i>
+          <span class="cart-label"><!--{{8}}--></span>
+          <button type="button" class="btn-icon cart-button-2" onclick="Page.changeQty({{9}}, {{10}})" {{11}}>
+            <i class="fa-solid fa-plus cart-icon-3"></i>
           </button>
         </div>
-        <p class="w-24 text-right font-extrabold text-slate-900"><!--{{12}}--></p>
-        <button type="button" class="btn-icon text-rose-500 hover:bg-rose-50 hover:text-rose-600" onclick="Page.remove({{13}})" {{14}} aria-label="Remove">
+        <p class="cart-text-9"><!--{{12}}--></p>
+        <button type="button" class="btn-icon cart-button-3" onclick="Page.remove({{13}})" {{14}} aria-label="Remove">
           <i class="fa-solid fa-trash-can"></i>
         </button>
       </li></template>
   </ul>
 
-  <div class="card fixed inset-x-0 bottom-0 z-20 mt-6 flex flex-col gap-3 rounded-none border-t border-slate-100 shadow-card-hover sm:static sm:rounded-2xl sm:border">
-    <button type="button" class="self-start text-sm font-semibold text-slate-500 hover:text-rose-600" onclick="Page.clear()" {{3}}>
+  <div class="card cart-stack rounded-none border-t border-slate-100 shadow-card-hover sm:rounded-2xl sm:border">
+    <button type="button" class="cart-button-4" onclick="Page.clear()" {{3}}>
       Clear cart
     </button>
-    <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="cart-bar-5">
       <div>
-        <p class="text-sm text-slate-500"><!--{{4}}--> item(s)</p>
-        <p class="text-lg font-extrabold text-slate-900">Subtotal: <!--{{5}}--></p>
+        <p class="cart-text-3"><!--{{4}}--> item(s)</p>
+        <p class="cart-text-10">Subtotal: <!--{{5}}--></p>
       </div>
       <button type="button" class="btn-primary" onclick="Page.proceedToCheckout()" {{6}}>
         Proceed to checkout
@@ -243,10 +244,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -274,10 +275,10 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->

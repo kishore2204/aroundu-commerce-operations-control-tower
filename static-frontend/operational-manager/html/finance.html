@@ -26,7 +26,9 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/confirm-dialog/confirm-dialog.css">
   <link rel="stylesheet" href="../../common/operations-finance/operations-finance.css">
 </head>
 <body>
@@ -107,14 +109,14 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-finance><!--{{0}}--><!--tpl:operations-finance (common/operations-finance/operations-finance.html)--><h1 class="mb-4 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
-  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-    <i class="fa-solid fa-sack-dollar text-sm"></i>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-finance><!--{{0}}--><!--tpl:operations-finance (common/operations-finance/operations-finance.html)--><h1 class="operations-finance-title">
+  <span class="operations-finance-label-5">
+    <i class="fa-solid fa-sack-dollar operations-finance-icon-3"></i>
   </span>
   Finance
 </h1>
 
-<div class="flex gap-2 border-b border-slate-200 mb-5">
+<div class="operations-finance-bar-5">
   <!--{{0}}-->
   <!--{{1}}-->
   <!--{{2}}-->
@@ -123,21 +125,21 @@
 
 <!--{{4}}--><template id="operations-finance-1">
   <div>
-    <div class="card mb-5 flex items-center gap-4">
-      <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-        <i class="fa-solid fa-sack-dollar text-xl"></i>
+    <div class="card operations-finance-bar-2">
+      <div class="operations-finance-bar-3">
+        <i class="fa-solid fa-sack-dollar operations-finance-icon"></i>
       </div>
       <div>
-        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Total successful payments</p>
-        <p class="text-2xl font-extrabold text-slate-900"><!--{{0}}--></p>
-        <p class="text-sm text-slate-500"><!--{{1}}--> transaction(s)</p>
+        <p class="operations-finance-text">Total successful payments</p>
+        <p class="operations-finance-text-2"><!--{{0}}--></p>
+        <p class="operations-finance-text-3"><!--{{1}}--> transaction(s)</p>
       </div>
     </div>
 
-    <h2 class="text-lg font-bold text-slate-900 mb-3">Disputed payments</h2>
-    <p class="text-sm text-slate-500 mb-4">Payments that failed and need attention. Retry opens a fresh payment attempt for the same order.</p>
+    <h2 class="operations-finance-heading">Disputed payments</h2>
+    <p class="operations-finance-text-4">Payments that failed and need attention. Retry opens a fresh payment attempt for the same order.</p>
 
-    <!--{{2}}--><template id="operations-finance-1-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-1-2">
+    <!--{{2}}--><template id="operations-finance-1-1"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-1-2">
       <div class="table-card overflow-x-auto">
         <table class="custom-table">
           <thead>
@@ -151,11 +153,11 @@
           <tbody>
             <!--{{0}}--><template id="operations-finance-1-2-1">
               <tr data-key="{{0}}">
-                <td class="font-semibold">Order #<!--{{1}}--></td>
+                <td class="operations-finance-cell">Order #<!--{{1}}--></td>
                 <td><!--{{2}}--> - <!--{{3}}--></td>
                 <td><span class="badge badge-danger"><!--{{4}}--></span></td>
                 <td>
-                  <button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" {{5}} onclick="Page.retryPayment({{6}})">
+                  <button type="button" class="btn-outline operations-finance-button-2" {{5}} onclick="Page.retryPayment({{6}})">
                     <i class="fa-solid fa-rotate-right"></i> Retry
                   </button>
                 </td>
@@ -167,14 +169,14 @@
 
 <!--{{5}}--><template id="operations-finance-2">
   <div>
-    <div class="flex justify-end mb-4">
+    <div class="operations-finance-bar-4">
       <button type="button" class="btn-primary" onclick="Page.state.showSettlementForm = !Page.state.showSettlementForm">
         <i class="fa-solid fa-plus"></i> New settlement
       </button>
     </div>
 
     <!--{{0}}--><template id="operations-finance-2-1">
-      <div class="card max-w-2xl mb-5">
+      <div class="card operations-finance-box">
         <form novalidate onsubmit="event.preventDefault(); Page.createSettlement()">
           <div class="form-grid">
             <div class="form-group full-width">
@@ -204,14 +206,14 @@
               <input class="input" name="settlementReference" {{5}} />
             </div>
           </div>
-          <!--{{6}}--><template id="operations-finance-2-1-2"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+          <!--{{6}}--><template id="operations-finance-2-1-2"><p class="operations-finance-text-5"><!--{{0}}--></p></template>
           <button type="submit" class="btn-primary" {{7}}>
             Create
           </button>
         </form>
       </div></template>
 
-    <!--{{1}}--><template id="operations-finance-2-2"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-2-3">
+    <!--{{1}}--><template id="operations-finance-2-2"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-2-3">
       <div class="table-card overflow-x-auto">
         <table class="custom-table">
           <thead>
@@ -226,12 +228,12 @@
           <tbody>
             <!--{{0}}--><template id="operations-finance-2-3-1">
               <tr data-key="{{0}}">
-                <td class="font-semibold"><!--{{1}}--></td>
+                <td class="operations-finance-cell"><!--{{1}}--></td>
                 <td>
                   <!--{{2}}--><template id="operations-finance-2-3-1-1">
                     <span class="badge badge-pending"><!--{{0}}--></span>
-                    <span class="text-xs text-slate-500 block mt-0.5"><!--{{1}}--></span></template><template id="operations-finance-2-3-1-2">
-                    <span class="text-xs text-slate-400">Operations manager</span></template>
+                    <span class="operations-finance-label"><!--{{1}}--></span></template><template id="operations-finance-2-3-1-2">
+                    <span class="operations-finance-label-2">Operations manager</span></template>
                 </td>
                 <td><!--{{3}}--> - net <!--{{4}}--></td>
                 <td>
@@ -240,7 +242,7 @@
                   </span>
                 </td>
                 <td>
-                  <!--{{7}}--><template id="operations-finance-2-3-1-3"><button type="button" class="btn-outline !py-1.5 !px-3 !text-xs" onclick="Page.complete({{0}})">Complete</button></template>
+                  <!--{{7}}--><template id="operations-finance-2-3-1-3"><button type="button" class="btn-outline operations-finance-button-2" onclick="Page.complete({{0}})">Complete</button></template>
                 </td>
               </tr></template>
           </tbody>
@@ -250,14 +252,14 @@
 
 <!--{{6}}--><template id="operations-finance-3">
   <div>
-    <div class="flex justify-end mb-4">
+    <div class="operations-finance-bar-4">
       <button type="button" class="btn-primary" onclick="Page.toggleTaxForm()">
         <i class="fa-solid fa-plus"></i> New tax rule
       </button>
     </div>
 
     <!--{{0}}--><template id="operations-finance-3-1">
-      <div class="card max-w-2xl mb-5">
+      <div class="card operations-finance-box">
         <form novalidate onsubmit="event.preventDefault(); Page.createTax()">
           <div class="form-grid">
             <div class="form-group full-width">
@@ -267,7 +269,7 @@
               <datalist id="tax-category-suggestions">
                 <!--{{1}}--><template id="operations-finance-3-1-1"><option value="{{0}}"></option></template>
               </datalist>
-              <p class="text-xs text-slate-500 mt-1">An existing category is reused (capital letters and extra spaces do not matter); a new name creates a new active category that retailers can then use.</p>
+              <p class="operations-finance-text-7">An existing category is reused (capital letters and extra spaces do not matter); a new name creates a new active category that retailers can then use.</p>
             </div>
             <div class="form-group">
               <label class="form-label req-mark">CGST %</label>
@@ -291,23 +293,23 @@
             <div class="form-group">
               <label class="form-label" for="tax-effective-to">Effective to</label>
               <input id="tax-effective-to" class="input" type="date" name="effectiveTo" {{7}} />
-              <!--{{8}}--><template id="operations-finance-3-1-3"><p class="text-xs text-rose-600 mt-1">Effective to cannot be before effective from.</p></template>
+              <!--{{8}}--><template id="operations-finance-3-1-3"><p class="operations-finance-text-6">Effective to cannot be before effective from.</p></template>
             </div>
             <div class="form-group full-width">
-              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                <input type="checkbox" name="active" {{9}} class="h-4 w-4 rounded border-slate-300 text-zepto-600 focus:ring-zepto-500" />
+              <label class="operations-finance-label-3">
+                <input type="checkbox" name="active" {{9}} class="operations-finance-input-2" />
                 Active
               </label>
             </div>
           </div>
-          <!--{{10}}--><template id="operations-finance-3-1-4"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
+          <!--{{10}}--><template id="operations-finance-3-1-4"><p class="operations-finance-text-5"><!--{{0}}--></p></template>
           <button type="submit" class="btn-primary" {{11}}>
             Create
           </button>
         </form>
       </div></template>
 
-    <!--{{1}}--><template id="operations-finance-3-2"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-3-3">
+    <!--{{1}}--><template id="operations-finance-3-2"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-3-3">
       <div class="table-card overflow-x-auto">
         <table class="custom-table">
           <thead>
@@ -321,9 +323,9 @@
           <tbody>
             <!--{{0}}--><template id="operations-finance-3-3-1">
               <tr data-key="{{0}}">
-                <td class="font-semibold">
+                <td class="operations-finance-cell">
                   <!--{{1}}-->
-                  <!--{{2}}--><template id="operations-finance-3-3-1-1"><span class="badge badge-pending ml-1">No category linked</span></template>
+                  <!--{{2}}--><template id="operations-finance-3-3-1-1"><span class="badge badge-pending operations-finance-label-4">No category linked</span></template>
                 </td>
                 <td>CGST <!--{{3}}-->% - SGST <!--{{4}}-->%</td>
                 <td>
@@ -333,7 +335,7 @@
                 </td>
                 <td>
                   <button type="button" class="btn-icon" onclick="Page.removeTax({{7}})" aria-label="Delete">
-                    <i class="fa-solid fa-trash-can text-rose-500"></i>
+                    <i class="fa-solid fa-trash-can operations-finance-icon-2"></i>
                   </button>
                 </td>
               </tr></template>
@@ -344,27 +346,27 @@
 
 <!--{{7}}--><template id="operations-finance-4">
   <section>
-    <div class="mb-4">
-      <h2 class="text-lg font-bold text-slate-900">Vehicle category delivery rates</h2>
-      <p class="mt-1 text-sm text-slate-500">Set the per-kilometre rate, minimum billable distance and minimum delivery rate used by logistics pricing.</p>
+    <div class="operations-finance-box-2">
+      <h2 class="operations-finance-heading-2">Vehicle category delivery rates</h2>
+      <p class="operations-finance-text-9">Set the per-kilometre rate, minimum billable distance and minimum delivery rate used by logistics pricing.</p>
     </div>
-    <!--{{0}}--><template id="operations-finance-4-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-finance-4-2">
+    <!--{{0}}--><template id="operations-finance-4-1"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-4-2">
       <div class="table-card overflow-x-auto">
         <table class="custom-table">
           <thead><tr><th>Vehicle category</th><th>Rate / km</th><th>Minimum distance (km)</th><th>Minimum rate</th><th></th></tr></thead>
           <tbody>
             <!--{{0}}--><template id="operations-finance-4-2-1">
               <tr data-key="{{0}}">
-                <td class="font-semibold"><!--{{1}}--></td>
+                <td class="operations-finance-cell"><!--{{1}}--></td>
                 <!--{{2}}-->
                 <!--{{3}}-->
                 <!--{{4}}-->
-                <td><button type="button" class="btn-primary !py-1.5 !px-3 !text-xs" {{5}} onclick="Page.saveLogisticsRate('{{6}}')"><!--{{7}}--></button></td>
+                <td><button type="button" class="btn-primary operations-finance-button-2" {{5}} onclick="Page.saveLogisticsRate('{{6}}')"><!--{{7}}--></button></td>
               </tr></template>
           </tbody>
         </table>
       </div>
-      <p class="mt-3 text-xs text-slate-500">Because the existing project has no database table for these rates and the database schema is intentionally unchanged, rate changes are held by the logistics service for the current runtime and reset to defaults if that service restarts.</p></template>
+      <p class="operations-finance-text-8">Because the existing project has no database table for these rates and the database schema is intentionally unchanged, rate changes are held by the logistics service for the current runtime and reset to defaults if that service restarts.</p></template>
   </section></template>
 
 <!--{{8}}-->
@@ -383,10 +385,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -395,32 +397,32 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
 
 <!-- BEGIN common/confirm-dialog/confirm-dialog.html -->
 <template id="confirm-dialog">
-      <app-confirm-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-        <div class="card w-full max-w-md" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
-          <div class="flex items-start gap-3">
-            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full{{0}}">
+      <app-confirm-dialog><div class="confirm-dialog-overlay">
+        <div class="card confirm-dialog-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+          <div class="confirm-dialog-bar">
+            <span class="confirm-dialog-label-2{{0}}">
               <i class="fa-solid fa-triangle-exclamation"></i>
             </span>
-            <div class="min-w-0">
-              <h2 id="confirm-dialog-title" class="m-0 text-lg font-bold text-slate-900"><!--{{1}}--></h2>
-              <p id="confirm-dialog-message" class="m-0 mt-1 text-sm text-slate-600"><!--{{2}}--></p>
+            <div class="confirm-dialog-box-2">
+              <h2 id="confirm-dialog-title" class="confirm-dialog-heading"><!--{{1}}--></h2>
+              <p id="confirm-dialog-message" class="confirm-dialog-text"><!--{{2}}--></p>
             </div>
           </div>
-          <div class="mt-5 flex justify-end gap-2">
+          <div class="confirm-dialog-bar-2">
             <button type="button" class="btn-outline" data-confirm-cancel="{{3}}" {{4}} onclick="U.$('{{5}}').opts.onCancel()"><!--{{6}}--></button>
             <button type="button" class="btn-primary{{7}}"
               {{8}} onclick="U.$('{{9}}').opts.onConfirm()">
-              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
+              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner confirm-dialog-label"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
             </button>
           </div>
         </div>
@@ -428,8 +430,8 @@
 <!-- END common/confirm-dialog/confirm-dialog.html -->
 
 <!-- BEGIN common/operations-finance/operations-finance.html -->
-<template id="operations-finance-tab"><button type="button" class="px-4 py-2.5 text-sm font-bold rounded-t-xl transition-colors{{0}}" onclick="Page.state.activeTab = '{{1}}'"><!--{{2}}--></button></template>
-<template id="operations-finance-rate-input"><td><input class="input !min-w-28" type="number" min="0.01" step="0.01" value="{{0}}" oninput="Page.updateRateField('{{1}}', '{{2}}', this.value)" /></td></template>
+<template id="operations-finance-tab"><button type="button" class="operations-finance-button rounded-t-xl{{0}}" onclick="Page.state.activeTab = '{{1}}'"><!--{{2}}--></button></template>
+<template id="operations-finance-rate-input"><td><input class="input operations-finance-input" type="number" min="0.01" step="0.01" value="{{0}}" oninput="Page.updateRateField('{{1}}', '{{2}}', this.value)" /></td></template>
 <!-- END common/operations-finance/operations-finance.html -->
 
   <noscript>This page needs JavaScript enabled.</noscript>

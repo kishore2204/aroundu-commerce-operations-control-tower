@@ -6,15 +6,15 @@
 -->
 <template id="order-status-stepper">
       <app-order-status-stepper data-stepper="{{0}}"><!--{{1}}--><template id="order-status-stepper-1">
-        <div class="halted-banner flex items-start gap-3 p-4 rounded-xl bg-rose-50">
-          <i class="fa-solid fa-triangle-exclamation text-rose-600 mt-0.5"></i>
+        <div class="halted-banner order-status-stepper-bar">
+          <i class="fa-solid fa-triangle-exclamation order-status-stepper-icon"></i>
           <div>
-            <p class="halted-title font-semibold text-slate-800 m-0"><!--{{0}}--></p>
-            <!--{{1}}--><template id="order-status-stepper-1-1"><p class="halted-message text-sm text-slate-600 mt-1 mb-0"><!--{{0}}--></p></template>
+            <p class="halted-title order-status-stepper-text-2"><!--{{0}}--></p>
+            <!--{{1}}--><template id="order-status-stepper-1-1"><p class="halted-message order-status-stepper-text"><!--{{0}}--></p></template>
           </div>
         </div></template><template id="order-status-stepper-2">
         <div class="stepper-scroll">
-          <ol class="stepper list-none m-0 p-0" style="--steps: {{0}};">
+          <ol class="stepper order-status-stepper-list" style="--steps: {{0}};">
             <!--{{1}}--><template id="order-status-stepper-2-1">
               <li class="step{{0}}">
                 <span class="step-marker">

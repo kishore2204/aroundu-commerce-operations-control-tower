@@ -26,7 +26,11 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/field-hint/field-hint.css">
+  <link rel="stylesheet" href="../../common/password-requirements/password-requirements.css">
+  <link rel="stylesheet" href="../../common/work-transfer/work-transfer.css">
   <link rel="stylesheet" href="../css/accounts.css">
 </head>
 <body>
@@ -107,10 +111,10 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-admin-accounts><!--{{0}}--><!--tpl:accounts (this page)--><div class="flex items-center justify-between mb-6">
-  <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
-    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-      <i class="fa-solid fa-users text-sm"></i>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-admin-accounts><!--{{0}}--><!--tpl:accounts (this page)--><div class="accounts-bar-4">
+  <h1 class="accounts-title">
+    <span class="accounts-label-2">
+      <i class="fa-solid fa-users accounts-icon-2"></i>
     </span>
     User accounts
   </h1>
@@ -121,9 +125,9 @@
 </div>
 
 <!--{{1}}--><template id="accounts-2">
-  <div class="card mb-6 max-w-2xl animate-fade-in-up">
-    <h2 class="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
-      <i class="fa-solid fa-user-plus text-violet-500"></i> New account
+  <div class="card accounts-box-2">
+    <h2 class="accounts-heading">
+      <i class="fa-solid fa-user-plus accounts-icon"></i> New account
     </h2>
     <form novalidate onsubmit="event.preventDefault(); Page.save()">
       <div class="form-grid">
@@ -142,7 +146,7 @@
         <div class="form-group">
           <label class="form-label req-mark">Phone number<!--{{4}}--></label>
           <input class="input" type="tel" autocomplete="off" data-digits-only="10" inputmode="numeric" maxlength="10" name="phoneNumber" {{5}} placeholder="10-digit mobile number" />
-          <!--{{6}}--><template id="accounts-2-1"><p class="mt-1 text-xs font-semibold text-rose-600">Mobile number must be 10 digits</p></template>
+          <!--{{6}}--><template id="accounts-2-1"><p class="accounts-text">Mobile number must be 10 digits</p></template>
         </div>
         <div class="form-group">
           <label class="form-label req-mark">Role</label>
@@ -163,23 +167,23 @@
         <div class="form-group full-width">
           <label class="form-label req-mark">Re-enter Password<!--{{11}}--></label>
           <!--{{12}}-->
-          <!--{{13}}--><template id="accounts-2-2"><p class="mt-1 text-xs font-semibold text-rose-600">Passwords do not match.</p></template>
+          <!--{{13}}--><template id="accounts-2-2"><p class="accounts-text">Passwords do not match.</p></template>
         </div>
       </div>
-      <!--{{14}}--><template id="accounts-2-3"><p class="text-sm text-rose-600 mb-2"><!--{{0}}--></p></template>
-      <div class="flex justify-end gap-2">
+      <!--{{14}}--><template id="accounts-2-3"><p class="accounts-text-2"><!--{{0}}--></p></template>
+      <div class="accounts-bar">
         <button type="button" class="btn-outline" onclick="Page.state.showForm = false">Cancel</button>
         <button type="submit" class="btn-primary" {{15}}>Create</button>
       </div>
     </form>
   </div></template>
 
-<div class="mb-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<div class="accounts-grid">
   <div class="form-group">
     <label class="form-label">Search by email or name</label>
-    <div class="relative">
-      <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-      <input class="input pl-10" value="{{2}}" oninput="Page.setFilter('search', this.value)" placeholder="Search accounts" />
+    <div class="accounts-box">
+      <i class="fa-solid fa-magnifying-glass accounts-icon-3"></i>
+      <input class="input accounts-input-2" value="{{2}}" oninput="Page.setFilter('search', this.value)" placeholder="Search accounts" />
     </div>
   </div>
   <div class="form-group">
@@ -192,7 +196,7 @@
   </div>
 </div>
 
-<!--{{5}}--><template id="accounts-3"><div class="flex justify-center py-12"><span class="spinner"></span></div></template><template id="accounts-4">
+<!--{{5}}--><template id="accounts-3"><div class="accounts-bar-2"><span class="spinner"></span></div></template><template id="accounts-4">
   <div class="table-card overflow-x-auto">
     <table class="custom-table">
       <thead>
@@ -208,28 +212,28 @@
         <!--{{0}}--><template id="accounts-4-1">
           <tr data-key="{{0}}">
             <td>
-              <div class="flex items-center gap-3">
-                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-zepto-100 to-violet-100 text-sm font-extrabold text-zepto-700">
+              <div class="accounts-bar-3">
+                <span class="accounts-label">
                   <!--{{1}}--><!--{{2}}-->
                 </span>
                 <div>
-                  <p class="font-semibold text-slate-800"><!--{{3}}--> <!--{{4}}--></p>
-                  <p class="text-xs text-slate-400"><!--{{5}}--></p>
+                  <p class="accounts-text-3"><!--{{3}}--> <!--{{4}}--></p>
+                  <p class="accounts-text-4"><!--{{5}}--></p>
                 </div>
               </div>
             </td>
             <td><!--{{6}}--></td>
-            <td class="text-slate-500"><!--{{7}}--></td>
+            <td class="accounts-cell"><!--{{7}}--></td>
             <td>
               <span class="badge{{8}}">
                 <!--{{9}}-->
               </span>
             </td>
-            <td class="text-right">
+            <td class="accounts-cell-2">
               <!--{{10}}--><template id="accounts-4-1-1">
-                <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" onclick="Page.setStatus({{0}}, 'SUSPENDED')">Suspend</button>
-                <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" onclick="Page.setStatus({{1}}, 'INACTIVE')">Deactivate</button></template><template id="accounts-4-1-2">
-                <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" onclick="Page.setStatus({{0}}, 'ACTIVE')">Activate</button></template>
+                <button type="button" class="btn-outline accounts-button-2" onclick="Page.setStatus({{0}}, 'SUSPENDED')">Suspend</button>
+                <button type="button" class="btn-outline accounts-button-2" onclick="Page.setStatus({{1}}, 'INACTIVE')">Deactivate</button></template><template id="accounts-4-1-2">
+                <button type="button" class="btn-outline accounts-button-2" onclick="Page.setStatus({{0}}, 'ACTIVE')">Activate</button></template>
             </td>
           </tr></template>
       </tbody>
@@ -237,7 +241,7 @@
   </div></template>
 
 <!--{{6}}--><template id="accounts-5">
-  <div class="fixed bottom-6 right-6 z-50 card !py-3 !px-4 text-sm font-medium text-slate-800 shadow-card-hover">
+  <div class="accounts-box-3 card !py-3 !px-4 shadow-card-hover">
     <!--{{0}}-->
   </div></template>
 
@@ -255,10 +259,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -267,37 +271,37 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
 
 <!-- BEGIN common/field-hint/field-hint.html -->
 <template id="field-hint">
-      <app-field-hint><span class="relative inline-block align-middle" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
-        <button type="button" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full align-middle text-slate-400 transition-colors hover:text-violet-600 focus-visible:text-violet-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
           aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
           onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
-          <i class="fa-solid fa-circle-info text-[0.8rem]" aria-hidden="true"></i>
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
         </button>
         <span role="tooltip" id="{{10}}"
-          class="absolute z-50 w-64 max-w-[calc(100vw-1rem)] px-0 text-left{{11}}"
+          class="field-hint-label-2{{11}}"
           style="left: {{12}}px;">
-          <span class="block whitespace-pre-line rounded-lg bg-slate-900 px-3 py-2 text-xs font-normal normal-case leading-relaxed tracking-normal text-white shadow-lg"><!--{{13}}--></span>
+          <span class="field-hint-label-3"><!--{{13}}--></span>
         </span>
       </span></app-field-hint></template>
 <!-- END common/field-hint/field-hint.html -->
 
 <!-- BEGIN common/password-requirements/password-requirements.html -->
 <template id="password-requirements">
-      <app-password-requirements><div class="mt-2" aria-live="polite">
-        <p class="mb-1 text-xs font-bold text-slate-700">Password requirements</p>
-        <ul class="m-0 list-none space-y-1 p-0 text-xs">
+      <app-password-requirements><div class="password-requirements-box" aria-live="polite">
+        <p class="password-requirements-text">Password requirements</p>
+        <ul class="password-requirements-list">
           <!--{{0}}--><template id="password-requirements-1">
-            <li class="flex items-center gap-1.5 font-semibold{{0}}">
+            <li class="password-requirements-item{{0}}">
               <i class="fa-solid{{1}}"></i>
               <!--{{2}}-->
             </li></template>
@@ -307,84 +311,84 @@
 
 <!-- BEGIN common/work-transfer/work-transfer.html -->
 <template id="work-transfer-dialog"><app-work-transfer-dialog>
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-      <div class="card w-full max-w-4xl" role="dialog" aria-modal="true" aria-labelledby="work-transfer-title">
-        <div class="flex items-start justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-amber-50 text-amber-600"><i class="fa-solid fa-people-arrows"></i></span>
+    <div class="work-transfer-overlay">
+      <div class="card work-transfer-box-3" role="dialog" aria-modal="true" aria-labelledby="work-transfer-title">
+        <div class="work-transfer-bar-3">
+          <div class="work-transfer-bar-4">
+            <span class="work-transfer-label-11"><i class="fa-solid fa-people-arrows"></i></span>
             <div>
-              <h2 id="work-transfer-title" class="m-0 text-lg font-bold text-slate-900"><!--{{0}}--></h2>
-              <p class="m-0 text-sm text-slate-500">
+              <h2 id="work-transfer-title" class="work-transfer-heading"><!--{{0}}--></h2>
+              <p class="work-transfer-text-5">
                 <!--{{1}}--><template id="work-transfer-dialog-1"> Choose the pending verification requests to hand to another Location Manager. </template><template id="work-transfer-dialog-2"> There are pending verification requests assigned to this Location Manager. Transfer all pending work before continuing. </template>
               </p>
             </div>
           </div>
-          <button type="button" class="btn-icon !h-8 !w-8 shrink-0" aria-label="Close" {{2}} onclick="{{3}}.opts.onCancelled()"><i class="fa-solid fa-xmark"></i></button>
+          <button type="button" class="btn-icon work-transfer-button-4" aria-label="Close" {{2}} onclick="{{3}}.opts.onCancelled()"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <p class="mb-0 mt-3 rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-600">
+        <p class="work-transfer-text-6">
           <!--{{4}}--><template id="work-transfer-dialog-3"> Reassigning work of <strong><!--{{0}}--></strong>. Their account and assignment stay exactly as they are. </template><template id="work-transfer-dialog-4"><strong><!--{{0}}--></strong> cannot be <!--{{1}}--> until all of their pending work has been reassigned. </template>
         </p>
 
-        <!--{{5}}--><template id="work-transfer-dialog-5"><div class="flex justify-center py-16"><span class="spinner"></span></div></template><template id="work-transfer-dialog-6"><p class="mt-4 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template><template id="work-transfer-dialog-7">
-          <div class="mt-4 grid grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-6">
-            <section class="flex min-w-0 flex-col rounded-xl border border-slate-200">
-              <div class="border-b border-slate-200 px-4 py-3">
-                <h3 class="m-0 text-sm font-bold text-slate-900">Pending Verification Work</h3>
-                <p class="m-0 text-xs text-slate-500"><!--{{0}}--> pending work item<!--{{1}}--></p>
+        <!--{{5}}--><template id="work-transfer-dialog-5"><div class="work-transfer-bar"><span class="spinner"></span></div></template><template id="work-transfer-dialog-6"><p class="work-transfer-text"><!--{{0}}--></p></template><template id="work-transfer-dialog-7">
+          <div class="work-transfer-grid">
+            <section class="work-transfer-section">
+              <div class="work-transfer-box">
+                <h3 class="work-transfer-subheading">Pending Verification Work</h3>
+                <p class="work-transfer-text-4"><!--{{0}}--> pending work item<!--{{1}}--></p>
               </div>
-              <div class="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-4 py-2">
-                <label class="flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-700">
-                  <input type="checkbox" class="h-4 w-4 accent-violet-600" {{2}} data-indeterminate="{{3}}"
+              <div class="work-transfer-bar-2">
+                <label class="work-transfer-label-9">
+                  <input type="checkbox" class="work-transfer-input-2" {{2}} data-indeterminate="{{3}}"
                     {{4}} onchange="{{5}}.toggleAll(this.checked)" />
                   Select All
                 </label>
-                <span class="text-sm font-semibold text-violet-700"><!--{{6}}--> selected</span>
+                <span class="work-transfer-label-10"><!--{{6}}--> selected</span>
               </div>
-              <ul class="m-0 h-72 list-none divide-y divide-slate-100 overflow-y-auto p-0">
-                <!--{{7}}--><template id="work-transfer-dialog-7-1"><li class="px-4 py-10 text-center text-sm text-slate-400">No pending work left.</li></template><template id="work-transfer-dialog-7-2">
+              <ul class="work-transfer-list-2">
+                <!--{{7}}--><template id="work-transfer-dialog-7-1"><li class="work-transfer-item">No pending work left.</li></template><template id="work-transfer-dialog-7-2">
                   <li data-key="{{0}}">
-                    <label class="flex cursor-pointer items-start gap-3 px-4 py-2.5 hover:bg-slate-50">
-                      <input type="checkbox" class="mt-1 h-4 w-4 shrink-0 accent-violet-600" {{1}}
+                    <label class="work-transfer-label-2">
+                      <input type="checkbox" class="work-transfer-input" {{1}}
                         {{2}} onchange="{{3}}.toggle({{4}}, this.checked)" />
-                      <span class="min-w-0 flex-1">
-                        <span class="block truncate text-sm font-semibold text-slate-800" title="{{5}}"><!--{{6}}--></span>
-                        <span class="block truncate text-xs text-slate-500"><!--{{7}}--> · submitted <!--{{8}}--></span>
-                        <!--{{9}}--><template id="work-transfer-dialog-7-2-1"><span class="block text-xs font-semibold text-rose-600"><!--{{0}}--></span></template>
+                      <span class="work-transfer-label-3">
+                        <span class="work-transfer-label-4" title="{{5}}"><!--{{6}}--></span>
+                        <span class="work-transfer-label-5"><!--{{7}}--> · submitted <!--{{8}}--></span>
+                        <!--{{9}}--><template id="work-transfer-dialog-7-2-1"><span class="work-transfer-label"><!--{{0}}--></span></template>
                       </span>
                     </label>
                   </li></template>
               </ul>
             </section>
 
-            <section class="flex min-w-0 flex-col">
-              <h3 class="m-0 text-sm font-bold text-slate-900">Choose Location Manager to transfer work</h3>
-              <div class="relative mt-3">
-                <button type="button" class="select flex w-full items-center justify-between gap-2 text-left" {{8}}
+            <section class="work-transfer-section-2">
+              <h3 class="work-transfer-subheading">Choose Location Manager to transfer work</h3>
+              <div class="work-transfer-box-2">
+                <button type="button" class="select work-transfer-button-2" {{8}}
                   aria-haspopup="listbox" aria-expanded="{{9}}" onclick="{{10}}.toggleDropdown()">
                   <!--{{11}}--><template id="work-transfer-dialog-7-3">
-                    <span class="min-w-0">
-                      <span class="block truncate text-sm font-semibold text-slate-800"><!--{{0}}--></span>
-                      <span class="block truncate text-xs text-slate-500"><!--{{1}}--> · <!--{{2}}--></span>
-                    </span></template><template id="work-transfer-dialog-7-4"><span class="text-sm text-slate-400">Select a Location Manager</span></template>
+                    <span class="work-transfer-label-6">
+                      <span class="work-transfer-label-4"><!--{{0}}--></span>
+                      <span class="work-transfer-label-5"><!--{{1}}--> · <!--{{2}}--></span>
+                    </span></template><template id="work-transfer-dialog-7-4"><span class="work-transfer-label-7">Select a Location Manager</span></template>
                 </button>
                 <!--{{12}}--><template id="work-transfer-dialog-7-5">
-                  <ul class="absolute left-0 right-0 top-full z-10 m-0 mt-1 max-h-60 list-none overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-card-hover" role="listbox">
-                    <!--{{0}}--><template id="work-transfer-dialog-7-5-1"><li class="px-3 py-3 text-sm text-slate-500">No other active Location Manager is available in this state.</li></template><template id="work-transfer-dialog-7-5-2">
+                  <ul class="work-transfer-list" role="listbox">
+                    <!--{{0}}--><template id="work-transfer-dialog-7-5-1"><li class="work-transfer-item-2">No other active Location Manager is available in this state.</li></template><template id="work-transfer-dialog-7-5-2">
                       <li role="option" aria-selected="{{0}}">
-                        <button type="button" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-violet-50{{1}}" onclick="{{2}}.choose({{3}})">
-                          <span class="block truncate text-sm font-semibold text-slate-800"><!--{{4}}--></span>
-                          <span class="block truncate text-xs text-slate-500"><!--{{5}}--></span>
-                          <span class="block truncate text-xs text-slate-500"><!--{{6}}--></span>
+                        <button type="button" class="work-transfer-button hover:bg-violet-50{{1}}" onclick="{{2}}.choose({{3}})">
+                          <span class="work-transfer-label-4"><!--{{4}}--></span>
+                          <span class="work-transfer-label-5"><!--{{5}}--></span>
+                          <span class="work-transfer-label-5"><!--{{6}}--></span>
                         </button>
                       </li></template>
                   </ul></template>
               </div>
 
-              <button type="button" class="btn-primary mt-4 w-full" {{13}} onclick="{{14}}.transfer()">
-                <!--{{15}}--><template id="work-transfer-dialog-7-6"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> Transferring... </template><template id="work-transfer-dialog-7-7"><i class="fa-solid fa-right-left"></i> Transfer </template>
+              <button type="button" class="btn-primary work-transfer-button-3" {{13}} onclick="{{14}}.transfer()">
+                <!--{{15}}--><template id="work-transfer-dialog-7-6"><span class="spinner work-transfer-label-8"></span> Transferring... </template><template id="work-transfer-dialog-7-7"><i class="fa-solid fa-right-left"></i> Transfer </template>
               </button>
-              <!--{{16}}--><template id="work-transfer-dialog-7-8"><p class="mb-0 mt-3 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
-              <!--{{17}}--><template id="work-transfer-dialog-7-9"><p class="mb-0 mt-3 text-sm font-semibold text-emerald-600"><!--{{0}}--></p></template>
+              <!--{{16}}--><template id="work-transfer-dialog-7-8"><p class="work-transfer-text-2"><!--{{0}}--></p></template>
+              <!--{{17}}--><template id="work-transfer-dialog-7-9"><p class="work-transfer-text-3"><!--{{0}}--></p></template>
             </section>
           </div></template>
       </div>
@@ -396,27 +400,27 @@
     </button>
 
     <!--{{1}}--><template id="work-transfer-reassign-work-1">
-      <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-        <div class="card w-full max-w-lg" role="dialog" aria-modal="true" aria-labelledby="reassign-work-title">
-          <div class="flex items-start justify-between gap-3">
+      <div class="work-transfer-overlay">
+        <div class="card work-transfer-box-5" role="dialog" aria-modal="true" aria-labelledby="reassign-work-title">
+          <div class="work-transfer-bar-3">
             <div>
-              <h2 id="reassign-work-title" class="m-0 text-lg font-bold text-slate-900">Reassign work</h2>
-              <p class="m-0 text-sm text-slate-500">Choose the Location Manager whose work you want to reassign.</p>
+              <h2 id="reassign-work-title" class="work-transfer-heading">Reassign work</h2>
+              <p class="work-transfer-text-5">Choose the Location Manager whose work you want to reassign.</p>
             </div>
-            <button type="button" class="btn-icon !h-8 !w-8 shrink-0" aria-label="Close" onclick="{{0}}.close()"><i class="fa-solid fa-xmark"></i></button>
+            <button type="button" class="btn-icon work-transfer-button-4" aria-label="Close" onclick="{{0}}.close()"><i class="fa-solid fa-xmark"></i></button>
           </div>
 
-          <!--{{1}}--><template id="work-transfer-reassign-work-1-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="work-transfer-reassign-work-1-2">
-            <div class="form-group mt-4">
+          <!--{{1}}--><template id="work-transfer-reassign-work-1-1"><div class="work-transfer-bar-5"><span class="spinner"></span></div></template><template id="work-transfer-reassign-work-1-2">
+            <div class="form-group work-transfer-box-4">
               <label class="form-label req-mark" for="reassign-source">Location Manager</label>
               <select id="reassign-source" class="select" data-value="{{0}}" onchange="{{1}}.setSource(this.value)">
                 <option value="" disabled>Select Location Manager</option>
                 <!--{{2}}--><template id="work-transfer-reassign-work-1-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
               </select>
-              <!--{{3}}--><template id="work-transfer-reassign-work-1-2-2"><p class="mt-1 text-xs text-slate-500">There is no active Location Manager under you to reassign work from.</p></template>
+              <!--{{3}}--><template id="work-transfer-reassign-work-1-2-2"><p class="work-transfer-text-7">There is no active Location Manager under you to reassign work from.</p></template>
             </div>
-            <!--{{4}}--><template id="work-transfer-reassign-work-1-2-3"><p class="mb-2 mt-0 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
-            <div class="mt-4 flex justify-end gap-2">
+            <!--{{4}}--><template id="work-transfer-reassign-work-1-2-3"><p class="work-transfer-text-8"><!--{{0}}--></p></template>
+            <div class="work-transfer-bar-6">
               <button type="button" class="btn-outline" onclick="{{5}}.close()">Cancel</button>
               <button type="button" class="btn-primary" {{6}} onclick="{{7}}.continue()">Continue</button>
             </div></template>
@@ -429,9 +433,9 @@
 
 <!-- accounts page: other templates (js/accounts.js) -->
 <template id="accounts-pw-field">
-          <div class="relative">
-            <input class="input !pr-11" type="{{0}}" name="{{1}}" {{2}} autocomplete="new-password" />
-            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-zepto-600" onclick="Page.state.{{3}} = !Page.state.{{4}}" aria-label="{{5}}">
+          <div class="accounts-box">
+            <input class="input accounts-input" type="{{0}}" name="{{1}}" {{2}} autocomplete="new-password" />
+            <button type="button" class="accounts-button" onclick="Page.state.{{3}} = !Page.state.{{4}}" aria-label="{{5}}">
               <i class="fa-solid{{6}}"></i>
             </button>
           </div></template>

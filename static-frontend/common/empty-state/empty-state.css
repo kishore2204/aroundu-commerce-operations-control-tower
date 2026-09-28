@@ -1,7 +1,37 @@
 /*
  * empty-state.css - <app-empty-state> component styles.
- * Port of src/app/shared/empty-state/empty-state.component.css and the component's :host rules, scoped to <app-empty-state>.
+ * Angular: src/app/shared/empty-state/empty-state.component.html (+ .css); the component's :host rules are scoped to <app-empty-state>.
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
  */
+.empty-state-text {
+  max-width: 28rem;
+}
+.empty-state-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  text-align: center;
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+.empty-state-text-2 {
+  margin: 0px;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+
+/* the Angular component's own stylesheet */
 app-empty-state {
   display: block;
 }

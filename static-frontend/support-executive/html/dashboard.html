@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
@@ -94,34 +95,34 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-support-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-support-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="dashboard-bar-45">
   <div>
-    <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
-      <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-        <i class="fa-solid fa-headset text-sm"></i>
+    <h1 class="dashboard-title-6">
+      <span class="dashboard-label-49">
+        <i class="fa-solid fa-headset dashboard-icon-15"></i>
       </span>
       Ticket resolution overview
     </h1>
-    <p class="mt-1 text-sm text-slate-500">Customer support workload and resolution progress at a glance.</p>
+    <p class="dashboard-text-48">Customer support workload and resolution progress at a glance.</p>
   </div>
   <a href="{{0}}" class="btn-primary"><i class="fa-solid fa-list-check"></i> Review tickets</a>
 </div>
 
-<!--{{1}}--><template id="dashboard-1"><div class="flex justify-center py-12"><span class="spinner"></span></div></template><template id="dashboard-2">
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+<!--{{1}}--><template id="dashboard-1"><div class="dashboard-bar-43"><span class="spinner"></span></div></template><template id="dashboard-2">
+  <div class="dashboard-grid-20">
     <!--{{0}}-->
     <!--{{1}}-->
     <!--{{2}}-->
     <!--{{3}}--><template id="dashboard-2-1">Returns &amp; replacements</template>
   </div>
 
-  <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-    <section class="card lg:col-span-2">
-      <div class="mb-4 flex items-center justify-between gap-3">
-        <h2 class="text-lg font-bold text-slate-900">Tickets requiring attention</h2>
-        <a href="{{4}}" class="text-xs font-semibold text-zepto-600 hover:text-zepto-700">Open ticket queue</a>
+  <div class="dashboard-grid-21">
+    <section class="card dashboard-section-3">
+      <div class="dashboard-bar-44">
+        <h2 class="dashboard-heading-12">Tickets requiring attention</h2>
+        <a href="{{4}}" class="dashboard-link-10">Open ticket queue</a>
       </div>
-      <!--{{5}}--><template id="dashboard-2-2"><p class="py-8 text-center text-sm text-slate-400">Nothing needs attention right now.</p></template><template id="dashboard-2-3">
+      <!--{{5}}--><template id="dashboard-2-2"><p class="dashboard-text-45">Nothing needs attention right now.</p></template><template id="dashboard-2-3">
         <div class="table-card overflow-x-auto">
           <table class="custom-table">
             <thead>
@@ -137,18 +138,18 @@
               <!--{{0}}--><template id="dashboard-2-3-1">
                 <tr data-key="{{0}}">
                   <td>
-                    <p class="font-semibold text-slate-800"><!--{{1}}--></p>
-                    <p class="text-xs text-slate-400"><!--{{2}}--></p>
+                    <p class="dashboard-text-46"><!--{{1}}--></p>
+                    <p class="dashboard-text-47"><!--{{2}}--></p>
                   </td>
-                  <td class="text-slate-600"><!--{{3}}--></td>
-                  <td class="text-slate-600"><!--{{4}}--></td>
+                  <td class="dashboard-cell-5"><!--{{3}}--></td>
+                  <td class="dashboard-cell-5"><!--{{4}}--></td>
                   <td>
                     <span class="badge{{5}}">
                       <!--{{6}}-->
                     </span>
                   </td>
                   <td>
-                    <a href="{{7}}" class="btn-outline !py-1.5 !px-3 !text-xs whitespace-nowrap">
+                    <a href="{{7}}" class="btn-outline dashboard-link-9">
                       <i class="fa-solid fa-arrow-right"></i> Review
                     </a>
                   </td>
@@ -159,8 +160,8 @@
     </section>
 
     <section class="card">
-      <h2 class="mb-4 text-lg font-bold text-slate-900">Today</h2>
-      <div class="space-y-3 text-sm">
+      <h2 class="dashboard-heading-13">Today</h2>
+      <div class="dashboard-box-20">
         <!--{{6}}-->
         <!--{{7}}-->
         <!--{{8}}-->
@@ -181,10 +182,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -193,19 +194,19 @@
 
 <!-- dashboard page: other templates (js/dashboard.js) -->
 <template id="dashboard-card">
-    <div class="card flex items-center justify-between">
+    <div class="card dashboard-bar-42">
       <div>
-        <p class="text-sm font-semibold text-slate-500"><!--{{0}}--></p>
-        <p class="mt-1.5 text-3xl font-extrabold text-slate-900"><!--{{1}}--></p>
-        <p class="mt-1 text-xs text-slate-400"><!--{{2}}--></p>
+        <p class="dashboard-text-42"><!--{{0}}--></p>
+        <p class="dashboard-text-43"><!--{{1}}--></p>
+        <p class="dashboard-text-44"><!--{{2}}--></p>
       </div>
       <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br {{3}} text-xl text-white">
         <i class="fa-solid {{4}}"></i>
       </div>
     </div></template>
 <template id="dashboard-row">
-        <div class="flex items-center justify-between{{0}}">
-          <span class="text-slate-500"><!--{{1}}--></span>
+        <div class="dashboard-bar-42{{0}}">
+          <span class="dashboard-label-48"><!--{{1}}--></span>
           <strong class="{{2}}"><!--{{3}}--></strong>
         </div></template>
 

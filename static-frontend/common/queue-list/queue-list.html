@@ -4,17 +4,17 @@
   contains a copy of these templates between "BEGIN common/queue-list/queue-list.html" and "END" comments.
   Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
 -->
-<template id="queue-list"><div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-  <h1 class="m-0 flex items-center gap-2.5 text-2xl font-bold text-slate-900">
-    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-      <i class="fa-solid fa-clipboard-check text-sm"></i>
+<template id="queue-list"><div class="queue-list-bar-2">
+  <h1 class="queue-list-title">
+    <span class="queue-list-label">
+      <i class="fa-solid fa-clipboard-check queue-list-icon"></i>
     </span>
     Verification queue
   </h1>
   <!--{{0}}-->
 </div>
 
-<div class="form-group max-w-xs mb-5">
+<div class="form-group queue-list-box">
   <label class="form-label">Status</label>
   <select class="select" data-value="{{1}}" onchange="Page.setStatus(this.value)">
     <option value="SENT_TO_LOCATION_MANAGER">Awaiting my review</option>
@@ -26,12 +26,12 @@
   </select>
 </div>
 
-<div class="mb-4 flex items-start gap-2 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-800">
-  <i class="fa-solid fa-circle-info mt-0.5"></i>
+<div class="queue-list-bar-3">
+  <i class="fa-solid fa-circle-info queue-list-icon-2"></i>
   <span>Use the <strong>Review</strong> action to open the application, inspect the submitted details and documents, and make a verification decision.</span>
 </div>
 
-<!--{{2}}--><template id="queue-list-1"><div class="flex justify-center py-12"><span class="spinner"></span></div></template><template id="queue-list-2">
+<!--{{2}}--><template id="queue-list-1"><div class="queue-list-bar"><span class="spinner"></span></div></template><template id="queue-list-2">
   <div class="table-card overflow-x-auto">
     <table class="custom-table">
       <thead>
@@ -39,29 +39,29 @@
           <th>Subject</th>
           <th>Submitted</th>
           <th>Status</th>
-          <th class="text-right">Action</th>
+          <th class="queue-list-cell-2">Action</th>
         </tr>
       </thead>
       <tbody>
         <!--{{0}}--><template id="queue-list-2-1">
-          <tr class="cursor-pointer hover:bg-zepto-50/60" onclick="Nav.open({{0}})" data-key="{{1}}">
+          <tr class="queue-list-row" onclick="Nav.open({{0}})" data-key="{{1}}">
             <td>
-              <p class="font-semibold text-slate-800">
+              <p class="queue-list-text">
                 <!--{{2}}-->
               </p>
-              <p class="text-xs text-slate-400">
+              <p class="queue-list-text-2">
                 <!--{{3}}-->
                 <!--{{4}}--><template id="queue-list-2-1-1"> &middot; Fleet: <!--{{0}}--> </template>
               </p>
             </td>
-            <td class="text-slate-500"><!--{{5}}--></td>
+            <td class="queue-list-cell"><!--{{5}}--></td>
             <td>
               <span class="badge{{6}}">
                 <!--{{7}}-->
               </span>
             </td>
-            <td class="text-right">
-              <a class="btn-outline !px-3 !py-1.5 text-xs" href="{{8}}" onclick="event.stopPropagation()">
+            <td class="queue-list-cell-2">
+              <a class="btn-outline queue-list-link" href="{{8}}" onclick="event.stopPropagation()">
                 Review <i class="fa-solid fa-arrow-right"></i>
               </a>
             </td>

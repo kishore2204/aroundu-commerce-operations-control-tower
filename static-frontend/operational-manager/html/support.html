@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
   <link rel="stylesheet" href="../../common/my-tickets/my-tickets.css">
   <link rel="stylesheet" href="../../common/operations-support/operations-support.css">
@@ -108,30 +109,30 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-support><!--{{0}}--><!--tpl:operations-support (common/operations-support/operations-support.html)--><h1 class="mb-4 flex items-center gap-2.5 text-2xl font-extrabold text-slate-900">
-  <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-    <i class="fa-solid fa-headset text-sm"></i>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-support><!--{{0}}--><!--tpl:operations-support (common/operations-support/operations-support.html)--><h1 class="operations-support-title">
+  <span class="operations-support-label-2">
+    <i class="fa-solid fa-headset operations-support-icon"></i>
   </span>
   Support
 </h1>
 
-<div class="flex gap-2 border-b border-slate-200 mb-5 overflow-x-auto">
+<div class="operations-support-bar-3">
   <!--{{0}}-->
   <!--{{1}}-->
-  <!--{{2}}--><template id="operations-support-1"><button type="button" class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors{{0}}" onclick="Page.setTab('developers')">Contact Developers</button></template>
+  <!--{{2}}--><template id="operations-support-1"><button type="button" class="operations-support-button{{0}}" onclick="Page.setTab('developers')">Contact Developers</button></template>
   <!--{{3}}-->
 </div>
 
 <!--{{4}}--><template id="operations-support-2">
   <div>
     <!--{{0}}--><template id="operations-support-2-1">
-      <div class="mb-3">
-        <select class="select max-w-xs" data-value="{{0}}" onchange="Page.state.categoryFilter = this.value">
+      <div class="operations-support-box">
+        <select class="select operations-support-select" data-value="{{0}}" onchange="Page.state.categoryFilter = this.value">
           <option value="ALL">All categories</option>
           <!--{{1}}--><template id="operations-support-2-1-1"><option value="{{0}}"><!--{{1}}--></option></template>
         </select>
       </div></template>
-    <!--{{1}}--><template id="operations-support-2-2"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-support-2-3">
+    <!--{{1}}--><template id="operations-support-2-2"><div class="operations-support-bar-2"><span class="spinner"></span></div></template><template id="operations-support-2-3">
       <div class="table-card overflow-x-auto">
         <table class="custom-table">
           <!--{{0}}-->
@@ -139,9 +140,9 @@
             <!--{{1}}--><template id="operations-support-2-3-1">
               <tr data-key="{{0}}">
                 <td>
-                  <a href="{{1}}" class="text-slate-900 hover:text-zepto-600">
-                    <p class="font-semibold"><!--{{2}}--> - <!--{{3}}--></p>
-                    <p class="text-sm text-slate-500 mt-0.5">
+                  <a href="{{1}}" class="operations-support-link-2">
+                    <p class="operations-support-text"><!--{{2}}--> - <!--{{3}}--></p>
+                    <p class="operations-support-text-2">
                       <!--{{4}}--> / <!--{{5}}-->
                       - <!--{{6}}--> - priority <!--{{7}}--> - <!--{{8}}-->
                     </p>
@@ -164,7 +165,7 @@
 
 <!--{{5}}--><template id="operations-support-3">
   <div>
-    <!--{{0}}--><template id="operations-support-3-1"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-support-3-2">
+    <!--{{0}}--><template id="operations-support-3-1"><div class="operations-support-bar-2"><span class="spinner"></span></div></template><template id="operations-support-3-2">
       <div class="table-card overflow-x-auto">
         <table class="custom-table">
           <!--{{0}}-->
@@ -172,9 +173,9 @@
             <!--{{1}}--><template id="operations-support-3-2-1">
               <tr data-key="{{0}}">
                 <td>
-                  <a href="{{1}}" class="text-slate-900 hover:text-zepto-600">
-                    <p class="font-semibold"><!--{{2}}--> - <!--{{3}}--></p>
-                    <p class="text-sm text-slate-500 mt-0.5">Escalated by <!--{{4}}-->: <!--{{5}}--></p>
+                  <a href="{{1}}" class="operations-support-link-2">
+                    <p class="operations-support-text"><!--{{2}}--> - <!--{{3}}--></p>
+                    <p class="operations-support-text-2">Escalated by <!--{{4}}-->: <!--{{5}}--></p>
                   </a>
                 </td>
                 <td>
@@ -194,10 +195,10 @@
   </div></template>
 
 <!--{{7}}--><template id="operations-support-5">
-  <div class="card max-w-2xl">
-    <h2 class="text-lg font-extrabold text-slate-900">Contact Developers</h2>
-    <p class="mt-1 text-sm text-slate-500">Send a technical message to the developer team.</p>
-    <form novalidate onsubmit="event.preventDefault(); Page.sendDeveloperMessage()" class="mt-5 flex flex-col gap-4">
+  <div class="card operations-support-box-2">
+    <h2 class="operations-support-heading">Contact Developers</h2>
+    <p class="operations-support-text-3">Send a technical message to the developer team.</p>
+    <form novalidate onsubmit="event.preventDefault(); Page.sendDeveloperMessage()" class="operations-support-form">
       <div>
         <label class="form-label req-mark">Title</label>
         <input class="input" name="title" {{0}} maxlength="160" placeholder="Enter message title" />
@@ -206,27 +207,27 @@
         <label class="form-label req-mark">Message</label>
         <!--{{1}}-->
       </div>
-      <button type="submit" class="btn-primary self-start" {{2}}>
+      <button type="submit" class="btn-primary operations-support-button-2" {{2}}>
         <i class="fa-solid fa-paper-plane"></i> Send
       </button>
     </form>
   </div></template>
 
 <!--{{8}}--><template id="operations-support-6">
-  <div class="fixed inset-0 z-[80] grid place-items-center bg-slate-900/55 p-4" onclick="Page.closeDeveloperMailPopup()">
-    <section class="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-2xl" role="dialog" aria-modal="true" aria-label="Developer message sent" onclick="event.stopPropagation()">
-      <div class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-100 text-xl text-emerald-600">
+  <div class="operations-support-overlay" onclick="Page.closeDeveloperMailPopup()">
+    <section class="operations-support-section" role="dialog" aria-modal="true" aria-label="Developer message sent" onclick="event.stopPropagation()">
+      <div class="operations-support-grid">
         <i class="fa-solid fa-circle-check"></i>
       </div>
-      <h3 class="mt-4 text-lg font-extrabold text-slate-900">Message sent</h3>
-      <p class="mt-2 text-sm text-slate-600">A mail has been sent to the developer team.</p>
-      <button type="button" class="btn-primary mt-5" onclick="Page.closeDeveloperMailPopup()">OK</button>
+      <h3 class="operations-support-subheading">Message sent</h3>
+      <p class="operations-support-text-4">A mail has been sent to the developer team.</p>
+      <button type="button" class="btn-primary operations-support-button-3" onclick="Page.closeDeveloperMailPopup()">OK</button>
     </section>
   </div></template>
 
 <!--{{9}}--><template id="operations-support-7">
   <div>
-    <div class="card max-w-2xl mb-6">
+    <div class="card operations-support-box-3">
       <form novalidate onsubmit="event.preventDefault(); Page.sendNotification()">
         <div class="form-grid">
           <div class="form-group full-width">
@@ -236,13 +237,13 @@
                 <option value="">Select recipient</option>
                 <!--{{1}}--><template id="operations-support-7-1-1"><option value="{{0}}"><!--{{1}}--></option></template>
               </select>
-              <!--{{2}}--><template id="operations-support-7-1-2"><p class="text-xs text-slate-500 mt-1">No recipients found for your zone yet.</p></template>
-              <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" onclick="Page.state.useCustomRecipient = true">
+              <!--{{2}}--><template id="operations-support-7-1-2"><p class="operations-support-text-5">No recipients found for your zone yet.</p></template>
+              <button type="button" class="operations-support-button-4" onclick="Page.state.useCustomRecipient = true">
                 Enter a user account ID manually instead
               </button></template><template id="operations-support-7-2">
               <input class="input" name="userAccountId" {{0}} placeholder="UUID" />
               <!--{{1}}--><template id="operations-support-7-2-1">
-                <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" onclick="Page.state.useCustomRecipient = false">
+                <button type="button" class="operations-support-button-4" onclick="Page.state.useCustomRecipient = false">
                   Pick from list instead
                 </button></template></template>
           </div>
@@ -254,7 +255,7 @@
                 <!--{{1}}--><template id="operations-support-7-3-1"><option value="{{0}}"><!--{{1}}--></option></template>
               </select></template><template id="operations-support-7-4">
               <input class="input" name="notificationType" {{0}} placeholder="e.g. VERIFICATION_UPDATE" />
-              <button type="button" class="text-xs font-semibold text-zepto-600 mt-1 text-left" onclick="Page.state.useCustomNotificationType = false">
+              <button type="button" class="operations-support-button-4" onclick="Page.state.useCustomNotificationType = false">
                 Pick from list instead
               </button></template>
           </div>
@@ -267,16 +268,16 @@
             <!--{{3}}-->
           </div>
         </div>
-        <!--{{4}}--><template id="operations-support-7-5"><p class="text-rose-600 text-sm mb-3"><!--{{0}}--></p></template>
-        <!--{{5}}--><template id="operations-support-7-6"><p class="text-emerald-600 text-sm mb-3">Notification sent.</p></template>
+        <!--{{4}}--><template id="operations-support-7-5"><p class="operations-support-text-6"><!--{{0}}--></p></template>
+        <!--{{5}}--><template id="operations-support-7-6"><p class="operations-support-text-7">Notification sent.</p></template>
         <button type="submit" class="btn-primary" {{6}}>
           Send
         </button>
       </form>
     </div>
 
-    <h2 class="text-lg font-bold text-slate-900 mb-3">Recent notifications</h2>
-    <!--{{7}}--><template id="operations-support-7-7"><div class="flex justify-center py-10"><span class="spinner"></span></div></template><template id="operations-support-7-8">
+    <h2 class="operations-support-heading-2">Recent notifications</h2>
+    <!--{{7}}--><template id="operations-support-7-7"><div class="operations-support-bar-2"><span class="spinner"></span></div></template><template id="operations-support-7-8">
       <div class="table-card overflow-x-auto">
         <table class="custom-table">
           <thead>
@@ -289,8 +290,8 @@
             <!--{{0}}--><template id="operations-support-7-8-1">
               <tr data-key="{{0}}">
                 <td>
-                  <p class="font-semibold"><!--{{1}}--></p>
-                  <p class="text-sm text-slate-500 mt-0.5"><!--{{2}}--> - <!--{{3}}--></p>
+                  <p class="operations-support-text"><!--{{1}}--></p>
+                  <p class="operations-support-text-2"><!--{{2}}--> - <!--{{3}}--></p>
                 </td>
                 <td>
                   <span class="badge{{4}}"><!--{{5}}--></span>
@@ -313,10 +314,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -325,26 +326,26 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
 
 <!-- BEGIN common/my-tickets/my-tickets.html -->
-<template id="my-tickets"><app-my-tickets><h1 class="text-xl font-extrabold text-slate-900 mb-4">Support</h1>
+<template id="my-tickets"><app-my-tickets><h1 class="my-tickets-title">Support</h1>
 
-<!--{{0}}--><template id="my-tickets-1"><div class="flex justify-center py-8"><div class="spinner"></div></div></template><template id="my-tickets-2">
+<!--{{0}}--><template id="my-tickets-1"><div class="my-tickets-bar"><div class="spinner"></div></div></template><template id="my-tickets-2">
   <!--{{0}}--><template id="my-tickets-2-1">
-    <ul class="list-none p-0 flex flex-col gap-1 mb-4">
+    <ul class="my-tickets-list">
       <!--{{0}}--><template id="my-tickets-2-1-1">
         <li data-key="{{0}}">
-          <a href="{{1}}" class="flex justify-between items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-200 no-underline text-inherit hover:border-zepto-300 hover:bg-zepto-50">
+          <a href="{{1}}" class="my-tickets-link">
             <div>
-              <p class="font-medium text-slate-800 m-0"><!--{{2}}--> - <!--{{3}}--></p>
-              <p class="text-xs text-slate-500 mt-0.5 mb-0">
+              <p class="my-tickets-text"><!--{{2}}--> - <!--{{3}}--></p>
+              <p class="my-tickets-text-2">
                 <!--{{4}}--> / <!--{{5}}-->
                 - <!--{{6}}-->
               </p>
@@ -356,7 +357,7 @@
 
   <!--{{1}}--><template id="my-tickets-2-2">
     <div class="card">
-      <form novalidate onsubmit="event.preventDefault(); {{0}}.submit()" class="flex flex-col gap-3">
+      <form novalidate onsubmit="event.preventDefault(); {{0}}.submit()" class="my-tickets-form">
         <div>
           <label class="form-label req-mark">Category</label>
           <select class="select" name="ticketCategory" {{1}}>
@@ -395,8 +396,8 @@
           <label class="form-label req-mark">Description</label>
           <textarea class="input" name="description" rows="3" oninput="{{8}}.controls['description'].input(this)" onblur="{{9}}.controls['description'].blur()"><!--{{10}}--></textarea>
         </div>
-        <!--{{11}}--><template id="my-tickets-2-2-4"><p class="text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
-        <button type="submit" class="btn-primary self-start" {{12}}>Submit ticket</button>
+        <!--{{11}}--><template id="my-tickets-2-2-4"><p class="my-tickets-text-3"><!--{{0}}--></p></template>
+        <button type="submit" class="btn-primary my-tickets-button" {{12}}>Submit ticket</button>
       </form>
     </div></template><template id="my-tickets-2-3">
     <button type="button" class="btn-outline" onclick="{{0}}.openForm()">Raise a support ticket</button></template></template></app-my-tickets></template>
@@ -404,17 +405,17 @@
 
 <!-- BEGIN common/operations-support/operations-support.html -->
 <template id="operations-support-tab">
-  <button type="button" class="px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors{{0}}" onclick="Page.setTab('{{1}}')">
+  <button type="button" class="operations-support-button{{0}}" onclick="Page.setTab('{{1}}')">
     <!--{{2}}-->
   </button></template>
 <template id="operations-support-sla-cell">
                     <span class="badge{{0}}"><!--{{1}}--></span></template>
 <template id="operations-support-sla-cell-2">
-                    <span class="text-slate-400 text-sm">-</span></template>
+                    <span class="operations-support-label">-</span></template>
 <template id="operations-support-open-cell">
                 <td>
-                  <div class="flex justify-end">
-                    <a href="{{0}}" class="btn-outline !py-1.5 !px-3 !text-xs whitespace-nowrap">
+                  <div class="operations-support-bar">
+                    <a href="{{0}}" class="btn-outline operations-support-link">
                       <i class="fa-solid fa-arrow-right"></i> Open ticket
                     </a>
                   </div>

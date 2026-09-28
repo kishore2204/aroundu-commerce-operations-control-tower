@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/field-hint/field-hint.css">
+  <link rel="stylesheet" href="../../common/password-requirements/password-requirements.css">
   <link rel="stylesheet" href="../css/drivers.css">
 </head>
 <body>
@@ -105,24 +108,24 @@
 
     <main class="portal-main">
       <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-drivers><!--{{0}}--><!--tpl:drivers (this page)--><div class="animate-fade-in">
-  <!--{{0}}--><template id="drivers-1"><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4">
-    <div class="card w-full max-w-lg bg-white">
-      <div class="flex items-start justify-between gap-4">
+  <!--{{0}}--><template id="drivers-1"><div class="drivers-overlay">
+    <div class="card drivers-box bg-white">
+      <div class="drivers-bar">
         <div>
-          <h3 class="text-lg font-bold text-slate-900"><i class="fa-solid fa-file-circle-exclamation text-amber-500"></i> <!--{{0}}--></h3>
-          <p class="text-sm text-slate-600 mt-2"><!--{{1}}--></p>
-          <p class="text-xs text-slate-500 mt-2">Use the Re-upload License action in the driver table. Only the rejected document needs to be replaced.</p>
+          <h3 class="drivers-subheading"><i class="fa-solid fa-file-circle-exclamation drivers-icon"></i> <!--{{0}}--></h3>
+          <p class="drivers-text"><!--{{1}}--></p>
+          <p class="drivers-text-2">Use the Re-upload License action in the driver table. Only the rejected document needs to be replaced.</p>
         </div>
         <button type="button" class="btn-icon" onclick="Page.state.resubmissionNotice = null" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="flex justify-end mt-4"><button type="button" class="btn-primary" onclick="Page.state.resubmissionNotice = null">OK</button></div>
+      <div class="drivers-bar-2"><button type="button" class="btn-primary" onclick="Page.state.resubmissionNotice = null">OK</button></div>
     </div>
   </div></template>
 
-  <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+  <div class="drivers-bar-9">
     <div>
-      <h1 class="text-2xl font-bold text-slate-900">Fleet Drivers</h1>
-      <p class="text-sm text-slate-500 mt-1">Manage drivers, assigned credentials, and licenses</p>
+      <h1 class="drivers-title">Fleet Drivers</h1>
+      <p class="drivers-text-7">Manage drivers, assigned credentials, and licenses</p>
     </div>
     <button type="button" class="btn-primary" onclick="Page.state.showForm = !Page.state.showForm">
       <i class="fa-solid {{1}}"></i>
@@ -130,16 +133,16 @@
     </button>
   </div>
 
-  <!--{{3}}--><template id="drivers-2"><div class="card bg-emerald-50 border-emerald-200 mb-6">
-    <div class="font-bold text-emerald-700 mb-2">
+  <!--{{3}}--><template id="drivers-2"><div class="card bg-emerald-50 border-emerald-200 drivers-box-2">
+    <div class="drivers-box-3">
       <i class="fa-solid fa-circle-check"></i> Driver Account Created Successfully!
     </div>
-    <p class="text-sm text-slate-700">Please share these credentials with your driver to allow them to log into the Driver App:</p>
-    <div class="bg-white rounded-lg border border-emerald-100 my-3 p-3 flex flex-wrap gap-6">
-      <div><strong>Username/Email:</strong> <code class="bg-slate-100 px-2 py-0.5 rounded font-bold text-zepto-600"><!--{{0}}--></code></div>
-      <div class="flex items-center gap-2">
+    <p class="drivers-text-3">Please share these credentials with your driver to allow them to log into the Driver App:</p>
+    <div class="drivers-bar-3">
+      <div><strong>Username/Email:</strong> <code class="drivers-code"><!--{{0}}--></code></div>
+      <div class="drivers-bar-4">
         <strong>Temporary Password:</strong>
-        <code class="bg-slate-100 px-2 py-0.5 rounded font-bold text-zepto-600"><!--{{1}}--></code>
+        <code class="drivers-code"><!--{{1}}--></code>
         <button type="button" class="btn-icon" onclick="Page.state.credentialsRevealed = !Page.state.credentialsRevealed" aria-label="{{2}}">
           <i class="fa-solid {{3}}"></i>
         </button>
@@ -148,10 +151,10 @@
     <button type="button" class="btn-outline" onclick="Page.state.createdCredentials = null">Dismiss</button>
   </div></template>
 
-  <!--{{4}}--><template id="drivers-3"><div class="card mb-6">
-    <h3 class="text-lg font-bold text-slate-900 mb-5"><i class="fa-solid fa-user-gear text-zepto-600"></i> Register Driver</h3>
+  <!--{{4}}--><template id="drivers-3"><div class="card drivers-box-2">
+    <h3 class="drivers-subheading-2"><i class="fa-solid fa-user-gear drivers-icon-2"></i> Register Driver</h3>
 
-    <!--{{0}}--><template id="drivers-3-1"><div class="bg-rose-50 text-rose-700 rounded-lg px-3.5 py-2.5 mb-4 text-sm">
+    <!--{{0}}--><template id="drivers-3-1"><div class="drivers-panel">
       <i class="fa-solid fa-triangle-exclamation"></i> <!--{{0}}-->
     </div></template>
 
@@ -168,11 +171,11 @@
         <div class="form-group">
           <label class="form-label req-mark">Email Address<!--{{3}}--></label>
           <input type="email" class="input" name="email" {{4}} placeholder="driver@aroundu.com" />
-          <!--{{5}}--><template id="drivers-3-2"><p class="mt-1 text-xs font-semibold text-rose-600"><!--{{0}}--></p></template>
+          <!--{{5}}--><template id="drivers-3-2"><p class="drivers-text-4"><!--{{0}}--></p></template>
         </div>
         <div class="form-group">
           <label class="form-label req-mark">Temporary Password<!--{{6}}--></label>
-          <div class="flex items-center gap-2">
+          <div class="drivers-bar-4">
             <input type="{{7}}" class="input" name="password" {{8}} placeholder="Driver@123" />
             <button type="button" class="btn-icon" onclick="Page.state.showPassword = !Page.state.showPassword" aria-label="{{9}}">
               <i class="fa-solid {{10}}"></i>
@@ -190,7 +193,7 @@
         <div class="form-group">
           <label class="form-label req-mark">License Number<!--{{14}}--></label>
           <input type="text" class="input" name="licenseNumber" {{15}} placeholder="DL-1420110012345" maxlength="16" data-format-input="licence" autocapitalize="characters" spellcheck="false" autocomplete="off" />
-          <!--{{16}}--><template id="drivers-3-4"><p class="mt-1 text-xs font-semibold text-rose-600"><!--{{0}}--></p></template>
+          <!--{{16}}--><template id="drivers-3-4"><p class="drivers-text-4"><!--{{0}}--></p></template>
         </div>
         <div class="form-group">
           <label class="form-label req-mark">License Expiry Date</label>
@@ -199,15 +202,15 @@
         <div class="form-group full-width">
           <label class="form-label req-mark">License Document Photo / File</label>
           <input type="file" accept="image/*" class="input" onchange="Page.onLicenseFileSelected(this)" />
-          <!--{{18}}--><template id="drivers-3-5"><div class="flex items-center gap-3 mt-2">
+          <!--{{18}}--><template id="drivers-3-5"><div class="drivers-bar-5">
             <img src="{{0}}" alt="Driver License" class="thumb-img" />
-            <span class="text-emerald-600 text-sm">Photo selected</span>
+            <span class="drivers-label">Photo selected</span>
           </div></template>
-          <!--{{19}}--><template id="drivers-3-6"><input type="text" class="input mt-1.5" name="licenseDocumentUrl" {{0}} placeholder="Or enter image URL" /></template>
+          <!--{{19}}--><template id="drivers-3-6"><input type="text" class="input drivers-input" name="licenseDocumentUrl" {{0}} placeholder="Or enter image URL" /></template>
         </div>
       </div>
 
-      <div class="flex justify-end gap-3">
+      <div class="drivers-bar-6">
         <button type="button" class="btn-outline" onclick="Page.state.showForm = false">Cancel</button>
         <button type="submit" class="btn-primary" {{20}}>
           <!--{{21}}--><template id="drivers-3-7"><span><i class="fa-solid fa-check"></i> Save &amp; Register Driver</span></template>
@@ -218,15 +221,15 @@
   </div></template>
 
   <div class="table-card">
-    <!--{{5}}--><template id="drivers-4"><div class="text-center text-slate-400 py-12">
+    <!--{{5}}--><template id="drivers-4"><div class="drivers-box-4">
       <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-      <p class="mt-2">Loading drivers...</p>
+      <p class="drivers-text-5">Loading drivers...</p>
     </div></template>
 
-    <!--{{6}}--><template id="drivers-5"><div class="text-center text-slate-400 py-12">
+    <!--{{6}}--><template id="drivers-5"><div class="drivers-box-4">
       <i class="fa-solid fa-users-slash fa-3x"></i>
-      <h3 class="text-slate-700 font-semibold mt-3">No Drivers Registered Yet</h3>
-      <p class="text-sm">Click "Add New Driver" to add drivers to your fleet.</p>
+      <h3 class="drivers-subheading-3">No Drivers Registered Yet</h3>
+      <p class="drivers-text-6">Click "Add New Driver" to add drivers to your fleet.</p>
     </div></template>
 
     <!--{{7}}--><template id="drivers-6"><table class="custom-table">
@@ -243,24 +246,24 @@
       <tbody>
         <!--{{0}}--><template id="drivers-6-1"><tr data-key="{{0}}">
           <td>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-zepto-50 text-zepto-600 flex items-center justify-center">
+            <div class="drivers-bar-7">
+              <div class="drivers-bar-8">
                 <i class="fa-solid fa-user"></i>
               </div>
               <div>
                 <strong><!--{{1}}--></strong>
-                <div class="text-xs text-slate-400"><!--{{2}}--></div>
+                <div class="drivers-label-3"><!--{{2}}--></div>
               </div>
             </div>
           </td>
           <td>
             <div><!--{{3}}--></div>
-            <div class="text-xs text-slate-400">Password set by fleet owner</div>
+            <div class="drivers-label-3">Password set by fleet owner</div>
           </td>
           <td><!--{{4}}--></td>
           <td>
             <div><strong><!--{{5}}--></strong></div>
-            <div class="text-xs text-slate-400">Exp: <!--{{6}}--></div>
+            <div class="drivers-label-3">Exp: <!--{{6}}--></div>
           </td>
           <td>
             <span class="badge{{7}}">
@@ -269,12 +272,12 @@
           </td>
           <td>
             <!--{{9}}--><template id="drivers-6-1-1">
-              <div class="text-xs text-rose-600 mb-2 max-w-xs"><!--{{0}}--></div>
-              <label class="btn-outline cursor-pointer{{1}}">
+              <div class="drivers-box-5"><!--{{0}}--></div>
+              <label class="btn-outline drivers-label-2{{1}}">
                 <i class="fa-solid {{2}}"></i>
                 <!--{{3}}-->
-                <input type="file" class="hidden" accept="image/*,.pdf" {{4}} onchange="Page.onResubmitLicense({{5}}, this)" />
-              </label></template><template id="drivers-6-1-2"><span class="text-xs text-slate-400">No re-upload requested</span></template>
+                <input type="file" class="drivers-input-2" accept="image/*,.pdf" {{4}} onchange="Page.onResubmitLicense({{5}}, this)" />
+              </label></template><template id="drivers-6-1-2"><span class="drivers-label-3">No re-upload requested</span></template>
           </td>
         </tr></template>
       </tbody>
@@ -294,10 +297,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -306,27 +309,27 @@
 
 <!-- BEGIN common/field-hint/field-hint.html -->
 <template id="field-hint">
-      <app-field-hint><span class="relative inline-block align-middle" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
-        <button type="button" class="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full align-middle text-slate-400 transition-colors hover:text-violet-600 focus-visible:text-violet-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
           aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
           onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
-          <i class="fa-solid fa-circle-info text-[0.8rem]" aria-hidden="true"></i>
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
         </button>
         <span role="tooltip" id="{{10}}"
-          class="absolute z-50 w-64 max-w-[calc(100vw-1rem)] px-0 text-left{{11}}"
+          class="field-hint-label-2{{11}}"
           style="left: {{12}}px;">
-          <span class="block whitespace-pre-line rounded-lg bg-slate-900 px-3 py-2 text-xs font-normal normal-case leading-relaxed tracking-normal text-white shadow-lg"><!--{{13}}--></span>
+          <span class="field-hint-label-3"><!--{{13}}--></span>
         </span>
       </span></app-field-hint></template>
 <!-- END common/field-hint/field-hint.html -->
 
 <!-- BEGIN common/password-requirements/password-requirements.html -->
 <template id="password-requirements">
-      <app-password-requirements><div class="mt-2" aria-live="polite">
-        <p class="mb-1 text-xs font-bold text-slate-700">Password requirements</p>
-        <ul class="m-0 list-none space-y-1 p-0 text-xs">
+      <app-password-requirements><div class="password-requirements-box" aria-live="polite">
+        <p class="password-requirements-text">Password requirements</p>
+        <ul class="password-requirements-list">
           <!--{{0}}--><template id="password-requirements-1">
-            <li class="flex items-center gap-1.5 font-semibold{{0}}">
+            <li class="password-requirements-item{{0}}">
               <i class="fa-solid{{1}}"></i>
               <!--{{2}}-->
             </li></template>

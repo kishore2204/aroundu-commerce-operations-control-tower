@@ -5,7 +5,7 @@
   Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
 -->
 <template id="loading-state">
-      <app-loading-state class="{{0}}"><div class="flex flex-col items-center justify-center gap-3 py-12 px-4">
+      <app-loading-state class="{{0}}"><div class="loading-state-stack">
         <div class="spinner" style="width: {{1}}px; height: {{2}}px;"></div>
-        <!--{{3}}--><template id="loading-state-1"><p class="message text-sm text-slate-500 m-0"><!--{{0}}--></p></template>
+        <!--{{3}}--><template id="loading-state-1"><p class="message loading-state-text"><!--{{0}}--></p></template>
       </div></app-loading-state></template>

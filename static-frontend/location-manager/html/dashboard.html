@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
@@ -104,38 +105,38 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-location-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="mb-6 flex flex-wrap items-start justify-between gap-4">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-location-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="dashboard-bar-17">
   <div>
-    <h1 class="flex items-center gap-2.5 text-2xl font-bold text-slate-900">
-      <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-zepto-600 to-violet-500 text-white shadow-glow">
-        <i class="fa-solid fa-gauge-high text-sm"></i>
+    <h1 class="dashboard-title">
+      <span class="dashboard-label-8">
+        <i class="fa-solid fa-gauge-high dashboard-icon-3"></i>
       </span>
       Dashboard
     </h1>
-    <!--{{0}}--><template id="dashboard-1"><p class="mt-1 text-sm text-slate-500"><i class="fa-solid fa-location-dot mr-1 text-violet-500"></i>Assigned zone: <strong class="text-slate-700"><!--{{0}}--></strong> · <!--{{1}}--></p></template>
+    <!--{{0}}--><template id="dashboard-1"><p class="dashboard-text-7"><i class="fa-solid fa-location-dot dashboard-icon"></i>Assigned zone: <strong class="dashboard-strong"><!--{{0}}--></strong> · <!--{{1}}--></p></template>
   </div>
 
-  <div class="flex flex-col items-end gap-2">
-    <div class="flex flex-wrap items-center gap-2">
+  <div class="dashboard-stack-3">
+    <div class="dashboard-bar-3">
       <!--{{1}}--><template id="dashboard-2">
-        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs{{0}}" onclick="Page.setPreset('{{1}}')"><!--{{2}}--></button></template>
-      <button type="button" class="btn-icon !h-8 !w-8" aria-label="Refresh" title="Refresh" onclick="Page.refresh()"><i class="fa-solid fa-rotate"></i></button>
+        <button type="button" class="btn-outline dashboard-button-3{{0}}" onclick="Page.setPreset('{{1}}')"><!--{{2}}--></button></template>
+      <button type="button" class="btn-icon dashboard-button-5" aria-label="Refresh" title="Refresh" onclick="Page.refresh()"><i class="fa-solid fa-rotate"></i></button>
     </div>
     <!--{{2}}--><template id="dashboard-3">
-      <div class="flex flex-wrap items-center gap-2">
-        <input type="date" class="input !w-auto !py-1.5 !text-xs" value="{{0}}" max="{{1}}" onchange="Page.state.customFrom = this.value" />
-        <span class="text-xs text-slate-400">to</span>
-        <input type="date" class="input !w-auto !py-1.5 !text-xs" value="{{2}}" min="{{3}}" onchange="Page.state.customTo = this.value" />
-        <button type="button" class="btn-primary !px-3 !py-1.5 !text-xs" {{4}} onclick="Page.applyCustomRange()">Apply</button>
+      <div class="dashboard-bar-3">
+        <input type="date" class="input dashboard-input" value="{{0}}" max="{{1}}" onchange="Page.state.customFrom = this.value" />
+        <span class="dashboard-text-6">to</span>
+        <input type="date" class="input dashboard-input" value="{{2}}" min="{{3}}" onchange="Page.state.customTo = this.value" />
+        <button type="button" class="btn-primary dashboard-button-3" {{4}} onclick="Page.applyCustomRange()">Apply</button>
       </div></template>
-    <p class="text-xs text-slate-400">The date range applies to decisions, completed orders and onboarding activity. Totals and pending work are current.</p>
+    <p class="dashboard-text-6">The date range applies to decisions, completed orders and onboarding activity. Totals and pending work are current.</p>
   </div>
 </div>
 
-<!--{{3}}--><template id="dashboard-4"><p class="mb-4 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700"><!--{{0}}--></p></template>
+<!--{{3}}--><template id="dashboard-4"><p class="dashboard-text-8"><!--{{0}}--></p></template>
 
 <!--{{4}}--><template id="dashboard-5">
-  <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4{{0}}">
+  <div class="dashboard-grid-3{{0}}">
     <!--{{1}}-->
     <!--{{2}}-->
     <!--{{3}}-->
@@ -144,53 +145,53 @@
     <!--{{6}}-->
     <!--{{7}}-->
   </div>
-  <!--{{8}}--><template id="dashboard-5-1"><p class="-mt-5 mb-6 text-xs text-amber-600">Order figures are temporarily unavailable.</p></template>
+  <!--{{8}}--><template id="dashboard-5-1"><p class="dashboard-text-9">Order figures are temporarily unavailable.</p></template>
 
-  <div class="mb-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
+  <div class="dashboard-grid-4">
     <section class="card">
-      <div class="mb-3 flex items-start justify-between gap-3">
+      <div class="dashboard-bar-12">
         <div>
-          <h2 class="flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-chart-column text-violet-500"></i> Onboarding trends</h2>
-          <p class="text-xs text-slate-400">New applications, <!--{{9}}--></p>
+          <h2 class="dashboard-heading-2"><i class="fa-solid fa-chart-column dashboard-icon-2"></i> Onboarding trends</h2>
+          <p class="dashboard-text-6">New applications, <!--{{9}}--></p>
         </div>
-        <div class="flex items-center gap-3 text-xs text-slate-500">
+        <div class="dashboard-bar-13">
           <!--{{10}}-->
           <!--{{11}}-->
         </div>
       </div>
-      <!--{{12}}--><template id="dashboard-5-2"><p class="py-10 text-center text-sm text-slate-400">No onboarding activity in this range.</p></template><template id="dashboard-5-3">
-        <div class="flex h-40 items-end gap-px border-b border-slate-200">
+      <!--{{12}}--><template id="dashboard-5-2"><p class="dashboard-text-10">No onboarding activity in this range.</p></template><template id="dashboard-5-3">
+        <div class="dashboard-bar-5">
           <!--{{0}}--><template id="dashboard-5-3-1">
-            <div class="flex h-full min-w-0 flex-1 items-end justify-center gap-px" title="{{0}}">
-              <div class="w-1/2 rounded-t-sm bg-violet-500" style="height: {{1}}%;"></div>
-              <div class="w-1/2 rounded-t-sm bg-amber-400" style="height: {{2}}%;"></div>
+            <div class="dashboard-bar-4" title="{{0}}">
+              <div class="dashboard-panel" style="height: {{1}}%;"></div>
+              <div class="dashboard-panel-2" style="height: {{2}}%;"></div>
             </div></template>
         </div>
-        <div class="mt-1 flex justify-between text-xs text-slate-400">
+        <div class="dashboard-bar-6">
           <span><!--{{1}}--></span>
           <span><!--{{2}}--></span>
         </div></template>
     </section>
 
     <section class="card">
-      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-clipboard-check text-violet-500"></i> Verification analytics</h2>
-      <p class="mb-3 text-xs text-slate-400">Pending now · approved and rejected <!--{{13}}--></p>
-      <!--{{14}}--><template id="dashboard-5-4"><p class="py-10 text-center text-sm text-slate-400">No verification activity to show.</p></template><template id="dashboard-5-5">
-        <div class="flex flex-col gap-4">
+      <h2 class="dashboard-heading-3"><i class="fa-solid fa-clipboard-check dashboard-icon-2"></i> Verification analytics</h2>
+      <p class="dashboard-text-15">Pending now · approved and rejected <!--{{13}}--></p>
+      <!--{{14}}--><template id="dashboard-5-4"><p class="dashboard-text-10">No verification activity to show.</p></template><template id="dashboard-5-5">
+        <div class="dashboard-stack">
           <!--{{0}}--><template id="dashboard-5-5-1">
             <div>
-              <div class="mb-1 flex justify-between text-xs">
-                <span class="font-semibold text-slate-600"><!--{{0}}--></span>
-                <span class="text-slate-400"><!--{{1}}--> pending · <!--{{2}}--> approved · <!--{{3}}--> rejected</span>
+              <div class="dashboard-bar-7">
+                <span class="dashboard-label-4"><!--{{0}}--></span>
+                <span class="dashboard-label-5"><!--{{1}}--> pending · <!--{{2}}--> approved · <!--{{3}}--> rejected</span>
               </div>
-              <div class="flex h-4 overflow-hidden rounded-full bg-slate-100">
-                <div class="h-full bg-amber-400" style="width: {{4}}%;" title="Pending"></div>
-                <div class="h-full bg-emerald-500" style="width: {{5}}%;" title="Approved"></div>
-                <div class="h-full bg-rose-500" style="width: {{6}}%;" title="Rejected"></div>
+              <div class="dashboard-bar-8">
+                <div class="dashboard-box-2" style="width: {{4}}%;" title="Pending"></div>
+                <div class="dashboard-box-3" style="width: {{5}}%;" title="Approved"></div>
+                <div class="dashboard-box-4" style="width: {{6}}%;" title="Rejected"></div>
               </div>
             </div></template>
         </div>
-        <div class="mt-3 flex gap-4 text-xs text-slate-500">
+        <div class="dashboard-bar-9">
           <!--{{1}}-->
           <!--{{2}}-->
           <!--{{3}}-->
@@ -198,58 +199,58 @@
     </section>
 
     <section class="card">
-      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-bag-shopping text-violet-500"></i> Order analytics</h2>
-      <p class="mb-3 text-xs text-slate-400">Orders of the retailers in your zone</p>
-      <!--{{15}}--><template id="dashboard-5-6"><p class="py-10 text-center text-sm text-slate-400">Order figures are temporarily unavailable.</p></template><template id="dashboard-5-7">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="rounded-xl bg-violet-50 p-4"><p class="text-2xl font-extrabold text-violet-700"><!--{{0}}--></p><p class="text-xs text-violet-600">Active orders (now)</p></div>
-          <div class="rounded-xl bg-emerald-50 p-4"><p class="text-2xl font-extrabold text-emerald-700"><!--{{1}}--></p><p class="text-xs text-emerald-600">Completed (<!--{{2}}-->)</p></div>
+      <h2 class="dashboard-heading-3"><i class="fa-solid fa-bag-shopping dashboard-icon-2"></i> Order analytics</h2>
+      <p class="dashboard-text-15">Orders of the retailers in your zone</p>
+      <!--{{15}}--><template id="dashboard-5-6"><p class="dashboard-text-10">Order figures are temporarily unavailable.</p></template><template id="dashboard-5-7">
+        <div class="dashboard-grid-2">
+          <div class="dashboard-panel-3"><p class="dashboard-text-11"><!--{{0}}--></p><p class="dashboard-text-12">Active orders (now)</p></div>
+          <div class="dashboard-panel-4"><p class="dashboard-text-13"><!--{{1}}--></p><p class="dashboard-text-14">Completed (<!--{{2}}-->)</p></div>
         </div>
-        <div class="mt-4 flex h-3 overflow-hidden rounded-full bg-slate-100">
-          <div class="h-full bg-violet-500" style="width: {{3}}%;"></div>
-          <div class="h-full bg-emerald-500" style="width: {{4}}%;"></div>
+        <div class="dashboard-bar-10">
+          <div class="dashboard-box-5" style="width: {{3}}%;"></div>
+          <div class="dashboard-box-3" style="width: {{4}}%;"></div>
         </div></template>
     </section>
 
     <section class="card">
-      <h2 class="mb-1 flex items-center gap-2 text-base font-bold text-slate-900"><i class="fa-solid fa-people-arrows text-violet-500"></i> Workload distribution</h2>
-      <p class="mb-3 text-xs text-slate-400">Your pending verification work, by kind</p>
-      <!--{{16}}--><template id="dashboard-5-8"><p class="py-10 text-center text-sm text-slate-400">Nothing pending - you are all caught up.</p></template><template id="dashboard-5-9">
-        <div class="flex flex-col gap-3">
+      <h2 class="dashboard-heading-3"><i class="fa-solid fa-people-arrows dashboard-icon-2"></i> Workload distribution</h2>
+      <p class="dashboard-text-15">Your pending verification work, by kind</p>
+      <!--{{16}}--><template id="dashboard-5-8"><p class="dashboard-text-10">Nothing pending - you are all caught up.</p></template><template id="dashboard-5-9">
+        <div class="dashboard-stack-2">
           <!--{{0}}--><template id="dashboard-5-9-1">
-            <div class="flex items-center gap-3">
-              <span class="w-44 shrink-0 truncate text-xs font-semibold text-slate-500" title="{{0}}"><!--{{1}}--> · <!--{{2}}--></span>
-              <div class="h-4 flex-1 overflow-hidden rounded-full bg-slate-100">
-                <div class="h-full rounded-full{{3}}" style="width: {{4}}%;"></div>
+            <div class="dashboard-bar-11">
+              <span class="dashboard-label-6" title="{{0}}"><!--{{1}}--> · <!--{{2}}--></span>
+              <div class="dashboard-panel-5">
+                <div class="dashboard-box-6{{3}}" style="width: {{4}}%;"></div>
               </div>
-              <span class="w-8 shrink-0 text-right text-xs font-bold text-slate-700"><!--{{5}}--></span>
+              <span class="dashboard-label-7"><!--{{5}}--></span>
             </div></template>
         </div></template>
     </section>
-  </div></template><template id="dashboard-6"><div class="flex justify-center py-12"><span class="spinner"></span></div></template>
+  </div></template><template id="dashboard-6"><div class="dashboard-bar-14"><span class="spinner"></span></div></template>
 
 <section id="zone-partners">
-  <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
-    <h2 class="flex items-center gap-2 text-lg font-bold text-slate-900"><i class="fa-solid fa-users text-violet-500"></i> Users in your zone</h2>
-    <div class="flex rounded-xl border border-slate-200 p-0.5">
-      <button type="button" class="rounded-lg px-4 py-1.5 text-sm font-semibold{{5}}" onclick="Page.selectType('RETAILER')">Retailers</button>
-      <button type="button" class="rounded-lg px-4 py-1.5 text-sm font-semibold{{6}}" onclick="Page.selectType('FLEET_OWNER')">Fleet Owners</button>
+  <div class="dashboard-bar-18">
+    <h2 class="dashboard-heading-4"><i class="fa-solid fa-users dashboard-icon-2"></i> Users in your zone</h2>
+    <div class="dashboard-bar-19">
+      <button type="button" class="dashboard-button-6{{5}}" onclick="Page.selectType('RETAILER')">Retailers</button>
+      <button type="button" class="dashboard-button-6{{6}}" onclick="Page.selectType('FLEET_OWNER')">Fleet Owners</button>
     </div>
   </div>
 
-  <div class="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-    <div class="relative lg:col-span-1">
-      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-      <input class="input pl-9" name="search" value="{{7}}" oninput="Page.searchChanged(this.value)" placeholder="Name, business, email or phone" />
+  <div class="dashboard-grid-5">
+    <div class="dashboard-box-7">
+      <i class="fa-solid fa-magnifying-glass dashboard-icon-4"></i>
+      <input class="input dashboard-input-2" name="search" value="{{7}}" oninput="Page.searchChanged(this.value)" placeholder="Name, business, email or phone" />
     </div>
     <!--{{8}}-->
     <!--{{9}}-->
     <!--{{10}}-->
     <!--{{11}}-->
   </div>
-  <!--{{12}}--><template id="dashboard-7"><p class="-mt-2 mb-3 text-xs text-slate-500"><!--{{0}}--> match. <button type="button" class="font-semibold text-violet-600 hover:underline" onclick="Page.clearFilters()">Clear filters</button></p></template>
+  <!--{{12}}--><template id="dashboard-7"><p class="dashboard-text-16"><!--{{0}}--> match. <button type="button" class="dashboard-button-4" onclick="Page.clearFilters()">Clear filters</button></p></template>
 
-  <!--{{13}}--><template id="dashboard-8"><p class="mb-3 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-700"><!--{{0}}--></p></template>
+  <!--{{13}}--><template id="dashboard-8"><p class="dashboard-text-17"><!--{{0}}--></p></template>
 
   <div class="table-card overflow-x-auto{{14}}">
     <table class="custom-table">
@@ -267,7 +268,7 @@
       </thead>
       <tbody>
         <!--{{19}}--><template id="dashboard-10">
-            <tr><td colspan="{{0}}" class="py-10 text-center text-sm text-slate-400">
+            <tr><td colspan="{{0}}" class="dashboard-text-10">
               <!--{{1}}-->
             </td></tr></template>
       </tbody>
@@ -275,12 +276,12 @@
   </div>
 
   <!--{{20}}--><template id="dashboard-11">
-    <div class="mt-3 flex items-center justify-between text-sm text-slate-500">
+    <div class="dashboard-bar-15">
       <span><!--{{0}}-->-<!--{{1}}--> of <!--{{2}}--></span>
-      <div class="flex items-center gap-2">
-        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" {{3}} onclick="Page.goToPage({{4}})">Previous</button>
+      <div class="dashboard-bar-16">
+        <button type="button" class="btn-outline dashboard-button-3" {{3}} onclick="Page.goToPage({{4}})">Previous</button>
         <span>Page <!--{{5}}--> of <!--{{6}}--></span>
-        <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" {{7}} onclick="Page.goToPage({{8}})">Next</button>
+        <button type="button" class="btn-outline dashboard-button-3" {{7}} onclick="Page.goToPage({{8}})">Next</button>
       </div>
     </div></template>
 </section><!--/tpl:dashboard--></app-location-dashboard><!--/tpl:page-outlet-->
@@ -297,10 +298,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -310,105 +311,105 @@
 <!-- dashboard page: other templates (js/dashboard.js) -->
 <template id="dashboard-kpi-body">
       <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br {{0}} text-xl text-white"><i class="fa-solid {{1}}"></i></div>
-      <div class="min-w-0">
-        <p class="text-2xl font-extrabold text-slate-900"><!--{{2}}--></p>
-        <p class="text-sm text-slate-500"><!--{{3}}--></p>
-        <p class="text-xs text-slate-400"><!--{{4}}--></p>
+      <div class="dashboard-box">
+        <p class="dashboard-text-4"><!--{{2}}--></p>
+        <p class="dashboard-text-5"><!--{{3}}--></p>
+        <p class="dashboard-text-6"><!--{{4}}--></p>
       </div>
     </template>
-<template id="dashboard-kpi-button"><button type="button" class="card card-hover flex items-center gap-4 text-left" onclick="Page.showList('{{0}}')"><!--{{1}}--></button></template>
-<template id="dashboard-kpi-link"><a href="{{0}}" class="card card-hover flex items-center gap-4"><!--{{1}}--></a></template>
-<template id="dashboard-kpi-box"><div class="card flex items-center gap-4"><!--{{0}}--></div></template>
-<template id="dashboard-legend"><span class="flex items-center gap-1"><span class="inline-block h-2.5 w-2.5 rounded-sm {{0}}"></span><!--{{1}}--></span></template>
-<template id="dashboard-sort-head"><button type="button" class="font-semibold" onclick="Page.sortBy('{{0}}')"><!--{{1}}--> <i class="fa-solid {{2}}"></i></button></template>
+<template id="dashboard-kpi-button"><button type="button" class="card card-hover dashboard-button" onclick="Page.showList('{{0}}')"><!--{{1}}--></button></template>
+<template id="dashboard-kpi-link"><a href="{{0}}" class="card card-hover dashboard-link-4"><!--{{1}}--></a></template>
+<template id="dashboard-kpi-box"><div class="card dashboard-link-4"><!--{{0}}--></div></template>
+<template id="dashboard-legend"><span class="dashboard-label-3"><span class="inline-block h-2.5 w-2.5 rounded-sm {{0}}"></span><!--{{1}}--></span></template>
+<template id="dashboard-sort-head"><button type="button" class="dashboard-button-2" onclick="Page.sortBy('{{0}}')"><!--{{1}}--> <i class="fa-solid {{2}}"></i></button></template>
 <template id="dashboard-filter-select">
     <select class="select" data-value="{{0}}" onchange="Page.setFilter('{{1}}', this.value)">
       <!--{{2}}--><template id="dashboard-filter-select-1"><option value="{{0}}"><!--{{1}}--></option></template>
     </select></template>
 <template id="dashboard-row">
           <tr data-key="{{0}}">
-            <td><p class="font-semibold text-slate-900"><!--{{1}}--></p>
-              <!--{{2}}--><template id="dashboard-row-1"><p class="text-xs text-slate-400">Applied <!--{{0}}--></p></template></td>
-            <td><p class="text-sm text-slate-700"><!--{{3}}--></p><p class="text-xs text-slate-400"><!--{{4}}--><!--{{5}}--><!--{{6}}--></p></td>
+            <td><p class="dashboard-text-21"><!--{{1}}--></p>
+              <!--{{2}}--><template id="dashboard-row-1"><p class="dashboard-text-6">Applied <!--{{0}}--></p></template></td>
+            <td><p class="dashboard-text-22"><!--{{3}}--></p><p class="dashboard-text-6"><!--{{4}}--><!--{{5}}--><!--{{6}}--></p></td>
             <td><!--{{7}}--></td>
             <td><span class="badge {{8}}"><!--{{9}}--></span></td>
             <td><span class="badge{{10}}"><!--{{11}}--></span></td>
             <td>
-              <!--{{12}}--><template id="dashboard-row-2"><a class="text-sm font-semibold text-violet-600 hover:underline" href="{{0}}"><!--{{1}}--></a></template><template id="dashboard-row-3"><span class="text-sm text-slate-400"><!--{{0}}--></span></template>
+              <!--{{12}}--><template id="dashboard-row-2"><a class="dashboard-link-5" href="{{0}}"><!--{{1}}--></a></template><template id="dashboard-row-3"><span class="dashboard-label-9"><!--{{0}}--></span></template>
             </td>
             <!--{{13}}--><template id="dashboard-row-4">
-              <td class="whitespace-nowrap text-sm">
-                <!--{{0}}--><template id="dashboard-row-4-1"><span class="text-amber-500">★</span> <!--{{0}}--> <span class="text-xs text-slate-400">(<!--{{1}}-->)</span></template><template id="dashboard-row-4-2"><span class="text-slate-400">Not rated</span></template>
+              <td class="dashboard-cell">
+                <!--{{0}}--><template id="dashboard-row-4-1"><span class="dashboard-label-10">★</span> <!--{{0}}--> <span class="dashboard-text-6">(<!--{{1}}-->)</span></template><template id="dashboard-row-4-2"><span class="dashboard-label-5">Not rated</span></template>
               </td></template>
-            <td class="text-right">
-              <button type="button" class="btn-outline !px-3 !py-1.5 !text-xs" onclick="Page.toggle({{14}})"><!--{{15}}--></button>
+            <td class="dashboard-cell-3">
+              <button type="button" class="btn-outline dashboard-button-3" onclick="Page.toggle({{14}})"><!--{{15}}--></button>
             </td>
           </tr>
 
           <!--{{16}}--><template id="dashboard-row-5">
             <tr>
-              <td colspan="{{0}}" class="!bg-slate-50/60">
-                <div class="grid grid-cols-2 gap-4 py-2 text-sm lg:grid-cols-5">
-                  <p><span class="text-xs text-slate-400"><!--{{1}}--></span><br><strong><!--{{2}}--></strong></p>
-                  <p><span class="text-xs text-slate-400">Onboarding</span><br><!--{{3}}--></p>
-                  <p><span class="text-xs text-slate-400">Verification</span><br><!--{{4}}--></p>
-                  <p><span class="text-xs text-slate-400">Activation</span><br><!--{{5}}--></p>
-                  <p><span class="text-xs text-slate-400">Pending action</span><br><!--{{6}}--></p>
+              <td colspan="{{0}}" class="dashboard-cell-2">
+                <div class="dashboard-grid-7">
+                  <p><span class="dashboard-text-6"><!--{{1}}--></span><br><strong><!--{{2}}--></strong></p>
+                  <p><span class="dashboard-text-6">Onboarding</span><br><!--{{3}}--></p>
+                  <p><span class="dashboard-text-6">Verification</span><br><!--{{4}}--></p>
+                  <p><span class="dashboard-text-6">Activation</span><br><!--{{5}}--></p>
+                  <p><span class="dashboard-text-6">Pending action</span><br><!--{{6}}--></p>
                 </div>
 
-                <!--{{7}}--><template id="dashboard-row-5-1"><p class="mb-2 text-sm font-semibold text-rose-600"><!--{{0}}--></p></template>
-                <!--{{8}}--><template id="dashboard-row-5-2"><div class="flex justify-center py-4"><span class="spinner"></span></div></template>
+                <!--{{7}}--><template id="dashboard-row-5-1"><p class="dashboard-text-18"><!--{{0}}--></p></template>
+                <!--{{8}}--><template id="dashboard-row-5-2"><div class="dashboard-bar-20"><span class="spinner"></span></div></template>
 
                 <!--{{9}}--><template id="dashboard-row-5-3">
-                    <h3 class="mb-2 mt-2 text-sm font-bold text-slate-900">Customer reviews
-                      <!--{{0}}--><template id="dashboard-row-5-3-1"><span class="font-normal text-slate-500">· <span class="text-amber-500">★</span> <!--{{0}}--> from <!--{{1}}--> review<!--{{2}}--></span></template>
+                    <h3 class="dashboard-subheading">Customer reviews
+                      <!--{{0}}--><template id="dashboard-row-5-3-1"><span class="dashboard-label-11">· <span class="dashboard-label-10">★</span> <!--{{0}}--> from <!--{{1}}--> review<!--{{2}}--></span></template>
                     </h3>
-                    <!--{{1}}--><template id="dashboard-row-5-3-2"><p class="text-sm text-slate-400">No customer reviews yet.</p></template><template id="dashboard-row-5-3-3">
-                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                    <!--{{1}}--><template id="dashboard-row-5-3-2"><p class="dashboard-label-9">No customer reviews yet.</p></template><template id="dashboard-row-5-3-3">
+                      <ul class="dashboard-list">
                         <!--{{0}}--><template id="dashboard-row-5-3-3-1">
-                          <li class="py-2">
-                            <div class="flex items-center justify-between gap-3 text-sm">
-                              <span class="text-amber-500"><!--{{0}}--></span>
-                              <span class="text-xs text-slate-400"><!--{{1}}--></span>
+                          <li class="dashboard-item">
+                            <div class="dashboard-bar-21">
+                              <span class="dashboard-label-10"><!--{{0}}--></span>
+                              <span class="dashboard-text-6"><!--{{1}}--></span>
                             </div>
-                            <!--{{2}}--><template id="dashboard-row-5-3-3-1-1"><p class="mt-0.5 text-sm text-slate-700"><!--{{0}}--></p></template>
-                            <!--{{3}}--><template id="dashboard-row-5-3-3-1-2"><p class="text-xs text-slate-400">on <!--{{0}}--></p></template>
+                            <!--{{2}}--><template id="dashboard-row-5-3-3-1-1"><p class="dashboard-text-19"><!--{{0}}--></p></template>
+                            <!--{{3}}--><template id="dashboard-row-5-3-3-1-2"><p class="dashboard-text-6">on <!--{{0}}--></p></template>
                           </li></template>
                       </ul>
                       <!--{{1}}--><template id="dashboard-row-5-3-3-2">
-                        <div class="mt-2 flex items-center justify-end gap-2 text-xs">
-                          <button type="button" class="btn-outline !px-2 !py-1 !text-xs" {{0}} onclick="Page.loadReviews({{1}}, {{2}})">Newer</button>
-                          <span class="text-slate-500">Page <!--{{3}}--> of <!--{{4}}--></span>
-                          <button type="button" class="btn-outline !px-2 !py-1 !text-xs" {{5}} onclick="Page.loadReviews({{6}}, {{7}})">Older</button>
+                        <div class="dashboard-bar-22">
+                          <button type="button" class="btn-outline dashboard-button-7" {{0}} onclick="Page.loadReviews({{1}}, {{2}})">Newer</button>
+                          <span class="dashboard-label-12">Page <!--{{3}}--> of <!--{{4}}--></span>
+                          <button type="button" class="btn-outline dashboard-button-7" {{5}} onclick="Page.loadReviews({{6}}, {{7}})">Older</button>
                         </div></template></template></template><template id="dashboard-row-5-4">
-                  <div class="mt-2 grid grid-cols-1 gap-5 lg:grid-cols-2">
+                  <div class="dashboard-grid-6">
                     <div>
-                      <h3 class="mb-2 text-sm font-bold text-slate-900">Drivers (<!--{{0}}-->)</h3>
-                      <!--{{1}}--><template id="dashboard-row-5-4-1"><p class="text-sm text-slate-400">No drivers registered.</p></template>
-                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                      <h3 class="dashboard-subheading-2">Drivers (<!--{{0}}-->)</h3>
+                      <!--{{1}}--><template id="dashboard-row-5-4-1"><p class="dashboard-label-9">No drivers registered.</p></template>
+                      <ul class="dashboard-list">
                         <!--{{2}}--><template id="dashboard-row-5-4-2">
-                          <li class="flex items-center justify-between gap-3 py-1.5 text-sm">
-                            <span class="min-w-0 truncate font-semibold text-slate-800"><!--{{0}}--></span>
-                            <span class="shrink-0 text-xs text-slate-500">
-                              <!--{{1}}--><template id="dashboard-row-5-4-2-1"><span class="text-amber-500">★</span> <!--{{0}}--> </template><template id="dashboard-row-5-4-2-2"> Not rated </template>
+                          <li class="dashboard-item-2">
+                            <span class="dashboard-label-13"><!--{{0}}--></span>
+                            <span class="dashboard-label-14">
+                              <!--{{1}}--><template id="dashboard-row-5-4-2-1"><span class="dashboard-label-10">★</span> <!--{{0}}--> </template><template id="dashboard-row-5-4-2-2"> Not rated </template>
                             </span>
                           </li></template>
                       </ul>
                     </div>
                     <div>
-                      <h3 class="mb-2 text-sm font-bold text-slate-900">Vehicles (<!--{{3}}-->)</h3>
-                      <!--{{4}}--><template id="dashboard-row-5-4-3"><p class="text-sm text-slate-400">No vehicles registered.</p></template>
-                      <ul class="m-0 list-none divide-y divide-slate-200 p-0">
+                      <h3 class="dashboard-subheading-2">Vehicles (<!--{{3}}-->)</h3>
+                      <!--{{4}}--><template id="dashboard-row-5-4-3"><p class="dashboard-label-9">No vehicles registered.</p></template>
+                      <ul class="dashboard-list">
                         <!--{{5}}--><template id="dashboard-row-5-4-4">
-                          <li class="py-1.5 text-sm">
-                            <span class="font-semibold text-slate-800"><!--{{0}}--></span>
-                            <span class="text-slate-500"> · <!--{{1}}--></span>
-                            <span class="block text-xs text-slate-400"><!--{{2}}--> <!--{{3}}--><!--{{4}}--><!--{{5}}--><!--{{6}}--></span>
+                          <li class="dashboard-item-3">
+                            <span class="dashboard-label-15"><!--{{0}}--></span>
+                            <span class="dashboard-label-12"> · <!--{{1}}--></span>
+                            <span class="dashboard-label-16"><!--{{2}}--> <!--{{3}}--><!--{{4}}--><!--{{5}}--><!--{{6}}--></span>
                           </li></template>
                       </ul>
                     </div>
                   </div>
-                  <!--{{6}}--><template id="dashboard-row-5-4-5"><p class="mt-3 text-xs text-slate-400">Customer ratings are not collected for fleet owners or drivers yet, so none can be shown.</p></template></template>
+                  <!--{{6}}--><template id="dashboard-row-5-4-5"><p class="dashboard-text-20">Customer ratings are not collected for fleet owners or drivers yet, so none can be shown.</p></template></template>
               </td>
             </tr></template></template>
 

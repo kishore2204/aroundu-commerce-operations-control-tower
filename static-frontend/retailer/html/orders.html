@@ -25,7 +25,9 @@
   <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
   <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
   <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
   <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/confirm-dialog/confirm-dialog.css">
   <link rel="stylesheet" href="../css/orders.css">
 </head>
 <body>
@@ -106,14 +108,14 @@
     </header><!--/tpl:portal-header-->
 
     <main class="portal-main">
-      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-retailer-orders><!--{{0}}--><!--tpl:orders (this page)--><h1 class="text-2xl font-bold text-slate-900 mb-4">Orders</h1>
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-retailer-orders><!--{{0}}--><!--tpl:orders (this page)--><h1 class="orders-title">Orders</h1>
 
 <!--{{0}}--><template id="orders-1">
-  <div class="fixed top-4 right-4 z-50 card px-4 py-3 text-sm font-medium text-slate-800 shadow-card-hover animate-fade-in">
+  <div class="orders-box card px-4 py-3 shadow-card-hover animate-fade-in">
     <!--{{0}}-->
   </div></template>
 
-<!--{{1}}--><template id="orders-2"><div class="flex justify-center py-12"><div class="spinner"></div></div></template><template id="orders-3">
+<!--{{1}}--><template id="orders-2"><div class="orders-bar"><div class="spinner"></div></div></template><template id="orders-3">
   <div class="table-card">
     <table class="custom-table">
       <thead>
@@ -128,17 +130,17 @@
       <tbody>
         <!--{{0}}--><template id="orders-3-1">
           <tr data-key="{{0}}">
-            <td class="font-semibold text-slate-800"><!--{{1}}--></td>
-            <td class="text-slate-600 text-sm"><!--{{2}}--></td>
+            <td class="orders-cell"><!--{{1}}--></td>
+            <td class="orders-cell-2"><!--{{2}}--></td>
             <td><span class="badge badge-pending"><!--{{3}}--></span></td>
-            <td class="font-semibold text-slate-900"><!--{{4}}--></td>
+            <td class="orders-cell-3"><!--{{4}}--></td>
             <td>
               <!--{{5}}--><template id="orders-3-1-1">
-                <div class="flex gap-2 justify-end">
+                <div class="orders-bar-2">
                   <button type="button" class="btn-secondary" onclick="Page.accept({{0}})" {{1}}>
                     Accept
                   </button>
-                  <button type="button" class="btn-outline !border-rose-500 !text-rose-600 hover:!bg-rose-50" onclick="Page.reject({{2}})" {{3}}>
+                  <button type="button" class="btn-outline orders-button" onclick="Page.reject({{2}})" {{3}}>
                     Reject
                   </button>
                 </div></template>
@@ -162,10 +164,10 @@
 <!-- BEGIN common/toast/toast.html -->
 <template id="toast"></template>
 <template id="toast-2">
-        <div class="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-card-hover animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
           <i class="fa-solid{{3}}" aria-hidden="true"></i>
           <span><!--{{4}}--></span>
-          <button type="button" class="ml-1 text-white/80 hover:text-white" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
         </div>
@@ -174,32 +176,32 @@
 
 <!-- BEGIN common/empty-state/empty-state.html -->
 <template id="empty-state">
-      <app-empty-state class="{{0}}"><div class="flex flex-col items-center justify-center text-center py-12 px-4 text-slate-400">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
         <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
-        <p class="title text-lg font-medium text-slate-600 m-0"><!--{{2}}--></p>
-        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm max-w-md text-slate-400"><!--{{0}}--></p></template>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
         <!--{{4}}-->
       </div></app-empty-state></template>
 <!-- END common/empty-state/empty-state.html -->
 
 <!-- BEGIN common/confirm-dialog/confirm-dialog.html -->
 <template id="confirm-dialog">
-      <app-confirm-dialog><div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-        <div class="card w-full max-w-md" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
-          <div class="flex items-start gap-3">
-            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full{{0}}">
+      <app-confirm-dialog><div class="confirm-dialog-overlay">
+        <div class="card confirm-dialog-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+          <div class="confirm-dialog-bar">
+            <span class="confirm-dialog-label-2{{0}}">
               <i class="fa-solid fa-triangle-exclamation"></i>
             </span>
-            <div class="min-w-0">
-              <h2 id="confirm-dialog-title" class="m-0 text-lg font-bold text-slate-900"><!--{{1}}--></h2>
-              <p id="confirm-dialog-message" class="m-0 mt-1 text-sm text-slate-600"><!--{{2}}--></p>
+            <div class="confirm-dialog-box-2">
+              <h2 id="confirm-dialog-title" class="confirm-dialog-heading"><!--{{1}}--></h2>
+              <p id="confirm-dialog-message" class="confirm-dialog-text"><!--{{2}}--></p>
             </div>
           </div>
-          <div class="mt-5 flex justify-end gap-2">
+          <div class="confirm-dialog-bar-2">
             <button type="button" class="btn-outline" data-confirm-cancel="{{3}}" {{4}} onclick="U.$('{{5}}').opts.onCancel()"><!--{{6}}--></button>
             <button type="button" class="btn-primary{{7}}"
               {{8}} onclick="U.$('{{9}}').opts.onConfirm()">
-              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner !h-4 !w-4 !border-white/40 !border-t-white"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
+              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner confirm-dialog-label"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
             </button>
           </div>
         </div>
