@@ -4,24 +4,29 @@
  *
  * The pages live in different folders (customer/commerce, retailer, admin ...). Opened straight from disk
  * (file://), some browsers give every folder - or every file - its own localStorage, or block it altogether,
- * so a session saved by the login page would be invisible to the dashboard it opens. Therefore every change is
- * kept in three places, and the newest copy wins when a page loads:
+ * so a session saved by the login page would be invisible to the dashboard it opens (Firefox, for example, gives
+ * every file opened from disk its own storage). Therefore every change is kept in three places, and the newest copy
+ * wins when a page loads:
  *   1. localStorage, when the browser allows it (survives closing the tab);
- *   2. the tab's window.name, which a tab keeps from page to page whatever the folder;
- *   3. for the session only, the URL hash of the page being opened (#aroundu-session=...), removed from the
- *      address bar as soon as that page has read it.
+ *   2. the tab's window.name, which most browsers keep from page to page in a tab;
+ *   3. the address of the page being opened (#aroundu-state=...): the session and the other small values, plus the
+ *      changes made to the simulated database (compared with the hardcoded data every page has). The page removes
+ *      it from the address bar as soon as it has read it.
  *
  *   AppStorage.getItem(key) / setItem(key, value) / removeItem(key)   - the localStorage API
- *   AppStorage.handoff(url)                                            - url + the session hash (used by Nav)
+ *   AppStorage.handoff(url)                                            - url + the state hash (used by Nav)
+ *   AppStorage.registerBase(key, fn)                                   - the hardcoded starting value of a key
  */
 (function () {
   'use strict';
 
   const PREFIX = 'aroundu.';
   const REV_KEY = 'aroundu.rev';
-  const SESSION_KEY = 'aroundu.session';
+  const DB_KEY = 'aroundu.static.db';
   const TAB_MARK = 'aroundu-state:';
-  const HASH_KEY = 'aroundu-session';
+  const HASH_KEY = 'aroundu-state';
+  const bases = {}; // key -> () => JSON of the hardcoded starting value
+  const pending = {}; // key -> changes received in the address, applied once the base is known
 
   function localStore() {
     try {
@@ -67,14 +72,42 @@
     }
   }
 
+  /* ---- changes of a JSON value compared with a base value ({'=': value} / array / object nodes) */
+  function diff(a, b) {
+    if (a === b) return undefined;
+    const arrays = Array.isArray(a) && Array.isArray(b);
+    const objects = !arrays && a && b && typeof a === 'object' && typeof b === 'object' && !Array.isArray(a) && !Array.isArray(b);
+    if (!arrays && !objects) return { '=': b };
+    const d = arrays ? { '#': 'a', n: b.length, c: {} } : { '#': 'o', c: {}, r: [] };
+    let changed = arrays && a.length !== b.length;
+    for (const k of Object.keys(b)) {
+      const x = k in a ? diff(a[k], b[k]) : { '=': b[k] };
+      if (x !== undefined) { d.c[k] = x; changed = true; }
+    }
+    if (objects) for (const k of Object.keys(a)) if (!(k in b)) { d.r.push(k); changed = true; }
+    return changed ? d : undefined;
+  }
+  function patch(a, d) {
+    if (d === undefined) return a;
+    if (!d['#']) return d['='];
+    const out = d['#'] === 'a' ? (Array.isArray(a) ? a.slice(0, d.n) : []) : Object.assign({}, a && typeof a === 'object' ? a : {});
+    for (const k of Object.keys(d.c)) out[k] = patch(out[k], d.c[k]);
+    if (d['#'] === 'a') out.length = d.n;
+    else d.r.forEach((k) => delete out[k]);
+    return out;
+  }
+
   // ---- pick the newest copy
   const fromLocal = readLocal();
   const fromTab = readTab();
   let rev = Math.max(fromLocal.rev, fromTab.rev);
   let items = Object.assign({}, fromTab.rev > fromLocal.rev ? fromTab.items : fromLocal.items);
   const hand = readHash();
-  if (hand && hand.rev > rev) {
-    if (hand.session) items[SESSION_KEY] = hand.session; else delete items[SESSION_KEY];
+  if (hand && hand.rev > rev && hand.items && typeof hand.items === 'object') {
+    const keepDb = items[DB_KEY];
+    items = Object.assign({}, hand.items);
+    if (hand.db !== undefined) pending[DB_KEY] = hand.db;
+    else if (keepDb !== undefined) items[DB_KEY] = keepDb;
     rev = hand.rev;
   }
   if (hand) {
@@ -117,10 +150,36 @@
       delete items[key];
       touched();
     },
-    /* the page about to be opened gets the current session in its URL hash */
+    /* the hardcoded starting value of a key (the simulated database): changes are handed over relative to it */
+    registerBase(key, fn) {
+      bases[key] = fn;
+      if (pending[key] === undefined) return;
+      try { items[key] = JSON.stringify(patch(JSON.parse(fn()), pending[key])); } catch (e) { /* keep what this page had */ }
+      delete pending[key];
+      writeLocal();
+      writeTab();
+    },
+    /* the page about to be opened gets the current state in its address */
     handoff(url) {
-      const payload = encodeURIComponent(JSON.stringify({ rev, session: items[SESSION_KEY] || null }));
-      return String(url).split('#')[0] + '#' + HASH_KEY + '=' + payload;
+      const small = {};
+      Object.keys(items).forEach((k) => { if (k !== DB_KEY) small[k] = items[k]; });
+      const payload = { rev, items: small };
+      if (items[DB_KEY] && bases[DB_KEY]) {
+        try {
+          const d = diff(JSON.parse(bases[DB_KEY]()), JSON.parse(items[DB_KEY]));
+          payload.db = d === undefined ? null : d;
+        } catch (e) { delete payload.db; }
+      }
+      // browsers refuse very long addresses (Firefox: 1 MB): uploaded files go first, then the database changes
+      const LIMIT = 900000;
+      let encoded = encodeURIComponent(JSON.stringify(payload));
+      if (encoded.length > LIMIT && payload.db && payload.db.c) {
+        delete payload.db.c.uploadedFiles;
+        delete payload.db.c.productImages;
+        encoded = encodeURIComponent(JSON.stringify(payload));
+      }
+      if (encoded.length > LIMIT) { delete payload.db; encoded = encodeURIComponent(JSON.stringify(payload)); }
+      return String(url).split('#')[0] + '#' + HASH_KEY + '=' + encoded;
     },
   };
 })();

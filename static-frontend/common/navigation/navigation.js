@@ -146,6 +146,11 @@
       if (Nav.sessionExpired) return;
       window.location.href = AppStorage.handoff(Nav.href(path, query));
     },
+    /* opens a page address built with Nav.href() */
+    open(href) {
+      if (Nav.sessionExpired) return;
+      window.location.href = AppStorage.handoff(href);
+    },
     /* routerLinkActive (default, non-exact): active when the current URL is the link path or below it */
     isActive(path) {
       const cur = Nav.current;

@@ -39,6 +39,9 @@
     seed.uploadedFiles = {};
     return seed;
   }
+  // pages hand the database over as changes to this starting value (common/core/storage.js)
+  if (root.AppStorage && root.AppStorage.registerBase) root.AppStorage.registerBase(DB_KEY, () => JSON.stringify(fresh()));
+
   function load() {
     if (db) return db;
     try {

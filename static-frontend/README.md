@@ -321,16 +321,20 @@ Every role folder reads and writes the same keys, so an order placed as a custom
 Saving takes about 250 ms, like a network round-trip, so the loading spinners and disabled buttons behave as in Angular.
 Uploaded files (documents, product images, proofs) are read in the browser and stored in the simulated database.
 
-**Pages opened straight from disk.** Chrome and Edge give every `file://` page the same `localStorage`. Some browsers
-give each folder (or each file) its own `localStorage`, or block it. The dashboard would then not see the session the
-login page saved, and would send you back to the login page. So `common/core/storage.js` also:
+**Pages opened straight from disk.** Chrome and Edge give every `file://` page the same `localStorage`. Other
+browsers do not: Firefox, for example, gives each file its own. Without help, the dashboard would not see the session
+the login page saved, the cart page would not see what the product page added, and a new order would be missing on its
+order page. So `common/core/storage.js` also carries the state from page to page:
 
-* keeps a copy of the whole state in the tab (`window.name`), which follows you from page to page in the same tab;
-* as a last resort, passes the session in the address of the page being opened (`#aroundu-session=...`). The page
+* a copy of the whole state is kept in the tab (`window.name`), for browsers that keep it between pages;
+* the address of the page being opened carries the session, the other small values and **the changes made to the
+  simulated database** (`#aroundu-state=...`). Every page has the hardcoded data, so only what changed travels. The page
   removes it from the address bar as soon as it has read it.
 
-Whichever copy is newest wins when a page opens. Running the folder from a local web server avoids the question
-altogether, because every page then has the same origin.
+Whichever copy is newest wins when a page opens. Navigating inside the app (links, buttons, log out) carries the state.
+Typing an address or using a bookmark starts from what that page last saw. In such a browser, very large uploads are
+left out of the address, because browsers limit its length. For the most reliable demo in Firefox, run the folder from
+a local web server (see *Start page*); every page then shares one origin and one `localStorage`.
 
 **To reset the demo data**, do either of the following:
 
@@ -391,8 +395,15 @@ altogether, because every page then has the same origin.
   errors, console errors, failed or 404 requests, or broken internal links.
 * **Walkthrough from disk:** every role signs in through the real login form and clicks through every sidebar or header
   link. It also covers the customer flows, creating a product and the guards (85 checks, all passed).
-* **Sign-in with different browser storage behaviours:** one `localStorage` for all pages, one per folder, one per
-  folder with the tab copy cleared, and `localStorage` blocked. All work.
+* **Cross-page flows with different browser storage behaviours:** one `localStorage` for all pages (Chrome, Edge), one
+  per folder, one per file, one per file with the tab copy cleared (how Firefox treats pages opened from disk), and
+  `localStorage` blocked. Every mode was run end to end:
+  * customer: sign in, add to cart, see it in the cart and at checkout, place an order, open the new order from its
+    order number, see it in the orders list;
+  * retailer: log out, sign in as the retailer, see the customer's new order, create a product, leave and come back;
+  * location manager: open a verification request from the queue, open support.
+
+  All pass in every mode.
 * **Retailer profile:**
   * Initially: Edit enabled, Save disabled, fields disabled.
   * After Edit: fields enabled, Save still disabled.
