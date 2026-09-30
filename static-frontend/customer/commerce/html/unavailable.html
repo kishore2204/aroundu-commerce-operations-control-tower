@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/unavailable.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Customer - Commerce - unavailable page, route /unavailable (Angular: src/app/features/unavailable/unavailable.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-unavailable><!--{{0}}--><!--tpl:unavailable (this page)-->
+<div class="unavailable-stack">
+  <i class="fa-solid fa-map-location-dot unavailable-icon"></i>
+  <h1 class="unavailable-title">Not available for your account yet</h1>
+  <p class="unavailable-text">
+    This workspace is currently only built for CUSTOMER accounts. Support for your role is coming in a future update.
+  </p>
+  <a class="btn-primary unavailable-link" href="{{0}}">Back to sign in</a>
+</div><!--/tpl:unavailable--></app-unavailable><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../js/unavailable.js"></script>
+  <script>boot({ route: '/unavailable', shell: 'none', guards: [], page: UnavailablePage });</script>
+</body>
+</html>

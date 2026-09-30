@@ -1,0 +1,177 @@
+/*
+ * assignments.css - Fleet Owner: assignments page (route /fleet/assignments).
+ * Angular: src/app/features/fleet/assignments/assignments.component.html (+ .css).
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
+ */
+.assignments-text {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+.assignments-box {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  z-index: 50;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+}
+.assignments-bar {
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.assignments-bar-2 {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 251 235 / var(--tw-bg-opacity, 1));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(180 83 9 / var(--tw-text-opacity, 1));
+}
+.assignments-label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.assignments-label-2 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.assignments-box-2 {
+  height: 1rem !important;
+  width: 1rem !important;
+  border-color: rgb(255 255 255 / 0.4) !important;
+  --tw-border-opacity: 1 !important;
+  border-top-color: rgb(255 255 255 / var(--tw-border-opacity, 1)) !important;
+}
+.assignments-stack {
+  display: flex;
+  flex-direction: column;
+}
+.assignments-bar-3 {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom-width: 1px;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
+  padding-bottom: 0.75rem;
+}
+.assignments-bar-4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.assignments-icon {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+.assignments-label-3 {
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.assignments-grid {
+  margin-bottom: 1rem;
+  display: grid;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.assignments-text-2 {
+  margin-top: 0.25rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+}
+.assignments-icon-2 {
+  margin-right: 0.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+}
+.assignments-icon-3 {
+  margin-right: 0.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(139 92 246 / var(--tw-text-opacity, 1));
+}
+.assignments-grid-2 {
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+.assignments-button {
+  margin-top: auto;
+  width: 100%;
+}
+.assignments-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.assignments-box-4 {
+  margin-bottom: 1.5rem;
+}
+.assignments-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.assignments-text-3 {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+@media (min-width: 640px) {
+  .assignments-box-3 {
+    grid-column: span 2 / span 2;
+  }
+  .assignments-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .assignments-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1280px) {
+  .assignments-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

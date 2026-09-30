@@ -1,0 +1,39 @@
+<!--
+  retailer-info-dialog.html - markup of retailer-info-dialog (Angular: src/app/shared/retailer-info-dialog/retailer-info-dialog.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN customer/commerce/components/retailer-info-dialog/retailer-info-dialog.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="retailer-info-dialog">
+      <app-retailer-info-dialog><div class="retailer-info-dialog-overlay" onclick="{{0}}.dismiss(); event.stopPropagation(); event.preventDefault()">
+        <div class="card retailer-info-dialog-box" onclick="event.stopPropagation()">
+          <div class="retailer-info-dialog-bar-3">
+            <h2 class="retailer-info-dialog-heading">
+              <i class="fa-solid fa-store retailer-info-dialog-icon-3"></i> Shop details
+            </h2>
+            <button type="button" class="btn-icon retailer-info-dialog-button-2" aria-label="Close" onclick="{{1}}.dismiss()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="retailer-info-dialog-box-2">
+            <!--{{2}}--><template id="retailer-info-dialog-1"><div class="retailer-info-dialog-bar"><span class="spinner"></span></div></template><template id="retailer-info-dialog-2"><p class="retailer-info-dialog-text">Couldn't load shop details right now.</p></template><template id="retailer-info-dialog-3">
+                <div class="retailer-info-dialog-stack">
+                  <div class="retailer-info-dialog-bar-2">
+                    <span class="retailer-info-dialog-label"><!--{{0}}--></span>
+                    <!--{{1}}--><template id="retailer-info-dialog-3-1"><i class="fa-solid fa-circle-check retailer-info-dialog-icon" title="Verified shop"></i></template>
+                  </div>
+                  <!--{{2}}-->
+                  <p class="retailer-info-dialog-text-3">Status: <!--{{3}}--></p>
+                  <!--{{4}}--><template id="retailer-info-dialog-3-2">
+                    <p class="retailer-info-dialog-text-2">
+                      <i class="fa-solid fa-location-dot retailer-info-dialog-icon-2"></i>
+                      <!--{{0}}-->, <!--{{1}}-->
+                    </p></template>
+                  <button type="button" class="btn-outline retailer-info-dialog-button" onclick="{{5}}.browseShop()">
+                    Browse this shop
+                  </button>
+                </div></template>
+          </div>
+        </div>
+      </div></app-retailer-info-dialog></template>

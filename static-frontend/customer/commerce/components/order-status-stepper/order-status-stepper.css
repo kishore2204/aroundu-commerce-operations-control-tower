@@ -1,0 +1,106 @@
+/*
+ * order-status-stepper.css - <app-order-status-stepper> component styles.
+ * Angular: src/app/shared/order-status-stepper/order-status-stepper.component.html (+ .css); the component's :host rules are scoped to <app-order-status-stepper>.
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
+ */
+.order-status-stepper-text {
+  margin-bottom: 0px;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+.order-status-stepper-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 241 242 / var(--tw-bg-opacity, 1));
+  padding: 1rem;
+}
+.order-status-stepper-icon {
+  margin-top: 0.125rem;
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.order-status-stepper-text-2 {
+  margin: 0px;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+}
+.order-status-stepper-list {
+  margin: 0px;
+  list-style-type: none;
+  padding: 0px;
+}
+
+/* the Angular component's own stylesheet */
+app-order-status-stepper {
+  display: block;
+}
+app-order-status-stepper .stepper-scroll {
+  overflow-x: auto;
+  padding: 0.25rem 0 0.5rem;
+}
+app-order-status-stepper .stepper {
+  display: flex;
+  width: 100%;
+  min-width: calc(var(--steps, 1) * 96px);
+}
+app-order-status-stepper .step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+app-order-status-stepper .step::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: -50%;
+  width: 100%;
+  height: 3px;
+  transform: translateY(-50%);
+  background: #e2e8f0;
+  z-index: 0;
+}
+app-order-status-stepper .step:first-child::before {
+  display: none;
+}
+app-order-status-stepper .step.line-done::before {
+  background: #059669;
+}
+app-order-status-stepper .step-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #ffffff;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+app-order-status-stepper .step-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+app-order-status-stepper .state-current .step-marker {
+  box-shadow: 0 0 0 4px rgba(124, 31, 184, 0.16);
+}
+app-order-status-stepper .step-label {
+  margin-top: 0.5rem;
+  padding: 0 0.25rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,125 @@
+<!--
+  work-transfer.html - markup of work-transfer (Angular: src/app/shared/work-transfer/work-transfer-dialog.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/work-transfer/work-transfer.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="work-transfer-dialog"><app-work-transfer-dialog>
+    <div class="work-transfer-overlay">
+      <div class="card work-transfer-box-3" role="dialog" aria-modal="true" aria-labelledby="work-transfer-title">
+        <div class="work-transfer-bar-3">
+          <div class="work-transfer-bar-4">
+            <span class="work-transfer-label-11"><i class="fa-solid fa-people-arrows"></i></span>
+            <div>
+              <h2 id="work-transfer-title" class="work-transfer-heading"><!--{{0}}--></h2>
+              <p class="work-transfer-text-5">
+                <!--{{1}}--><template id="work-transfer-dialog-1"> Choose the pending verification requests to hand to another Location Manager. </template><template id="work-transfer-dialog-2"> There are pending verification requests assigned to this Location Manager. Transfer all pending work before continuing. </template>
+              </p>
+            </div>
+          </div>
+          <button type="button" class="btn-icon work-transfer-button-4" aria-label="Close" {{2}} onclick="{{3}}.opts.onCancelled()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <p class="work-transfer-text-6">
+          <!--{{4}}--><template id="work-transfer-dialog-3"> Reassigning work of <strong><!--{{0}}--></strong>. Their account and assignment stay exactly as they are. </template><template id="work-transfer-dialog-4"><strong><!--{{0}}--></strong> cannot be <!--{{1}}--> until all of their pending work has been reassigned. </template>
+        </p>
+
+        <!--{{5}}--><template id="work-transfer-dialog-5"><div class="work-transfer-bar"><span class="spinner"></span></div></template><template id="work-transfer-dialog-6"><p class="work-transfer-text"><!--{{0}}--></p></template><template id="work-transfer-dialog-7">
+          <div class="work-transfer-grid">
+            <section class="work-transfer-section">
+              <div class="work-transfer-box">
+                <h3 class="work-transfer-subheading">Pending Verification Work</h3>
+                <p class="work-transfer-text-4"><!--{{0}}--> pending work item<!--{{1}}--></p>
+              </div>
+              <div class="work-transfer-bar-2">
+                <label class="work-transfer-label-9">
+                  <input type="checkbox" class="work-transfer-input-2" {{2}} data-indeterminate="{{3}}"
+                    {{4}} onchange="{{5}}.toggleAll(this.checked)" />
+                  Select All
+                </label>
+                <span class="work-transfer-label-10"><!--{{6}}--> selected</span>
+              </div>
+              <ul class="work-transfer-list-2">
+                <!--{{7}}--><template id="work-transfer-dialog-7-1"><li class="work-transfer-item">No pending work left.</li></template><template id="work-transfer-dialog-7-2">
+                  <li data-key="{{0}}">
+                    <label class="work-transfer-label-2">
+                      <input type="checkbox" class="work-transfer-input" {{1}}
+                        {{2}} onchange="{{3}}.toggle({{4}}, this.checked)" />
+                      <span class="work-transfer-label-3">
+                        <span class="work-transfer-label-4" title="{{5}}"><!--{{6}}--></span>
+                        <span class="work-transfer-label-5"><!--{{7}}--> · submitted <!--{{8}}--></span>
+                        <!--{{9}}--><template id="work-transfer-dialog-7-2-1"><span class="work-transfer-label"><!--{{0}}--></span></template>
+                      </span>
+                    </label>
+                  </li></template>
+              </ul>
+            </section>
+
+            <section class="work-transfer-section-2">
+              <h3 class="work-transfer-subheading">Choose Location Manager to transfer work</h3>
+              <div class="work-transfer-box-2">
+                <button type="button" class="select work-transfer-button-2" {{8}}
+                  aria-haspopup="listbox" aria-expanded="{{9}}" onclick="{{10}}.toggleDropdown()">
+                  <!--{{11}}--><template id="work-transfer-dialog-7-3">
+                    <span class="work-transfer-label-6">
+                      <span class="work-transfer-label-4"><!--{{0}}--></span>
+                      <span class="work-transfer-label-5"><!--{{1}}--> · <!--{{2}}--></span>
+                    </span></template><template id="work-transfer-dialog-7-4"><span class="work-transfer-label-7">Select a Location Manager</span></template>
+                </button>
+                <!--{{12}}--><template id="work-transfer-dialog-7-5">
+                  <ul class="work-transfer-list" role="listbox">
+                    <!--{{0}}--><template id="work-transfer-dialog-7-5-1"><li class="work-transfer-item-2">No other active Location Manager is available in this state.</li></template><template id="work-transfer-dialog-7-5-2">
+                      <li role="option" aria-selected="{{0}}">
+                        <button type="button" class="work-transfer-button hover:bg-violet-50{{1}}" onclick="{{2}}.choose({{3}})">
+                          <span class="work-transfer-label-4"><!--{{4}}--></span>
+                          <span class="work-transfer-label-5"><!--{{5}}--></span>
+                          <span class="work-transfer-label-5"><!--{{6}}--></span>
+                        </button>
+                      </li></template>
+                  </ul></template>
+              </div>
+
+              <button type="button" class="btn-primary work-transfer-button-3" {{13}} onclick="{{14}}.transfer()">
+                <!--{{15}}--><template id="work-transfer-dialog-7-6"><span class="spinner work-transfer-label-8"></span> Transferring... </template><template id="work-transfer-dialog-7-7"><i class="fa-solid fa-right-left"></i> Transfer </template>
+              </button>
+              <!--{{16}}--><template id="work-transfer-dialog-7-8"><p class="work-transfer-text-2"><!--{{0}}--></p></template>
+              <!--{{17}}--><template id="work-transfer-dialog-7-9"><p class="work-transfer-text-3"><!--{{0}}--></p></template>
+            </section>
+          </div></template>
+      </div>
+    </div>
+  </app-work-transfer-dialog></template>
+<template id="work-transfer-reassign-work"><app-reassign-work>
+    <button type="button" class="btn-outline" onclick="{{0}}.open()">
+      <i class="fa-solid fa-people-arrows"></i> Reassign Work
+    </button>
+
+    <!--{{1}}--><template id="work-transfer-reassign-work-1">
+      <div class="work-transfer-overlay">
+        <div class="card work-transfer-box-5" role="dialog" aria-modal="true" aria-labelledby="reassign-work-title">
+          <div class="work-transfer-bar-3">
+            <div>
+              <h2 id="reassign-work-title" class="work-transfer-heading">Reassign work</h2>
+              <p class="work-transfer-text-5">Choose the Location Manager whose work you want to reassign.</p>
+            </div>
+            <button type="button" class="btn-icon work-transfer-button-4" aria-label="Close" onclick="{{0}}.close()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+
+          <!--{{1}}--><template id="work-transfer-reassign-work-1-1"><div class="work-transfer-bar-5"><span class="spinner"></span></div></template><template id="work-transfer-reassign-work-1-2">
+            <div class="form-group work-transfer-box-4">
+              <label class="form-label req-mark" for="reassign-source">Location Manager</label>
+              <select id="reassign-source" class="select" data-value="{{0}}" onchange="{{1}}.setSource(this.value)">
+                <option value="" disabled>Select Location Manager</option>
+                <!--{{2}}--><template id="work-transfer-reassign-work-1-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select>
+              <!--{{3}}--><template id="work-transfer-reassign-work-1-2-2"><p class="work-transfer-text-7">There is no active Location Manager under you to reassign work from.</p></template>
+            </div>
+            <!--{{4}}--><template id="work-transfer-reassign-work-1-2-3"><p class="work-transfer-text-8"><!--{{0}}--></p></template>
+            <div class="work-transfer-bar-6">
+              <button type="button" class="btn-outline" onclick="{{5}}.close()">Cancel</button>
+              <button type="button" class="btn-primary" {{6}} onclick="{{7}}.continue()">Continue</button>
+            </div></template>
+        </div>
+      </div></template>
+
+    <!--{{2}}-->
+  </app-reassign-work></template>

@@ -1,0 +1,31 @@
+/*
+ * customer-shell.css - the customer layout: full-height column with the page between header and footer
+ * Angular: src/app/layout/shell/shell.component.html (+ .css). The Angular templates use Tailwind utility classes; here each
+ * combination has one class name, with exactly the declarations of the utilities it replaces (same values, same order).
+ * --name classes are the states the JS toggles (active, collapsed, open ...).
+ */
+/* :host rules of the component, scoped to <app-shell> */
+app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+app-shell > main {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+.customer-main {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 6rem;
+  padding-top: 1.5rem;
+}
+@media (min-width: 768px) {
+  .customer-main {
+    padding-bottom: 3rem;
+  }
+}

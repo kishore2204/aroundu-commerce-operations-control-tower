@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Customer - Commerce - login page, route /login (Angular: src/app/features/auth/login/login.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-login><!--{{0}}--><!--tpl:login (this page)-->
+<div class="login-stack">
+ <div class="login-panel"></div>
+ <div class="login-panel-2"></div>
+ <div class="login-bar">
+  <div class="card login-box p-8">
+    <h1 class="login-title">Sign in</h1>
+    <p class="login-text-3">Welcome back to AroundU</p>
+
+    <!--{{0}}--><template id="login-1">
+      <p class="login-text">
+        Your session expired. Please sign in again.
+      </p></template>
+    <!--{{1}}--><template id="login-2">
+      <p class="login-text-2">
+        <!--{{0}}-->
+      </p></template>
+
+    <form novalidate class="login-form" onsubmit="event.preventDefault(); Page.submit()">
+      <div>
+        <label class="form-label req-mark">Email</label>
+        <input class="input" type="email" name="email" {{2}} autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
+      </div>
+      <div>
+        <div class="login-bar-2">
+          <label class="form-label req-mark">Password</label>
+          <a href="{{3}}" class="login-link">Forgot password?</a>
+        </div>
+        <div class="login-box-2">
+          <input type="{{4}}" class="input login-input" name="password" {{5}} autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
+          <button type="button" class="login-button" onclick="Page.state.showPassword = !Page.state.showPassword" aria-label="{{6}}">
+            <i class="fa-solid{{7}}"></i>
+          </button>
+        </div>
+      </div>
+      <button class="btn-primary login-button-2" type="submit" {{8}}>
+        <!--{{9}}--><template id="login-3"><span class="spinner login-label"></span></template><template id="login-4">Sign in</template>
+      </button>
+    </form>
+
+    <p class="login-text-4">
+      New to AroundU? <a href="{{10}}" class="login-link-2">Create an account</a>
+    </p>
+  </div>
+ </div>
+ <footer class="login-footer">
+   &copy; <!--{{11}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+ </footer>
+</div><!--/tpl:login--></app-login><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../js/login.js"></script>
+  <script>boot({ route: '/login', shell: 'none', guards: [], page: LoginPage });</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Admin - dashboard page, route /admin/dashboard (Angular: src/app/features/admin/dashboard/dashboard.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-admin-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-admin-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><h1 class="dashboard-title-5">
+  <span class="dashboard-label-47">
+    <i class="fa-solid fa-gauge-high dashboard-icon-14"></i>
+  </span>
+  Platform overview
+</h1>
+
+<!--{{0}}--><template id="dashboard-1"><div class="dashboard-bar-37"><span class="spinner"></span></div></template><template id="dashboard-2">
+  <div class="dashboard-grid-19">
+    <!--{{0}}-->
+    <!--{{1}}-->
+    <!--{{2}}-->
+    <!--{{3}}-->
+  </div>
+
+  <section class="dashboard-section-2">
+    <h2 class="dashboard-heading-11">
+      <i class="fa-solid fa-chart-simple dashboard-icon-13"></i> Accounts by role
+    </h2>
+    <div class="card">
+      <div class="dashboard-stack-5">
+        <!--{{4}}--><template id="dashboard-2-1">
+          <div class="dashboard-bar-38" data-key="{{0}}">
+            <span class="dashboard-label-40"><!--{{1}}--></span>
+            <div class="dashboard-panel-10">
+              <div class="dashboard-panel-11" style="width: {{2}}%;"></div>
+            </div>
+            <span class="dashboard-label-41"><!--{{3}}--></span>
+          </div></template>
+      </div>
+    </div>
+  </section>
+
+  <!--{{5}}--><template id="dashboard-2-2">
+    <section class="dashboard-section-2">
+      <h2 class="dashboard-heading-11">
+        <i class="fa-solid fa-coins dashboard-icon-13"></i> Platform finance snapshot
+      </h2>
+      <div class="dashboard-grid-17">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}-->
+      </div>
+
+      <div class="card dashboard-stack-4">
+        <svg viewBox="0 0 100 100" class="dashboard-graphic" style="transform: rotate(-90deg)">
+          <!--{{4}}--><template id="dashboard-2-2-1">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="{{0}}" stroke-width="14" stroke-dasharray="{{1}}" stroke-dashoffset="{{2}}"></circle></template>
+        </svg>
+        <div class="dashboard-box-17">
+          <h3 class="dashboard-subheading-4">Finance record mix</h3>
+          <div class="dashboard-grid-18">
+            <!--{{5}}--><template id="dashboard-2-2-2">
+              <div class="dashboard-bar-39">
+                <span class="dashboard-label-42" style="background: {{0}};"></span>
+                <span class="dashboard-label-43"><!--{{1}}--></span>
+                <span class="dashboard-label-44"><!--{{2}}-->%</span>
+              </div></template>
+          </div>
+        </div>
+      </div>
+
+      <div class="card dashboard-box-18">
+        <div class="dashboard-bar-41">
+          <div>
+            <h3 class="dashboard-subheading-5">Refund requests by delivery region</h3>
+            <p class="dashboard-text-41">Management insight derived from the linked order's saved delivery-address snapshot.</p>
+          </div>
+          <i class="fa-solid fa-map-location-dot dashboard-icon-13"></i>
+        </div>
+        <!--{{6}}--><template id="dashboard-2-2-3"><div class="dashboard-bar-40"><span class="spinner"></span></div></template><template id="dashboard-2-2-4"><p class="dashboard-text-40">No refund requests are available for regional analysis yet.</p></template><template id="dashboard-2-2-5">
+          <table class="custom-table dashboard-table">
+            <thead>
+              <tr>
+                <th>Delivery region</th>
+                <th>Requests</th>
+                <th>Requested</th>
+                <th>Approved</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--{{0}}--><template id="dashboard-2-2-5-1">
+                <tr>
+                  <td class="dashboard-cell-4"><!--{{0}}--></td>
+                  <td><!--{{1}}--></td>
+                  <td><!--{{2}}--></td>
+                  <td><!--{{3}}--></td>
+                  <td><!--{{4}}--></td>
+                </tr></template>
+            </tbody>
+          </table></template>
+      </div>
+
+      <div class="card dashboard-box-19">
+        <h3 class="dashboard-subheading-4">Refund rate vs. settlement fee ratio</h3>
+        <div class="dashboard-stack-5">
+          <div class="dashboard-bar-38">
+            <span class="dashboard-label-45">Refund rate</span>
+            <div class="dashboard-panel-10">
+              <div class="dashboard-panel-12" style="width: {{7}}%;"></div>
+            </div>
+            <span class="dashboard-label-46"><!--{{8}}-->%</span>
+          </div>
+          <div class="dashboard-bar-38">
+            <span class="dashboard-label-45">Settlement fee ratio</span>
+            <div class="dashboard-panel-10">
+              <div class="dashboard-panel-13" style="width: {{9}}%;"></div>
+            </div>
+            <span class="dashboard-label-46"><!--{{10}}-->%</span>
+          </div>
+        </div>
+      </div>
+    </section></template></template><!--/tpl:dashboard--></app-admin-dashboard><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-admin-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- dashboard page: other templates (js/dashboard.js) -->
+<template id="dashboard-tile">
+    <a href="{{0}}" class="card card-hover flex items-center gap-4{{1}}">
+      <div class="h-12 w-12 flex items-center justify-center rounded-xl bg-gradient-to-br {{2}} text-white text-xl">
+        <i class="fa-solid {{3}}"></i>
+      </div>
+      <div>
+        <p class="dashboard-text-36"><!--{{4}}--></p>
+        <p class="dashboard-text-37"><!--{{5}}--></p>
+      </div>
+    </a></template>
+<template id="dashboard-stat">
+        <div class="card">
+          <p class="dashboard-text-38"><!--{{0}}--></p>
+          <p class="dashboard-text-39"><!--{{1}}--></p>
+        </div></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/analytics-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/user-account-service.js"></script>
+  <script src="../../common/services/verification-queue-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/admin-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>boot({ route: '/admin/dashboard', shell: 'admin', guards: [], page: AdminDashboardPage });</script>
+</body>
+</html>

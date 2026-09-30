@@ -1,0 +1,122 @@
+<!--
+  queue-detail.html - markup of queue-detail (Angular: src/app/features/location/queue-detail/queue-detail.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/queue-detail/queue-detail.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="queue-detail-field"><p><span class="queue-detail-label"><!--{{0}}--></span><br><!--{{1}}--></p></template>
+<template id="queue-detail-strong"><strong><!--{{0}}--></strong></template>
+<template id="queue-detail-owner-note"><div class="queue-detail-panel"><strong>Uploaded by fleet:</strong> <!--{{0}}--></div></template>
+<template id="queue-detail-section">
+    <section class="card queue-detail-section">
+      <h2 class="queue-detail-heading"><!--{{0}}--></h2>
+      <div class="queue-detail-grid">
+        <!--{{1}}-->
+      </div>
+      <!--{{2}}-->
+    </section></template>
+<template id="queue-detail"><a href="{{0}}" class="queue-detail-link-2">
+  <i class="fa-solid fa-arrow-left"></i> Back to queue
+</a>
+
+<!--{{1}}--><template id="queue-detail-1"><div class="queue-detail-bar"><span class="spinner"></span></div></template><template id="queue-detail-2">
+  <div class="queue-detail-bar-5">
+    <div>
+      <h1 class="queue-detail-title"><!--{{0}}--></h1>
+      <p class="queue-detail-text-10"><!--{{1}}--> application · submitted <!--{{2}}--></p>
+    </div>
+    <span class="badge{{3}}"><!--{{4}}--></span>
+  </div>
+
+  <!--{{5}}--><template id="queue-detail-2-1">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}-->
+        <!--{{4}}-->
+        <!--{{5}}--></template>
+  <!--{{6}}--><template id="queue-detail-2-2">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}--></template>
+  <!--{{7}}--><template id="queue-detail-2-3">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}-->
+        <!--{{4}}-->
+        <!--{{5}}--></template>
+  <!--{{8}}--><template id="queue-detail-2-4">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}-->
+        <!--{{4}}-->
+        <!--{{5}}--></template>
+
+  <!--{{9}}--><template id="queue-detail-2-5">
+    <section class="card queue-detail-section !border-amber-200 bg-amber-50/50">
+      <h2 class="queue-detail-heading-2"><i class="fa-solid fa-clock-rotate-left queue-detail-icon"></i>Waiting for document resubmission</h2>
+      <p class="queue-detail-text"><!--{{0}}--></p>
+    </section></template>
+
+  <section class="card queue-detail-section">
+    <div class="queue-detail-bar-6">
+      <div><h2 class="queue-detail-heading-5">Required documents</h2><p class="queue-detail-text-11">Expected for this <!--{{10}}--> application: <!--{{11}}--></p></div>
+      <span class="badge{{12}}"><!--{{13}}--> / <!--{{14}}--> uploaded</span>
+    </div>
+    <div class="queue-detail-box-2">
+      <!--{{15}}--><template id="queue-detail-2-6">
+          <article class="queue-detail-article">
+            <p class="queue-detail-text-2"><i class="fa-solid fa-circle-exclamation queue-detail-icon"></i><!--{{0}}--> is missing</p>
+            <p class="queue-detail-text-3">Do not approve this application until the submitter uploads this required document.</p>
+          </article></template><template id="queue-detail-2-7">
+          <article class="queue-detail-article-2" data-key="{{0}}">
+            <div class="queue-detail-bar-3">
+              <button type="button" class="queue-detail-button-2" {{1}} onclick="Page.toggleDocumentPreview({{2}})">
+                <span class="queue-detail-label-2"><i class="fa-solid fa-file-shield"></i></span>
+                <span class="queue-detail-label-3"><strong class="queue-detail-strong"><!--{{3}}--></strong><span class="queue-detail-label-4"><!--{{4}}--> · version <!--{{5}}--></span></span>
+              </button>
+              <span class="badge {{6}}"><!--{{7}}--></span>
+            </div>
+            <!--{{8}}--><template id="queue-detail-2-7-1"><p class="queue-detail-text-4"><strong>Re-upload reason:</strong> <!--{{0}}--></p></template>
+            <button type="button" class="queue-detail-button-3" onclick="Page.state.historyFor = {{9}}"><i class="fa-solid fa-clock-rotate-left queue-detail-icon-2"></i>View Document History</button>
+
+            <!--{{10}}--><template id="queue-detail-2-7-2">
+              <div class="queue-detail-panel-2">
+                <!--{{0}}--><template id="queue-detail-2-7-2-1"><div class="queue-detail-bar-2"><span class="spinner"></span></div></template><template id="queue-detail-2-7-2-2"><p class="queue-detail-text-5"><!--{{0}}--></p></template><template id="queue-detail-2-7-2-3"><img src="{{0}}" alt="{{1}}" class="queue-detail-image" /></template><template id="queue-detail-2-7-2-4"><a href="{{0}}" download="{{1}}" class="btn-outline queue-detail-link"><i class="fa-solid fa-file-arrow-down"></i> Open <!--{{2}}--></a></template>
+              </div></template>
+
+            <!--{{11}}--><template id="queue-detail-2-7-3">
+              <div class="queue-detail-grid-2">
+                <button type="button" class="btn-secondary" {{0}} onclick="Page.reviewDocument({{1}}, 'APPROVED')"><i class="fa-solid fa-circle-check"></i> Approve document</button>
+                <input class="input" value="{{2}}" oninput="Page.setRejectReason({{3}}, this.value)" placeholder="Reason required if this document must be re-uploaded" />
+                <button type="button" class="btn-outline queue-detail-button" {{4}} onclick="Page.reviewDocument({{5}}, 'REJECTED')"><i class="fa-solid fa-rotate-left"></i> Request re-upload</button>
+              </div></template>
+          </article></template>
+    </div>
+  </section>
+
+  <!--{{16}}--><template id="queue-detail-2-8">
+    <section class="card queue-detail-section">
+      <h2 class="queue-detail-heading-3">Final application decision</h2>
+      <!--{{0}}--><template id="queue-detail-2-8-1"><p class="queue-detail-text-6">Approve each required document above first. Final approval stays disabled until all required documents are approved.</p></template>
+      <button type="button" class="btn-primary" {{1}} onclick="Page.approveApplication()"><i class="fa-solid fa-badge-check"></i> Approve application</button>
+    </section></template>
+
+  <!--{{17}}--><template id="queue-detail-2-9"><p class="card queue-detail-text-7">You submitted this entry, so you cannot review it yourself.</p></template>
+
+  <!--{{18}}--><template id="queue-detail-2-10">
+    <section class="card queue-detail-section !border-rose-200">
+      <h2 class="queue-detail-heading-4">Block this approved subject</h2>
+      <div class="queue-detail-bar-4">
+        <div class="form-group flex-1 queue-detail-box !gap-1"><label class="form-label req-mark queue-detail-label-5">Reason</label><input class="input" value="{{0}}" oninput="Page.state.revokeReason = this.value" /></div>
+        <button type="button" class="btn-outline queue-detail-button" {{1}} onclick="Page.revoke()"><i class="fa-solid fa-ban"></i> Revoke Approval &amp; Block</button>
+      </div>
+    </section></template>
+
+  <!--{{19}}-->
+
+  <!--{{20}}--><template id="queue-detail-2-11"><p class="queue-detail-text-8"><!--{{0}}--></p></template>
+  <!--{{21}}--><template id="queue-detail-2-12"><p class="queue-detail-text-9"><!--{{0}}--></p></template></template></template>

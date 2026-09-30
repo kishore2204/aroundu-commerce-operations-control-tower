@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Driver - dashboard page, route /driver/dashboard (Angular: src/app/features/driver/dashboard/driver-dashboard.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-driver-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-driver-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="dashboard-box-16">
+  <div class="dashboard-bar-36">
+    <div>
+      <span class="badge badge-active dashboard-label-39">
+        <i class="fa-solid fa-circle dashboard-icon-12"></i> Ready for deliveries
+      </span>
+      <h1 class="dashboard-title-4">
+        Good <!--{{0}}--><!--{{1}}-->
+      </h1>
+      <p class="dashboard-text-35">Manage active deliveries, record pickup proof, and submit delivery completion photos</p>
+    </div>
+    <button type="button" class="btn-outline" onclick="Page.loadDriverTrips()">
+      <i class="fa-solid fa-rotate-right"></i> Refresh
+    </button>
+  </div>
+
+  <!--{{2}}--><template id="dashboard-1"><div class="dashboard-bar-27"><span class="spinner"></span></div></template><template id="dashboard-2">
+    <!--{{0}}--><template id="dashboard-2-1">
+      <div class="card dashboard-box-13 !p-0 bg-gradient-to-br">
+        <div class="dashboard-box-14">
+          <div class="dashboard-bar-31">
+            <div class="dashboard-bar-32">
+              <span class="badge badge-pending dashboard-label-26">
+                <i class="fa-solid fa-bolt"></i> Active assignment
+              </span>
+              <span class="dashboard-label-27"><!--{{0}}--></span>
+              <span class="dashboard-label-28">Order #<!--{{1}}--></span>
+            </div>
+            <span class="badge{{2}}">
+              <!--{{3}}-->
+            </span>
+          </div>
+
+          <!--{{4}}--><template id="dashboard-2-1-1">
+            <h2 class="dashboard-heading-7">
+              <!--{{0}}-->
+              <i class="fa-solid fa-arrow-right-long dashboard-icon-8"></i>
+              <!--{{1}}-->
+            </h2></template>
+
+          <div class="dashboard-grid-12">
+            <div class="dashboard-bar-30">
+              <span class="dashboard-label-29">
+                <i class="fa-solid fa-clock"></i>
+              </span>
+              <div>
+                <span class="dashboard-label-30">Planned Start</span>
+                <span class="dashboard-label-31"><!--{{5}}--></span>
+              </div>
+            </div>
+            <div class="dashboard-bar-30">
+              <span class="dashboard-label-29">
+                <i class="fa-solid fa-route"></i>
+              </span>
+              <div>
+                <span class="dashboard-label-30">Distance</span>
+                <span class="dashboard-label-31"><!--{{6}}--> km</span>
+              </div>
+            </div>
+          </div>
+
+          <!--{{7}}--><template id="dashboard-2-1-2">
+            <div class="dashboard-panel-8">
+              <h3 class="dashboard-subheading-3">
+                <i class="fa-solid fa-camera dashboard-icon-9"></i> Step 1: Confirm Store Pickup
+              </h3>
+              <p class="dashboard-text-28">Upload pickup proof photo or package image before starting transit.</p>
+
+              <form novalidate onsubmit="event.preventDefault(); Page.confirmPickup()" class="form-grid !mb-0">
+                <div class="form-group full-width">
+                  <label class="form-label req-mark dashboard-label-25">
+                    <i class="fa-solid fa-cloud-arrow-up dashboard-icon-9"></i> Select Pickup Photo File
+                  </label>
+                  <input type="file" accept="image/*" onchange="Page.readImage(this, 'pickupImageBase64')" class="input" />
+                  <!--{{0}}--><template id="dashboard-2-1-2-1">
+                    <div class="dashboard-bar-28">
+                      <img src="{{0}}" alt="Pickup Preview" class="dashboard-image" />
+                      <span class="dashboard-label-24">Photo selected</span>
+                    </div></template>
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label">Additional Notes / Proof Text (Optional)</label>
+                  <input class="input" name="proofOfPickupText" {{1}} placeholder="e.g. Package verified at Kirana Store" />
+                </div>
+
+                <button type="submit" class="btn-primary dashboard-button-8" {{2}}>
+                  <!--{{3}}--><template id="dashboard-2-1-2-2"><i class="fa-solid fa-arrow-right"></i> Confirm Pickup &amp; Start Delivery </template>
+                </button>
+              </form>
+            </div></template>
+
+          <!--{{8}}--><template id="dashboard-2-1-3">
+            <!--{{0}}--><template id="dashboard-2-1-3-1">
+              <div class="dashboard-bar-29">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="dashboard-bar-30">
+                  <span>Pickup Proof Recorded:</span>
+                  <!--{{0}}--><template id="dashboard-2-1-3-1-1"><img src="{{0}}" alt="Recorded Pickup Proof" class="dashboard-image-2" /></template><template id="dashboard-2-1-3-1-2"><strong><!--{{0}}--></strong></template>
+                </div>
+              </div></template>
+
+            <div class="dashboard-panel-9">
+              <h3 class="dashboard-subheading-3">
+                <i class="fa-solid fa-circle-check dashboard-icon-9"></i> Step 2: Submit Customer Delivery Proof
+              </h3>
+              <p class="dashboard-text-28">Upload delivery proof photo or customer doorstep confirmation image to complete this trip.</p>
+
+              <form novalidate onsubmit="event.preventDefault(); Page.completeDelivery()" class="form-grid !mb-0">
+                <div class="form-group full-width">
+                  <label class="form-label req-mark dashboard-label-25">
+                    <i class="fa-solid fa-cloud-arrow-up dashboard-icon-9"></i> Select Delivery Photo File
+                  </label>
+                  <input type="file" accept="image/*" onchange="Page.readImage(this, 'deliveryImageBase64')" class="input" />
+                  <!--{{1}}--><template id="dashboard-2-1-3-2">
+                    <div class="dashboard-bar-28">
+                      <img src="{{0}}" alt="Delivery Preview" class="dashboard-image" />
+                      <span class="dashboard-label-24">Delivery photo selected</span>
+                    </div></template>
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label">Additional Notes / Proof Text (Optional)</label>
+                  <input class="input" name="proofOfDeliveryText" {{2}} placeholder="e.g. Delivered to customer at doorstep" />
+                </div>
+
+                <button type="submit" class="btn-secondary dashboard-button-8" {{3}}>
+                  <!--{{4}}--><template id="dashboard-2-1-3-3"><i class="fa-solid fa-shield-check"></i> Upload Proof &amp; Complete Trip </template>
+                </button>
+              </form>
+            </div></template>
+        </div>
+      </div></template><template id="dashboard-2-2">
+      <div class="card dashboard-box-15 bg-gradient-to-br">
+        <!--{{0}}-->
+      </div></template>
+
+    <div class="dashboard-grid-13">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </div>
+
+    <div class="dashboard-grid-14">
+      <div>
+        <div class="dashboard-bar-33">
+          <i class="fa-solid fa-receipt dashboard-icon-10"></i>
+          <h2 class="dashboard-heading-9">Log an Expense</h2>
+        </div>
+        <div class="card">
+          <p class="dashboard-text-32">Record fuel, toll, or other trip expenses - these show up in your fleet owner's expenses list for approval.</p>
+          <form novalidate onsubmit="event.preventDefault(); Page.addExpense()" class="form-grid !mb-0">
+            <div class="form-group">
+              <label class="form-label req-mark">Expense Type</label>
+              <select class="select" name="expenseType" {{5}}>
+                <option value="FUEL">Fuel</option>
+                <option value="TOLL">Toll</option>
+                <option value="MAINTENANCE">Maintenance</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Amount (₹)</label>
+              <input class="input" type="number" min="0.01" max="10000" step="0.01" name="amount" {{6}} />
+              <p class="dashboard-text-33">Maximum ₹10,000 per expense.</p>
+              <!--{{7}}--><template id="dashboard-2-3"><p class="dashboard-text-29">Maximum allowed amount for one expense is ₹10,000.</p></template>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Date</label>
+              <input class="input" type="date" name="expenseDate" {{8}} />
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label dashboard-label-25">
+                <i class="fa-solid fa-receipt dashboard-icon-9"></i> Proof of Expense (receipt photo/PDF, optional)
+              </label>
+              <input type="file" accept="image/*,application/pdf" data-expense-proof onchange="Page.onExpenseProofFileSelected(this)" class="input" />
+              <!--{{9}}--><template id="dashboard-2-4"><span class="dashboard-label-32"><!--{{0}}--> selected</span></template>
+            </div>
+            <div class="form-group full-width">
+              <button type="submit" class="btn-primary" {{10}}>
+                <!--{{11}}--><template id="dashboard-2-5"><i class="fa-solid fa-plus"></i> Add Expense </template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="dashboard-grid-15">
+        <div class="card">
+          <h2 class="dashboard-heading-10">Driver readiness</h2>
+          <div class="dashboard-grid-16">
+            <div class="dashboard-bar-34">
+              <span class="dashboard-label-34"><i class="fa-solid fa-circle-check dashboard-icon-11"></i>Profile</span>
+              <span class="dashboard-label-35"><!--{{12}}--></span>
+            </div>
+            <div class="dashboard-bar-34">
+              <span class="dashboard-label-34"><i class="fa-solid fa-id-card dashboard-icon-11"></i>License</span>
+              <span class="dashboard-label-36"><!--{{13}}--></span>
+            </div>
+            <div class="dashboard-bar-35{{14}}">
+              <span class="dashboard-label-37{{15}}">
+                <i class="fa-solid fa-motorcycle dashboard-icon-11"></i>Status
+              </span>
+              <span class="dashboard-label-38{{16}}">
+                <!--{{17}}-->
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--{{18}}--><template id="dashboard-2-6">
+          <div class="card">
+            <h2 class="dashboard-heading-8">Recent trip</h2>
+            <p class="dashboard-text-30"><!--{{0}}--> &middot; Order #<!--{{1}}--></p>
+            <p class="dashboard-text-31">
+              Completed
+              <!--{{2}}--><!--{{3}}--><template id="dashboard-2-6-1"> &middot; <span class="dashboard-label-33"><!--{{0}}--> earned</span></template>
+            </p>
+          </div></template>
+
+        <p class="dashboard-text-34">
+          Looking for full trip history or complaints? See
+          <a href="{{19}}" class="dashboard-link-8">Earnings &amp; Trips</a>.
+        </p>
+      </div>
+    </div></template>
+</div><!--/tpl:dashboard--></app-driver-dashboard><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-driver-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- dashboard page: other templates (js/dashboard.js) -->
+<template id="dashboard-spinner"><span class="spinner dashboard-label-22"></span></template>
+<template id="dashboard-stat">
+      <div class="card">
+        <span class="label dashboard-label-23"><!--{{0}}--></span>
+        <div class="mt-1 text-2xl font-extrabold {{1}}"><!--{{2}}--></div>
+      </div></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/driver-service.js"></script>
+  <script src="../../common/services/expense-service.js"></script>
+  <script src="../../common/services/file-blobs.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/trip-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/driver-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>boot({ route: '/driver/dashboard', shell: 'driver', guards: [], page: DriverDashboardPage });</script>
+</body>
+</html>

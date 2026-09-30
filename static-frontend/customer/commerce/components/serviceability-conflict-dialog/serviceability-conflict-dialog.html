@@ -1,0 +1,42 @@
+<!--
+  serviceability-conflict-dialog.html - markup of serviceability-conflict-dialog (Angular: src/app/shared/serviceability-conflict-dialog/serviceability-conflict-dialog.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN customer/commerce/components/serviceability-conflict-dialog/serviceability-conflict-dialog.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="serviceability-conflict-dialog">
+      <app-serviceability-conflict-dialog><div class="serviceability-conflict-dialog-overlay" onclick="{{0}}.onClosed(undefined)">
+        <div class="card serviceability-conflict-dialog-box" onclick="event.stopPropagation()">
+          <div class="serviceability-conflict-dialog-bar-4">
+            <h2 class="serviceability-conflict-dialog-heading">This product is not serviceable at this location.</h2>
+            <button type="button" class="btn-icon serviceability-conflict-dialog-button-3" aria-label="Close" onclick="{{1}}.onClosed(undefined)">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="serviceability-conflict-dialog-box-2">
+            <ul class="serviceability-conflict-dialog-list">
+              <!--{{2}}--><template id="serviceability-conflict-dialog-1">
+                <li class="serviceability-conflict-dialog-item">
+                  <div class="serviceability-conflict-dialog-bar">
+                    <i class="fa-solid fa-circle-exclamation serviceability-conflict-dialog-icon"></i>
+                    <span class="serviceability-conflict-dialog-label"><!--{{0}}--></span>
+                  </div>
+                  <div class="serviceability-conflict-dialog-bar-2">
+                    <button type="button" class="btn-outline serviceability-conflict-dialog-button" onclick="{{1}}.onClosed({ type: 'try-another-shop', productId: {{2}} })">
+                      Try Another Shop
+                    </button>
+                    <button type="button" class="serviceability-conflict-dialog-button-2" onclick="{{3}}.onClosed({ type: 'remove', productId: {{4}} })">
+                      Remove
+                    </button>
+                  </div>
+                </li></template>
+            </ul>
+          </div>
+
+          <!--{{3}}--><template id="serviceability-conflict-dialog-2">
+            <div class="serviceability-conflict-dialog-bar-3">
+              <button type="button" class="btn-primary" onclick="{{0}}.onClosed({ type: 'change-address' })">Choose a Different Address</button>
+            </div></template>
+        </div>
+      </div></app-serviceability-conflict-dialog></template>

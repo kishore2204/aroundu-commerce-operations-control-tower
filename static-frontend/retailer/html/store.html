@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/field-hint/field-hint.css">
+  <link rel="stylesheet" href="../css/store.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Retailer - store page, route /retailer/store (Angular: src/app/features/retailer/store/store.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-retailer-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-retailer-store><!--{{0}}--><!--tpl:store (this page)--><h1 class="store-title">Store management</h1>
+
+<!--{{0}}--><template id="store-1"><div class="store-bar"><div class="spinner"></div></div></template><template id="store-2">
+  <div class="card store-box">
+    <form novalidate onsubmit="event.preventDefault(); Page.save()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Business name</label>
+          <input class="input" name="businessName" {{0}} />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">City</label>
+          <select class="select" name="cityId" {{1}}>
+            <option value="">Select City</option>
+            <!--{{2}}--><template id="store-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Zone</label>
+          <select class="select" name="zoneId" {{3}}>
+            <option value=""><!--{{4}}--></option>
+            <!--{{5}}--><template id="store-2-2"><option value="{{0}}"><!--{{1}}--></option></template>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shop registration number<!--{{6}}--></label>
+          <input class="input" name="registrationNumber" {{7}} maxlength="25" data-format-input="registration" autocapitalize="characters" spellcheck="false" autocomplete="off" />
+          <!--{{8}}--><template id="store-2-3"><p class="store-text"><!--{{0}}--></p></template>
+        </div>
+        <div class="form-group">
+          <label class="form-label">GST number<!--{{9}}--></label>
+          <input class="input" name="gstNumber" {{10}} maxlength="15" data-format-input="gstin" autocapitalize="characters" spellcheck="false" autocomplete="off" />
+          <!--{{11}}--><template id="store-2-4"><p class="store-text"><!--{{0}}--></p></template>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Latitude</label>
+          <input class="input" type="number" name="latitude" {{12}} />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Longitude</label>
+          <input class="input" type="number" name="longitude" {{13}} />
+        </div>
+      </div>
+
+      <h2 class="store-heading">Operating hours</h2>
+      <label class="store-label">
+        <span class="store-label-2">
+          <input type="checkbox" name="isOpen" {{14}} class="peer store-input" />
+          <span class="store-label-3 bg-slate-200 peer-checked:bg-zepto-600"></span>
+          <span class="store-label-4 peer-checked:translate-x-5"></span>
+        </span>
+        <span class="store-label-5">Store is currently open for orders</span>
+      </label>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Opens at</label>
+          <input class="input" type="time" name="opensAt" {{15}} />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Closes at</label>
+          <input class="input" type="time" name="closesAt" {{16}} />
+        </div>
+      </div>
+
+      <!--{{17}}--><template id="store-2-5"><p class="store-text-2"><!--{{0}}--></p></template>
+      <!--{{18}}--><template id="store-2-6"><p class="store-text-3">Saved.</p></template>
+      <button type="submit" class="btn-primary" {{19}}>
+        Save changes
+      </button>
+    </form>
+  </div></template><!--/tpl:store--></app-retailer-store><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-retailer-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/field-hint/field-hint.html -->
+<template id="field-hint">
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
+          aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
+          onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
+        </button>
+        <span role="tooltip" id="{{10}}"
+          class="field-hint-label-2{{11}}"
+          style="left: {{12}}px;">
+          <span class="field-hint-label-3"><!--{{13}}--></span>
+        </span>
+      </span></app-field-hint></template>
+<!-- END common/field-hint/field-hint.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/retailer-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/field-hint/field-hint.js"></script>
+  <script src="../js/store.js"></script>
+  <script>boot({ route: '/retailer/store', shell: 'retailer', guards: [Guards.retailerProfile], page: RetailerStorePage });</script>
+</body>
+</html>

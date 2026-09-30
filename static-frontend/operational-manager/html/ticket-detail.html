@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/ticket-detail/ticket-detail.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Operational Manager - ticket-detail page, route /operations/support/:id (Angular: src/app/shared/support/ticket-detail.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-operations-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-ticket-detail><!--{{0}}--><!--tpl:ticket-detail (common/ticket-detail/ticket-detail.html)--><button type="button" class="ticket-detail-button-7" onclick="Page.goBack()">
+  <i class="fa-solid fa-arrow-left"></i> Back to tickets
+</button>
+
+<!--{{0}}--><template id="ticket-detail-1"><div class="ticket-detail-bar"><div class="spinner"></div></div></template><template id="ticket-detail-2"><p class="ticket-detail-text">Ticket not found, or you don't have access to it.</p></template><template id="ticket-detail-3">
+  <div class="ticket-detail-bar-9">
+    <div>
+      <h1 class="ticket-detail-title"><!--{{0}}--> - <!--{{1}}--></h1>
+      <p class="ticket-detail-text-16">
+        <!--{{2}}--> / <!--{{3}}-->
+        - Priority <!--{{4}}--> - Raised <!--{{5}}-->
+      </p>
+    </div>
+    <div class="ticket-detail-stack-2">
+      <span class="badge{{6}}"><!--{{7}}--></span>
+      <!--{{8}}--><template id="ticket-detail-3-1">
+        <span class="badge{{0}}"><!--{{1}}--></span></template>
+    </div>
+  </div>
+
+  <p class="ticket-detail-text-17"><!--{{9}}--></p>
+
+  <!--{{10}}--><template id="ticket-detail-3-2">
+    <p class="ticket-detail-text-2">
+      Escalated to <!--{{0}}-->: <!--{{1}}-->
+    </p></template>
+  <!--{{11}}--><template id="ticket-detail-3-3">
+    <p class="ticket-detail-text-2">
+      Escalated to the <!--{{0}}--> for this order: <!--{{1}}-->
+    </p></template>
+
+  <!--{{12}}--><template id="ticket-detail-3-4">
+    <div class="ticket-detail-bar-4">
+      <!--{{0}}--><template id="ticket-detail-3-4-1">
+        <button type="button" class="btn-outline" {{0}} onclick="Page.assignToMe()">Assign to me</button></template>
+      <!--{{1}}--><template id="ticket-detail-3-4-2">
+        <button type="button" class="btn-outline" {{0}} onclick="Page.resolve()">Resolve</button>
+        <button type="button" class="btn-outline" {{1}} onclick="Page.openEscalateForm()">Escalate</button></template>
+      <!--{{2}}--><template id="ticket-detail-3-4-3">
+        <button type="button" class="btn-outline" {{0}} onclick="Page.close()">Close</button></template>
+    </div>
+
+    <!--{{3}}--><template id="ticket-detail-3-4-4">
+      <div class="ticket-detail-box">
+        <div class="ticket-detail-bar-3">
+          <button type="button" class="{{0}}" onclick="Page.state.escalateMode = 'role'">To an internal role</button>
+          <button type="button" class="{{1}}" onclick="Page.state.escalateMode = 'entity'">Directly to the retailer/fleet owner</button>
+        </div>
+
+        <!--{{2}}--><template id="ticket-detail-3-4-4-1">
+          <form novalidate onsubmit="event.preventDefault(); Page.escalate()" class="ticket-detail-form" data-key="escalate-role">
+            <div>
+              <label class="form-label req-mark">Escalate to</label>
+              <select class="select" name="toRole" {{0}}>
+                <option value="" disabled>Select a role</option>
+                <!--{{1}}--><template id="ticket-detail-3-4-4-1-1"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select>
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <!--{{2}}-->
+            </div>
+            <button type="submit" class="btn-primary ticket-detail-button" {{3}}>
+              Confirm escalation
+            </button>
+          </form></template><template id="ticket-detail-3-4-4-2">
+          <form novalidate onsubmit="event.preventDefault(); Page.escalateToEntity()" class="ticket-detail-form" data-key="escalate-entity">
+            <div>
+              <label class="form-label req-mark">Escalate directly to</label>
+              <div class="ticket-detail-bar-2">
+                <!--{{0}}--><template id="ticket-detail-3-4-4-2-1">
+                  <button type="button" class="btn-outline ticket-detail-button-2" onclick="Page.escalateToSuggestedEntity('RETAILER', {{0}})">
+                    <i class="fa-solid fa-store"></i> <!--{{1}}-->
+                  </button></template>
+                <!--{{1}}--><template id="ticket-detail-3-4-4-2-2">
+                  <button type="button" class="btn-outline ticket-detail-button-2" onclick="Page.escalateToSuggestedEntity('FLEET_OWNER', {{0}})">
+                    <i class="fa-solid fa-truck"></i> <!--{{1}}-->
+                  </button></template>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Business type</label>
+              <input class="input ticket-detail-input" value="{{2}}" readonly placeholder="Choose a business above" />
+            </div>
+            <div>
+              <label class="form-label">Business name</label>
+              <input class="input ticket-detail-input" value="{{3}}" readonly placeholder="Choose a business above" />
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <!--{{4}}-->
+            </div>
+            <button type="submit" class="btn-primary ticket-detail-button" {{5}}>
+              Confirm escalation
+            </button>
+          </form></template>
+      </div></template></template>
+
+  <!--{{13}}--><template id="ticket-detail-3-5"><p class="ticket-detail-text-3"><!--{{0}}--></p></template>
+
+  <!--{{14}}--><template id="ticket-detail-3-6">
+    <section class="card ticket-detail-section">
+      <h2 class="ticket-detail-heading">Order context</h2>
+      <!--{{0}}--><template id="ticket-detail-3-6-1"><div class="ticket-detail-bar-5"><span class="spinner"></span></div></template><template id="ticket-detail-3-6-2">
+        <!--{{0}}--><template id="ticket-detail-3-6-2-1">
+          <div class="ticket-detail-panel">
+            <p class="ticket-detail-text-4">Order <!--{{0}}--> - <!--{{1}}--></p>
+            <p class="ticket-detail-text-5">
+              ₹<!--{{2}}--> - Payment <!--{{3}}--> (<!--{{4}}-->)
+              <!--{{5}}--><template id="ticket-detail-3-6-2-1-1"> - Delivered <!--{{0}}--> </template>
+            </p>
+          </div></template>
+        <!--{{1}}--><template id="ticket-detail-3-6-2-2">
+          <ul class="ticket-detail-list">
+            <!--{{0}}--><template id="ticket-detail-3-6-2-2-1">
+              <li class="ticket-detail-item">
+                <span><!--{{0}}--> x <!--{{1}}--></span>
+                <span class="ticket-detail-label">₹<!--{{2}}--></span>
+              </li></template>
+          </ul></template>
+        <!--{{2}}--><template id="ticket-detail-3-6-2-3"><p class="ticket-detail-text-6">Trip status: <!--{{0}}--></p></template></template>
+    </section></template>
+
+  <!--{{15}}--><template id="ticket-detail-3-7">
+    <section class="card ticket-detail-section">
+      <h2 class="ticket-detail-heading">Order &amp; refund review</h2>
+
+      <h3 class="ticket-detail-subheading">Driver's delivery proof</h3>
+      <!--{{0}}--><template id="ticket-detail-3-7-1"><div class="ticket-detail-bar-5"><span class="spinner"></span></div></template><template id="ticket-detail-3-7-2"><img src="{{0}}" alt="Delivery proof" class="ticket-detail-image" /></template><template id="ticket-detail-3-7-3"><p class="ticket-detail-text-7"><!--{{0}}--></p></template><template id="ticket-detail-3-7-4"><p class="ticket-detail-text-8">No delivery proof was found for this order's trip.</p></template>
+
+      <h3 class="ticket-detail-subheading-2">Refund / return decision</h3>
+      <p class="ticket-detail-text-13">Refund eligibility and item limits are validated by the backend from the linked ticket, delivered order and successful payment.</p>
+
+      <!--{{1}}--><template id="ticket-detail-3-7-5"><div class="ticket-detail-bar-5"><span class="spinner"></span></div></template><template id="ticket-detail-3-7-6">
+        <div class="ticket-detail-stack">
+          <!--{{0}}--><template id="ticket-detail-3-7-6-1">
+            <div class="ticket-detail-panel-2" data-key="{{0}}">
+              <div class="ticket-detail-bar-7">
+                <div>
+                  <p class="ticket-detail-text-9">Refund amount: ₹<!--{{1}}--></p>
+                  <p class="ticket-detail-text-10">Item #<!--{{2}}--> · <!--{{3}}--></p>
+                </div>
+                <span class="badge{{4}}">
+                  <!--{{5}}-->
+                </span>
+              </div>
+
+              <!--{{6}}--><template id="ticket-detail-3-7-6-1-1">
+                <div class="ticket-detail-bar-6">
+                  <button type="button" class="btn-secondary ticket-detail-button-3" {{0}} onclick="Page.refundAction({{1}}, 'approve')">
+                    <i class="fa-solid fa-circle-check"></i> Approve refund
+                  </button>
+                  <button type="button" class="btn-outline ticket-detail-button-4" {{2}} onclick="Page.refundAction({{3}}, 'reject')">
+                    <i class="fa-solid fa-ban"></i> Reject refund
+                  </button>
+                </div></template>
+
+              <!--{{7}}--><template id="ticket-detail-3-7-6-1-2">
+                <button type="button" class="btn-secondary ticket-detail-button-5" {{0}} onclick="Page.refundAction({{1}}, 'complete')">
+                  <i class="fa-solid fa-money-check-dollar"></i> Mark refund completed
+                </button></template>
+            </div></template>
+        </div></template><template id="ticket-detail-3-7-7"><p class="ticket-detail-text-11">No refund request has been recorded for this ticket.</p></template>
+
+      <!--{{2}}--><template id="ticket-detail-3-7-8">
+        <div class="ticket-detail-panel-3">
+          <h4 class="ticket-detail-caption">Create eligible refund request</h4>
+          <form novalidate onsubmit="event.preventDefault(); Page.createRefund()" class="ticket-detail-form">
+            <div>
+              <label class="form-label req-mark">Item to refund</label>
+              <select class="select" name="orderItemId" {{0}}>
+                <option value="" disabled>Select an item</option>
+                <!--{{1}}--><template id="ticket-detail-3-7-8-1">
+                  <option value="{{0}}">
+                    <!--{{1}}--> · qty <!--{{2}}--> · up to ₹<!--{{3}}-->
+                  </option></template>
+              </select>
+            </div>
+            <div>
+              <label class="form-label req-mark">Refund amount (₹)</label>
+              <input class="input" type="number" min="0.01" step="0.01" name="refundAmount" {{2}} />
+            </div>
+            <div>
+              <label class="form-label req-mark">Reason</label>
+              <!--{{3}}-->
+            </div>
+            <button type="submit" class="btn-primary ticket-detail-button" {{4}}>
+              <!--{{5}}--><template id="ticket-detail-3-7-8-2"><span class="spinner ticket-detail-label-2"></span></template><template id="ticket-detail-3-7-8-3"> Raise refund request </template>
+            </button>
+          </form>
+        </div></template>
+
+      <!--{{3}}--><template id="ticket-detail-3-7-9"><p class="ticket-detail-text-12"><!--{{0}}--></p></template>
+    </section></template>
+
+  <h2 class="ticket-detail-heading-2">Conversation</h2>
+  <!--{{16}}--><template id="ticket-detail-3-8"><div class="ticket-detail-bar-8"><div class="spinner"></div></div></template><template id="ticket-detail-3-9"><p class="ticket-detail-text-8">No messages yet.</p></template><template id="ticket-detail-3-10">
+    <ul class="ticket-detail-list-2">
+      <!--{{0}}--><template id="ticket-detail-3-10-1">
+        <li class="border-l-[3px] ticket-detail-item-2{{0}}" data-key="{{1}}">
+          <p class="ticket-detail-text-14">
+            <!--{{2}}--> - <!--{{3}}-->
+            <!--{{4}}--><template id="ticket-detail-3-10-1-1"><span class="ticket-detail-label-3">Internal note</span></template>
+          </p>
+          <p class="ticket-detail-text-15"><!--{{5}}--></p>
+        </li></template>
+    </ul></template>
+
+  <!--{{17}}--><template id="ticket-detail-3-11">
+    <form novalidate onsubmit="event.preventDefault(); Page.sendReply()" class="ticket-detail-form-2">
+      <div>
+        <label class="form-label req-mark">Add a message</label>
+        <!--{{0}}-->
+      </div>
+      <!--{{1}}--><template id="ticket-detail-3-11-1">
+        <label class="ticket-detail-label-4">
+          <input type="checkbox" name="internalNote" {{0}} class="ticket-detail-input-2" />
+          Internal note (not visible to the raiser)
+        </label></template>
+      <button type="submit" class="btn-primary ticket-detail-button" {{2}}>Send</button>
+    </form></template></template>
+
+<!--{{1}}--><template id="ticket-detail-4">
+  <div class="ticket-detail-bar-10">
+    <span><!--{{0}}--></span>
+    <button type="button" class="ticket-detail-button-6" onclick="Page.dismissToast()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div></template><!--/tpl:ticket-detail--></app-ticket-detail><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-operations-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/ticket-detail/ticket-detail.html -->
+<template id="ticket-detail-textarea"><textarea class="input" name="{{0}}" rows="{{1}}" {{2}} oninput="{{3}}.controls['{{4}}'].input(this)" onblur="{{5}}.controls['{{6}}'].blur()"><!--{{7}}--></textarea></template>
+<!-- END common/ticket-detail/ticket-detail.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/support-tickets/support-categories.js"></script>
+  <script src="../../common/support-tickets/support-sla.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-refund-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/support-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/operations-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/ticket-detail/ticket-detail.js"></script>
+  <script>boot({ route: '/operations/support/:id', shell: 'operations', guards: [], page: TicketDetailPage });</script>
+</body>
+</html>

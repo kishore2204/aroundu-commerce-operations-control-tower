@@ -1,0 +1,119 @@
+/*
+ * document-history.css - <app-document-history> component styles.
+ * Angular: src/app/shared/document-history/document-history-dialog.component.html (+ .css).
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
+ */
+.document-history-bar {
+  display: flex;
+  justify-content: center;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.document-history-text {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.document-history-text-2 {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.document-history-label {
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+.document-history-label-2 {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+.document-history-cell {
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+}
+.document-history-cell-2 {
+  white-space: nowrap;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+.document-history-cell-3 {
+  max-width: 20rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+.document-history-cell-4 {
+  white-space: nowrap;
+}
+.document-history-button {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.document-history-text-3 {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.document-history-box {
+  margin-top: 1rem;
+}
+.document-history-overlay {
+  position: fixed;
+  inset: 0px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15 23 42 / 0.5);
+  padding: 1rem;
+}
+.document-history-stack {
+  display: flex;
+  max-height: 90vh;
+  width: 100%;
+  max-width: 64rem;
+  flex-direction: column;
+}
+.document-history-bar-2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.document-history-heading {
+  margin: 0px;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.document-history-button-2 {
+  height: 2rem !important;
+  width: 2rem !important;
+  flex-shrink: 0;
+}

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/document-history/document-history.css">
+  <link rel="stylesheet" href="../css/onboarding.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Fleet Owner - onboarding page, route /fleet/onboarding (Angular: src/app/features/fleet/onboarding/onboarding.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-fleet-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-onboarding><!--{{0}}--><!--tpl:onboarding (this page)--><h1 class="onboarding-title-2">Fleet owner onboarding</h1>
+
+<!--{{0}}--><template id="onboarding-1"><div class="onboarding-bar-7"><div class="spinner"></div></div></template><template id="onboarding-2">
+  <div class="card onboarding-box-3">
+    <h2 class="onboarding-heading-4">Register your fleet business</h2>
+    <form novalidate onsubmit="event.preventDefault(); Page.register()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Business name</label>
+          <input class="input" name="businessName" {{0}} />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">City</label>
+          <select class="select" name="cityId" {{1}}>
+            <option value="">Select City</option>
+            <!--{{2}}--><template id="onboarding-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Zone (optional)</label>
+          <select class="select" name="zoneId" {{3}}>
+            <option value=""><!--{{4}}--></option>
+            <!--{{5}}--><template id="onboarding-2-2"><option value="{{0}}"><!--{{1}}--></option></template>
+          </select>
+        </div>
+      </div>
+      <!--{{6}}--><template id="onboarding-2-3"><p class="onboarding-text-11"><!--{{0}}--></p></template>
+      <button type="submit" class="btn-primary" {{7}}>
+        Register
+      </button>
+    </form>
+  </div></template><template id="onboarding-3">
+  <div class="card onboarding-box-3">
+    <div class="onboarding-bar-11">
+      <h2 class="onboarding-heading-5"><!--{{0}}--></h2>
+      <span class="badge{{1}}">
+        <!--{{2}}-->
+      </span>
+    </div>
+
+    <!--{{3}}--><template id="onboarding-3-1">
+      <p class="onboarding-text-12">You're verified! Head to your <a href="{{0}}" class="onboarding-link-2">dashboard</a>.</p></template><template id="onboarding-3-2">
+      <section>
+        <h3 class="onboarding-subheading-3">Required documents</h3>
+        <p class="onboarding-text-15">Both documents below are compulsory for verification.</p>
+        <!--{{0}}--><template id="onboarding-3-2-1">
+          <div class="onboarding-bar-8" data-key="{{0}}">
+            <span class="onboarding-label-6">
+              <!--{{1}}-->
+              <!--{{2}}--><template id="onboarding-3-2-1-1"><span class="badge badge-active onboarding-label-5">Already accepted</span></template><template id="onboarding-3-2-1-2"><span class="badge badge-danger onboarding-label-5">Re-upload required</span></template>
+              <!--{{3}}--><template id="onboarding-3-2-1-3"><span class="req-mark"></span></template>
+              <!--{{4}}--><template id="onboarding-3-2-1-4">
+                <button type="button" class="onboarding-button-5" onclick="Page.state.historyFor = {{0}}">View Document History</button></template>
+            </span>
+            <div class="onboarding-bar-9">
+              <input type="file" onchange="Page.onFileSelected(this, {{5}})" class="onboarding-input-2" accept="image/*,.pdf" />
+              <button type="button" class="btn-outline onboarding-button-6" onclick="this.previousElementSibling.click()">
+                <i class="fa-solid fa-upload"></i> <!--{{6}}-->
+              </button>
+              <span class="onboarding-label-7"><!--{{7}}--></span>
+            </div>
+          </div></template>
+
+        <!--{{1}}--><template id="onboarding-3-2-2"><p class="onboarding-text-13"><!--{{0}}--></p></template>
+        <div class="onboarding-bar-10">
+          <button type="button" class="btn-primary" {{2}} onclick="Page.submitForVerification()">
+            Submit for verification
+          </button>
+        </div>
+      </section>
+
+      <section class="onboarding-section-3">
+        <h3 class="onboarding-subheading-3">Current status</h3>
+        <!--{{3}}--><template id="onboarding-3-2-3">
+          <p class="onboarding-text-14">Status: <strong><!--{{0}}--></strong></p>
+          <!--{{1}}--><template id="onboarding-3-2-3-1"><p class="onboarding-text-13">Rejection reason: <!--{{0}}--></p></template></template>
+        <button type="button" class="btn-outline onboarding-button-7" onclick="Page.refreshStatus()" {{4}}>
+          <i class="fa-solid fa-rotate"></i> Refresh status
+        </button>
+      </section></template>
+  </div></template>
+
+<!--{{1}}--><template id="onboarding-4">
+  <div class="onboarding-overlay-2">
+    <section class="onboarding-section-4" role="dialog" aria-modal="true">
+      <h2 class="onboarding-heading-6">Verification document resubmission required</h2>
+      <p class="onboarding-text-17">Please re-upload only: <strong><!--{{0}}--></strong>.</p>
+      <!--{{1}}--><template id="onboarding-4-1"><p class="onboarding-text-16"><!--{{0}}--></p></template>
+      <p class="onboarding-text-18">Fleet operations remain locked until all mandatory documents are approved.</p>
+      <div class="onboarding-bar-12"><button type="button" class="btn-primary" onclick="Page.state.resubmissionPopupOpen = false">Continue</button></div>
+    </section>
+  </div></template>
+
+<!--{{2}}--><!--/tpl:onboarding--></app-fleet-onboarding><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-fleet-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/document-history/document-history.html -->
+<template id="document-history-dialog"><app-document-history-dialog>
+    <div class="document-history-overlay">
+      <div class="card document-history-stack" role="dialog" aria-modal="true" aria-labelledby="doc-history-title">
+        <div class="document-history-bar-2">
+          <h2 id="doc-history-title" class="document-history-heading"><!--{{0}}--> - Document History</h2>
+          <button type="button" class="btn-icon document-history-button-2" aria-label="Close" onclick="{{1}}.close()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!--{{2}}--><template id="document-history-dialog-1"><div class="document-history-bar"><span class="spinner"></span></div></template><template id="document-history-dialog-2"><p class="document-history-text"><!--{{0}}--></p></template><template id="document-history-dialog-3"><p class="document-history-text-2">No file has been uploaded for this document yet.</p></template><template id="document-history-dialog-4">
+          <div class="table-card document-history-box overflow-auto">
+            <table class="custom-table">
+              <thead>
+                <tr><th>Version</th><th>Uploaded</th><th>Uploaded by</th><th>Status</th><th>Reviewed by</th><th>Reviewer comment / re-upload reason</th><th></th></tr>
+              </thead>
+              <tbody>
+                <!--{{0}}--><template id="document-history-dialog-4-1">
+                  <tr data-key="{{0}}">
+                    <td class="document-history-cell">v<!--{{1}}--><!--{{2}}--><template id="document-history-dialog-4-1-1"><span class="document-history-label">(current)</span></template></td>
+                    <td class="document-history-cell-2"><!--{{3}}--></td>
+                    <td><!--{{4}}--></td>
+                    <td><span class="badge {{5}}"><!--{{6}}--></span></td>
+                    <td><!--{{7}}--><!--{{8}}--><template id="document-history-dialog-4-1-2"><span class="document-history-label-2"><!--{{0}}--></span></template></td>
+                    <td class="document-history-cell-3"><!--{{9}}--></td>
+                    <td class="document-history-cell-4">
+                      <button type="button" class="btn-outline document-history-button" {{10}} onclick="{{11}}.open({{12}}, false)"><i class="fa-solid fa-eye"></i> View</button>
+                      <button type="button" class="btn-outline document-history-button" {{13}} onclick="{{14}}.open({{15}}, true)"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
+                    </td>
+                  </tr></template>
+              </tbody>
+            </table>
+          </div>
+          <!--{{1}}--><template id="document-history-dialog-4-2"><p class="document-history-text-3"><!--{{0}}--></p></template></template>
+      </div>
+    </div>
+  </app-document-history-dialog></template>
+<!-- END common/document-history/document-history.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/file-blobs.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/services/verification-document-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/fleet-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/document-history/document-history.js"></script>
+  <script src="../js/onboarding.js"></script>
+  <script>boot({ route: '/fleet/onboarding', shell: 'fleet', guards: [], page: FleetOnboardingPage });</script>
+</body>
+</html>

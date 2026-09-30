@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/header/header-glass.css">
+  <link rel="stylesheet" href="../../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/page/page.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/customer-shell/customer-shell.css">
+  <link rel="stylesheet" href="../../../common/header/header.css">
+  <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
+  <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../../common/field-hint/field-hint.css">
+  <link rel="stylesheet" href="../../../common/confirm-dialog/confirm-dialog.css">
+  <link rel="stylesheet" href="../components/address-list/address-list.css">
+  <link rel="stylesheet" href="../css/add-address.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Customer - Commerce - add-address page, route /add-address (Angular: src/app/features/add-address/add-address.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:customer-shell (common/customer-shell/customer-shell.html)-->
+<app-shell>
+<!--{{0}}--><!--tpl:header (common/header/header.html)-->
+<header class="header-glass header-bar">
+  <div class="header-inner">
+    <a href="{{0}}" class="header-brand group">
+      <span class="brandmark header-brandmark">A</span>
+      <span class="header-wordmark">Around<span class="header-wordmark-accent">U</span></span>
+    </a>
+
+    <nav class="header-nav">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </nav>
+
+    <span class="header-spacer"></span>
+
+    <div class="header-menu">
+      <button type="button" class="header-address-button"
+        onclick="Shell.toggleAddressMenu(); event.stopPropagation()">
+        <i class="fa-solid fa-location-dot header-address-pin"></i>
+        <span class="header-address-label"><!--{{5}}--></span>
+        <i class="fa-solid fa-chevron-down header-address-chevron"></i>
+      </button>
+
+      <!--{{6}}--><template id="header-1">
+        <div class="dropdown-panel header-address-panel" onclick="event.stopPropagation()">
+          <div class="header-address-title">
+            <span>Deliver to</span>
+            <i class="fa-solid fa-map-pin header-accent-icon"></i>
+          </div>
+          <!--{{0}}--><template id="header-1-1"><p class="header-panel-empty">No saved addresses yet.</p></template>
+          <!--{{1}}--><template id="header-1-2">
+            <button type="button"
+              class="header-address-option{{0}}"
+              {{1}} onclick="Shell.selectAddress({{2}})">
+              <span class="header-address-tag">
+                <!--{{3}}-->
+                <!--{{4}}--><template id="header-1-2-1"><i class="fa-solid fa-circle-check header-address-check"></i></template>
+              </span>
+              <span class="header-address-line"><!--{{5}}-->, <!--{{6}}--></span>
+            </button></template>
+          <a href="{{2}}" class="header-address-add" onclick="Shell.state.addressMenuOpen = false">
+            <i class="fa-solid fa-circle-plus header-accent-icon"></i> Add new address
+          </a>
+        </div></template>
+    </div>
+
+    <a href="{{7}}" aria-label="Support" class="btn-icon header-support-link">
+      <i class="fa-solid fa-headset header-icon"></i>
+    </a>
+
+    <a href="{{8}}" aria-label="Wishlist" class="btn-icon header-wishlist-link">
+      <i class="fa-solid fa-heart header-icon"></i>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="btn-icon header-notifications-button" aria-label="Notifications" onclick="Shell.toggleNotifications(); event.stopPropagation()">
+        <i class="fa-solid fa-bell header-icon"></i>
+        <!--{{9}}--><template id="header-2">
+          <span class="header-notifications-count">
+            <!--{{0}}-->
+          </span></template>
+      </button>
+
+      <!--{{10}}--><template id="header-3">
+        <div class="dropdown-panel header-notifications-panel" onclick="event.stopPropagation()">
+          <div class="header-notifications-head">
+            <span class="header-panel-title">Notifications</span>
+            <!--{{0}}--><template id="header-3-1">
+              <button type="button" class="clear-notifications header-notifications-clear" {{0}} onclick="Shell.clearNotifications()">Clear</button></template>
+          </div>
+          <!--{{1}}--><template id="header-3-2">
+            <p class="header-panel-empty">No new notifications.</p></template><template id="header-3-3">
+              <button type="button"
+                class="header-notification{{0}}"
+                onclick="Shell.markRead({{1}})">
+                <span class="header-notification-title"><!--{{2}}--></span>
+                <span class="header-notification-message"><!--{{3}}--></span>
+                <span class="header-notification-time"><!--{{4}}--></span>
+              </button></template>
+        </div></template>
+    </div>
+
+    <a href="{{11}}" aria-label="Cart" class="btn-icon header-cart-link">
+      <i class="fa-solid fa-cart-shopping header-icon"></i>
+      <!--{{12}}--><template id="header-4">
+        <span class="header-cart-count">
+          <!--{{0}}-->
+        </span></template>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="header-account-button" aria-label="Account" onclick="Shell.toggleAccountMenu(); event.stopPropagation()">
+        <span class="header-avatar">
+          <!--{{13}}-->
+        </span>
+      </button>
+
+      <!--{{14}}--><template id="header-5">
+        <div class="dropdown-panel header-account-panel" onclick="event.stopPropagation()">
+          <div class="header-account-info">
+            <span class="header-account-caption">Signed in as</span>
+            <span class="header-account-email"><!--{{0}}--></span>
+          </div>
+          <a href="{{1}}" class="header-menu-link" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-user-gear header-menu-icon"></i>
+            <span>Profile &amp; Settings</span>
+          </a>
+          <a href="{{2}}" class="header-menu-link-mobile" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-box header-menu-icon"></i>
+            <span>My Orders</span>
+          </a>
+          <button type="button" class="header-logout" onclick="Shell.logout()">
+            <i class="fa-solid fa-right-from-bracket header-logout-icon"></i>
+            <span>Log out</span>
+          </button>
+        </div></template>
+    </div>
+  </div>
+</header><!--/tpl:header-->
+
+<main class="customer-main" onclick="Shell.closeAccountMenu()">
+  <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-add-address><!--{{0}}--><!--tpl:add-address (this page)-->
+<div class="page-container !max-w-xl">
+  <div class="add-address-box">
+    <h1 class="add-address-title">Add a delivery address</h1>
+    <p class="add-address-text">
+      We use your address to show you products, shops, and services available in your area.
+      Add one to continue - then tap it below to confirm.
+    </p>
+  </div>
+  <!--{{0}}-->
+</div><!--/tpl:add-address--></app-add-address><!--/tpl:page-outlet-->
+</main>
+
+<!--{{2}}--><!--tpl:bottom-nav (common/bottom-nav/bottom-nav.html)-->
+<nav class="bottom-nav">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+  <!--{{4}}-->
+</nav><!--/tpl:bottom-nav-->
+
+<!--{{3}}--><!--tpl:footer (common/footer/footer.html)-->
+<footer class="customer-footer">
+  &copy; <!--{{0}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+</footer><!--/tpl:footer-->
+</app-shell><!--/tpl:customer-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/header/header.html -->
+<template id="header-nav-pill">
+        <a href="{{0}}" class="nav-pill{{1}}">
+          <i class="fa-solid {{2}} header-nav-icon"></i> <!--{{3}}-->
+        </a></template>
+<!-- END common/header/header.html -->
+
+<!-- BEGIN common/bottom-nav/bottom-nav.html -->
+<template id="bottom-nav-mobile">
+      <a href="{{0}}" class="bottom-nav-link{{1}}">
+        <i class="fa-solid {{2}} bottom-nav-icon"></i>
+        <span><!--{{3}}--></span>
+        <!--{{4}}--><template id="bottom-nav-mobile-1">
+          <span class="bottom-nav-count">
+            <!--{{0}}-->
+          </span></template>
+      </a></template>
+<!-- END common/bottom-nav/bottom-nav.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN common/field-hint/field-hint.html -->
+<template id="field-hint">
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
+          aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
+          onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
+        </button>
+        <span role="tooltip" id="{{10}}"
+          class="field-hint-label-2{{11}}"
+          style="left: {{12}}px;">
+          <span class="field-hint-label-3"><!--{{13}}--></span>
+        </span>
+      </span></app-field-hint></template>
+<!-- END common/field-hint/field-hint.html -->
+
+<!-- BEGIN common/confirm-dialog/confirm-dialog.html -->
+<template id="confirm-dialog">
+      <app-confirm-dialog><div class="confirm-dialog-overlay">
+        <div class="card confirm-dialog-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+          <div class="confirm-dialog-bar">
+            <span class="confirm-dialog-label-2{{0}}">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </span>
+            <div class="confirm-dialog-box-2">
+              <h2 id="confirm-dialog-title" class="confirm-dialog-heading"><!--{{1}}--></h2>
+              <p id="confirm-dialog-message" class="confirm-dialog-text"><!--{{2}}--></p>
+            </div>
+          </div>
+          <div class="confirm-dialog-bar-2">
+            <button type="button" class="btn-outline" data-confirm-cancel="{{3}}" {{4}} onclick="U.$('{{5}}').opts.onCancel()"><!--{{6}}--></button>
+            <button type="button" class="btn-primary{{7}}"
+              {{8}} onclick="U.$('{{9}}').opts.onConfirm()">
+              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner confirm-dialog-label"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
+            </button>
+          </div>
+        </div>
+      </div></app-confirm-dialog></template>
+<!-- END common/confirm-dialog/confirm-dialog.html -->
+
+<!-- BEGIN customer/commerce/components/address-list/address-list.html -->
+<template id="address-list">
+      <app-address-list><!--{{0}}--><template id="address-list-1"><h1 class="address-list-title">Your addresses</h1></template>
+
+<!--{{1}}--><template id="address-list-2"><div class="address-list-bar"><div class="spinner"></div></div></template><template id="address-list-3"><button type="button" class="btn-outline address-list-button" onclick="{{0}}.load()">Retry</button></template><template id="address-list-4">
+  <!--{{0}}-->
+
+  <!--{{1}}--><template id="address-list-4-1">
+    <ul class="address-list-list">
+      <!--{{0}}--><template id="address-list-4-1-1">
+        <li onclick="{{0}}.selectAddress({{1}})" class="card card-hover address-list-item" data-key="{{2}}">
+          <div>
+            <p class="address-list-text">
+              <!--{{3}}-->
+              <!--{{4}}--><template id="address-list-4-1-1-1"><span class="badge badge-active">Default</span></template>
+            </p>
+            <p class="address-list-text-2"><!--{{5}}--><!--{{6}}--><!--{{7}}--><template id="address-list-4-1-1-2">, <!--{{0}}--></template></p>
+            <p class="address-list-text-3">
+              <!--{{8}}-->, <!--{{9}}--> <!--{{10}}--><!--{{11}}--><template id="address-list-4-1-1-3"> <!--{{0}}--> </template>
+            </p>
+          </div>
+          <div class="address-list-bar-2">
+            <!--{{12}}--><template id="address-list-4-1-1-4">
+              <button type="button" class="address-list-button-2" onclick="{{0}}.setDefault(event, {{1}})">
+                Set default
+              </button></template>
+            <button type="button" class="btn-icon" onclick="{{13}}.edit(event, {{14}})" aria-label="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button type="button" class="btn-icon address-list-button-3" onclick="{{15}}.remove(event, {{16}})" aria-label="Delete">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </li></template>
+    </ul>
+    <button type="button" class="btn-outline address-list-button-4" onclick="{{1}}.startAdd()">
+      <i class="fa-solid fa-plus"></i> Add address
+    </button></template><template id="address-list-4-2">
+    <div class="card">
+      <form novalidate class="address-list-list" onsubmit="event.preventDefault(); {{0}}.save()">
+        <div class="address-list-grid">
+          <div>
+            <label class="form-label req-mark">Address tag</label>
+            <input class="input" name="addressTag" {{1}} placeholder="HOME" />
+          </div>
+          <div>
+            <label class="form-label req-mark">State</label>
+            <select class="select" name="stateId" oninput="{{2}}.controls['stateId'].input(this)" onchange="{{3}}.controls['stateId'].input(this); {{4}}.onStateChange(this.value)" onblur="{{5}}.controls['stateId'].blur()">
+              <option value="" disabled {{6}}>Select state</option>
+              <!--{{7}}--><template id="address-list-4-2-1"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
+            </select>
+          </div>
+          <div>
+            <label class="form-label req-mark">City</label>
+            <select class="select" name="cityName" oninput="{{8}}.controls['cityName'].input(this)" onchange="{{9}}.controls['cityName'].input(this); {{10}}.onCityChange(this.value)" onblur="{{11}}.controls['cityName'].blur()">
+              <option value="" disabled {{12}}>Select city</option>
+              <!--{{13}}--><template id="address-list-4-2-2"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
+            </select>
+          </div>
+          <div>
+            <label class="form-label req-mark">Zone</label>
+            <select class="select" name="zoneName" onchange="{{14}}.controls['zoneName'].input(this)" onblur="{{15}}.controls['zoneName'].blur()">
+              <!--{{16}}--><template id="address-list-4-2-3"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="form-label req-mark">Address line 1</label>
+          <input class="input" name="line1" {{17}} />
+        </div>
+        <div>
+          <label class="form-label">Address line 2 (optional)</label>
+          <input class="input" name="line2" {{18}} />
+        </div>
+        <div class="address-list-box">
+          <label class="form-label">Postal code<!--{{19}}--></label>
+          <input class="input" type="tel" data-digits-only="6" inputmode="numeric" maxlength="6" autocomplete="off" name="postalCode" {{20}} placeholder="6-digit postal code" />
+          <!--{{21}}--><template id="address-list-4-2-4"><p class="address-list-text-4">Postal code must be exactly 6 digits</p></template>
+        </div>
+        <label class="address-list-label">
+          <input type="checkbox" name="defaultAddress" {{22}} class="address-list-input" />
+          Set as default address
+        </label>
+        <!--{{23}}--><template id="address-list-4-2-5"><p class="address-list-text-5"><!--{{0}}--></p></template>
+        <div class="address-list-bar-3">
+          <button type="button" class="address-list-button-5" onclick="{{24}}.cancelForm()">
+            Cancel
+          </button>
+          <button class="btn-primary" type="submit" {{25}}>
+            <!--{{26}}-->
+          </button>
+        </div>
+      </form>
+    </div></template></template>
+
+<!--{{2}}--></app-address-list></template>
+<!-- END customer/commerce/components/address-list/address-list.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/cart-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/notification-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/services/state-service.js"></script>
+  <script src="../../../common/services/territory-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../../../common/customer-shell/customer-shell.js"></script>
+  <script src="../../../common/header/header.js"></script>
+  <script src="../../../common/bottom-nav/bottom-nav.js"></script>
+  <script src="../../../common/footer/footer.js"></script>
+  <script src="../../../common/empty-state/empty-state.js"></script>
+  <script src="../../../common/field-hint/field-hint.js"></script>
+  <script src="../../../common/confirm-dialog/confirm-dialog.js"></script>
+  <script src="../components/address-list/address-list.js"></script>
+  <script src="../js/add-address.js"></script>
+  <script>boot({ route: '/add-address', shell: 'customer', guards: [], page: AddAddressPage });</script>
+</body>
+</html>

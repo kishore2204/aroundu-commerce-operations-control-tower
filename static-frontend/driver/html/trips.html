@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/trips.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Driver - trips page, route /driver/trips (Angular: src/app/features/driver/trips/driver-trips.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-driver-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-driver-trips><!--{{0}}--><!--tpl:trips (this page)--><div class="trips-box-2">
+  <div class="trips-bar-8">
+    <div>
+      <h1 class="trips-title-2">Earnings &amp; Trips</h1>
+      <p class="trips-text-5">Your earnings breakdown, full trip history, and any complaints tied to your deliveries</p>
+    </div>
+    <button type="button" class="btn-outline" onclick="Page.load()">
+      <i class="fa-solid fa-rotate-right"></i> Refresh
+    </button>
+  </div>
+
+  <!--{{0}}--><template id="trips-1"><div class="trips-bar-3"><span class="spinner"></span></div></template><template id="trips-2">
+    <div class="trips-grid">
+      <!--{{0}}-->
+      <!--{{1}}-->
+      <!--{{2}}-->
+    </div>
+    <p class="trips-text-4">Earnings reflect only completed trips and your current commission share; they are an estimate, not a payout record.</p>
+
+    <!--{{3}}--><template id="trips-2-1">
+      <div class="trips-panel">
+        <div class="trips-bar-4">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <!--{{0}}--> complaint(s) on your trips
+        </div>
+        <ul class="trips-list">
+          <!--{{1}}--><template id="trips-2-1-1">
+            <li class="trips-item">
+              <span class="trips-label-8"><!--{{0}}--> &middot; <!--{{1}}--></span>
+              <span class="badge{{2}}">
+                <!--{{3}}-->
+              </span>
+            </li></template>
+        </ul>
+      </div></template>
+
+    <div class="trips-bar-7">
+      <i class="fa-solid fa-clock-rotate-left trips-icon-2"></i>
+      <h2 class="trips-heading">Trip History</h2>
+    </div>
+
+    <!--{{4}}--><template id="trips-2-2"><p class="trips-text-2">No trip records found.</p></template><template id="trips-2-3">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Trip #</th>
+              <th>Date</th>
+              <th>Route</th>
+              <th>Distance</th>
+              <th>Delivery charge</th>
+              <th>Your earning</th>
+              <th>Status</th>
+              <th>Proofs</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="trips-2-3-1">
+              <tr data-key="{{0}}">
+                <td class="trips-cell-2"><!--{{1}}--></td>
+                <td><!--{{2}}--></td>
+                <td>
+                  <!--{{3}}--><template id="trips-2-3-1-1"><span class="trips-label-9"><!--{{0}}--> &rarr; <!--{{1}}--></span></template><template id="trips-2-3-1-2"><span class="trips-label-10">-</span></template>
+                </td>
+                <td><!--{{4}}--> km</td>
+                <td><!--{{5}}--></td>
+                <td class="trips-cell-3"><!--{{6}}--></td>
+                <td>
+                  <span class="badge{{7}}">
+                    <!--{{8}}-->
+                  </span>
+                </td>
+                <td>
+                  <div class="trips-bar-6">
+                    <!--{{9}}--><template id="trips-2-3-1-3"><img src="{{0}}" alt="Pickup Proof" class="thumb-img" /></template>
+                    <!--{{10}}--><template id="trips-2-3-1-4"><img src="{{0}}" alt="Delivery Proof" class="thumb-img" /></template>
+                    <!--{{11}}--><template id="trips-2-3-1-5"><span class="trips-label-10">-</span></template>
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn-outline trips-button" onclick="Page.toggleHistory({{12}})">
+                    <!--{{13}}-->
+                  </button>
+                </td>
+              </tr>
+              <!--{{14}}--><template id="trips-2-3-1-6">
+                <tr>
+                  <td colspan="9" class="trips-cell">
+                    <!--{{0}}--><template id="trips-2-3-1-6-1"><div class="trips-bar-5"><span class="spinner trips-label-11"></span></div></template><template id="trips-2-3-1-6-2"><p class="trips-text-3">No status history recorded for this trip.</p></template><template id="trips-2-3-1-6-3">
+                      <ol class="trips-list-2">
+                        <!--{{0}}--><template id="trips-2-3-1-6-3-1">
+                          <li class="trips-item-2">
+                            <i class="fa-solid fa-circle-dot trips-icon"></i>
+                            <span class="trips-label-12"><!--{{0}}--></span>
+                            <span class="trips-label-13">
+                              <!--{{1}}-->
+                            </span>
+                          </li></template>
+                      </ol></template>
+                  </td>
+                </tr></template></template>
+          </tbody>
+        </table>
+      </div></template></template>
+</div><!--/tpl:trips--></app-driver-trips><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-driver-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- trips page: other templates (js/trips.js) -->
+<template id="trips-card">
+      <div class="card">
+        <span class="trips-label-6"><!--{{0}}--></span>
+        <span class="trips-label-7">₹<!--{{1}}--></span>
+      </div></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/support-service.js"></script>
+  <script src="../../common/services/trip-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/driver-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../js/trips.js"></script>
+  <script>boot({ route: '/driver/trips', shell: 'driver', guards: [], page: DriverTripsPage });</script>
+</body>
+</html>

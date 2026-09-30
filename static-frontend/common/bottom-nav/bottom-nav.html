@@ -1,0 +1,23 @@
+<!--
+  bottom-nav.html - markup of bottom-nav (Angular: src/app/layout/shell/shell.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates (the layout parts written inline inside <app-root>, between <!--tpl:id--> markers).
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="bottom-nav-mobile">
+      <a href="{{0}}" class="bottom-nav-link{{1}}">
+        <i class="fa-solid {{2}} bottom-nav-icon"></i>
+        <span><!--{{3}}--></span>
+        <!--{{4}}--><template id="bottom-nav-mobile-1">
+          <span class="bottom-nav-count">
+            <!--{{0}}-->
+          </span></template>
+      </a></template>
+<template id="bottom-nav">
+<nav class="bottom-nav">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+  <!--{{4}}-->
+</nav></template>

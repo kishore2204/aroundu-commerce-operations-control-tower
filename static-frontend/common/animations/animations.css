@@ -1,0 +1,17 @@
+/*
+ * animations.css - .animate-fade-in of src/styles.scss
+ * Plain src/styles.scss rules: in the Angular build they come after the utilities, so they load after utilities.css.
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

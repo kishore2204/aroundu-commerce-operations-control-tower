@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/document-history/document-history.css">
+  <link rel="stylesheet" href="../../common/queue-detail/queue-detail.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Operational Manager - queue-detail page, route /operations/queue/:id (Angular: src/app/features/location/queue-detail/queue-detail.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-operations-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-queue-detail><!--{{0}}--><!--tpl:queue-detail (common/queue-detail/queue-detail.html)--><a href="{{0}}" class="queue-detail-link-2">
+  <i class="fa-solid fa-arrow-left"></i> Back to queue
+</a>
+
+<!--{{1}}--><template id="queue-detail-1"><div class="queue-detail-bar"><span class="spinner"></span></div></template><template id="queue-detail-2">
+  <div class="queue-detail-bar-5">
+    <div>
+      <h1 class="queue-detail-title"><!--{{0}}--></h1>
+      <p class="queue-detail-text-10"><!--{{1}}--> application · submitted <!--{{2}}--></p>
+    </div>
+    <span class="badge{{3}}"><!--{{4}}--></span>
+  </div>
+
+  <!--{{5}}--><template id="queue-detail-2-1">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}-->
+        <!--{{4}}-->
+        <!--{{5}}--></template>
+  <!--{{6}}--><template id="queue-detail-2-2">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}--></template>
+  <!--{{7}}--><template id="queue-detail-2-3">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}-->
+        <!--{{4}}-->
+        <!--{{5}}--></template>
+  <!--{{8}}--><template id="queue-detail-2-4">
+        <!--{{0}}-->
+        <!--{{1}}-->
+        <!--{{2}}-->
+        <!--{{3}}-->
+        <!--{{4}}-->
+        <!--{{5}}--></template>
+
+  <!--{{9}}--><template id="queue-detail-2-5">
+    <section class="card queue-detail-section !border-amber-200 bg-amber-50/50">
+      <h2 class="queue-detail-heading-2"><i class="fa-solid fa-clock-rotate-left queue-detail-icon"></i>Waiting for document resubmission</h2>
+      <p class="queue-detail-text"><!--{{0}}--></p>
+    </section></template>
+
+  <section class="card queue-detail-section">
+    <div class="queue-detail-bar-6">
+      <div><h2 class="queue-detail-heading-5">Required documents</h2><p class="queue-detail-text-11">Expected for this <!--{{10}}--> application: <!--{{11}}--></p></div>
+      <span class="badge{{12}}"><!--{{13}}--> / <!--{{14}}--> uploaded</span>
+    </div>
+    <div class="queue-detail-box-2">
+      <!--{{15}}--><template id="queue-detail-2-6">
+          <article class="queue-detail-article">
+            <p class="queue-detail-text-2"><i class="fa-solid fa-circle-exclamation queue-detail-icon"></i><!--{{0}}--> is missing</p>
+            <p class="queue-detail-text-3">Do not approve this application until the submitter uploads this required document.</p>
+          </article></template><template id="queue-detail-2-7">
+          <article class="queue-detail-article-2" data-key="{{0}}">
+            <div class="queue-detail-bar-3">
+              <button type="button" class="queue-detail-button-2" {{1}} onclick="Page.toggleDocumentPreview({{2}})">
+                <span class="queue-detail-label-2"><i class="fa-solid fa-file-shield"></i></span>
+                <span class="queue-detail-label-3"><strong class="queue-detail-strong"><!--{{3}}--></strong><span class="queue-detail-label-4"><!--{{4}}--> · version <!--{{5}}--></span></span>
+              </button>
+              <span class="badge {{6}}"><!--{{7}}--></span>
+            </div>
+            <!--{{8}}--><template id="queue-detail-2-7-1"><p class="queue-detail-text-4"><strong>Re-upload reason:</strong> <!--{{0}}--></p></template>
+            <button type="button" class="queue-detail-button-3" onclick="Page.state.historyFor = {{9}}"><i class="fa-solid fa-clock-rotate-left queue-detail-icon-2"></i>View Document History</button>
+
+            <!--{{10}}--><template id="queue-detail-2-7-2">
+              <div class="queue-detail-panel-2">
+                <!--{{0}}--><template id="queue-detail-2-7-2-1"><div class="queue-detail-bar-2"><span class="spinner"></span></div></template><template id="queue-detail-2-7-2-2"><p class="queue-detail-text-5"><!--{{0}}--></p></template><template id="queue-detail-2-7-2-3"><img src="{{0}}" alt="{{1}}" class="queue-detail-image" /></template><template id="queue-detail-2-7-2-4"><a href="{{0}}" download="{{1}}" class="btn-outline queue-detail-link"><i class="fa-solid fa-file-arrow-down"></i> Open <!--{{2}}--></a></template>
+              </div></template>
+
+            <!--{{11}}--><template id="queue-detail-2-7-3">
+              <div class="queue-detail-grid-2">
+                <button type="button" class="btn-secondary" {{0}} onclick="Page.reviewDocument({{1}}, 'APPROVED')"><i class="fa-solid fa-circle-check"></i> Approve document</button>
+                <input class="input" value="{{2}}" oninput="Page.setRejectReason({{3}}, this.value)" placeholder="Reason required if this document must be re-uploaded" />
+                <button type="button" class="btn-outline queue-detail-button" {{4}} onclick="Page.reviewDocument({{5}}, 'REJECTED')"><i class="fa-solid fa-rotate-left"></i> Request re-upload</button>
+              </div></template>
+          </article></template>
+    </div>
+  </section>
+
+  <!--{{16}}--><template id="queue-detail-2-8">
+    <section class="card queue-detail-section">
+      <h2 class="queue-detail-heading-3">Final application decision</h2>
+      <!--{{0}}--><template id="queue-detail-2-8-1"><p class="queue-detail-text-6">Approve each required document above first. Final approval stays disabled until all required documents are approved.</p></template>
+      <button type="button" class="btn-primary" {{1}} onclick="Page.approveApplication()"><i class="fa-solid fa-badge-check"></i> Approve application</button>
+    </section></template>
+
+  <!--{{17}}--><template id="queue-detail-2-9"><p class="card queue-detail-text-7">You submitted this entry, so you cannot review it yourself.</p></template>
+
+  <!--{{18}}--><template id="queue-detail-2-10">
+    <section class="card queue-detail-section !border-rose-200">
+      <h2 class="queue-detail-heading-4">Block this approved subject</h2>
+      <div class="queue-detail-bar-4">
+        <div class="form-group flex-1 queue-detail-box !gap-1"><label class="form-label req-mark queue-detail-label-5">Reason</label><input class="input" value="{{0}}" oninput="Page.state.revokeReason = this.value" /></div>
+        <button type="button" class="btn-outline queue-detail-button" {{1}} onclick="Page.revoke()"><i class="fa-solid fa-ban"></i> Revoke Approval &amp; Block</button>
+      </div>
+    </section></template>
+
+  <!--{{19}}-->
+
+  <!--{{20}}--><template id="queue-detail-2-11"><p class="queue-detail-text-8"><!--{{0}}--></p></template>
+  <!--{{21}}--><template id="queue-detail-2-12"><p class="queue-detail-text-9"><!--{{0}}--></p></template></template><!--/tpl:queue-detail--></app-queue-detail><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-operations-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN common/document-history/document-history.html -->
+<template id="document-history-dialog"><app-document-history-dialog>
+    <div class="document-history-overlay">
+      <div class="card document-history-stack" role="dialog" aria-modal="true" aria-labelledby="doc-history-title">
+        <div class="document-history-bar-2">
+          <h2 id="doc-history-title" class="document-history-heading"><!--{{0}}--> - Document History</h2>
+          <button type="button" class="btn-icon document-history-button-2" aria-label="Close" onclick="{{1}}.close()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!--{{2}}--><template id="document-history-dialog-1"><div class="document-history-bar"><span class="spinner"></span></div></template><template id="document-history-dialog-2"><p class="document-history-text"><!--{{0}}--></p></template><template id="document-history-dialog-3"><p class="document-history-text-2">No file has been uploaded for this document yet.</p></template><template id="document-history-dialog-4">
+          <div class="table-card document-history-box overflow-auto">
+            <table class="custom-table">
+              <thead>
+                <tr><th>Version</th><th>Uploaded</th><th>Uploaded by</th><th>Status</th><th>Reviewed by</th><th>Reviewer comment / re-upload reason</th><th></th></tr>
+              </thead>
+              <tbody>
+                <!--{{0}}--><template id="document-history-dialog-4-1">
+                  <tr data-key="{{0}}">
+                    <td class="document-history-cell">v<!--{{1}}--><!--{{2}}--><template id="document-history-dialog-4-1-1"><span class="document-history-label">(current)</span></template></td>
+                    <td class="document-history-cell-2"><!--{{3}}--></td>
+                    <td><!--{{4}}--></td>
+                    <td><span class="badge {{5}}"><!--{{6}}--></span></td>
+                    <td><!--{{7}}--><!--{{8}}--><template id="document-history-dialog-4-1-2"><span class="document-history-label-2"><!--{{0}}--></span></template></td>
+                    <td class="document-history-cell-3"><!--{{9}}--></td>
+                    <td class="document-history-cell-4">
+                      <button type="button" class="btn-outline document-history-button" {{10}} onclick="{{11}}.open({{12}}, false)"><i class="fa-solid fa-eye"></i> View</button>
+                      <button type="button" class="btn-outline document-history-button" {{13}} onclick="{{14}}.open({{15}}, true)"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
+                    </td>
+                  </tr></template>
+              </tbody>
+            </table>
+          </div>
+          <!--{{1}}--><template id="document-history-dialog-4-2"><p class="document-history-text-3"><!--{{0}}--></p></template></template>
+      </div>
+    </div>
+  </app-document-history-dialog></template>
+<!-- END common/document-history/document-history.html -->
+
+<!-- BEGIN common/queue-detail/queue-detail.html -->
+<template id="queue-detail-field"><p><span class="queue-detail-label"><!--{{0}}--></span><br><!--{{1}}--></p></template>
+<template id="queue-detail-strong"><strong><!--{{0}}--></strong></template>
+<template id="queue-detail-owner-note"><div class="queue-detail-panel"><strong>Uploaded by fleet:</strong> <!--{{0}}--></div></template>
+<template id="queue-detail-section">
+    <section class="card queue-detail-section">
+      <h2 class="queue-detail-heading"><!--{{0}}--></h2>
+      <div class="queue-detail-grid">
+        <!--{{1}}-->
+      </div>
+      <!--{{2}}-->
+    </section></template>
+<!-- END common/queue-detail/queue-detail.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/driver-service.js"></script>
+  <script src="../../common/services/file-blobs.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/services/vehicle-service.js"></script>
+  <script src="../../common/services/verification-document-service.js"></script>
+  <script src="../../common/services/verification-queue-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/operations-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
+  <script src="../../common/document-history/document-history.js"></script>
+  <script src="../../common/queue-detail/queue-detail.js"></script>
+  <script>boot({ route: '/operations/queue/:id', shell: 'operations', guards: [], page: QueueDetailPage });</script>
+</body>
+</html>

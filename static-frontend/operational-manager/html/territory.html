@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/operations-territory/operations-territory.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Operational Manager - territory page, route /operations/territory (Angular: src/app/features/operations/territory/territory.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-operations-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-operations-territory><!--{{0}}--><!--tpl:operations-territory (common/operations-territory/operations-territory.html)--><h1 class="operations-territory-title">
+  <span class="operations-territory-label">
+    <i class="fa-solid fa-earth-asia operations-territory-icon"></i>
+  </span>
+  Territory
+</h1>
+
+<section class="operations-territory-section">
+  <div class="operations-territory-bar-2">
+    <h2 class="operations-territory-heading">Cities</h2>
+    <!--{{0}}--><template id="operations-territory-1">
+      <button type="button" class="btn-outline" onclick="Page.state.showCityForm = !Page.state.showCityForm">
+        <i class="fa-solid fa-plus"></i> New city
+      </button></template>
+  </div>
+
+  <!--{{1}}--><template id="operations-territory-2">
+    <div class="card operations-territory-box">
+      <form novalidate onsubmit="event.preventDefault(); Page.createCity()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label req-mark">City name</label>
+            <input class="input" name="cityName" {{0}} />
+          </div>
+          <div class="form-group">
+            <label class="form-label req-mark">State</label>
+            <select class="select" name="stateId" {{1}}>
+              <option value="" disabled>Select a state</option>
+              <!--{{2}}--><template id="operations-territory-2-1"><option value="{{0}}"><!--{{1}}--></option></template>
+            </select>
+          </div>
+        </div>
+        <!--{{3}}--><template id="operations-territory-2-2"><p class="operations-territory-text"><!--{{0}}--></p></template>
+        <button type="submit" class="btn-primary" {{4}}>
+          Create
+        </button>
+      </form>
+    </div></template>
+
+  <!--{{2}}--><template id="operations-territory-3"><div class="operations-territory-bar"><span class="spinner"></span></div></template><template id="operations-territory-4">
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>State</th>
+            <th>Status</th>
+            <!--{{0}}--><template id="operations-territory-4-1"><th></th></template>
+          </tr>
+        </thead>
+        <tbody>
+          <!--{{1}}--><template id="operations-territory-4-2">
+            <tr class="{{0}}" data-key="{{1}}">
+              <td>
+                <button type="button" class="operations-territory-button-2" onclick="Page.selectCity({{2}})">
+                  <!--{{3}}-->
+                </button>
+              </td>
+              <td class="operations-territory-cell"><!--{{4}}--></td>
+              <td>
+                <span class="badge{{5}}">
+                  <!--{{6}}-->
+                </span>
+              </td>
+              <!--{{7}}--><template id="operations-territory-4-2-1">
+                <td>
+                  <button type="button" class="btn-outline operations-territory-button" onclick="Page.toggleCity({{0}})">
+                    <!--{{1}}-->
+                  </button>
+                </td></template>
+            </tr></template>
+        </tbody>
+      </table>
+    </div></template>
+</section>
+
+<section>
+  <div class="operations-territory-bar-2">
+    <h2 class="operations-territory-heading">
+      Zones <!--{{3}}--><!--{{4}}--><template id="operations-territory-5"> in <!--{{0}}--> </template>
+    </h2>
+    <button type="button" class="btn-outline" {{5}} title="{{6}}" onclick="Page.state.showZoneForm = !Page.state.showZoneForm">
+      <i class="fa-solid fa-plus"></i> New zone
+    </button>
+  </div>
+  <!--{{7}}--><template id="operations-territory-6"><p class="operations-territory-text-2">Select a city above to add a zone to it.</p></template>
+
+  <!--{{8}}--><template id="operations-territory-7">
+    <div class="card operations-territory-box">
+      <form novalidate onsubmit="event.preventDefault(); Page.createZone()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label req-mark">Zone name</label>
+            <input class="input" name="zoneName" {{0}} />
+          </div>
+        </div>
+        <!--{{1}}--><template id="operations-territory-7-1"><p class="operations-territory-text"><!--{{0}}--></p></template>
+        <button type="submit" class="btn-primary" {{2}}>
+          Create in <!--{{3}}-->
+        </button>
+      </form>
+    </div></template>
+
+  <!--{{9}}--><template id="operations-territory-8"><div class="operations-territory-bar"><span class="spinner"></span></div></template><template id="operations-territory-9">
+    <div class="table-card overflow-x-auto">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Zone</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--{{0}}--><template id="operations-territory-9-1">
+            <tr data-key="{{0}}">
+              <td class="operations-territory-cell-2"><!--{{1}}--></td>
+              <td class="operations-territory-cell"><!--{{2}}-->, <!--{{3}}--></td>
+              <td>
+                <span class="badge{{4}}">
+                  <!--{{5}}-->
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn-outline operations-territory-button" onclick="Page.toggleZone({{6}})">
+                  <!--{{7}}-->
+                </button>
+              </td>
+            </tr></template>
+        </tbody>
+      </table>
+    </div></template>
+</section><!--/tpl:operations-territory--></app-operations-territory><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-operations-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/operations-manager-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/state-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/operations-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
+  <script src="../../common/operations-territory/operations-territory.js"></script>
+  <script>boot({ route: '/operations/territory', shell: 'operations', guards: [], page: OperationsTerritoryPage });</script>
+</body>
+</html>

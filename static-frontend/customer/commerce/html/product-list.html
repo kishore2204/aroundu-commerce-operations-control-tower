@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/header/header-glass.css">
+  <link rel="stylesheet" href="../../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/page/page.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/customer-shell/customer-shell.css">
+  <link rel="stylesheet" href="../../../common/header/header.css">
+  <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
+  <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../components/star-rating/star-rating.css">
+  <link rel="stylesheet" href="../components/retailer-info-dialog/retailer-info-dialog.css">
+  <link rel="stylesheet" href="../components/product-card/product-card.css">
+  <link rel="stylesheet" href="../css/product-list.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Customer - Commerce - product-list page, route /products (Angular: src/app/features/products/product-list/product-list.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:customer-shell (common/customer-shell/customer-shell.html)-->
+<app-shell>
+<!--{{0}}--><!--tpl:header (common/header/header.html)-->
+<header class="header-glass header-bar">
+  <div class="header-inner">
+    <a href="{{0}}" class="header-brand group">
+      <span class="brandmark header-brandmark">A</span>
+      <span class="header-wordmark">Around<span class="header-wordmark-accent">U</span></span>
+    </a>
+
+    <nav class="header-nav">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </nav>
+
+    <span class="header-spacer"></span>
+
+    <div class="header-menu">
+      <button type="button" class="header-address-button"
+        onclick="Shell.toggleAddressMenu(); event.stopPropagation()">
+        <i class="fa-solid fa-location-dot header-address-pin"></i>
+        <span class="header-address-label"><!--{{5}}--></span>
+        <i class="fa-solid fa-chevron-down header-address-chevron"></i>
+      </button>
+
+      <!--{{6}}--><template id="header-1">
+        <div class="dropdown-panel header-address-panel" onclick="event.stopPropagation()">
+          <div class="header-address-title">
+            <span>Deliver to</span>
+            <i class="fa-solid fa-map-pin header-accent-icon"></i>
+          </div>
+          <!--{{0}}--><template id="header-1-1"><p class="header-panel-empty">No saved addresses yet.</p></template>
+          <!--{{1}}--><template id="header-1-2">
+            <button type="button"
+              class="header-address-option{{0}}"
+              {{1}} onclick="Shell.selectAddress({{2}})">
+              <span class="header-address-tag">
+                <!--{{3}}-->
+                <!--{{4}}--><template id="header-1-2-1"><i class="fa-solid fa-circle-check header-address-check"></i></template>
+              </span>
+              <span class="header-address-line"><!--{{5}}-->, <!--{{6}}--></span>
+            </button></template>
+          <a href="{{2}}" class="header-address-add" onclick="Shell.state.addressMenuOpen = false">
+            <i class="fa-solid fa-circle-plus header-accent-icon"></i> Add new address
+          </a>
+        </div></template>
+    </div>
+
+    <a href="{{7}}" aria-label="Support" class="btn-icon header-support-link">
+      <i class="fa-solid fa-headset header-icon"></i>
+    </a>
+
+    <a href="{{8}}" aria-label="Wishlist" class="btn-icon header-wishlist-link">
+      <i class="fa-solid fa-heart header-icon"></i>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="btn-icon header-notifications-button" aria-label="Notifications" onclick="Shell.toggleNotifications(); event.stopPropagation()">
+        <i class="fa-solid fa-bell header-icon"></i>
+        <!--{{9}}--><template id="header-2">
+          <span class="header-notifications-count">
+            <!--{{0}}-->
+          </span></template>
+      </button>
+
+      <!--{{10}}--><template id="header-3">
+        <div class="dropdown-panel header-notifications-panel" onclick="event.stopPropagation()">
+          <div class="header-notifications-head">
+            <span class="header-panel-title">Notifications</span>
+            <!--{{0}}--><template id="header-3-1">
+              <button type="button" class="clear-notifications header-notifications-clear" {{0}} onclick="Shell.clearNotifications()">Clear</button></template>
+          </div>
+          <!--{{1}}--><template id="header-3-2">
+            <p class="header-panel-empty">No new notifications.</p></template><template id="header-3-3">
+              <button type="button"
+                class="header-notification{{0}}"
+                onclick="Shell.markRead({{1}})">
+                <span class="header-notification-title"><!--{{2}}--></span>
+                <span class="header-notification-message"><!--{{3}}--></span>
+                <span class="header-notification-time"><!--{{4}}--></span>
+              </button></template>
+        </div></template>
+    </div>
+
+    <a href="{{11}}" aria-label="Cart" class="btn-icon header-cart-link">
+      <i class="fa-solid fa-cart-shopping header-icon"></i>
+      <!--{{12}}--><template id="header-4">
+        <span class="header-cart-count">
+          <!--{{0}}-->
+        </span></template>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="header-account-button" aria-label="Account" onclick="Shell.toggleAccountMenu(); event.stopPropagation()">
+        <span class="header-avatar">
+          <!--{{13}}-->
+        </span>
+      </button>
+
+      <!--{{14}}--><template id="header-5">
+        <div class="dropdown-panel header-account-panel" onclick="event.stopPropagation()">
+          <div class="header-account-info">
+            <span class="header-account-caption">Signed in as</span>
+            <span class="header-account-email"><!--{{0}}--></span>
+          </div>
+          <a href="{{1}}" class="header-menu-link" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-user-gear header-menu-icon"></i>
+            <span>Profile &amp; Settings</span>
+          </a>
+          <a href="{{2}}" class="header-menu-link-mobile" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-box header-menu-icon"></i>
+            <span>My Orders</span>
+          </a>
+          <button type="button" class="header-logout" onclick="Shell.logout()">
+            <i class="fa-solid fa-right-from-bracket header-logout-icon"></i>
+            <span>Log out</span>
+          </button>
+        </div></template>
+    </div>
+  </div>
+</header><!--/tpl:header-->
+
+<main class="customer-main" onclick="Shell.closeAccountMenu()">
+  <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-product-list><!--{{0}}--><!--tpl:product-list (this page)-->
+<h1 class="product-list-title">Browse products</h1>
+
+<form novalidate class="product-list-form" onsubmit="event.preventDefault()">
+  <div class="product-list-box">
+    <i class="fa-solid fa-magnifying-glass product-list-icon"></i>
+    <input class="input product-list-input" name="q" value="{{0}}" oninput="Page.filters.controls.q.input(this); Page.filtersChanged()" onblur="Page.filters.controls.q.blur()" placeholder="Search products..." />
+  </div>
+
+  <select class="select product-list-select" name="categoryId" onchange="Page.setCategory(this.value)">
+    <option value="null" {{1}}>All categories</option>
+    <!--{{2}}--><template id="product-list-1"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
+  </select>
+
+  <label class="product-list-label-2">
+    <input type="checkbox" name="inStock" {{3}} onchange="Page.filters.controls.inStock.input(this); Page.filtersChanged()" class="product-list-input-2" />
+    In stock only
+  </label>
+</form>
+
+<!--{{4}}--><template id="product-list-2"><div class="product-list-bar"><div class="spinner"></div></div></template><template id="product-list-3">
+  <div class="product-list-grid">
+    <!--{{0}}-->
+  </div>
+
+  <div class="product-list-bar-2">
+    <button type="button" class="btn-outline product-list-button" {{1}} onclick="Page.changePage(Page.state.page - 1)">
+      <i class="fa-solid fa-chevron-left"></i> Prev
+    </button>
+    <span class="product-list-label">Page <!--{{2}}--> of <!--{{3}}--></span>
+    <button type="button" class="btn-outline product-list-button" {{4}} onclick="Page.changePage(Page.state.page + 1)">
+      Next <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div></template><!--/tpl:product-list--></app-product-list><!--/tpl:page-outlet-->
+</main>
+
+<!--{{2}}--><!--tpl:bottom-nav (common/bottom-nav/bottom-nav.html)-->
+<nav class="bottom-nav">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+  <!--{{4}}-->
+</nav><!--/tpl:bottom-nav-->
+
+<!--{{3}}--><!--tpl:footer (common/footer/footer.html)-->
+<footer class="customer-footer">
+  &copy; <!--{{0}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+</footer><!--/tpl:footer-->
+</app-shell><!--/tpl:customer-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/header/header.html -->
+<template id="header-nav-pill">
+        <a href="{{0}}" class="nav-pill{{1}}">
+          <i class="fa-solid {{2}} header-nav-icon"></i> <!--{{3}}-->
+        </a></template>
+<!-- END common/header/header.html -->
+
+<!-- BEGIN common/bottom-nav/bottom-nav.html -->
+<template id="bottom-nav-mobile">
+      <a href="{{0}}" class="bottom-nav-link{{1}}">
+        <i class="fa-solid {{2}} bottom-nav-icon"></i>
+        <span><!--{{3}}--></span>
+        <!--{{4}}--><template id="bottom-nav-mobile-1">
+          <span class="bottom-nav-count">
+            <!--{{0}}-->
+          </span></template>
+      </a></template>
+<!-- END common/bottom-nav/bottom-nav.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN customer/commerce/components/star-rating/star-rating.html -->
+<template id="star-rating">
+      <app-star-rating class="{{0}}"><span class="star-rating-label-2" aria-label="{{1}}">
+        <!--{{2}}--><template id="star-rating-1"><i class="star star-rating-icon{{0}}"></i></template>
+      </span>
+      <!--{{3}}--><template id="star-rating-2"><span class="star-rating-label">(<!--{{0}}-->)</span></template></app-star-rating></template>
+<!-- END customer/commerce/components/star-rating/star-rating.html -->
+
+<!-- BEGIN customer/commerce/components/retailer-info-dialog/retailer-info-dialog.html -->
+<template id="retailer-info-dialog">
+      <app-retailer-info-dialog><div class="retailer-info-dialog-overlay" onclick="{{0}}.dismiss(); event.stopPropagation(); event.preventDefault()">
+        <div class="card retailer-info-dialog-box" onclick="event.stopPropagation()">
+          <div class="retailer-info-dialog-bar-3">
+            <h2 class="retailer-info-dialog-heading">
+              <i class="fa-solid fa-store retailer-info-dialog-icon-3"></i> Shop details
+            </h2>
+            <button type="button" class="btn-icon retailer-info-dialog-button-2" aria-label="Close" onclick="{{1}}.dismiss()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="retailer-info-dialog-box-2">
+            <!--{{2}}--><template id="retailer-info-dialog-1"><div class="retailer-info-dialog-bar"><span class="spinner"></span></div></template><template id="retailer-info-dialog-2"><p class="retailer-info-dialog-text">Couldn't load shop details right now.</p></template><template id="retailer-info-dialog-3">
+                <div class="retailer-info-dialog-stack">
+                  <div class="retailer-info-dialog-bar-2">
+                    <span class="retailer-info-dialog-label"><!--{{0}}--></span>
+                    <!--{{1}}--><template id="retailer-info-dialog-3-1"><i class="fa-solid fa-circle-check retailer-info-dialog-icon" title="Verified shop"></i></template>
+                  </div>
+                  <!--{{2}}-->
+                  <p class="retailer-info-dialog-text-3">Status: <!--{{3}}--></p>
+                  <!--{{4}}--><template id="retailer-info-dialog-3-2">
+                    <p class="retailer-info-dialog-text-2">
+                      <i class="fa-solid fa-location-dot retailer-info-dialog-icon-2"></i>
+                      <!--{{0}}-->, <!--{{1}}-->
+                    </p></template>
+                  <button type="button" class="btn-outline retailer-info-dialog-button" onclick="{{5}}.browseShop()">
+                    Browse this shop
+                  </button>
+                </div></template>
+          </div>
+        </div>
+      </div></app-retailer-info-dialog></template>
+<!-- END customer/commerce/components/retailer-info-dialog/retailer-info-dialog.html -->
+
+<!-- BEGIN customer/commerce/components/product-card/product-card.html -->
+<template id="product-card">
+      <app-product-card class="{{0}}" data-key="{{1}}"><div class="card card-hover group product-card-stack !p-0 border border-slate-200/60 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300" onclick="{{2}}.open()">
+        <div class="product-card-bar-2">
+          <!--{{3}}--><template id="product-card-1"><img src="{{0}}" alt="{{1}}" class="product-card-image" /></template><template id="product-card-2">
+            <span class="product-card-label">
+              <!--{{0}}-->
+            </span></template>
+
+          <!--{{4}}--><template id="product-card-3">
+            <span class="out-of-stock badge badge-inactive product-card-label-2">Out of stock</span></template><template id="product-card-4">
+            <span class="badge badge-pending product-card-label-3">Only <!--{{0}}--> left</span></template>
+
+          <button type="button" class="product-card-button-3"
+            aria-label="{{5}}" onclick="{{6}}.toggleWishlist(event)">
+            <i class="fa-solid fa-heart product-card-icon-3{{7}}"></i>
+          </button>
+        </div>
+
+        <div class="product-card-stack-2">
+          <p class="product-card-text"><!--{{8}}--></p>
+          <h3 class="name product-card-subheading"><!--{{9}}--></h3>
+
+          <button type="button" class="product-card-button-4" onclick="{{10}}.openRetailerDialog(event)">
+            <i class="fa-solid fa-shop product-card-icon-4"></i>
+            <span class="product-card-label-6"><!--{{11}}--></span>
+          </button>
+
+          <div class="product-card-bar-3">
+            <p class="product-card-text-2"><!--{{12}}--></p>
+          </div>
+
+          <!--{{13}}--><template id="product-card-5">
+            <div class="product-card-bar" onclick="event.stopPropagation()">
+              <button type="button" class="product-card-button"
+                {{0}} aria-label="Decrease quantity" onclick="{{1}}.decrement(event)">
+                <i class="fa-solid fa-minus product-card-icon"></i>
+              </button>
+              <!--{{2}}--><template id="product-card-5-1"><span class="spinner product-card-label-4"></span></template><template id="product-card-5-2"><span class="product-card-label-5"><!--{{0}}--></span></template>
+              <button type="button" class="product-card-button"
+                {{3}} aria-label="Increase quantity" onclick="{{4}}.increment(event)">
+                <i class="fa-solid fa-plus product-card-icon"></i>
+              </button>
+            </div></template><template id="product-card-6">
+            <button type="button" class="btn-primary product-card-button-2" {{0}} onclick="{{1}}.addToCart(event)">
+              <!--{{2}}--><template id="product-card-6-1"><span class="spinner product-card-label-4"></span></template><template id="product-card-6-2"><i class="fa-solid fa-cart-plus product-card-icon-2"></i> Add to Cart</template>
+            </button></template>
+        </div>
+      </div>
+
+      <!--{{14}}--></app-product-card></template>
+<!-- END customer/commerce/components/product-card/product-card.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/cart-service.js"></script>
+  <script src="../../../common/services/category-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/notification-service.js"></script>
+  <script src="../../../common/services/product-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/services/wishlist-service.js"></script>
+  <script src="../../../common/services/wishlist-state-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../../../common/customer-shell/customer-shell.js"></script>
+  <script src="../../../common/header/header.js"></script>
+  <script src="../../../common/bottom-nav/bottom-nav.js"></script>
+  <script src="../../../common/footer/footer.js"></script>
+  <script src="../../../common/empty-state/empty-state.js"></script>
+  <script src="../components/star-rating/star-rating.js"></script>
+  <script src="../components/retailer-info-dialog/retailer-info-dialog.js"></script>
+  <script src="../components/product-card/product-card.js"></script>
+  <script src="../js/product-list.js"></script>
+  <script>boot({ route: '/products', shell: 'customer', guards: [Guards.addressRequired], page: ProductListPage });</script>
+</body>
+</html>

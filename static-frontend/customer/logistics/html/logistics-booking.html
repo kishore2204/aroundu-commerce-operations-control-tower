@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/header/header-glass.css">
+  <link rel="stylesheet" href="../../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/customer-shell/customer-shell.css">
+  <link rel="stylesheet" href="../../../common/header/header.css">
+  <link rel="stylesheet" href="../../../common/bottom-nav/bottom-nav.css">
+  <link rel="stylesheet" href="../../../common/footer/footer.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/logistics-booking.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Customer - Logistics - logistics-booking page, route /logistics (Angular: src/app/features/logistics/logistics-booking.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:customer-shell (common/customer-shell/customer-shell.html)-->
+<app-shell>
+<!--{{0}}--><!--tpl:header (common/header/header.html)-->
+<header class="header-glass header-bar">
+  <div class="header-inner">
+    <a href="{{0}}" class="header-brand group">
+      <span class="brandmark header-brandmark">A</span>
+      <span class="header-wordmark">Around<span class="header-wordmark-accent">U</span></span>
+    </a>
+
+    <nav class="header-nav">
+      <!--{{1}}-->
+      <!--{{2}}-->
+      <!--{{3}}-->
+      <!--{{4}}-->
+    </nav>
+
+    <span class="header-spacer"></span>
+
+    <div class="header-menu">
+      <button type="button" class="header-address-button"
+        onclick="Shell.toggleAddressMenu(); event.stopPropagation()">
+        <i class="fa-solid fa-location-dot header-address-pin"></i>
+        <span class="header-address-label"><!--{{5}}--></span>
+        <i class="fa-solid fa-chevron-down header-address-chevron"></i>
+      </button>
+
+      <!--{{6}}--><template id="header-1">
+        <div class="dropdown-panel header-address-panel" onclick="event.stopPropagation()">
+          <div class="header-address-title">
+            <span>Deliver to</span>
+            <i class="fa-solid fa-map-pin header-accent-icon"></i>
+          </div>
+          <!--{{0}}--><template id="header-1-1"><p class="header-panel-empty">No saved addresses yet.</p></template>
+          <!--{{1}}--><template id="header-1-2">
+            <button type="button"
+              class="header-address-option{{0}}"
+              {{1}} onclick="Shell.selectAddress({{2}})">
+              <span class="header-address-tag">
+                <!--{{3}}-->
+                <!--{{4}}--><template id="header-1-2-1"><i class="fa-solid fa-circle-check header-address-check"></i></template>
+              </span>
+              <span class="header-address-line"><!--{{5}}-->, <!--{{6}}--></span>
+            </button></template>
+          <a href="{{2}}" class="header-address-add" onclick="Shell.state.addressMenuOpen = false">
+            <i class="fa-solid fa-circle-plus header-accent-icon"></i> Add new address
+          </a>
+        </div></template>
+    </div>
+
+    <a href="{{7}}" aria-label="Support" class="btn-icon header-support-link">
+      <i class="fa-solid fa-headset header-icon"></i>
+    </a>
+
+    <a href="{{8}}" aria-label="Wishlist" class="btn-icon header-wishlist-link">
+      <i class="fa-solid fa-heart header-icon"></i>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="btn-icon header-notifications-button" aria-label="Notifications" onclick="Shell.toggleNotifications(); event.stopPropagation()">
+        <i class="fa-solid fa-bell header-icon"></i>
+        <!--{{9}}--><template id="header-2">
+          <span class="header-notifications-count">
+            <!--{{0}}-->
+          </span></template>
+      </button>
+
+      <!--{{10}}--><template id="header-3">
+        <div class="dropdown-panel header-notifications-panel" onclick="event.stopPropagation()">
+          <div class="header-notifications-head">
+            <span class="header-panel-title">Notifications</span>
+            <!--{{0}}--><template id="header-3-1">
+              <button type="button" class="clear-notifications header-notifications-clear" {{0}} onclick="Shell.clearNotifications()">Clear</button></template>
+          </div>
+          <!--{{1}}--><template id="header-3-2">
+            <p class="header-panel-empty">No new notifications.</p></template><template id="header-3-3">
+              <button type="button"
+                class="header-notification{{0}}"
+                onclick="Shell.markRead({{1}})">
+                <span class="header-notification-title"><!--{{2}}--></span>
+                <span class="header-notification-message"><!--{{3}}--></span>
+                <span class="header-notification-time"><!--{{4}}--></span>
+              </button></template>
+        </div></template>
+    </div>
+
+    <a href="{{11}}" aria-label="Cart" class="btn-icon header-cart-link">
+      <i class="fa-solid fa-cart-shopping header-icon"></i>
+      <!--{{12}}--><template id="header-4">
+        <span class="header-cart-count">
+          <!--{{0}}-->
+        </span></template>
+    </a>
+
+    <div class="header-menu">
+      <button type="button" class="header-account-button" aria-label="Account" onclick="Shell.toggleAccountMenu(); event.stopPropagation()">
+        <span class="header-avatar">
+          <!--{{13}}-->
+        </span>
+      </button>
+
+      <!--{{14}}--><template id="header-5">
+        <div class="dropdown-panel header-account-panel" onclick="event.stopPropagation()">
+          <div class="header-account-info">
+            <span class="header-account-caption">Signed in as</span>
+            <span class="header-account-email"><!--{{0}}--></span>
+          </div>
+          <a href="{{1}}" class="header-menu-link" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-user-gear header-menu-icon"></i>
+            <span>Profile &amp; Settings</span>
+          </a>
+          <a href="{{2}}" class="header-menu-link-mobile" onclick="Shell.closeAccountMenu()">
+            <i class="fa-solid fa-box header-menu-icon"></i>
+            <span>My Orders</span>
+          </a>
+          <button type="button" class="header-logout" onclick="Shell.logout()">
+            <i class="fa-solid fa-right-from-bracket header-logout-icon"></i>
+            <span>Log out</span>
+          </button>
+        </div></template>
+    </div>
+  </div>
+</header><!--/tpl:header-->
+
+<main class="customer-main" onclick="Shell.closeAccountMenu()">
+  <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-logistics-booking><!--{{0}}--><!--tpl:logistics-booking (this page)--><div class="logistics-booking-box-6">
+  <div class="logistics-booking-box-7">
+    <span class="eyebrow logistics-booking-label-12">
+      <i class="fa-solid fa-truck-fast"></i> Logistics &amp; Parcel
+    </span>
+    <h1 class="logistics-booking-title">Book a delivery</h1>
+    <p class="logistics-booking-text-15">Fast, reliable pickup &amp; delivery across city and outstation</p>
+  </div>
+
+  <div class="card logistics-booking-box-8 !py-5">
+    <div class="logistics-booking-bar-12">
+      <!--{{0}}--><template id="logistics-booking-1">
+        <div class="logistics-booking-box-2">
+          <!--{{0}}--><template id="logistics-booking-1-1">
+            <div class="logistics-booking-box{{0}}"></div></template>
+          <div class="logistics-booking-grid rounded-full{{1}}">
+            <!--{{2}}--><template id="logistics-booking-1-2"><i class="fa-solid fa-check"></i></template><template id="logistics-booking-1-3"> <!--{{0}}--> </template>
+          </div>
+          <span class="logistics-booking-label-5{{3}}"><!--{{4}}--></span>
+        </div></template>
+    </div>
+  </div>
+
+  <div class="logistics-booking-grid-6">
+    <div>
+      <!--{{1}}--><template id="logistics-booking-2">
+        <div class="card">
+          <div class="logistics-booking-bar"><span class="logistics-booking-label-3"><i class="fa-solid fa-route"></i></span><h3 class="logistics-booking-subheading">Choose service type</h3></div>
+          <div class="logistics-booking-grid-2">
+            <button type="button" class="rounded-2xl border-2 logistics-booking-button{{0}}" onclick="Page.selectServiceType('WITHIN_CITY')"><i class="fa-solid fa-city logistics-booking-icon"></i><h3 class="logistics-booking-subheading-2">Within City</h3><p class="logistics-booking-text">Local intra-city delivery</p></button>
+            <button type="button" class="rounded-2xl border-2 logistics-booking-button{{1}}" onclick="Page.selectServiceType('OUTSTATION')"><i class="fa-solid fa-map-location-dot logistics-booking-icon"></i><h3 class="logistics-booking-subheading-2">Outstation</h3><p class="logistics-booking-text">Inter-city delivery; bike/scooty are not available</p></button>
+          </div>
+          <div class="logistics-booking-bar-2"><button type="button" class="btn-primary" onclick="Page.goToStep(2)">Next: Vehicle <i class="fa-solid fa-arrow-right"></i></button></div>
+        </div></template>
+
+      <!--{{2}}--><template id="logistics-booking-3">
+        <div class="card">
+          <div class="logistics-booking-bar"><span class="logistics-booking-label-3"><i class="fa-solid fa-truck"></i></span><h3 class="logistics-booking-subheading">Choose vehicle category</h3></div>
+          <!--{{0}}--><template id="logistics-booking-3-1"><p class="logistics-booking-text-2">Two-wheelers are unavailable for outstation trips.</p></template>
+          <div class="logistics-booking-grid-3">
+            <!--{{1}}--><template id="logistics-booking-3-2">
+              <button type="button" class="rounded-xl border-2 logistics-booking-button-2{{0}}" onclick="Page.selectVehicle('{{1}}')"><i class="fa-solid {{2}} text-xl text-zepto-600"></i><span class="logistics-booking-label-6"><!--{{3}}--></span></button></template>
+          </div>
+          <div class="logistics-booking-bar-3"><button type="button" class="btn-outline" onclick="Page.goToStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="button" class="btn-primary" onclick="Page.goToStep(3)">Next: Locations <i class="fa-solid fa-arrow-right"></i></button></div>
+        </div></template>
+
+      <!--{{3}}--><template id="logistics-booking-4">
+        <div class="card">
+          <!--{{0}}--><template id="logistics-booking-4-1">Pickup &amp; drop locations</template>
+          <div class="logistics-booking-box-3">
+            <div>
+              <label class="form-label req-mark">Pickup Location</label>
+              <input class="input" {{1}} placeholder="Enter pickup address" />
+            </div>
+            <div>
+              <label class="form-label req-mark">Drop Location</label>
+              <input class="input" {{2}} placeholder="Enter drop address" />
+            </div>
+            <div>
+              <label class="form-label">Estimated distance (km)</label>
+              <div class="logistics-booking-bar-4">
+                <input class="input" type="number" readonly value="{{3}}" />
+                <button type="button" class="btn-outline logistics-booking-button-3" {{4}} onclick="Page.calculateDistance()">
+                  <i class="fa-solid fa-route"></i> Calculate
+                </button>
+              </div>
+              <p class="logistics-booking-text-3">Auto-calculated from your pickup and drop locations.</p>
+            </div>
+          </div>
+          <div class="logistics-booking-bar-3">
+            <button type="button" class="btn-outline" onclick="Page.goToStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="button" class="btn-primary" {{5}} onclick="Page.goToStep(4)">Next: Receiver Info <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div></template>
+
+      <!--{{4}}--><template id="logistics-booking-5">
+        <div class="card">
+          <!--{{0}}-->
+          <div class="logistics-booking-box-3">
+            <div>
+              <label class="form-label req-mark">Receiver Name</label>
+              <input class="input" {{1}} placeholder="Full Name" />
+            </div>
+            <div>
+              <label class="form-label req-mark">Receiver Phone Number</label>
+              <input class="input" type="tel" {{2}} data-digits-only="10" placeholder="10-digit mobile number" autocomplete="off" inputmode="numeric" maxlength="10" />
+              <!--{{3}}--><template id="logistics-booking-5-1"><p class="logistics-booking-text-4">Mobile number must be 10 digits</p></template>
+            </div>
+            <div>
+              <label class="form-label">Receiver Email (Optional)</label>
+              <input class="input" type="email" {{4}} placeholder="receiver@example.com" />
+              <!--{{5}}--><template id="logistics-booking-5-2"><p class="logistics-booking-text-4">Enter a valid email address.</p></template>
+            </div>
+            <div>
+              <label class="form-label">Special Instructions (Optional)</label>
+              <input class="input" {{6}} placeholder="e.g. Handle with care, call before arrival" />
+            </div>
+          </div>
+          <div class="logistics-booking-bar-3">
+            <button type="button" class="btn-outline" onclick="Page.goToStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="button" class="btn-primary" {{7}} onclick="Page.goToStep(5)">
+              Next: Extras <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div></template>
+
+      <!--{{5}}--><template id="logistics-booking-6">
+        <div class="card">
+          <!--{{0}}-->
+          <div class="logistics-booking-box-4">
+            <!--{{1}}-->
+            <!--{{2}}-->
+            <!--{{3}}-->
+          </div>
+          <div class="logistics-booking-bar-3">
+            <button type="button" class="btn-outline" onclick="Page.goToStep(4)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="button" class="btn-primary" onclick="Page.goToStep(6)">Next: Payment <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div></template>
+
+      <!--{{6}}--><template id="logistics-booking-7">
+        <div class="card">
+          <!--{{0}}--><template id="logistics-booking-7-1">Payment &amp; summary</template>
+
+          <div>
+            <h4 class="req-mark logistics-booking-caption">Select Payment Mode</h4>
+            <div class="logistics-booking-grid-4">
+              <!--{{1}}-->
+              <!--{{2}}-->
+              <!--{{3}}-->
+              <!--{{4}}-->
+            </div>
+          </div>
+
+          <!--{{5}}--><template id="logistics-booking-7-2"><p class="logistics-booking-text-5"><!--{{0}}--></p></template>
+
+          <div class="logistics-booking-bar-3">
+            <button type="button" class="btn-outline" onclick="Page.goToStep(5)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="button" class="btn-secondary" {{6}} onclick="Page.proceedToPayment()">
+              <!--{{7}}--><template id="logistics-booking-7-3"><!--{{0}}--> Booking... </template><template id="logistics-booking-7-4"> Confirm &amp; Book Logistics </template><template id="logistics-booking-7-5"> Proceed to Pay </template>
+            </button>
+          </div>
+        </div></template>
+
+      <!--{{7}}--><template id="logistics-booking-8">
+        <div class="card">
+          <!--{{0}}--><template id="logistics-booking-8-1">
+            <!--{{0}}--><template id="logistics-booking-8-1-1">
+              <div class="logistics-booking-bar-5">
+                <span class="logistics-booking-label-7"><i class="fa-solid fa-circle-check logistics-booking-icon-2"></i></span>
+                <h3 class="logistics-booking-subheading">Booking Confirmed</h3>
+              </div>
+              <p class="logistics-booking-text-6">Your logistics booking has been created successfully.</p></template><template id="logistics-booking-8-1-2">
+              <div class="logistics-booking-bar-5">
+                <span class="logistics-booking-label-8"><i class="fa-solid fa-triangle-exclamation logistics-booking-icon-2"></i></span>
+                <h3 class="logistics-booking-subheading">Payment not completed</h3>
+              </div>
+              <p class="logistics-booking-text-6">Your booking was created, but the payment did not go through. Complete the payment to finish your booking.</p></template>
+            <p class="logistics-booking-text-8">Booking Reference: <strong class="logistics-booking-strong"><!--{{1}}--></strong></p>
+
+            <div class="logistics-booking-panel">
+              <p class="logistics-booking-text-9"><span>Logistics Charge</span><span>₹<!--{{2}}--></span></p>
+              <p class="logistics-booking-text-10"><span>Total Amount</span><span>₹<!--{{3}}--></span></p>
+              <p class="logistics-booking-text-9"><span>Paid Amount</span><span>₹<!--{{4}}--></span></p>
+              <p class="logistics-booking-text-9"><span>Payment Status</span><span><!--{{5}}--></span></p>
+            </div>
+            <!--{{6}}--><template id="logistics-booking-8-1-3"><p class="logistics-booking-text-7"><!--{{0}}--></p></template></template>
+
+          <div class="logistics-booking-bar-6">
+            <div class="logistics-booking-grid-5">
+              <i class="fa-solid fa-truck-fast logistics-booking-icon-3"></i>
+            </div>
+            <div>
+              <h3 class="logistics-booking-subheading-3">Status: <!--{{1}}--></h3>
+              <p class="logistics-booking-text-11">Live status updates automatically as your fleet owner assigns a driver and vehicle.</p>
+            </div>
+          </div>
+
+          <div class="logistics-booking-bar-7">
+            <button type="button" class="btn-outline" onclick="Nav.go('/orders')">View All Orders</button>
+            <!--{{2}}--><template id="logistics-booking-8-2">
+                <button type="button" class="btn-primary" onclick="Nav.go('/orders/{{0}}')"><i class="fa-solid fa-location-crosshairs"></i> Track This Order</button></template><template id="logistics-booking-8-3">
+                <button type="button" class="btn-primary" {{0}} onclick="Page.retryPayment()">
+                  <!--{{1}}--><template id="logistics-booking-8-3-1"> <!--{{0}}--> Retrying... </template><template id="logistics-booking-8-3-2"> Retry Payment </template>
+                </button></template>
+          </div>
+        </div></template>
+    </div>
+
+    <aside class="card logistics-booking-aside">
+      <h3 class="logistics-booking-subheading-4">
+        <i class="fa-solid fa-receipt logistics-booking-icon-5"></i> Booking Summary
+      </h3>
+      <div class="logistics-booking-box-9">
+        <div class="logistics-booking-bar-8">
+          <span class="logistics-booking-label-10">Vehicle</span>
+          <strong class="logistics-booking-strong-3"><!--{{8}}--></strong>
+        </div>
+        <div class="logistics-booking-bar-8">
+          <span class="logistics-booking-label-10">Service Type</span>
+          <strong class="logistics-booking-strong-3"><!--{{9}}--></strong>
+        </div>
+        <!--{{10}}--><template id="logistics-booking-9">
+          <div class="logistics-booking-bar-8">
+            <span class="logistics-booking-label-9">Route</span>
+            <strong class="logistics-booking-strong-2"><!--{{0}}--> → <!--{{1}}--></strong>
+          </div></template>
+        <!--{{11}}--><template id="logistics-booking-10">
+          <div class="logistics-booking-bar-8">
+            <span class="logistics-booking-label-10">Distance</span>
+            <strong class="logistics-booking-strong"><!--{{0}}--> km</strong>
+          </div></template>
+        <!--{{12}}--><template id="logistics-booking-11">
+          <div class="logistics-booking-bar-8">
+            <span class="logistics-booking-label-10">Receiver</span>
+            <strong class="logistics-booking-strong-3"><!--{{0}}--></strong>
+          </div></template>
+        <hr class="logistics-booking-divider" />
+        <div class="logistics-booking-bar-13">
+          <span class="logistics-booking-label-10">Estimated Fare</span>
+          <strong class="logistics-booking-strong-4">
+            ₹<!--{{13}}-->
+          </strong>
+        </div>
+        <!--{{14}}--><template id="logistics-booking-12"><p class="logistics-booking-text-12">This is the amount you will pay and the amount shown on your booking.</p></template><template id="logistics-booking-13"><p class="logistics-booking-text-12">The final fare is confirmed on the payment step, from the same calculation that charges the booking.</p></template>
+      </div>
+    </aside>
+  </div>
+
+  <!--{{15}}--><template id="logistics-booking-14">
+    <div class="logistics-booking-overlay">
+      <div class="logistics-booking-panel-2">
+        <div class="logistics-booking-bar-10">
+          <div class="logistics-booking-bar-4">
+            <i class="fa-solid fa-shield-halved logistics-booking-icon-4"></i>
+            <span class="logistics-booking-label-11">AroundU Secure Pay</span>
+          </div>
+          <button type="button" class="btn-icon" onclick="Page.cancelPayment()" {{0}} aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="logistics-booking-panel-3">
+          <p class="logistics-booking-text">Amount payable</p>
+          <p class="logistics-booking-text-13">₹<!--{{1}}--></p>
+        </div>
+
+        <!--{{2}}--><template id="logistics-booking-14-1">
+          <div class="logistics-booking-box-5">
+            <label class="form-label">Enter UPI ID</label>
+            <input class="input" {{0}} placeholder="name@upi" {{1}} />
+          </div></template><template id="logistics-booking-14-2">
+          <div class="logistics-booking-box-5">
+            <label class="form-label">Card Number</label>
+            <input class="input" {{0}} placeholder="1234 5678 9012 3456" maxlength="19" {{1}} />
+            <div class="logistics-booking-bar-9">
+              <input class="input" {{2}} placeholder="MM/YY" maxlength="5" {{3}} />
+              <input class="input" {{4}} placeholder="CVV" maxlength="3" {{5}} />
+            </div>
+          </div></template>
+
+        <p class="logistics-booking-text-14">This is a simulated payment gateway for demo purposes. No real payment is processed.</p>
+
+        <div class="logistics-booking-bar-11">
+          <button type="button" class="btn-outline logistics-booking-button-4" {{3}} onclick="Page.cancelPayment()">Cancel</button>
+          <button type="button" class="btn-primary logistics-booking-button-4" {{4}} onclick="Page.submitGatewayPayment()">
+            <!--{{5}}--><template id="logistics-booking-14-3"> <!--{{0}}--> Processing... </template><template id="logistics-booking-14-4"> Pay Now </template>
+          </button>
+        </div>
+      </div>
+    </div></template>
+</div><!--/tpl:logistics-booking--></app-logistics-booking><!--/tpl:page-outlet-->
+</main>
+
+<!--{{2}}--><!--tpl:bottom-nav (common/bottom-nav/bottom-nav.html)-->
+<nav class="bottom-nav">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+  <!--{{4}}-->
+</nav><!--/tpl:bottom-nav-->
+
+<!--{{3}}--><!--tpl:footer (common/footer/footer.html)-->
+<footer class="customer-footer">
+  &copy; <!--{{0}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+</footer><!--/tpl:footer-->
+</app-shell><!--/tpl:customer-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/header/header.html -->
+<template id="header-nav-pill">
+        <a href="{{0}}" class="nav-pill{{1}}">
+          <i class="fa-solid {{2}} header-nav-icon"></i> <!--{{3}}-->
+        </a></template>
+<!-- END common/header/header.html -->
+
+<!-- BEGIN common/bottom-nav/bottom-nav.html -->
+<template id="bottom-nav-mobile">
+      <a href="{{0}}" class="bottom-nav-link{{1}}">
+        <i class="fa-solid {{2}} bottom-nav-icon"></i>
+        <span><!--{{3}}--></span>
+        <!--{{4}}--><template id="bottom-nav-mobile-1">
+          <span class="bottom-nav-count">
+            <!--{{0}}-->
+          </span></template>
+      </a></template>
+<!-- END common/bottom-nav/bottom-nav.html -->
+
+<!-- logistics-booking page: other templates (js/logistics-booking.js) -->
+<template id="logistics-booking-extra">
+            <label class="logistics-booking-label">
+              <input type="checkbox" {{0}} class="logistics-booking-input" />
+              <i class="fa-solid {{1}} text-zepto-500"></i>
+              <!--{{2}}-->
+            </label></template>
+<template id="logistics-booking-pay-option">
+              <label class="logistics-booking-label-2 rounded-xl border-2{{0}}">
+                <input type="radio" name="paymentMode" value="{{1}}" {{2}} onchange="Page.state.paymentMode = this.value" class="logistics-booking-input-2" />
+                <i class="fa-solid {{3}} text-zepto-500"></i> <!--{{4}}-->
+              </label></template>
+<template id="logistics-booking-header">
+          <div class="logistics-booking-bar">
+            <span class="logistics-booking-label-3{{0}}"><i class="fa-solid {{1}} text-sm"></i></span>
+            <h3 class="logistics-booking-subheading"><!--{{2}}--></h3>
+          </div></template>
+<template id="logistics-booking-spinner"><span class="spinner logistics-booking-label-4"></span></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/cart-service.js"></script>
+  <script src="../../../common/services/customer-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/logistics-booking-service.js"></script>
+  <script src="../../../common/services/logistics-rate-service.js"></script>
+  <script src="../../../common/services/notification-service.js"></script>
+  <script src="../../../common/services/order-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../../../common/customer-shell/customer-shell.js"></script>
+  <script src="../../../common/header/header.js"></script>
+  <script src="../../../common/bottom-nav/bottom-nav.js"></script>
+  <script src="../../../common/footer/footer.js"></script>
+  <script src="../js/logistics-booking.js"></script>
+  <script>boot({ route: '/logistics', shell: 'customer', guards: [Guards.addressRequired], page: LogisticsBookingPage });</script>
+</body>
+</html>

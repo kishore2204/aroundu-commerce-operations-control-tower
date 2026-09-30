@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Location Manager - dashboard page, route /location/dashboard (Angular: src/app/features/location/dashboard/dashboard.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-location-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-location-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="dashboard-bar-17">
+  <div>
+    <h1 class="dashboard-title">
+      <span class="dashboard-label-8">
+        <i class="fa-solid fa-gauge-high dashboard-icon-3"></i>
+      </span>
+      Dashboard
+    </h1>
+    <!--{{0}}--><template id="dashboard-1"><p class="dashboard-text-7"><i class="fa-solid fa-location-dot dashboard-icon"></i>Assigned zone: <strong class="dashboard-strong"><!--{{0}}--></strong> · <!--{{1}}--></p></template>
+  </div>
+
+  <div class="dashboard-stack-3">
+    <div class="dashboard-bar-3">
+      <!--{{1}}--><template id="dashboard-2">
+        <button type="button" class="btn-outline dashboard-button-3{{0}}" onclick="Page.setPreset('{{1}}')"><!--{{2}}--></button></template>
+      <button type="button" class="btn-icon dashboard-button-5" aria-label="Refresh" title="Refresh" onclick="Page.refresh()"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+    <!--{{2}}--><template id="dashboard-3">
+      <div class="dashboard-bar-3">
+        <input type="date" class="input dashboard-input" value="{{0}}" max="{{1}}" onchange="Page.state.customFrom = this.value" />
+        <span class="dashboard-text-6">to</span>
+        <input type="date" class="input dashboard-input" value="{{2}}" min="{{3}}" onchange="Page.state.customTo = this.value" />
+        <button type="button" class="btn-primary dashboard-button-3" {{4}} onclick="Page.applyCustomRange()">Apply</button>
+      </div></template>
+    <p class="dashboard-text-6">The date range applies to decisions, completed orders and onboarding activity. Totals and pending work are current.</p>
+  </div>
+</div>
+
+<!--{{3}}--><template id="dashboard-4"><p class="dashboard-text-8"><!--{{0}}--></p></template>
+
+<!--{{4}}--><template id="dashboard-5">
+  <div class="dashboard-grid-3{{0}}">
+    <!--{{1}}-->
+    <!--{{2}}-->
+    <!--{{3}}-->
+    <!--{{4}}-->
+    <!--{{5}}-->
+    <!--{{6}}-->
+    <!--{{7}}-->
+  </div>
+  <!--{{8}}--><template id="dashboard-5-1"><p class="dashboard-text-9">Order figures are temporarily unavailable.</p></template>
+
+  <div class="dashboard-grid-4">
+    <section class="card">
+      <div class="dashboard-bar-12">
+        <div>
+          <h2 class="dashboard-heading-2"><i class="fa-solid fa-chart-column dashboard-icon-2"></i> Onboarding trends</h2>
+          <p class="dashboard-text-6">New applications, <!--{{9}}--></p>
+        </div>
+        <div class="dashboard-bar-13">
+          <!--{{10}}-->
+          <!--{{11}}-->
+        </div>
+      </div>
+      <!--{{12}}--><template id="dashboard-5-2"><p class="dashboard-text-10">No onboarding activity in this range.</p></template><template id="dashboard-5-3">
+        <div class="dashboard-bar-5">
+          <!--{{0}}--><template id="dashboard-5-3-1">
+            <div class="dashboard-bar-4" title="{{0}}">
+              <div class="dashboard-panel" style="height: {{1}}%;"></div>
+              <div class="dashboard-panel-2" style="height: {{2}}%;"></div>
+            </div></template>
+        </div>
+        <div class="dashboard-bar-6">
+          <span><!--{{1}}--></span>
+          <span><!--{{2}}--></span>
+        </div></template>
+    </section>
+
+    <section class="card">
+      <h2 class="dashboard-heading-3"><i class="fa-solid fa-clipboard-check dashboard-icon-2"></i> Verification analytics</h2>
+      <p class="dashboard-text-15">Pending now · approved and rejected <!--{{13}}--></p>
+      <!--{{14}}--><template id="dashboard-5-4"><p class="dashboard-text-10">No verification activity to show.</p></template><template id="dashboard-5-5">
+        <div class="dashboard-stack">
+          <!--{{0}}--><template id="dashboard-5-5-1">
+            <div>
+              <div class="dashboard-bar-7">
+                <span class="dashboard-label-4"><!--{{0}}--></span>
+                <span class="dashboard-label-5"><!--{{1}}--> pending · <!--{{2}}--> approved · <!--{{3}}--> rejected</span>
+              </div>
+              <div class="dashboard-bar-8">
+                <div class="dashboard-box-2" style="width: {{4}}%;" title="Pending"></div>
+                <div class="dashboard-box-3" style="width: {{5}}%;" title="Approved"></div>
+                <div class="dashboard-box-4" style="width: {{6}}%;" title="Rejected"></div>
+              </div>
+            </div></template>
+        </div>
+        <div class="dashboard-bar-9">
+          <!--{{1}}-->
+          <!--{{2}}-->
+          <!--{{3}}-->
+        </div></template>
+    </section>
+
+    <section class="card">
+      <h2 class="dashboard-heading-3"><i class="fa-solid fa-bag-shopping dashboard-icon-2"></i> Order analytics</h2>
+      <p class="dashboard-text-15">Orders of the retailers in your zone</p>
+      <!--{{15}}--><template id="dashboard-5-6"><p class="dashboard-text-10">Order figures are temporarily unavailable.</p></template><template id="dashboard-5-7">
+        <div class="dashboard-grid-2">
+          <div class="dashboard-panel-3"><p class="dashboard-text-11"><!--{{0}}--></p><p class="dashboard-text-12">Active orders (now)</p></div>
+          <div class="dashboard-panel-4"><p class="dashboard-text-13"><!--{{1}}--></p><p class="dashboard-text-14">Completed (<!--{{2}}-->)</p></div>
+        </div>
+        <div class="dashboard-bar-10">
+          <div class="dashboard-box-5" style="width: {{3}}%;"></div>
+          <div class="dashboard-box-3" style="width: {{4}}%;"></div>
+        </div></template>
+    </section>
+
+    <section class="card">
+      <h2 class="dashboard-heading-3"><i class="fa-solid fa-people-arrows dashboard-icon-2"></i> Workload distribution</h2>
+      <p class="dashboard-text-15">Your pending verification work, by kind</p>
+      <!--{{16}}--><template id="dashboard-5-8"><p class="dashboard-text-10">Nothing pending - you are all caught up.</p></template><template id="dashboard-5-9">
+        <div class="dashboard-stack-2">
+          <!--{{0}}--><template id="dashboard-5-9-1">
+            <div class="dashboard-bar-11">
+              <span class="dashboard-label-6" title="{{0}}"><!--{{1}}--> · <!--{{2}}--></span>
+              <div class="dashboard-panel-5">
+                <div class="dashboard-box-6{{3}}" style="width: {{4}}%;"></div>
+              </div>
+              <span class="dashboard-label-7"><!--{{5}}--></span>
+            </div></template>
+        </div></template>
+    </section>
+  </div></template><template id="dashboard-6"><div class="dashboard-bar-14"><span class="spinner"></span></div></template>
+
+<section id="zone-partners">
+  <div class="dashboard-bar-18">
+    <h2 class="dashboard-heading-4"><i class="fa-solid fa-users dashboard-icon-2"></i> Users in your zone</h2>
+    <div class="dashboard-bar-19">
+      <button type="button" class="dashboard-button-6{{5}}" onclick="Page.selectType('RETAILER')">Retailers</button>
+      <button type="button" class="dashboard-button-6{{6}}" onclick="Page.selectType('FLEET_OWNER')">Fleet Owners</button>
+    </div>
+  </div>
+
+  <div class="dashboard-grid-5">
+    <div class="dashboard-box-7">
+      <i class="fa-solid fa-magnifying-glass dashboard-icon-4"></i>
+      <input class="input dashboard-input-2" name="search" value="{{7}}" oninput="Page.searchChanged(this.value)" placeholder="Name, business, email or phone" />
+    </div>
+    <!--{{8}}-->
+    <!--{{9}}-->
+    <!--{{10}}-->
+    <!--{{11}}-->
+  </div>
+  <!--{{12}}--><template id="dashboard-7"><p class="dashboard-text-16"><!--{{0}}--> match. <button type="button" class="dashboard-button-4" onclick="Page.clearFilters()">Clear filters</button></p></template>
+
+  <!--{{13}}--><template id="dashboard-8"><p class="dashboard-text-17"><!--{{0}}--></p></template>
+
+  <div class="table-card overflow-x-auto{{14}}">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th><!--{{15}}--></th>
+          <th>Contact</th>
+          <th><!--{{16}}--></th>
+          <th>Verification</th>
+          <th><!--{{17}}--></th>
+          <th>Pending action</th>
+          <!--{{18}}--><template id="dashboard-9"><th>Rating</th></template>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{19}}--><template id="dashboard-10">
+            <tr><td colspan="{{0}}" class="dashboard-text-10">
+              <!--{{1}}-->
+            </td></tr></template>
+      </tbody>
+    </table>
+  </div>
+
+  <!--{{20}}--><template id="dashboard-11">
+    <div class="dashboard-bar-15">
+      <span><!--{{0}}-->-<!--{{1}}--> of <!--{{2}}--></span>
+      <div class="dashboard-bar-16">
+        <button type="button" class="btn-outline dashboard-button-3" {{3}} onclick="Page.goToPage({{4}})">Previous</button>
+        <span>Page <!--{{5}}--> of <!--{{6}}--></span>
+        <button type="button" class="btn-outline dashboard-button-3" {{7}} onclick="Page.goToPage({{8}})">Next</button>
+      </div>
+    </div></template>
+</section><!--/tpl:dashboard--></app-location-dashboard><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-location-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- dashboard page: other templates (js/dashboard.js) -->
+<template id="dashboard-kpi-body">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br {{0}} text-xl text-white"><i class="fa-solid {{1}}"></i></div>
+      <div class="dashboard-box">
+        <p class="dashboard-text-4"><!--{{2}}--></p>
+        <p class="dashboard-text-5"><!--{{3}}--></p>
+        <p class="dashboard-text-6"><!--{{4}}--></p>
+      </div>
+    </template>
+<template id="dashboard-kpi-button"><button type="button" class="card card-hover dashboard-button" onclick="Page.showList('{{0}}')"><!--{{1}}--></button></template>
+<template id="dashboard-kpi-link"><a href="{{0}}" class="card card-hover dashboard-link-4"><!--{{1}}--></a></template>
+<template id="dashboard-kpi-box"><div class="card dashboard-link-4"><!--{{0}}--></div></template>
+<template id="dashboard-legend"><span class="dashboard-label-3"><span class="inline-block h-2.5 w-2.5 rounded-sm {{0}}"></span><!--{{1}}--></span></template>
+<template id="dashboard-sort-head"><button type="button" class="dashboard-button-2" onclick="Page.sortBy('{{0}}')"><!--{{1}}--> <i class="fa-solid {{2}}"></i></button></template>
+<template id="dashboard-filter-select">
+    <select class="select" data-value="{{0}}" onchange="Page.setFilter('{{1}}', this.value)">
+      <!--{{2}}--><template id="dashboard-filter-select-1"><option value="{{0}}"><!--{{1}}--></option></template>
+    </select></template>
+<template id="dashboard-row">
+          <tr data-key="{{0}}">
+            <td><p class="dashboard-text-21"><!--{{1}}--></p>
+              <!--{{2}}--><template id="dashboard-row-1"><p class="dashboard-text-6">Applied <!--{{0}}--></p></template></td>
+            <td><p class="dashboard-text-22"><!--{{3}}--></p><p class="dashboard-text-6"><!--{{4}}--><!--{{5}}--><!--{{6}}--></p></td>
+            <td><!--{{7}}--></td>
+            <td><span class="badge {{8}}"><!--{{9}}--></span></td>
+            <td><span class="badge{{10}}"><!--{{11}}--></span></td>
+            <td>
+              <!--{{12}}--><template id="dashboard-row-2"><a class="dashboard-link-5" href="{{0}}"><!--{{1}}--></a></template><template id="dashboard-row-3"><span class="dashboard-label-9"><!--{{0}}--></span></template>
+            </td>
+            <!--{{13}}--><template id="dashboard-row-4">
+              <td class="dashboard-cell">
+                <!--{{0}}--><template id="dashboard-row-4-1"><span class="dashboard-label-10">★</span> <!--{{0}}--> <span class="dashboard-text-6">(<!--{{1}}-->)</span></template><template id="dashboard-row-4-2"><span class="dashboard-label-5">Not rated</span></template>
+              </td></template>
+            <td class="dashboard-cell-3">
+              <button type="button" class="btn-outline dashboard-button-3" onclick="Page.toggle({{14}})"><!--{{15}}--></button>
+            </td>
+          </tr>
+
+          <!--{{16}}--><template id="dashboard-row-5">
+            <tr>
+              <td colspan="{{0}}" class="dashboard-cell-2">
+                <div class="dashboard-grid-7">
+                  <p><span class="dashboard-text-6"><!--{{1}}--></span><br><strong><!--{{2}}--></strong></p>
+                  <p><span class="dashboard-text-6">Onboarding</span><br><!--{{3}}--></p>
+                  <p><span class="dashboard-text-6">Verification</span><br><!--{{4}}--></p>
+                  <p><span class="dashboard-text-6">Activation</span><br><!--{{5}}--></p>
+                  <p><span class="dashboard-text-6">Pending action</span><br><!--{{6}}--></p>
+                </div>
+
+                <!--{{7}}--><template id="dashboard-row-5-1"><p class="dashboard-text-18"><!--{{0}}--></p></template>
+                <!--{{8}}--><template id="dashboard-row-5-2"><div class="dashboard-bar-20"><span class="spinner"></span></div></template>
+
+                <!--{{9}}--><template id="dashboard-row-5-3">
+                    <h3 class="dashboard-subheading">Customer reviews
+                      <!--{{0}}--><template id="dashboard-row-5-3-1"><span class="dashboard-label-11">· <span class="dashboard-label-10">★</span> <!--{{0}}--> from <!--{{1}}--> review<!--{{2}}--></span></template>
+                    </h3>
+                    <!--{{1}}--><template id="dashboard-row-5-3-2"><p class="dashboard-label-9">No customer reviews yet.</p></template><template id="dashboard-row-5-3-3">
+                      <ul class="dashboard-list">
+                        <!--{{0}}--><template id="dashboard-row-5-3-3-1">
+                          <li class="dashboard-item">
+                            <div class="dashboard-bar-21">
+                              <span class="dashboard-label-10"><!--{{0}}--></span>
+                              <span class="dashboard-text-6"><!--{{1}}--></span>
+                            </div>
+                            <!--{{2}}--><template id="dashboard-row-5-3-3-1-1"><p class="dashboard-text-19"><!--{{0}}--></p></template>
+                            <!--{{3}}--><template id="dashboard-row-5-3-3-1-2"><p class="dashboard-text-6">on <!--{{0}}--></p></template>
+                          </li></template>
+                      </ul>
+                      <!--{{1}}--><template id="dashboard-row-5-3-3-2">
+                        <div class="dashboard-bar-22">
+                          <button type="button" class="btn-outline dashboard-button-7" {{0}} onclick="Page.loadReviews({{1}}, {{2}})">Newer</button>
+                          <span class="dashboard-label-12">Page <!--{{3}}--> of <!--{{4}}--></span>
+                          <button type="button" class="btn-outline dashboard-button-7" {{5}} onclick="Page.loadReviews({{6}}, {{7}})">Older</button>
+                        </div></template></template></template><template id="dashboard-row-5-4">
+                  <div class="dashboard-grid-6">
+                    <div>
+                      <h3 class="dashboard-subheading-2">Drivers (<!--{{0}}-->)</h3>
+                      <!--{{1}}--><template id="dashboard-row-5-4-1"><p class="dashboard-label-9">No drivers registered.</p></template>
+                      <ul class="dashboard-list">
+                        <!--{{2}}--><template id="dashboard-row-5-4-2">
+                          <li class="dashboard-item-2">
+                            <span class="dashboard-label-13"><!--{{0}}--></span>
+                            <span class="dashboard-label-14">
+                              <!--{{1}}--><template id="dashboard-row-5-4-2-1"><span class="dashboard-label-10">★</span> <!--{{0}}--> </template><template id="dashboard-row-5-4-2-2"> Not rated </template>
+                            </span>
+                          </li></template>
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 class="dashboard-subheading-2">Vehicles (<!--{{3}}-->)</h3>
+                      <!--{{4}}--><template id="dashboard-row-5-4-3"><p class="dashboard-label-9">No vehicles registered.</p></template>
+                      <ul class="dashboard-list">
+                        <!--{{5}}--><template id="dashboard-row-5-4-4">
+                          <li class="dashboard-item-3">
+                            <span class="dashboard-label-15"><!--{{0}}--></span>
+                            <span class="dashboard-label-12"> · <!--{{1}}--></span>
+                            <span class="dashboard-label-16"><!--{{2}}--> <!--{{3}}--><!--{{4}}--><!--{{5}}--><!--{{6}}--></span>
+                          </li></template>
+                      </ul>
+                    </div>
+                  </div>
+                  <!--{{6}}--><template id="dashboard-row-5-4-5"><p class="dashboard-text-20">Customer ratings are not collected for fleet owners or drivers yet, so none can be shown.</p></template></template>
+              </td>
+            </tr></template></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/location-dashboard-service.js"></script>
+  <script src="../../common/services/location-manager-assignment-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/location-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>boot({ route: '/location/dashboard', shell: 'location', guards: [], page: LocationDashboardPage });</script>
+</body>
+</html>

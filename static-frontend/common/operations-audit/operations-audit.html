@@ -1,0 +1,42 @@
+<!--
+  operations-audit.html - markup of operations-audit (Angular: src/app/features/operations/audit/audit.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/operations-audit/operations-audit.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="operations-audit"><div class="operations-audit-bar-2">
+  <h1 class="operations-audit-title">
+    <span class="operations-audit-label">
+      <i class="fa-solid fa-clipboard-list operations-audit-icon"></i>
+    </span>
+    Audit log
+  </h1>
+  <!--{{0}}--><template id="operations-audit-1">
+    <button type="button" class="btn-outline" onclick="Page.exportCsv()">
+      <i class="fa-solid fa-file-csv"></i> Export CSV
+    </button></template>
+</div>
+<p class="operations-audit-text">Write-once, read-many - entries are recorded by the platform, not editable here.</p>
+
+<!--{{1}}--><template id="operations-audit-2"><div class="operations-audit-bar"><span class="spinner"></span></div></template><template id="operations-audit-3">
+  <div class="table-card overflow-x-auto">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Source module</th>
+          <th>Performed at</th>
+          <th>IP address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{0}}--><template id="operations-audit-3-1">
+          <tr data-key="{{0}}">
+            <td class="operations-audit-cell"><!--{{1}}--></td>
+            <td><!--{{2}}--></td>
+            <td><!--{{3}}--></td>
+            <td class="operations-audit-cell-2"><!--{{4}}--></td>
+          </tr></template>
+      </tbody>
+    </table>
+  </div></template></template>

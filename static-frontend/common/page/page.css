@@ -1,0 +1,14 @@
+/*
+ * page.css - page layout helpers of src/styles.scss (.page-container, .subtitle)
+ * Plain src/styles.scss rules: in the Angular build they come after the utilities, so they load after utilities.css.
+ */
+.page-container {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1.25rem 3rem 1.25rem;
+}
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}

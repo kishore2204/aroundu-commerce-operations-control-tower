@@ -1,0 +1,41 @@
+<!--
+  document-history.html - markup of document-history (Angular: src/app/shared/document-history/document-history-dialog.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/document-history/document-history.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="document-history-dialog"><app-document-history-dialog>
+    <div class="document-history-overlay">
+      <div class="card document-history-stack" role="dialog" aria-modal="true" aria-labelledby="doc-history-title">
+        <div class="document-history-bar-2">
+          <h2 id="doc-history-title" class="document-history-heading"><!--{{0}}--> - Document History</h2>
+          <button type="button" class="btn-icon document-history-button-2" aria-label="Close" onclick="{{1}}.close()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!--{{2}}--><template id="document-history-dialog-1"><div class="document-history-bar"><span class="spinner"></span></div></template><template id="document-history-dialog-2"><p class="document-history-text"><!--{{0}}--></p></template><template id="document-history-dialog-3"><p class="document-history-text-2">No file has been uploaded for this document yet.</p></template><template id="document-history-dialog-4">
+          <div class="table-card document-history-box overflow-auto">
+            <table class="custom-table">
+              <thead>
+                <tr><th>Version</th><th>Uploaded</th><th>Uploaded by</th><th>Status</th><th>Reviewed by</th><th>Reviewer comment / re-upload reason</th><th></th></tr>
+              </thead>
+              <tbody>
+                <!--{{0}}--><template id="document-history-dialog-4-1">
+                  <tr data-key="{{0}}">
+                    <td class="document-history-cell">v<!--{{1}}--><!--{{2}}--><template id="document-history-dialog-4-1-1"><span class="document-history-label">(current)</span></template></td>
+                    <td class="document-history-cell-2"><!--{{3}}--></td>
+                    <td><!--{{4}}--></td>
+                    <td><span class="badge {{5}}"><!--{{6}}--></span></td>
+                    <td><!--{{7}}--><!--{{8}}--><template id="document-history-dialog-4-1-2"><span class="document-history-label-2"><!--{{0}}--></span></template></td>
+                    <td class="document-history-cell-3"><!--{{9}}--></td>
+                    <td class="document-history-cell-4">
+                      <button type="button" class="btn-outline document-history-button" {{10}} onclick="{{11}}.open({{12}}, false)"><i class="fa-solid fa-eye"></i> View</button>
+                      <button type="button" class="btn-outline document-history-button" {{13}} onclick="{{14}}.open({{15}}, true)"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
+                    </td>
+                  </tr></template>
+              </tbody>
+            </table>
+          </div>
+          <!--{{1}}--><template id="document-history-dialog-4-2"><p class="document-history-text-3"><!--{{0}}--></p></template></template>
+      </div>
+    </div>
+  </app-document-history-dialog></template>

@@ -1,0 +1,271 @@
+<!--
+  operations-finance.html - markup of operations-finance (Angular: src/app/features/operations/finance/finance.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/operations-finance/operations-finance.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="operations-finance-tab"><button type="button" class="operations-finance-button rounded-t-xl{{0}}" onclick="Page.state.activeTab = '{{1}}'"><!--{{2}}--></button></template>
+<template id="operations-finance-rate-input"><td><input class="input operations-finance-input" type="number" min="0.01" step="0.01" value="{{0}}" oninput="Page.updateRateField('{{1}}', '{{2}}', this.value)" /></td></template>
+<template id="operations-finance"><h1 class="operations-finance-title">
+  <span class="operations-finance-label-5">
+    <i class="fa-solid fa-sack-dollar operations-finance-icon-3"></i>
+  </span>
+  Finance
+</h1>
+
+<div class="operations-finance-bar-5">
+  <!--{{0}}-->
+  <!--{{1}}-->
+  <!--{{2}}-->
+  <!--{{3}}-->
+</div>
+
+<!--{{4}}--><template id="operations-finance-1">
+  <div>
+    <div class="card operations-finance-bar-2">
+      <div class="operations-finance-bar-3">
+        <i class="fa-solid fa-sack-dollar operations-finance-icon"></i>
+      </div>
+      <div>
+        <p class="operations-finance-text">Total successful payments</p>
+        <p class="operations-finance-text-2"><!--{{0}}--></p>
+        <p class="operations-finance-text-3"><!--{{1}}--> transaction(s)</p>
+      </div>
+    </div>
+
+    <h2 class="operations-finance-heading">Disputed payments</h2>
+    <p class="operations-finance-text-4">Payments that failed and need attention. Retry opens a fresh payment attempt for the same order.</p>
+
+    <!--{{2}}--><template id="operations-finance-1-1"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-1-2">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Method / Amount</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-1-2-1">
+              <tr data-key="{{0}}">
+                <td class="operations-finance-cell">Order #<!--{{1}}--></td>
+                <td><!--{{2}}--> - <!--{{3}}--></td>
+                <td><span class="badge badge-danger"><!--{{4}}--></span></td>
+                <td>
+                  <button type="button" class="btn-outline operations-finance-button-2" {{5}} onclick="Page.retryPayment({{6}})">
+                    <i class="fa-solid fa-rotate-right"></i> Retry
+                  </button>
+                </td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{5}}--><template id="operations-finance-2">
+  <div>
+    <div class="operations-finance-bar-4">
+      <button type="button" class="btn-primary" onclick="Page.state.showSettlementForm = !Page.state.showSettlementForm">
+        <i class="fa-solid fa-plus"></i> New settlement
+      </button>
+    </div>
+
+    <!--{{0}}--><template id="operations-finance-2-1">
+      <div class="card operations-finance-box">
+        <form novalidate onsubmit="event.preventDefault(); Page.createSettlement()">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label req-mark">Payment transaction</label>
+              <select class="select" name="paymentTransactionId" {{0}}>
+                <option value="" disabled>Select a payment transaction</option>
+                <!--{{1}}--><template id="operations-finance-2-1-1">
+                  <option value="{{0}}">
+                    Order #<!--{{1}}--> - <!--{{2}}--> - <!--{{3}}-->
+                  </option></template>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Gross amount</label>
+              <input class="input" type="number" step="0.01" name="grossAmount" {{2}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Fee amount</label>
+              <input class="input" type="number" step="0.01" name="feeAmount" {{3}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">Settlement date</label>
+              <input class="input" type="date" name="settlementDate" {{4}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reference (optional)</label>
+              <input class="input" name="settlementReference" {{5}} />
+            </div>
+          </div>
+          <!--{{6}}--><template id="operations-finance-2-1-2"><p class="operations-finance-text-5"><!--{{0}}--></p></template>
+          <button type="submit" class="btn-primary" {{7}}>
+            Create
+          </button>
+        </form>
+      </div></template>
+
+    <!--{{1}}--><template id="operations-finance-2-2"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-2-3">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Settlement</th>
+              <th>Payee</th>
+              <th>Date / Net amount</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-2-3-1">
+              <tr data-key="{{0}}">
+                <td class="operations-finance-cell"><!--{{1}}--></td>
+                <td>
+                  <!--{{2}}--><template id="operations-finance-2-3-1-1">
+                    <span class="badge badge-pending"><!--{{0}}--></span>
+                    <span class="operations-finance-label"><!--{{1}}--></span></template><template id="operations-finance-2-3-1-2">
+                    <span class="operations-finance-label-2">Operations manager</span></template>
+                </td>
+                <td><!--{{3}}--> - net <!--{{4}}--></td>
+                <td>
+                  <span class="badge{{5}}">
+                    <!--{{6}}-->
+                  </span>
+                </td>
+                <td>
+                  <!--{{7}}--><template id="operations-finance-2-3-1-3"><button type="button" class="btn-outline operations-finance-button-2" onclick="Page.complete({{0}})">Complete</button></template>
+                </td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{6}}--><template id="operations-finance-3">
+  <div>
+    <div class="operations-finance-bar-4">
+      <button type="button" class="btn-primary" onclick="Page.toggleTaxForm()">
+        <i class="fa-solid fa-plus"></i> New tax rule
+      </button>
+    </div>
+
+    <!--{{0}}--><template id="operations-finance-3-1">
+      <div class="card operations-finance-box">
+        <form novalidate onsubmit="event.preventDefault(); Page.createTax()">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label req-mark" for="tax-category-name">Product category</label>
+              <input id="tax-category-name" class="input" type="text" maxlength="100" autocomplete="off" list="tax-category-suggestions"
+                placeholder="Type a category name, e.g. Organic Foods" name="categoryName" {{0}} />
+              <datalist id="tax-category-suggestions">
+                <!--{{1}}--><template id="operations-finance-3-1-1"><option value="{{0}}"></option></template>
+              </datalist>
+              <p class="operations-finance-text-7">An existing category is reused (capital letters and extra spaces do not matter); a new name creates a new active category that retailers can then use.</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">CGST %</label>
+              <input class="input" type="number" step="0.01" name="cgst" {{2}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label req-mark">SGST %</label>
+              <input class="input" type="number" step="0.01" name="sgst" {{3}} />
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">State (optional - leave blank for a nationwide rule)</label>
+              <select class="select" name="stateId" {{4}}>
+                <option value="">All states</option>
+                <!--{{5}}--><template id="operations-finance-3-1-2"><option value="{{0}}"><!--{{1}}--></option></template>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tax-effective-from">Effective from</label>
+              <input id="tax-effective-from" class="input" type="date" name="effectiveFrom" {{6}} />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tax-effective-to">Effective to</label>
+              <input id="tax-effective-to" class="input" type="date" name="effectiveTo" {{7}} />
+              <!--{{8}}--><template id="operations-finance-3-1-3"><p class="operations-finance-text-6">Effective to cannot be before effective from.</p></template>
+            </div>
+            <div class="form-group full-width">
+              <label class="operations-finance-label-3">
+                <input type="checkbox" name="active" {{9}} class="operations-finance-input-2" />
+                Active
+              </label>
+            </div>
+          </div>
+          <!--{{10}}--><template id="operations-finance-3-1-4"><p class="operations-finance-text-5"><!--{{0}}--></p></template>
+          <button type="submit" class="btn-primary" {{11}}>
+            Create
+          </button>
+        </form>
+      </div></template>
+
+    <!--{{1}}--><template id="operations-finance-3-2"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-3-3">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Rates</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-3-3-1">
+              <tr data-key="{{0}}">
+                <td class="operations-finance-cell">
+                  <!--{{1}}-->
+                  <!--{{2}}--><template id="operations-finance-3-3-1-1"><span class="badge badge-pending operations-finance-label-4">No category linked</span></template>
+                </td>
+                <td>CGST <!--{{3}}-->% - SGST <!--{{4}}-->%</td>
+                <td>
+                  <span class="badge{{5}}">
+                    <!--{{6}}-->
+                  </span>
+                </td>
+                <td>
+                  <button type="button" class="btn-icon" onclick="Page.removeTax({{7}})" aria-label="Delete">
+                    <i class="fa-solid fa-trash-can operations-finance-icon-2"></i>
+                  </button>
+                </td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div></template>
+  </div></template>
+
+<!--{{7}}--><template id="operations-finance-4">
+  <section>
+    <div class="operations-finance-box-2">
+      <h2 class="operations-finance-heading-2">Vehicle category delivery rates</h2>
+      <p class="operations-finance-text-9">Set the per-kilometre rate, minimum billable distance and minimum delivery rate used by logistics pricing.</p>
+    </div>
+    <!--{{0}}--><template id="operations-finance-4-1"><div class="operations-finance-bar"><span class="spinner"></span></div></template><template id="operations-finance-4-2">
+      <div class="table-card overflow-x-auto">
+        <table class="custom-table">
+          <thead><tr><th>Vehicle category</th><th>Rate / km</th><th>Minimum distance (km)</th><th>Minimum rate</th><th></th></tr></thead>
+          <tbody>
+            <!--{{0}}--><template id="operations-finance-4-2-1">
+              <tr data-key="{{0}}">
+                <td class="operations-finance-cell"><!--{{1}}--></td>
+                <!--{{2}}-->
+                <!--{{3}}-->
+                <!--{{4}}-->
+                <td><button type="button" class="btn-primary operations-finance-button-2" {{5}} onclick="Page.saveLogisticsRate('{{6}}')"><!--{{7}}--></button></td>
+              </tr></template>
+          </tbody>
+        </table>
+      </div>
+      <p class="operations-finance-text-8">Because the existing project has no database table for these rates and the database schema is intentionally unchanged, rate changes are held by the logistics service for the current runtime and reset to defaults if that service restarts.</p></template>
+  </section></template>
+
+<!--{{8}}-->
+
+<!--{{9}}--></template>

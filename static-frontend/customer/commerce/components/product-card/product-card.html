@@ -1,0 +1,56 @@
+<!--
+  product-card.html - markup of product-card (Angular: src/app/shared/product-card/product-card.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN customer/commerce/components/product-card/product-card.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="product-card">
+      <app-product-card class="{{0}}" data-key="{{1}}"><div class="card card-hover group product-card-stack !p-0 border border-slate-200/60 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300" onclick="{{2}}.open()">
+        <div class="product-card-bar-2">
+          <!--{{3}}--><template id="product-card-1"><img src="{{0}}" alt="{{1}}" class="product-card-image" /></template><template id="product-card-2">
+            <span class="product-card-label">
+              <!--{{0}}-->
+            </span></template>
+
+          <!--{{4}}--><template id="product-card-3">
+            <span class="out-of-stock badge badge-inactive product-card-label-2">Out of stock</span></template><template id="product-card-4">
+            <span class="badge badge-pending product-card-label-3">Only <!--{{0}}--> left</span></template>
+
+          <button type="button" class="product-card-button-3"
+            aria-label="{{5}}" onclick="{{6}}.toggleWishlist(event)">
+            <i class="fa-solid fa-heart product-card-icon-3{{7}}"></i>
+          </button>
+        </div>
+
+        <div class="product-card-stack-2">
+          <p class="product-card-text"><!--{{8}}--></p>
+          <h3 class="name product-card-subheading"><!--{{9}}--></h3>
+
+          <button type="button" class="product-card-button-4" onclick="{{10}}.openRetailerDialog(event)">
+            <i class="fa-solid fa-shop product-card-icon-4"></i>
+            <span class="product-card-label-6"><!--{{11}}--></span>
+          </button>
+
+          <div class="product-card-bar-3">
+            <p class="product-card-text-2"><!--{{12}}--></p>
+          </div>
+
+          <!--{{13}}--><template id="product-card-5">
+            <div class="product-card-bar" onclick="event.stopPropagation()">
+              <button type="button" class="product-card-button"
+                {{0}} aria-label="Decrease quantity" onclick="{{1}}.decrement(event)">
+                <i class="fa-solid fa-minus product-card-icon"></i>
+              </button>
+              <!--{{2}}--><template id="product-card-5-1"><span class="spinner product-card-label-4"></span></template><template id="product-card-5-2"><span class="product-card-label-5"><!--{{0}}--></span></template>
+              <button type="button" class="product-card-button"
+                {{3}} aria-label="Increase quantity" onclick="{{4}}.increment(event)">
+                <i class="fa-solid fa-plus product-card-icon"></i>
+              </button>
+            </div></template><template id="product-card-6">
+            <button type="button" class="btn-primary product-card-button-2" {{0}} onclick="{{1}}.addToCart(event)">
+              <!--{{2}}--><template id="product-card-6-1"><span class="spinner product-card-label-4"></span></template><template id="product-card-6-2"><i class="fa-solid fa-cart-plus product-card-icon-2"></i> Add to Cart</template>
+            </button></template>
+        </div>
+      </div>
+
+      <!--{{14}}--></app-product-card></template>

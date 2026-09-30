@@ -1,0 +1,54 @@
+/*
+ * table.css - data tables of src/styles.scss (.table-card, .custom-table, .thumb-img)
+ * Plain src/styles.scss rules: in the Angular build they come after the utilities, so they load after utilities.css.
+ */
+.table-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.custom-table th {
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #f1f5f9);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.custom-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  color: var(--heading-dark);
+  vertical-align: middle;
+}
+.custom-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+.custom-table tbody tr:hover {
+  background-color: #f7f8ff;
+}
+.custom-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.thumb-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+}

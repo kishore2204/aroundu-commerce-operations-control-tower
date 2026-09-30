@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/header/header-glass.css">
+  <link rel="stylesheet" href="../../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/landing.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Customer - Commerce - landing page, route / (Angular: src/app/features/landing/landing.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-landing><!--{{0}}--><!--tpl:landing (this page)-->
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+<div class="landing-stack" data-static>
+  <!-- Header -->
+  <header class="header-glass">
+    <div class="landing-bar">
+      <a href="{{0}}" class="landing-link group">
+        <span class="brandmark landing-label">A</span>
+        <span class="landing-label-2">Around<span class="landing-label-3">U</span></span>
+      </a>
+
+      <nav class="landing-nav">
+        <a href="#features" class="nav-pill">Features</a>
+        <a href="#how-it-works" class="nav-pill">How it Works</a>
+        <a href="#for-partners" class="nav-pill">For Partners</a>
+      </nav>
+
+      <span class="landing-label-4"></span>
+
+      <a href="{{1}}" class="btn-outline">Sign in</a>
+      <a href="{{2}}" class="btn-primary">Get Started</a>
+    </div>
+  </header>
+
+  <main class="landing-label-4">
+    <!-- Hero -->
+    <section class="landing-section">
+      <div class="dot-grid landing-box"></div>
+      <div class="landing-panel drift"></div>
+      <div class="landing-panel-2 drift drift-delay"></div>
+
+      <div class="landing-grid">
+        <div class="reveal">
+          <span class="badge landing-label-5">
+            <i class="fa-solid fa-bolt landing-icon"></i>
+            Hyperlocal Retail &amp; Logistics, in One Platform
+          </span>
+          <h1 class="landing-title">
+            Everything your neighborhood needs, <span class="landing-label-3">delivered fast.</span>
+          </h1>
+          <p class="landing-text">
+            AroundU connects local stores, delivery fleets and customers on one platform &mdash; order groceries and essentials
+            from verified neighborhood retailers, or book instant parcel pickup and delivery across the city.
+          </p>
+
+          <div class="landing-bar-2">
+            <a href="{{3}}" class="btn-primary landing-link-2">
+              <span>Get Started Free</span>
+              <i class="fa-solid fa-arrow-right landing-icon-2"></i>
+            </a>
+            <a href="{{4}}" class="btn-outline landing-link-2">Sign in</a>
+          </div>
+
+          <div class="landing-bar-3">
+            <span class="landing-label-6"><i class="fa-solid fa-circle-check landing-icon-3"></i> Verified local retailers</span>
+            <span class="landing-label-6"><i class="fa-solid fa-circle-check landing-icon-3"></i> Real-time order tracking</span>
+            <span class="landing-label-6"><i class="fa-solid fa-circle-check landing-icon-3"></i> Managed delivery fleet</span>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1 landing-box-2">
+          <!-- Decorative floating chips -->
+          <span class="float landing-label-7">
+            <i class="fa-solid fa-bolt landing-icon-4"></i>
+          </span>
+          <span class="float float-delay landing-label-8">
+            <i class="fa-solid fa-shield-heart landing-icon-5"></i>
+          </span>
+
+          <div class="landing-stack-2">
+            <div class="group landing-stack-3 text-white hover:-translate-y-1">
+              <div class="landing-panel-3"></div>
+              <div class="landing-bar-4">
+                <span class="landing-label-9">
+                  <i class="fa-solid fa-store landing-icon-6"></i>
+                </span>
+                <span class="landing-label-10">Instant Retail</span>
+              </div>
+              <div class="landing-box-3">
+                <h2 class="landing-heading">Retail Commerce</h2>
+                <p class="landing-text-2">Fresh groceries &amp; essentials from local stores near you</p>
+              </div>
+            </div>
+
+            <div class="group landing-stack-4 text-white hover:-translate-y-1">
+              <div class="landing-panel-4"></div>
+              <div class="landing-bar-4">
+                <span class="landing-label-11">
+                  <i class="fa-solid fa-truck-fast landing-icon-7"></i>
+                </span>
+                <span class="landing-label-10">Instant Parcel</span>
+              </div>
+              <div class="landing-box-4">
+                <h3 class="landing-subheading">Logistics &amp; Express</h3>
+                <p class="landing-text-3">Book 2-wheelers &amp; mini-trucks for instant pickup</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="landing-section-2">
+      <div class="reveal landing-box-5">
+        <h2 class="landing-heading-2">Built for how your neighborhood moves</h2>
+        <p class="landing-text-4">One account, two services &mdash; shop local stores and send parcels across town.</p>
+      </div>
+
+      <div class="landing-grid-2">
+        <div class="reveal card card-hover">
+          <span class="landing-label-12">
+            <i class="fa-solid fa-shop landing-icon-8"></i>
+          </span>
+          <h3 class="landing-subheading-2">Shop Local Stores</h3>
+          <p class="landing-text-5">Browse and order from verified retailers in your delivery zone.</p>
+        </div>
+        <div class="reveal reveal-delay-1 card card-hover">
+          <span class="landing-label-13">
+            <i class="fa-solid fa-truck-fast landing-icon-9"></i>
+          </span>
+          <h3 class="landing-subheading-2">Book Parcel Delivery</h3>
+          <p class="landing-text-5">Send packages by 2-wheeler or mini-truck, picked up in minutes.</p>
+        </div>
+        <div class="reveal reveal-delay-2 card card-hover">
+          <span class="landing-label-14">
+            <i class="fa-solid fa-headset landing-icon-10"></i>
+          </span>
+          <h3 class="landing-subheading-2">Support When You Need It</h3>
+          <p class="landing-text-5">Raise a ticket and get help from our support team, fast.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" class="landing-section-3">
+      <div class="dot-grid landing-box-6"></div>
+      <div class="landing-box-7">
+        <div class="reveal landing-box-5">
+          <h2 class="landing-heading-2">Get started in minutes</h2>
+        </div>
+
+        <div class="landing-grid-3">
+          <div class="reveal landing-box-8">
+            <span class="landing-label-15">1</span>
+            <!-- Connects to step 2's circle - anchored to this circle's own edge, not a guessed percentage, so it always lines up regardless of column width. -->
+            <span class="connector-line landing-label-16"></span>
+            <h3 class="landing-subheading-2">Create your account</h3>
+            <p class="landing-text-5">Sign up with your email in under a minute &mdash; no paperwork.</p>
+          </div>
+          <div class="reveal reveal-delay-1 landing-box-8">
+            <span class="landing-label-15">2</span>
+            <span class="connector-line landing-label-16"></span>
+            <h3 class="landing-subheading-2">Add your address</h3>
+            <p class="landing-text-5">We match you to local stores and delivery partners in your zone.</p>
+          </div>
+          <div class="reveal reveal-delay-2 landing-box-8">
+            <span class="landing-label-15">3</span>
+            <h3 class="landing-subheading-2">Order or book a delivery</h3>
+            <p class="landing-text-5">Shop from stores nearby, or book a parcel pickup &mdash; then track it live.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- For Partners -->
+    <section id="for-partners" class="landing-section-2">
+      <div class="reveal landing-box-5">
+        <h2 class="landing-heading-2">One platform for the whole ecosystem</h2>
+        <p class="landing-text-4">AroundU also powers the businesses and people behind every order.</p>
+      </div>
+
+      <div class="landing-grid-4">
+        <div class="reveal card card-hover landing-box-9">
+          <span class="landing-label-17">
+            <i class="fa-solid fa-store landing-icon-11"></i>
+          </span>
+          <h3 class="landing-subheading-3">Retailers</h3>
+          <p class="landing-text-6">List your catalogue and manage orders in one dashboard.</p>
+        </div>
+        <div class="reveal reveal-delay-1 card card-hover landing-box-9">
+          <span class="landing-label-18">
+            <i class="fa-solid fa-truck-field landing-icon-12"></i>
+          </span>
+          <h3 class="landing-subheading-3">Fleet Owners</h3>
+          <p class="landing-text-6">Manage vehicles, drivers and trip assignments with ease.</p>
+        </div>
+        <div class="reveal reveal-delay-2 card card-hover landing-box-9">
+          <span class="landing-label-19">
+            <i class="fa-solid fa-motorcycle landing-icon-13"></i>
+          </span>
+          <h3 class="landing-subheading-3">Drivers</h3>
+          <p class="landing-text-6">Accept trips, navigate deliveries and earn on your schedule.</p>
+        </div>
+        <div class="reveal reveal-delay-3 card card-hover landing-box-9">
+          <span class="landing-label-20">
+            <i class="fa-solid fa-sitemap landing-icon-14"></i>
+          </span>
+          <h3 class="landing-subheading-3">Operations Teams</h3>
+          <p class="landing-text-6">Oversee territory, verification and support at every level.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="landing-section-4">
+      <div class="reveal landing-panel-5">
+        <div class="landing-panel-6 drift"></div>
+        <div class="landing-panel-7 drift drift-delay"></div>
+        <h2 class="landing-heading-3">Ready to get started?</h2>
+        <p class="landing-text-7">
+          Join AroundU today and get local retail and citywide logistics in one place.
+        </p>
+        <div class="landing-bar-5">
+          <a href="{{5}}" class="landing-link-3">
+            <span>Create your account</span>
+            <i class="fa-solid fa-arrow-right landing-icon-2"></i>
+          </a>
+          <a href="{{6}}" class="landing-link-4">
+            Sign in
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="landing-footer">
+    &copy; <!--{{7}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+  </footer>
+</div>
+<!--/tpl:landing--></app-landing><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../js/landing.js"></script>
+  <script>boot({ route: '/', shell: 'none', guards: [Guards.guestLanding], page: LandingPage });</script>
+</body>
+</html>

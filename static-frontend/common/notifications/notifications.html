@@ -1,0 +1,8 @@
+<!--
+  notifications.html - markup of notifications (Angular: src/app/features/retailer/notifications/notifications.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN common/notifications/notifications.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="notifications"><div class="notifications-bar-3"><div><h1 class="notifications-title">Notifications</h1><p class="notifications-text-2">Store and verification updates for your account.</p></div><button type="button" class="btn-outline" onclick="Page.load()">Refresh</button></div>
+<!--{{0}}--><template id="notifications-1"><div class="notifications-bar"><span class="spinner"></span></div></template><template id="notifications-2"><div class="card"><ul class="notifications-list"><!--{{0}}--><template id="notifications-2-1"><li class="notifications-item" data-key="{{0}}"><button type="button" class="notifications-button" onclick="Page.markRead({{1}})"><div class="notifications-bar-2"><span class="notifications-label-2"><!--{{2}}--></span><span class="notifications-label-3"><!--{{3}}--></span></div><p class="notifications-text"><!--{{4}}--></p><!--{{5}}--><template id="notifications-2-1-1"><span class="notifications-label">Mark as read</span></template></button></li></template></ul></div></template></template>

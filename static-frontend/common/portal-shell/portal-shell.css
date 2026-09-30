@@ -1,0 +1,35 @@
+/*
+ * portal-shell.css - the portal layout: sidebar beside the header, page and footer
+ * Angular: src/app/layout/*-shell/<role>-shell.component.html (+ .css). The Angular templates use Tailwind utility classes; here each
+ * combination has one class name, with exactly the declarations of the utilities it replaces (same values, same order).
+ * --name classes are the states the JS toggles (active, collapsed, open ...).
+ */
+.portal-layout {
+  display: flex;
+  min-height: 100vh;
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+}
+.portal-content {
+  display: flex;
+  min-width: 0px;
+  flex: 1 1 0%;
+  flex-direction: column;
+}
+.portal-main {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1400px;
+  flex: 1 1 0%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+@media (min-width: 640px) {
+  .portal-main {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}

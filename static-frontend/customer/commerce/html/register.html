@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../../common/base/base.css">
+  <link rel="stylesheet" href="../../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../../common/field-hint/field-hint.css">
+  <link rel="stylesheet" href="../../../common/password-requirements/password-requirements.css">
+  <link rel="stylesheet" href="../css/register.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Customer - Commerce - register page, route /register (Angular: src/app/features/auth/register/register.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:page-outlet--><app-register><!--{{0}}--><!--tpl:register (this page)-->
+<div class="register-stack">
+ <div class="register-panel-3"></div>
+ <div class="register-panel-4"></div>
+ <div class="register-bar-3">
+  <div class="card register-box-2 p-8">
+    <h1 class="register-title">Create your account</h1>
+    <p class="register-text-3">Join AroundU for hyperlocal commerce &amp; logistics</p>
+
+    <form novalidate class="register-form" onsubmit="event.preventDefault(); Page.submit()">
+      <!--{{0}}--><template id="register-1"><div class="register-panel">
+        <i class="fa-solid fa-triangle-exclamation"></i> <!--{{0}}-->
+      </div></template>
+      <!--{{1}}--><template id="register-2"><div class="register-panel-2">
+        <i class="fa-solid fa-circle-check"></i> Account created successfully! Redirecting to sign in...
+      </div></template>
+
+      <div class="register-grid">
+        <div>
+          <label class="form-label req-mark">First Name</label>
+          <input type="text" class="input" name="firstName" {{2}} placeholder="Enter first name" />
+          <!--{{3}}-->
+        </div>
+        <div>
+          <label class="form-label req-mark">Last Name</label>
+          <input type="text" class="input" name="lastName" {{4}} placeholder="Enter last name" />
+          <!--{{5}}-->
+        </div>
+        <div>
+          <label class="form-label req-mark">Email Address<!--{{6}}--></label>
+          <input type="email" class="input" name="email" {{7}} placeholder="name@domain.com" autocomplete="email" />
+          <!--{{8}}-->
+        </div>
+        <div>
+          <label class="form-label req-mark">Mobile Number<!--{{9}}--></label>
+          <input type="tel" class="input" name="phoneNumber" {{10}} data-digits-only="10" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="10-digit mobile" />
+          <!--{{11}}-->
+        </div>
+      </div>
+
+      <div>
+        <label class="form-label req-mark">Account Role</label>
+        <div class="register-grid-2">
+          <!--{{12}}-->
+          <!--{{13}}-->
+          <!--{{14}}-->
+        </div>
+      </div>
+
+      <div>
+        <label class="form-label req-mark">Password<!--{{15}}--></label>
+        <div class="register-box-3">
+          <input type="{{16}}" class="input register-input" name="password" {{17}} placeholder="Create password" autocomplete="new-password" />
+          <button type="button" class="register-button-2" onclick="Page.state.showPassword = !Page.state.showPassword" aria-label="{{18}}">
+            <i class="fa-solid{{19}}"></i>
+          </button>
+        </div>
+        <!--{{20}}-->
+        <!--{{21}}-->
+      </div>
+
+      <div>
+        <label class="form-label req-mark">Re-enter Password<!--{{22}}--></label>
+        <div class="register-box-3">
+          <input type="{{23}}" class="input register-input" name="confirmPassword" {{24}} placeholder="Confirm your password" autocomplete="new-password" />
+          <button type="button" class="register-button-2" onclick="Page.state.showConfirmPassword = !Page.state.showConfirmPassword" aria-label="{{25}}">
+            <i class="fa-solid{{26}}"></i>
+          </button>
+        </div>
+        <!--{{27}}--><template id="register-3">
+          <p class="register-text"><!--{{0}}--></p></template><template id="register-4">
+          <p class="register-text">Passwords do not match.</p></template>
+      </div>
+
+      <label class="register-label-4">
+        <input type="checkbox" name="agreeTerms" {{28}} class="register-input-2" />
+        <span class="req-mark">I agree to the <button type="button" class="register-button-3" onclick="Page.state.termsOpen = true">Terms and Conditions</button></span>
+      </label>
+      <!--{{29}}--><template id="register-5"><p class="register-text-2"><!--{{0}}--></p></template>
+
+      <button type="submit" class="btn-primary register-button-4" {{30}}>
+        <!--{{31}}--><template id="register-6"><span>Create Account <i class="fa-solid fa-arrow-right"></i></span></template>
+        <!--{{32}}--><template id="register-7"><span class="register-label-2">
+          <span class="spinner register-label-3"></span> Creating Account...
+        </span></template>
+      </button>
+
+      <p class="register-text-4">
+        Already have an account? <a href="{{33}}" class="register-link">Sign In</a>
+      </p>
+    </form>
+  </div>
+ </div>
+ <footer class="register-footer">
+   &copy; <!--{{34}}--> AroundU &middot; Local Logistics &amp; Hyperlocal Retail Platform
+ </footer>
+</div>
+
+<!--{{35}}--><template id="register-8">
+  <div class="register-overlay" onclick="Page.state.termsOpen = false">
+    <section class="register-section" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Terms and Conditions">
+      <div class="register-bar">
+        <h2 class="register-heading">AroundU Terms and Conditions</h2>
+        <button type="button" class="btn-icon" onclick="Page.state.termsOpen = false" aria-label="Close terms"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="register-box">
+        <p>By creating an AroundU account, you agree to provide accurate account and contact information and to keep your credentials secure.</p>
+        <p>Customers must use valid delivery details and payment information. Retailers and fleet owners must provide genuine business, identity, vehicle and verification documents where requested.</p>
+        <p>Orders, deliveries, cancellations, refunds and partner verification are processed according to the status shown in the portal. Misuse, fraudulent submissions or prohibited activity may result in account suspension.</p>
+        <p>AroundU may retain transaction, support and audit records needed to operate the platform, resolve disputes and maintain security. Users must not attempt to access another account's data or functions.</p>
+        <p>By ticking the checkbox, you confirm that you have read and accepted these terms.</p>
+      </div>
+      <div class="register-bar-2">
+        <button type="button" class="btn-outline" onclick="Page.state.termsOpen = false">Close</button>
+        <button type="button" class="btn-primary" onclick="Page.form.controls.agreeTerms.setValue(true); Page.state.termsOpen = false">Accept terms</button>
+      </div>
+    </section>
+  </div></template><!--/tpl:register--></app-register><!--/tpl:page-outlet--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/field-hint/field-hint.html -->
+<template id="field-hint">
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
+          aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
+          onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
+        </button>
+        <span role="tooltip" id="{{10}}"
+          class="field-hint-label-2{{11}}"
+          style="left: {{12}}px;">
+          <span class="field-hint-label-3"><!--{{13}}--></span>
+        </span>
+      </span></app-field-hint></template>
+<!-- END common/field-hint/field-hint.html -->
+
+<!-- BEGIN common/password-requirements/password-requirements.html -->
+<template id="password-requirements">
+      <app-password-requirements><div class="password-requirements-box" aria-live="polite">
+        <p class="password-requirements-text">Password requirements</p>
+        <ul class="password-requirements-list">
+          <!--{{0}}--><template id="password-requirements-1">
+            <li class="password-requirements-item{{0}}">
+              <i class="fa-solid{{1}}"></i>
+              <!--{{2}}-->
+            </li></template>
+        </ul>
+      </div></app-password-requirements></template>
+<!-- END common/password-requirements/password-requirements.html -->
+
+<!-- register page: other templates (js/register.js) -->
+<template id="register-err"><p class="register-text"><!--{{0}}--></p></template>
+<template id="register-role-button">
+          <button type="button" class="rounded-xl border-2 register-button{{0}}" onclick="Page.selectRole('{{1}}')">
+            <i class="fa-solid {{2}} block text-xl text-zepto-600"></i>
+            <span class="register-label"><!--{{3}}--></span>
+          </button></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../../common/core/template.js"></script>
+  <script src="../../../common/core/templates.js"></script>
+  <script src="../../../common/core/dom-morph.js"></script>
+  <script src="../../../common/core/app.js"></script>
+  <script src="../../../common/core/pipes.js"></script>
+  <script src="../../../common/core/forms.js"></script>
+  <script src="../../../common/core/input-directives.js"></script>
+  <script src="../../../common/toast/toast.js"></script>
+  <script src="../../../common/core/helpers.js"></script>
+  <script src="../../../common/core/storage.js"></script>
+  <script src="../../../common/validation/input-rules.js"></script>
+  <script src="../../../common/data/data.js"></script>
+  <script src="../../../common/data/data-store.js"></script>
+  <script src="../../../common/data/data-client.js"></script>
+  <script src="../../../common/services/address-service.js"></script>
+  <script src="../../../common/services/auth-service.js"></script>
+  <script src="../../../common/services/customer-zone-service.js"></script>
+  <script src="../../../common/services/fleet-owner-service.js"></script>
+  <script src="../../../common/services/retailer-service.js"></script>
+  <script src="../../../common/navigation/navigation.js"></script>
+  <script src="../../../common/field-hint/field-hint.js"></script>
+  <script src="../../../common/password-requirements/password-requirements.js"></script>
+  <script src="../js/register.js"></script>
+  <script>boot({ route: '/register', shell: 'none', guards: [], page: RegisterPage });</script>
+</body>
+</html>

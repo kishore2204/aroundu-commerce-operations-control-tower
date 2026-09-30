@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/forms/form-layout.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/field-hint/field-hint.css">
+  <link rel="stylesheet" href="../css/vehicles.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Fleet Owner - vehicles page, route /fleet/vehicles (Angular: src/app/features/fleet/vehicles/vehicles.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-fleet-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-vehicles><!--{{0}}--><!--tpl:vehicles (this page)--><div class="animate-fade-in">
+  <!--{{0}}--><template id="vehicles-1"><div class="vehicles-overlay">
+    <div class="card vehicles-box bg-white">
+      <div class="vehicles-bar">
+        <div>
+          <h3 class="vehicles-subheading"><i class="fa-solid fa-file-circle-exclamation vehicles-icon"></i> <!--{{0}}--></h3>
+          <p class="vehicles-text"><!--{{1}}--></p>
+          <p class="vehicles-text-2">Use the Re-upload Insurance action in the vehicle table. Only the rejected document needs to be replaced.</p>
+        </div>
+        <button type="button" class="btn-icon" onclick="Page.state.resubmissionNotice = null" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="vehicles-bar-2"><button type="button" class="btn-primary" onclick="Page.state.resubmissionNotice = null">OK</button></div>
+    </div>
+  </div></template>
+
+  <div class="vehicles-bar-7">
+    <div>
+      <h1 class="vehicles-title">Fleet Vehicles</h1>
+      <p class="vehicles-text-6">Manage delivery vehicles, capacity, and insurance documents</p>
+    </div>
+    <button type="button" class="btn-primary" onclick="Page.state.showForm = !Page.state.showForm">
+      <i class="fa-solid {{1}}"></i>
+      <!--{{2}}-->
+    </button>
+  </div>
+
+  <!--{{3}}--><template id="vehicles-2"><div class="card vehicles-box-2">
+    <h3 class="vehicles-subheading-2"><i class="fa-solid fa-truck vehicles-icon-2"></i> Register Vehicle</h3>
+
+    <!--{{0}}--><template id="vehicles-2-1"><div class="vehicles-panel">
+      <i class="fa-solid fa-triangle-exclamation"></i> <!--{{0}}-->
+    </div></template>
+
+    <form novalidate onsubmit="event.preventDefault(); Page.save()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label req-mark">Registration Number<!--{{1}}--></label>
+          <input type="text" class="input" name="registrationNumber" {{2}} placeholder="KA-01-AB-1234" maxlength="13" data-format-input="vehicle" autocapitalize="characters" spellcheck="false" autocomplete="off" />
+          <!--{{3}}--><template id="vehicles-2-2"><p class="vehicles-text-3"><!--{{0}}--></p></template>
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Vehicle Type</label>
+          <select class="select" name="vehicleType" {{4}}>
+            <option value="BIKE">BIKE (Two-Wheeler)</option>
+            <option value="SCOOTER">SCOOTER</option>
+            <option value="VAN">VAN (Cargo)</option>
+            <option value="TRUCK">TRUCK (Light Commercial)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Make / Manufacturer</label>
+          <input type="text" class="input" name="make" {{5}} placeholder="Honda, Hero, Tata..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Vehicle Model</label>
+          <input type="text" class="input" name="model" {{6}} placeholder="Activa 6G, Splendor..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Model Year</label>
+          <input type="number" class="input" min="1900" step="1" data-integer-only name="modelYear" {{7}} />
+        </div>
+        <div class="form-group">
+          <label class="form-label req-mark">Payload Capacity (kg)<!--{{8}}--></label>
+          <input type="number" class="input" name="capacityKg" {{9}} placeholder="50" />
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label req-mark">Insurance Document Photo / File</label>
+          <input type="file" accept="image/*" class="input" onchange="Page.onInsuranceFileSelected(this)" />
+          <!--{{10}}--><template id="vehicles-2-3"><div class="vehicles-bar-3">
+            <img src="{{0}}" alt="Insurance Document" class="thumb-img" />
+            <span class="vehicles-label">Photo selected</span>
+          </div></template>
+          <!--{{11}}--><template id="vehicles-2-4"><input type="text" class="input vehicles-input" name="insuranceDocumentUrl" {{0}} placeholder="Or enter image URL" /></template>
+        </div>
+      </div>
+
+      <div class="vehicles-bar-4">
+        <button type="button" class="btn-outline" onclick="Page.state.showForm = false">Cancel</button>
+        <button type="submit" class="btn-primary" {{12}}>
+          <!--{{13}}--><template id="vehicles-2-5"><span><i class="fa-solid fa-check"></i> Register Vehicle</span></template>
+          <!--{{14}}--><template id="vehicles-2-6"><span><i class="fa-solid fa-spinner fa-spin"></i> Registering...</span></template>
+        </button>
+      </div>
+    </form>
+  </div></template>
+
+  <div class="table-card">
+    <!--{{4}}--><template id="vehicles-3"><div class="vehicles-box-3">
+      <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+      <p class="vehicles-text-4">Loading vehicles...</p>
+    </div></template>
+
+    <!--{{5}}--><template id="vehicles-4"><div class="vehicles-box-3">
+      <i class="fa-solid fa-truck-ramp-box fa-3x"></i>
+      <h3 class="vehicles-subheading-3">No Vehicles Registered</h3>
+      <p class="vehicles-text-5">Add your fleet vehicles to begin creating assignments.</p>
+    </div></template>
+
+    <!--{{6}}--><template id="vehicles-5"><table class="custom-table">
+      <thead>
+        <tr>
+          <th>Vehicle</th>
+          <th>Type &amp; Make</th>
+          <th>Capacity</th>
+          <th>Insurance Doc</th>
+          <th>Status</th>
+          <th>Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{0}}--><template id="vehicles-5-1"><tr data-key="{{0}}">
+          <td>
+            <div class="vehicles-bar-5">
+              <div class="vehicles-bar-6">
+                <i class="fa-solid fa-truck"></i>
+              </div>
+              <div>
+                <strong><!--{{1}}--></strong>
+                <div class="vehicles-label-2"><!--{{2}}--></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div><strong><!--{{3}}--></strong></div>
+            <div class="vehicles-label-2"><!--{{4}}--> <!--{{5}}--></div>
+          </td>
+          <td><!--{{6}}--> kg</td>
+          <td>
+            <!--{{7}}--><template id="vehicles-5-1-1"><div>
+              <!--{{0}}--><template id="vehicles-5-1-1-1"><img src="{{0}}" alt="Insurance" class="thumb-img" /></template>
+              <!--{{1}}--><template id="vehicles-5-1-1-2"><span class="vehicles-label-2"><!--{{0}}--></span></template>
+            </div></template>
+            <!--{{8}}--><template id="vehicles-5-1-2"><span class="vehicles-label-3">-</span></template>
+          </td>
+          <td>
+            <span class="badge{{9}}">
+              <!--{{10}}-->
+            </span>
+          </td>
+          <td>
+            <!--{{11}}--><template id="vehicles-5-1-3">
+              <div class="vehicles-box-4"><!--{{0}}--></div>
+              <label class="btn-outline vehicles-label-4{{1}}">
+                <i class="fa-solid {{2}}"></i>
+                <!--{{3}}-->
+                <input type="file" class="vehicles-input-2" accept="image/*,.pdf" {{4}} onchange="Page.onResubmitInsurance({{5}}, this)" />
+              </label></template><template id="vehicles-5-1-4"><span class="vehicles-label-2">No re-upload requested</span></template>
+          </td>
+        </tr></template>
+      </tbody>
+    </table></template>
+  </div>
+</div><!--/tpl:vehicles--></app-fleet-vehicles><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-fleet-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/field-hint/field-hint.html -->
+<template id="field-hint">
+      <app-field-hint><span class="field-hint-label" data-hint="{{0}}" onmouseenter="{{1}}.show()" onmouseleave="{{2}}.hide()" onkeydown="if (event.key === 'Escape') {{3}}.hide()">
+        <button type="button" class="field-hint-button"
+          aria-label="{{4}}" aria-describedby="{{5}}" aria-expanded="{{6}}"
+          onfocus="{{7}}.show()" onblur="{{8}}.hide()" onclick="{{9}}.onClick(event)">
+          <i class="fa-solid fa-circle-info field-hint-icon" aria-hidden="true"></i>
+        </button>
+        <span role="tooltip" id="{{10}}"
+          class="field-hint-label-2{{11}}"
+          style="left: {{12}}px;">
+          <span class="field-hint-label-3"><!--{{13}}--></span>
+        </span>
+      </span></app-field-hint></template>
+<!-- END common/field-hint/field-hint.html -->
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/file-blobs.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/services/vehicle-service.js"></script>
+  <script src="../../common/services/verification-document-service.js"></script>
+  <script src="../../common/services/verification-queue-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/fleet-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/field-hint/field-hint.js"></script>
+  <script src="../js/vehicles.js"></script>
+  <script>boot({ route: '/fleet/vehicles', shell: 'fleet', guards: [Guards.fleetOwnerProfile], page: FleetVehiclesPage });</script>
+</body>
+</html>

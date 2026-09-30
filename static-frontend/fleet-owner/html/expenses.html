@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/page/page.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../../common/empty-state/empty-state.css">
+  <link rel="stylesheet" href="../../common/confirm-dialog/confirm-dialog.css">
+  <link rel="stylesheet" href="../css/expenses.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Fleet Owner - expenses page, route /fleet/expenses (Angular: src/app/features/fleet/expenses/expenses.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-fleet-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-collapsible (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-collapsible-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <!--{{2}}--><template id="sidebar-collapsible-2">
+        <span class="sidebar-brand-name">AroundU</span>
+        <span class="sidebar-badge"><!--{{0}}--></span></template>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-collapsible-3">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          title="{{2}}" onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{3}} sidebar-icon"></i>
+          <!--{{4}}--><template id="sidebar-collapsible-3-1"><span><!--{{0}}--></span></template>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-collapse-section">
+      <button type="button" onclick="PortalShell.toggleCollapsed()"
+        class="sidebar-collapse-button{{4}}" aria-label="Toggle sidebar width">
+        <i class="fa-solid{{5}}"></i>
+        <!--{{6}}--><template id="sidebar-collapsible-4"><span>Collapse</span></template>
+      </button>
+    </div>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()"
+        class="sidebar-logout{{7}}" title="{{8}}">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <!--{{9}}--><template id="sidebar-collapsible-5"><span>Log out</span></template>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-collapsible-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-fleet-expenses><!--{{0}}--><!--tpl:expenses (this page)--><h1 class="expenses-title">Expenses</h1>
+
+<!--{{0}}--><template id="expenses-1"><div class="expenses-bar"><div class="spinner"></div></div></template><template id="expenses-2">
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Driver</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Proof</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--{{0}}--><template id="expenses-2-1">
+          <tr data-key="{{0}}">
+            <td><!--{{1}}--></td>
+            <td><!--{{2}}--></td>
+            <td><!--{{3}}--></td>
+            <td class="expenses-cell"><!--{{4}}--></td>
+            <td>
+              <span class="badge{{5}}">
+                <!--{{6}}-->
+              </span>
+            </td>
+            <td>
+              <!--{{7}}--><template id="expenses-2-1-1">
+                <button type="button" class="btn-outline expenses-button-2" onclick="Page.viewProof({{0}})">
+                  <i class="fa-solid fa-file-image"></i> View
+                </button></template><template id="expenses-2-1-2"><span class="expenses-label">-</span></template>
+            </td>
+            <td>
+              <!--{{8}}--><template id="expenses-2-1-3">
+                <div class="expenses-bar-2">
+                  <button type="button" class="btn-secondary expenses-button-2" {{0}}
+                    {{1}}
+                    onclick="Page.reimburse({{2}})">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Reimburse
+                  </button>
+                  <!--{{3}}-->
+                </div></template><template id="expenses-2-1-4">Reverse &amp; Reject</template><template id="expenses-2-1-5"><span class="expenses-label">-</span></template>
+            </td>
+          </tr></template>
+      </tbody>
+    </table>
+  </div></template>
+
+<!--{{1}}--><template id="expenses-3">
+  <div class="expenses-overlay" onclick="Page.closeProof()">
+    <section class="expenses-section" onclick="event.stopPropagation()">
+      <div class="expenses-bar-4">
+        <div>
+          <p class="expenses-text">Expense proof</p>
+          <h2 class="expenses-heading"><!--{{0}}--></h2>
+        </div>
+        <button type="button" class="btn-outline expenses-button-3" onclick="Page.closeProof()" aria-label="Close proof preview">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!--{{1}}--><template id="expenses-3-1">
+        <div class="expenses-bar-3">
+          <img src="{{0}}" alt="{{1}}" class="expenses-image" />
+        </div></template><template id="expenses-3-2">
+        <iframe src="{{0}}" class="expenses-panel" title="Expense proof PDF"></iframe></template><template id="expenses-3-3">
+        <div class="expenses-panel-2">
+          Preview is not available for this file type.
+        </div></template>
+    </section>
+  </div></template>
+
+<!--{{2}}--><!--/tpl:expenses--></app-fleet-expenses><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-fleet-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- BEGIN common/empty-state/empty-state.html -->
+<template id="empty-state">
+      <app-empty-state class="{{0}}"><div class="empty-state-stack">
+        <i class="icon text-5xl mb-3 opacity-60 fa-solid {{1}}"></i>
+        <p class="title empty-state-text-2"><!--{{2}}--></p>
+        <!--{{3}}--><template id="empty-state-1"><p class="subtitle mt-1 text-sm empty-state-text text-slate-400"><!--{{0}}--></p></template>
+        <!--{{4}}-->
+      </div></app-empty-state></template>
+<!-- END common/empty-state/empty-state.html -->
+
+<!-- BEGIN common/confirm-dialog/confirm-dialog.html -->
+<template id="confirm-dialog">
+      <app-confirm-dialog><div class="confirm-dialog-overlay">
+        <div class="card confirm-dialog-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+          <div class="confirm-dialog-bar">
+            <span class="confirm-dialog-label-2{{0}}">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </span>
+            <div class="confirm-dialog-box-2">
+              <h2 id="confirm-dialog-title" class="confirm-dialog-heading"><!--{{1}}--></h2>
+              <p id="confirm-dialog-message" class="confirm-dialog-text"><!--{{2}}--></p>
+            </div>
+          </div>
+          <div class="confirm-dialog-bar-2">
+            <button type="button" class="btn-outline" data-confirm-cancel="{{3}}" {{4}} onclick="U.$('{{5}}').opts.onCancel()"><!--{{6}}--></button>
+            <button type="button" class="btn-primary{{7}}"
+              {{8}} onclick="U.$('{{9}}').opts.onConfirm()">
+              <!--{{10}}--><template id="confirm-dialog-1"><span class="spinner confirm-dialog-label"></span> <!--{{0}}--></template><template id="confirm-dialog-2"><!--{{0}}--></template>
+            </button>
+          </div>
+        </div>
+      </div></app-confirm-dialog></template>
+<!-- END common/confirm-dialog/confirm-dialog.html -->
+
+<!-- expenses page: other templates (js/expenses.js) -->
+<template id="expenses-reject-btn">
+                <button type="button" class="btn-outline expenses-button" {{0}} onclick="Page.reject({{1}})">
+                  <i class="fa-solid {{2}}"></i> <!--{{3}}-->
+                </button></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/driver-service.js"></script>
+  <script src="../../common/services/expense-service.js"></script>
+  <script src="../../common/services/file-blobs.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/territory-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/fleet-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../../common/empty-state/empty-state.js"></script>
+  <script src="../../common/confirm-dialog/confirm-dialog.js"></script>
+  <script src="../js/expenses.js"></script>
+  <script>boot({ route: '/fleet/expenses', shell: 'fleet', guards: [Guards.fleetOwnerProfile], page: FleetExpensesPage });</script>
+</body>
+</html>

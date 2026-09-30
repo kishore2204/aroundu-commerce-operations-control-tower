@@ -1,0 +1,23 @@
+/*
+ * form-layout.css - form grid and field groups of src/styles.scss (.form-grid, .form-group)
+ * Plain src/styles.scss rules: in the Angular build they come after the utilities, so they load after utilities.css.
+ */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-group.full-width {
+  grid-column: 1/-1;
+}
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--heading-dark);
+}

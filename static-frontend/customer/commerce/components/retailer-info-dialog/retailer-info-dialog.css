@@ -1,0 +1,121 @@
+/*
+ * retailer-info-dialog.css - <app-retailer-info-dialog> component styles.
+ * Angular: src/app/shared/retailer-info-dialog/retailer-info-dialog.component.html (+ .css).
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
+ */
+.retailer-info-dialog-bar {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.retailer-info-dialog-text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.retailer-info-dialog-icon {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(5 150 105 / var(--tw-text-opacity, 1));
+}
+.retailer-info-dialog-text-2 {
+  margin: 0px;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.retailer-info-dialog-icon-2 {
+  font-size: 11px;
+}
+.retailer-info-dialog-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.retailer-info-dialog-bar-2 {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.retailer-info-dialog-label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.retailer-info-dialog-text-3 {
+  margin: 0px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.retailer-info-dialog-button {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+  padding-top: 0.375rem !important;
+  padding-bottom: 0.375rem !important;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.retailer-info-dialog-overlay {
+  position: fixed;
+  inset: 0px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15 23 42 / 0.5);
+  padding: 1rem;
+}
+.retailer-info-dialog-box {
+  width: 100%;
+  max-width: 24rem;
+}
+.retailer-info-dialog-bar-3 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(241 245 249 / var(--tw-border-opacity, 1));
+  padding: 1.25rem;
+}
+.retailer-info-dialog-heading {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+}
+.retailer-info-dialog-icon-3 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+.retailer-info-dialog-button-2 {
+  height: 2rem !important;
+  width: 2rem !important;
+  flex-shrink: 0;
+}
+.retailer-info-dialog-box-2 {
+  padding: 1.25rem;
+}

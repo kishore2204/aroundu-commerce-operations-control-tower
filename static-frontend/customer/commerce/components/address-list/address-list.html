@@ -1,0 +1,101 @@
+<!--
+  address-list.html - markup of address-list (Angular: src/app/features/addresses/address-list.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates between "BEGIN customer/commerce/components/address-list/address-list.html" and "END" comments.
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="address-list">
+      <app-address-list><!--{{0}}--><template id="address-list-1"><h1 class="address-list-title">Your addresses</h1></template>
+
+<!--{{1}}--><template id="address-list-2"><div class="address-list-bar"><div class="spinner"></div></div></template><template id="address-list-3"><button type="button" class="btn-outline address-list-button" onclick="{{0}}.load()">Retry</button></template><template id="address-list-4">
+  <!--{{0}}-->
+
+  <!--{{1}}--><template id="address-list-4-1">
+    <ul class="address-list-list">
+      <!--{{0}}--><template id="address-list-4-1-1">
+        <li onclick="{{0}}.selectAddress({{1}})" class="card card-hover address-list-item" data-key="{{2}}">
+          <div>
+            <p class="address-list-text">
+              <!--{{3}}-->
+              <!--{{4}}--><template id="address-list-4-1-1-1"><span class="badge badge-active">Default</span></template>
+            </p>
+            <p class="address-list-text-2"><!--{{5}}--><!--{{6}}--><!--{{7}}--><template id="address-list-4-1-1-2">, <!--{{0}}--></template></p>
+            <p class="address-list-text-3">
+              <!--{{8}}-->, <!--{{9}}--> <!--{{10}}--><!--{{11}}--><template id="address-list-4-1-1-3"> <!--{{0}}--> </template>
+            </p>
+          </div>
+          <div class="address-list-bar-2">
+            <!--{{12}}--><template id="address-list-4-1-1-4">
+              <button type="button" class="address-list-button-2" onclick="{{0}}.setDefault(event, {{1}})">
+                Set default
+              </button></template>
+            <button type="button" class="btn-icon" onclick="{{13}}.edit(event, {{14}})" aria-label="Edit">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button type="button" class="btn-icon address-list-button-3" onclick="{{15}}.remove(event, {{16}})" aria-label="Delete">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </li></template>
+    </ul>
+    <button type="button" class="btn-outline address-list-button-4" onclick="{{1}}.startAdd()">
+      <i class="fa-solid fa-plus"></i> Add address
+    </button></template><template id="address-list-4-2">
+    <div class="card">
+      <form novalidate class="address-list-list" onsubmit="event.preventDefault(); {{0}}.save()">
+        <div class="address-list-grid">
+          <div>
+            <label class="form-label req-mark">Address tag</label>
+            <input class="input" name="addressTag" {{1}} placeholder="HOME" />
+          </div>
+          <div>
+            <label class="form-label req-mark">State</label>
+            <select class="select" name="stateId" oninput="{{2}}.controls['stateId'].input(this)" onchange="{{3}}.controls['stateId'].input(this); {{4}}.onStateChange(this.value)" onblur="{{5}}.controls['stateId'].blur()">
+              <option value="" disabled {{6}}>Select state</option>
+              <!--{{7}}--><template id="address-list-4-2-1"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
+            </select>
+          </div>
+          <div>
+            <label class="form-label req-mark">City</label>
+            <select class="select" name="cityName" oninput="{{8}}.controls['cityName'].input(this)" onchange="{{9}}.controls['cityName'].input(this); {{10}}.onCityChange(this.value)" onblur="{{11}}.controls['cityName'].blur()">
+              <option value="" disabled {{12}}>Select city</option>
+              <!--{{13}}--><template id="address-list-4-2-2"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
+            </select>
+          </div>
+          <div>
+            <label class="form-label req-mark">Zone</label>
+            <select class="select" name="zoneName" onchange="{{14}}.controls['zoneName'].input(this)" onblur="{{15}}.controls['zoneName'].blur()">
+              <!--{{16}}--><template id="address-list-4-2-3"><option value="{{0}}" {{1}}><!--{{2}}--></option></template>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="form-label req-mark">Address line 1</label>
+          <input class="input" name="line1" {{17}} />
+        </div>
+        <div>
+          <label class="form-label">Address line 2 (optional)</label>
+          <input class="input" name="line2" {{18}} />
+        </div>
+        <div class="address-list-box">
+          <label class="form-label">Postal code<!--{{19}}--></label>
+          <input class="input" type="tel" data-digits-only="6" inputmode="numeric" maxlength="6" autocomplete="off" name="postalCode" {{20}} placeholder="6-digit postal code" />
+          <!--{{21}}--><template id="address-list-4-2-4"><p class="address-list-text-4">Postal code must be exactly 6 digits</p></template>
+        </div>
+        <label class="address-list-label">
+          <input type="checkbox" name="defaultAddress" {{22}} class="address-list-input" />
+          Set as default address
+        </label>
+        <!--{{23}}--><template id="address-list-4-2-5"><p class="address-list-text-5"><!--{{0}}--></p></template>
+        <div class="address-list-bar-3">
+          <button type="button" class="address-list-button-5" onclick="{{24}}.cancelForm()">
+            Cancel
+          </button>
+          <button class="btn-primary" type="submit" {{25}}>
+            <!--{{26}}-->
+          </button>
+        </div>
+      </form>
+    </div></template></template>
+
+<!--{{2}}--></app-address-list></template>

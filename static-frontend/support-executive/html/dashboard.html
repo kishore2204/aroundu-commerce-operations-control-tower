@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../common/fonts/fonts.css">
+  <link rel="stylesheet" href="../../common/icons/fontawesome.css">
+  <link rel="stylesheet" href="../../common/base/base.css">
+  <link rel="stylesheet" href="../../common/buttons/buttons.css">
+  <link rel="stylesheet" href="../../common/cards/cards.css">
+  <link rel="stylesheet" href="../../common/badges/badges.css">
+  <link rel="stylesheet" href="../../common/forms/form-controls.css">
+  <link rel="stylesheet" href="../../common/spinner/spinner.css">
+  <link rel="stylesheet" href="../../common/brandmark/brandmark.css">
+  <link rel="stylesheet" href="../../common/dropdown/dropdown-panel.css">
+  <link rel="stylesheet" href="../../common/utilities/utilities.css">
+  <link rel="stylesheet" href="../../common/cards/card-surface.css">
+  <link rel="stylesheet" href="../../common/table/table.css">
+  <link rel="stylesheet" href="../../common/animations/animations.css">
+  <link rel="stylesheet" href="../../common/utilities/variants.css">
+  <link rel="stylesheet" href="../../common/portal-shell/portal-shell.css">
+  <link rel="stylesheet" href="../../common/sidebar/sidebar.css">
+  <link rel="stylesheet" href="../../common/portal-header/portal-header.css">
+  <link rel="stylesheet" href="../../common/portal-footer/portal-footer.css">
+  <link rel="stylesheet" href="../../common/toast/toast.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <!-- AroundU static frontend - Support Executive - dashboard page, route /support-staff/dashboard (Angular: src/app/features/support/dashboard/support-dashboard.component.html) -->
+  <app-root data-pending><!--tpl:navigation-boot (common/navigation/navigation.html)--><router-outlet></router-outlet><!--{{0}}--><!--tpl:portal-shell (common/portal-shell/portal-shell.html)-->
+<app-support-staff-shell>
+<div class="portal-layout">
+  <!--{{0}}--><!--tpl:sidebar-fixed (common/sidebar/sidebar.html)-->
+  <!--{{0}}--><template id="sidebar-fixed-1"><div class="sidebar-overlay" onclick="PortalShell.closeSidebar()"></div></template>
+
+  <aside class="sidebar-fixed{{1}}">
+    <div class="sidebar-brand">
+      <span class="brandmark sidebar-brandmark">A</span>
+      <span class="sidebar-brand-name">AroundU</span>
+      <span class="sidebar-badge"><!--{{2}}--></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!--{{3}}--><template id="sidebar-fixed-2">
+        <a href="{{0}}"
+          class="sidebar-link{{1}}"
+          onclick="PortalShell.closeSidebar()">
+          <i class="fa-solid {{2}} sidebar-icon"></i>
+          <span><!--{{3}}--></span>
+        </a></template>
+    </nav>
+
+    <div class="sidebar-logout-section">
+      <button type="button" onclick="PortalShell.logout()" class="sidebar-logout">
+        <i class="fa-solid fa-right-from-bracket sidebar-icon"></i>
+        <span>Log out</span>
+      </button>
+    </div>
+  </aside><!--/tpl:sidebar-fixed-->
+
+  <!--{{1}}--><!--tpl:portal-shell-main (common/portal-shell/portal-shell.html)-->
+  <div class="portal-content">
+    <!--{{0}}--><!--tpl:portal-header (common/portal-header/portal-header.html)-->
+    <header class="portal-header">
+      <button type="button" class="btn-icon portal-header-menu-button" onclick="PortalShell.toggleSidebar()" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="portal-header-title"><!--{{0}}--></span>
+      <!--{{1}}--><template id="portal-header-1">
+        <span class="portal-header-territory">
+          <i class="fa-solid fa-map-location-dot portal-header-territory-icon"></i> <!--{{0}}-->
+        </span></template>
+      <span class="portal-header-spacer"></span>
+
+      <div class="portal-header-account">
+        <button type="button" class="btn-icon" onclick="PortalShell.toggleAccountMenu()" aria-label="Account">
+          <i class="fa-solid fa-circle-user portal-header-account-icon"></i>
+        </button>
+        <!--{{2}}--><template id="portal-header-2">
+          <div class="dropdown-panel portal-header-menu">
+            <div class="portal-header-email"><!--{{0}}--></div>
+            <!--{{1}}--><template id="portal-header-2-1">
+              <a href="{{0}}" class="portal-header-menu-link" onclick="PortalShell.state.accountMenuOpen = false">
+                <i class="fa-solid fa-shield-halved portal-header-menu-icon"></i>
+                <span>Verification status</span>
+              </a></template>
+            <button type="button" onclick="PortalShell.logout()" class="portal-header-logout">
+              <i class="fa-solid fa-right-from-bracket portal-header-menu-icon"></i>
+              <span>Log out</span>
+            </button>
+          </div></template>
+      </div>
+    </header><!--/tpl:portal-header-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}--><!--tpl:page-outlet--><app-support-dashboard><!--{{0}}--><!--tpl:dashboard (this page)--><div class="dashboard-bar-45">
+  <div>
+    <h1 class="dashboard-title-6">
+      <span class="dashboard-label-49">
+        <i class="fa-solid fa-headset dashboard-icon-15"></i>
+      </span>
+      Ticket resolution overview
+    </h1>
+    <p class="dashboard-text-48">Customer support workload and resolution progress at a glance.</p>
+  </div>
+  <a href="{{0}}" class="btn-primary"><i class="fa-solid fa-list-check"></i> Review tickets</a>
+</div>
+
+<!--{{1}}--><template id="dashboard-1"><div class="dashboard-bar-43"><span class="spinner"></span></div></template><template id="dashboard-2">
+  <div class="dashboard-grid-20">
+    <!--{{0}}-->
+    <!--{{1}}-->
+    <!--{{2}}-->
+    <!--{{3}}--><template id="dashboard-2-1">Returns &amp; replacements</template>
+  </div>
+
+  <div class="dashboard-grid-21">
+    <section class="card dashboard-section-3">
+      <div class="dashboard-bar-44">
+        <h2 class="dashboard-heading-12">Tickets requiring attention</h2>
+        <a href="{{4}}" class="dashboard-link-10">Open ticket queue</a>
+      </div>
+      <!--{{5}}--><template id="dashboard-2-2"><p class="dashboard-text-45">Nothing needs attention right now.</p></template><template id="dashboard-2-3">
+        <div class="table-card overflow-x-auto">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Ticket</th>
+                <th>Raised by</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--{{0}}--><template id="dashboard-2-3-1">
+                <tr data-key="{{0}}">
+                  <td>
+                    <p class="dashboard-text-46"><!--{{1}}--></p>
+                    <p class="dashboard-text-47"><!--{{2}}--></p>
+                  </td>
+                  <td class="dashboard-cell-5"><!--{{3}}--></td>
+                  <td class="dashboard-cell-5"><!--{{4}}--></td>
+                  <td>
+                    <span class="badge{{5}}">
+                      <!--{{6}}-->
+                    </span>
+                  </td>
+                  <td>
+                    <a href="{{7}}" class="btn-outline dashboard-link-9">
+                      <i class="fa-solid fa-arrow-right"></i> Review
+                    </a>
+                  </td>
+                </tr></template>
+            </tbody>
+          </table>
+        </div></template>
+    </section>
+
+    <section class="card">
+      <h2 class="dashboard-heading-13">Today</h2>
+      <div class="dashboard-box-20">
+        <!--{{6}}-->
+        <!--{{7}}-->
+        <!--{{8}}-->
+        <!--{{9}}-->
+      </div>
+    </section>
+  </div></template><!--/tpl:dashboard--></app-support-dashboard><!--/tpl:page-outlet-->
+    </main>
+
+    <!--{{2}}--><!--tpl:portal-footer (common/portal-footer/portal-footer.html)-->
+    <footer class="portal-footer">
+      &copy; <!--{{0}}--> AroundU &middot; <!--{{1}}-->
+    </footer><!--/tpl:portal-footer-->
+  </div><!--/tpl:portal-shell-main-->
+</div>
+</app-support-staff-shell><!--/tpl:portal-shell--><app-toast><!--{{1}}--></app-toast><!--/tpl:navigation-boot--></app-root>
+
+<!-- BEGIN common/toast/toast.html -->
+<template id="toast"></template>
+<template id="toast-2">
+        <div class="toast-bar animate-fade-in{{0}}" role="status" aria-live="{{1}}" data-key="toast-{{2}}">
+          <i class="fa-solid{{3}}" aria-hidden="true"></i>
+          <span><!--{{4}}--></span>
+          <button type="button" class="toast-button" onclick="Toast.dismiss()" aria-label="Dismiss notification">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+<!-- END common/toast/toast.html -->
+
+<!-- dashboard page: other templates (js/dashboard.js) -->
+<template id="dashboard-card">
+    <div class="card dashboard-bar-42">
+      <div>
+        <p class="dashboard-text-42"><!--{{0}}--></p>
+        <p class="dashboard-text-43"><!--{{1}}--></p>
+        <p class="dashboard-text-44"><!--{{2}}--></p>
+      </div>
+      <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br {{3}} text-xl text-white">
+        <i class="fa-solid {{4}}"></i>
+      </div>
+    </div></template>
+<template id="dashboard-row">
+        <div class="dashboard-bar-42{{0}}">
+          <span class="dashboard-label-48"><!--{{1}}--></span>
+          <strong class="{{2}}"><!--{{3}}--></strong>
+        </div></template>
+
+  <noscript>This page needs JavaScript enabled.</noscript>
+  <script src="../../common/core/template.js"></script>
+  <script src="../../common/core/templates.js"></script>
+  <script src="../../common/core/dom-morph.js"></script>
+  <script src="../../common/core/app.js"></script>
+  <script src="../../common/core/pipes.js"></script>
+  <script src="../../common/core/forms.js"></script>
+  <script src="../../common/core/input-directives.js"></script>
+  <script src="../../common/toast/toast.js"></script>
+  <script src="../../common/core/helpers.js"></script>
+  <script src="../../common/core/storage.js"></script>
+  <script src="../../common/validation/input-rules.js"></script>
+  <script src="../../common/support-tickets/support-categories.js"></script>
+  <script src="../../common/support-tickets/support-sla.js"></script>
+  <script src="../../common/data/data.js"></script>
+  <script src="../../common/data/data-store.js"></script>
+  <script src="../../common/data/data-client.js"></script>
+  <script src="../../common/services/address-service.js"></script>
+  <script src="../../common/services/auth-service.js"></script>
+  <script src="../../common/services/customer-zone-service.js"></script>
+  <script src="../../common/services/fleet-owner-service.js"></script>
+  <script src="../../common/services/retailer-service.js"></script>
+  <script src="../../common/services/support-service.js"></script>
+  <script src="../../common/navigation/navigation.js"></script>
+  <script src="../js/support-staff-shell.js"></script>
+  <script src="../../common/portal-shell/portal-shell.js"></script>
+  <script src="../../common/sidebar/sidebar.js"></script>
+  <script src="../../common/portal-header/portal-header.js"></script>
+  <script src="../../common/portal-footer/portal-footer.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>boot({ route: '/support-staff/dashboard', shell: 'support-staff', guards: [], page: SupportDashboardPage });</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+/*
+ * variants.css - hover / focus / disabled / first / last and responsive (sm: md: lg: xl:) utility classes.
+ * In the Angular build these follow every other rule, so they load after the component styles.
+ */
+.hover\:-translate-y-1:hover {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:bg-violet-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 243 255 / var(--tw-bg-opacity, 1));
+}
+.hover\:shadow-card-hover:hover {
+  --tw-shadow: 0 20px 45px -8px rgba(37, 99, 235, 0.18);
+  --tw-shadow-colored: 0 20px 45px -8px var(--tw-shadow-color);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
+}
+.peer:checked ~ .peer-checked\:translate-x-5 {
+  --tw-translate-x: 1.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.peer:checked ~ .peer-checked\:bg-zepto-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+}
+@media (min-width: 640px) {
+  .sm\:rounded-2xl {
+    border-radius: 1rem;
+  }
+  .sm\:border {
+    border-width: 1px;
+  }
+}

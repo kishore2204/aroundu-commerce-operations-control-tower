@@ -1,0 +1,86 @@
+/*
+ * my-tickets.css - <app-my-tickets> component styles.
+ * Angular: src/app/shared/support/my-tickets.component.html (+ .css); the component's :host rules are scoped to <app-my-tickets>.
+ * The Angular template styles its elements with Tailwind utility classes. Here each combination of them is one class
+ * named after the page and the element (title, card, row, button ...), with exactly the declarations of the utilities it
+ * replaces: same values, same order, same hover / focus / responsive variants. Utilities that the JS switches on and off
+ * stay in common/utilities/.
+ */
+.my-tickets-bar {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.my-tickets-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  color: inherit;
+  text-decoration-line: none;
+}
+.my-tickets-text {
+  margin: 0px;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+}
+.my-tickets-text-2 {
+  margin-bottom: 0px;
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.my-tickets-list {
+  margin-bottom: 1rem;
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0px;
+}
+.my-tickets-text-3 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.my-tickets-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.my-tickets-button {
+  align-self: flex-start;
+}
+.my-tickets-title {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 800;
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.my-tickets-link:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(147 197 253 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
+}
+
+/* the Angular component's own stylesheet */
+app-my-tickets {
+  display: block;
+}

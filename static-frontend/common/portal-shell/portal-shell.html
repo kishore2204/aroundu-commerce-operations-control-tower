@@ -1,0 +1,24 @@
+<!--
+  portal-shell.html - markup of portal-shell (Angular: src/app/layout/<role>-shell/<role>-shell.component.html).
+  A page cannot include another HTML file when it is opened from disk, so every page that uses this component
+  contains a copy of these templates (the layout parts written inline inside <app-root>, between <!--tpl:id--> markers).
+  Values filled in by the JS are marked <!--{{n}}--> (content) and {{n}} (inside a tag).
+-->
+<template id="portal-shell">
+<app-portal-shell>
+<div class="portal-layout">
+  <!--{{0}}-->
+
+  <!--{{1}}-->
+</div>
+</app-portal-shell></template>
+<template id="portal-shell-main">
+  <div class="portal-content">
+    <!--{{0}}-->
+
+    <main class="portal-main">
+      <router-outlet></router-outlet><!--{{1}}-->
+    </main>
+
+    <!--{{2}}-->
+  </div></template>
